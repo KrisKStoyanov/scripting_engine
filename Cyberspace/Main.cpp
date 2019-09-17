@@ -1,23 +1,59 @@
 #include <iostream>
+#include <fstream>
+#include <algorithm>
 #include <GL/glew.h>
 #include <SDL.h>
 #include <SDL_opengl.h>
-#include <glm-0.9.6.3/glm/glm.hpp>
-#include <glm-0.9.6.3/glm/matrix.hpp>
-#include <glm-0.9.6.3/glm/gtc/type_ptr.hpp>
+#include <glm/glm.hpp>
+#include <glm/matrix.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+const unsigned int WIDTH = 640;
+const unsigned int HEIGHT = 480;
+
+glm::vec3 image[WIDTH][HEIGHT];
+glm::vec3** image2;
 
 int main(int argc, char *argv[]) {
 
-	glm::vec3 v1(1, 2, 3);
-	glm::vec3 v2(3, 4, 5);
+	//image2 = new glm::vec3 * [WIDTH];
+	//for (int i = 0; i < WIDTH; ++i) {
+	//	image2[i] = new glm::vec3 [HEIGHT];
+	//}
 
-	glm::vec3 v3 = v1 + v2;
+	//for (int x = 0; x < WIDTH; ++x) {
+	//	for (int y = 0; y < HEIGHT; ++y) {
+	//		image2[x][y] = glm::vec3(1, 0, 1);
+	//	}
+	//}
 
-	glm::vec3** image;
+	//std::ofstream ofs("./untitled.ppm", std::ios::out | std::ios::binary);
+	//ofs << "P6\n" << WIDTH << " " << HEIGHT << "\n255\n";
+	//for (unsigned y = 0; y < HEIGHT; ++y)
+	//{
+	//	for (unsigned x = 0; x < WIDTH; ++x)
+	//	{
+	//		ofs << (unsigned char)(std::min((float)1, (float)image2[x][y].x) * 255) <<
+	//			(unsigned char)(std::min((float)1, (float)image2[x][y].y) * 255) <<
+	//			(unsigned char)(std::min((float)1, (float)image2[x][y].z) * 255);
+	//	}
+	//}
+	//ofs.close();
 
-	std::cout << "v1 " << "[" << v1.x << " " << v1.y << " " << v1.z << "]" << std::endl;
-	std::cout << "v2 " << "[" << v2.x << " " << v2.y << " " << v2.z << "]" << std::endl;
-	std::cout << "v3 " << "[" << v3.x << " " << v3.y << " " << v3.z << "]" << std::endl;
+	int PixelNormalizedx;
+	int PixelNormalizedy;
+
+	//for (int x = 0; x < WIDTH; ++x) {
+	//	for (int y = 0; y < HEIGHT; ++y) {
+	//		glm::vec3 ray = new glm::vec3 
+	//	}
+	//}
+
+	for (int i = 0; i < WIDTH; ++i) {
+		for (int y = 0; y < HEIGHT; ++y) {
+			
+		}
+	}
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		std::cout << "SDL could not initialize! SDL Error: " << SDL_GetError() << std::endl;
@@ -44,7 +80,7 @@ int main(int argc, char *argv[]) {
 	if (initState != GLEW_OK) {
 		std::cout << glewGetErrorString(glewInit()) << std::endl;
 	}
-	
+
 	while (true) 
 	{
 		SDL_Event event;
@@ -69,7 +105,7 @@ int main(int argc, char *argv[]) {
 		Uint8 greenVal = rand() % 255;
 		Uint8 blueVal = rand() % 255;
 
-		SDL_SetRenderDrawColor(renderer, redVal, greenVal, blueVal, 255);
+		SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
 		SDL_RenderClear(renderer);
 
 		SDL_RenderPresent(renderer);
