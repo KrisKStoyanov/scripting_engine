@@ -87,12 +87,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SDL2-2.0.4\include;$(SolutionDir)Dependencies\glfw-3.3.bin.WIN64\include;$(SolutionDir)Dependencies\glew-2.1.0-win32\glew-2.1.0\include;C:\Cyberspace - GitHubLinked\301CR\Dependencies\glm-0.9.6.3\glm-0.9.6.3</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SDL2-2.0.4\include;$(SolutionDir)Dependencies\glew-2.1.0-win32\glew-2.1.0\include;C:\Cyberspace - GitHubLinked\301CR\Dependencies\glm-0.9.6.3\glm-0.9.6.3</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SDL2-2.0.4\lib\x64;$(SolutionDir)Dependencies\glfw-3.3.bin.WIN64\lib-vc2019;$(SolutionDir)Dependencies\glew-2.1.0-win32\glew-2.1.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;SDL2.lib;SDL2main.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SDL2-2.0.4\lib\x64;$(SolutionDir)Dependencies\glew-2.1.0-win32\glew-2.1.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -118,21 +118,25 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SDL2-2.0.4\include;$(SolutionDir)Dependencies\glfw-3.3.bin.WIN64\include;$(SolutionDir)Dependencies\glew-2.1.0-win32\glew-2.1.0\include;C:\Cyberspace - GitHubLinked\301CR\Dependencies\glm-0.9.6.3\glm-0.9.6.3</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\SDL2-2.0.4\include;$(SolutionDir)Dependencies\glew-2.1.0-win32\glew-2.1.0\include;C:\Cyberspace - GitHubLinked\301CR\Dependencies\glm-0.9.6.3\glm-0.9.6.3</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SDL2-2.0.4\lib\x64;$(SolutionDir)Dependencies\glfw-3.3.bin.WIN64\lib-vc2019;$(SolutionDir)Dependencies\glew-2.1.0-win32\glew-2.1.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;SDL2.lib;SDL2main.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\SDL2-2.0.4\lib\x64;$(SolutionDir)Dependencies\glew-2.1.0-win32\glew-2.1.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CyberEngine.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="getbmp.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CyberEngine.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="getbmp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
