@@ -133,11 +133,18 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="getbmp.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CyberEngine.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="getbmp.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="Vertex.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\frag.glsl" />
+    <None Include="Shaders\vert.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

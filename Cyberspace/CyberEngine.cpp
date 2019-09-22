@@ -63,6 +63,7 @@ bool CyberEngine::Init(std::string _WindowName, unsigned int _WindowWidth, unsig
 void CyberEngine::Start()
 {
 	CR_CurrentState = ACTIVE;
+	Configure();
 	Update();
 }
 
@@ -92,6 +93,20 @@ void CyberEngine::CheckSDLError(int line = -1)
 
 void CyberEngine::Configure()
 {
+	std::vector<Vertex> EntityVerts({
+		{{-0.5, 0.5, 0.5, 1.0 }, {1.0, 1.0, 0.0, 1.0}},
+		{{ 0.5, 0.5, 0.5, 1.0 }, {1.0, 1.0, 0.0, 1.0}},
+		{{ 0.5, -0.5, 0.5, 1.0 }, {1.0, 1.0, 0.0, 1.0}},
+		{{-0.5, -0.5, 0.5, 1.0 }, {1.0, 1.0, 0.0, 1.0}}
+		});
+	std::vector<GLuint> EntityIndices({ 1,2,3,4 });
+	Entity* TestEntity = new Entity(EntityVerts, EntityIndices);
+
+	TestEntity->Setup();
+	CR_Entities["TestEntity"] = TestEntity;
+
+	Shader* TestShader = new Shader("./Shaders/vert.glsl", "./Shaders/frag.glsl");
+	CR_Shaders["TestShader"] = TestShader;
 }
 
 void CyberEngine::Update()
@@ -122,6 +137,9 @@ void CyberEngine::Update()
 				}
 			}
 		}
+
+		CR_Entities["TestEntity"]->Render(CR_Shaders["TestShader"]);
+
 		glClear(GL_COLOR_BUFFER_BIT);
 		SDL_GL_SwapWindow(CR_MainWindow);
 	}
@@ -129,7 +147,58 @@ void CyberEngine::Update()
 
 void CyberEngine::Deactivate()
 {
+	CR_Shaders["TestShader"]->Deactivate();
+
 	SDL_GL_DeleteContext(CR_OGL_Context);
 	SDL_DestroyWindow(CR_MainWindow);
 	SDL_Quit();
+}
+
+void CyberEngine::PrintProgramLog(GLuint _ProgramID)
+{
+	if (glIsProgram(_ProgramID)) {
+		int InfoLogLength = 0;
+		int MaxLength = InfoLogLength;
+
+		glGetProgramiv(_ProgramID, GL_INFO_LOG_LENGTH, &MaxLength);
+
+		char* InfoLog = new char[MaxLength];
+
+		glGetProgramInfoLog(_ProgramID, MaxLength, &InfoLogLength, InfoLog);
+		if (InfoLogLength > 0) {
+			std::cout << "%s\n" << InfoLog << std::endl;
+		}
+
+		delete[] InfoLog;
+	}
+	else {
+		std::cout << "%d is not a valid program ID\n" << _ProgramID << std::endl;
+	}
+}
+
+void CyberEngine::PrintShaderLog(GLuint _ShaderID)
+{
+	if (glIsShader(_ShaderID)) {
+		int InfoLogLength = 0;
+		int MaxLength = InfoLogLength;
+
+		glGetShaderiv(_ShaderID, GL_INFO_LOG_LENGTH, &MaxLength);
+
+		char* InfoLog = new char[MaxLength];
+
+		glGetShaderInfoLog(_ShaderID, MaxLength, &InfoLogLength, InfoLog);
+		if (InfoLogLength > 0) {
+			std::cout << "%s\n" << InfoLog << std::endl;
+		}
+
+		delete[] InfoLog;
+	}
+	else {
+		std::cout << "%d is not a valid shader ID\n" << _ShaderID << std::endl;
+	}
+}
+
+void CyberEngine::AddShader(std::string _ShaderKey, Shader* _TargetShader)
+{
+	CR_Shaders[_ShaderKey] = _TargetShader;
 }
