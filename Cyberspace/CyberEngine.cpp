@@ -8,12 +8,18 @@ CyberEngine::~CyberEngine()
 {
 }
 
+void CyberEngine::GLFW_Error_Callback(int error, const char* description)
+{
+	fprintf(stderr, "Glfw Error %d: %s\n", error, description);
+}
+
 bool CyberEngine::Init(const char* _WindowName, unsigned int _WindowWidth, unsigned int _WindowHeight)
 {
 	LocalState CurrentState = STARTING;
 	CR_WindowWidth = _WindowWidth;
 	CR_WindowHeight = _WindowHeight;
 
+	glfwSetErrorCallback(GLFW_Error_Callback);
 	if (!glfwInit()) {
 		return 0;
 	}
@@ -42,6 +48,14 @@ bool CyberEngine::Init(const char* _WindowName, unsigned int _WindowWidth, unsig
 	}
 	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 
+	//ImGui::CreateContext();
+	//ImGuiIO& IO = ImGui::GetIO();
+	//int AtlasWidth, AtlasHeight;
+	//unsigned char* AtlasPixels = NULL;
+	//IO.Fonts->GetTexDataAsRGBA32(&AtlasPixels, &AtlasWidth, &AtlasHeight); 
+
+	//ImGui::StyleColorsDark();
+
 	glClearColor(0.55f, 0.55f, 0.55f, 1.0f);
 	//glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -59,11 +73,12 @@ void CyberEngine::Start()
 void CyberEngine::Configure()
 {
 	std::vector<Vertex> EntityVerts({
-		{{ -0.5f, -0.5f, 0.0f }, {1.0, 0.0, 0.0, 1.0}},
-		{{ 0.5f, -0.5f, 0.0f }, {1.0, 1.0, 0.0, 1.0}},
-		{{ 0.0f,  0.5f, 0.0f }, {1.0, 0.0, 1.0, 1.0}}
+		{{ 0.5f,  0.5f, 0.0f, }, {1.0f, 0.0f, 0.0f, 1.0f }},
+		{{ 0.5f, -0.5f, 0.0f, }, {1.0f, 1.0f, 0.0f, 1.0f }},
+		{{ -0.5f, -0.5f, 0.0f, }, {1.0f, 0.0f, 1.0f, 1.0f }},
+		{{ -0.5f,  0.5f, 0.0f }, {0.0f, 1.0f, 1.0f, 1.0f }}
 		});
-	std::vector<GLuint> EntityIndices({ 1,2,0 });
+	std::vector<GLuint> EntityIndices({ 0,1,3, 1,2,3 });
 
 	Entity* TestEntity = new Entity(EntityVerts, EntityIndices);
 
@@ -81,6 +96,8 @@ void CyberEngine::Update()
 		glfwPollEvents();
 
 		CR_Entities["TestEntity"]->Render(CR_Shaders["TestShader"]);
+		//ImGui::NewFrame();
+		//ImGui::Render();
 		glfwSwapBuffers(CR_MainWindow);
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
@@ -89,7 +106,7 @@ void CyberEngine::Update()
 void CyberEngine::Deactivate()
 {
 	CR_Shaders["TestShader"]->Clear();
-
+	//ImGui::DestroyContext(); 
 	glfwTerminate();
 }
 

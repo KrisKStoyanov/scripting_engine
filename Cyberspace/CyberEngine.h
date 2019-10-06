@@ -10,8 +10,9 @@
 #include <glm/glm.hpp>
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "Entity.h";
+#include "Entity.h"
 #include "Shader.h"
+#include "GUI/imgui.h"
 
 enum LocalState {
 	STARTING,
@@ -30,6 +31,8 @@ public:
 	void Configure();
 	void Update();
 	void Deactivate();
+	
+	static void GLFW_Error_Callback(int error, const char* description);
 
 	void PrintProgramLog(GLuint _ProgramID);
 	void PrintShaderLog(GLuint _ShaderID);
