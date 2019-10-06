@@ -1,8 +1,5 @@
 #pragma once
-
 #include <GL/glew.h>
-#include <SDL.h>
-
 #include <string>
 #include <sstream>
 #include <fstream>
@@ -16,10 +13,12 @@ public:
 
 	GLuint ProgramID, VertShaderID, FragShaderID;
 
-	std::string ReadFile(const char* _File);
+	std::string ReadFile(const GLchar* _FilePath);
 
 	void Activate();
 	void Deactivate();
+
+	void Clear();
 
 	std::string PrintShaderLog(GLuint _ShaderID);
 	std::string PrintProgramLog(GLuint _ProgramID);

@@ -5,8 +5,6 @@
 #include <sstream>
 #include <vector>
 #include <GL/glew.h>
-#include <SDL.h>
-#include <SDL_opengl.h>
 #include <glm/glm.hpp>
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -20,12 +18,12 @@ public:
 	~Entity();
 
 	void Setup();
-	void Render(Shader* _RenderingShader);
+	void Render(Shader* _RenderingShader = nullptr);
 	void Clear();
 
 	GLuint ProgramID = 0;
 	GLuint VAO = 0;
-	GLuint VBO[2];
+	GLuint VBO = 0;
 	GLuint IBO = 0;
 
 	GLint PositionAttribID = 0;

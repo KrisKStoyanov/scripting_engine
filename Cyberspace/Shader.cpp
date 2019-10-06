@@ -50,7 +50,7 @@ Shader::Shader(const GLchar* _VertFilePath, const GLchar* _FragFilePath)
 		std::cout << "Error: Unable to compile Fragment Shader\n" << PrintShaderLog(FragShaderID) << std::endl;
 	}
 
-	glAttachShader(ProgramID, VertShaderID);
+	glAttachShader(ProgramID, FragShaderID);
 	glDeleteShader(FragShaderID);
 
 	GLint LinkStatus = 0;
@@ -85,6 +85,11 @@ void Shader::Activate()
 void Shader::Deactivate()
 {
 	glUseProgram(0);	
+}
+
+void Shader::Clear()
+{
+	glUseProgram(0);
 	glDeleteProgram(ProgramID);
 }
 

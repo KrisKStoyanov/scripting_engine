@@ -7,7 +7,7 @@ CyberEngine Engine;
 
 int main(int argc, char *argv[]) {
 
-	if (Engine.Init("Cyberspace", 800, 600, SDL_RENDERER_ACCELERATED)) {
+	if (Engine.Init("Cyberspace", 800, 600)) {
 		Engine.Start();
 	}
 	else {

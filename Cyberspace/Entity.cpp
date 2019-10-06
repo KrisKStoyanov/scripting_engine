@@ -13,35 +13,42 @@ Entity::~Entity()
 void Entity::Setup()
 {
 	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &IBO);
+
 	glBindVertexArray(VAO);
 
-	glGenBuffers(2, VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, VertexCollection.size() * sizeof(Vertex), VertexCollection.data(), GL_STATIC_DRAW);
-	glVertexAttribPointer(PositionAttribID, 4, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(PositionAttribID);
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
-	glBufferData(GL_ARRAY_BUFFER, VertexCollection.size() * sizeof(Vertex), VertexCollection.data(), GL_STATIC_DRAW);
-	glVertexAttribPointer(ColorAttribID, 4, GL_FLOAT, GL_FALSE, 0, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, IndexCollection.size() * sizeof(GLuint), IndexCollection.data(), GL_STATIC_DRAW);
+
+	glVertexAttribPointer(PositionAttribID, 3, GL_FLOAT, GL_FALSE, sizeof(VertexCollection[0]), (void*)0);
+	glEnableVertexAttribArray(PositionAttribID);
+	glVertexAttribPointer(ColorAttribID, 4, GL_FLOAT, GL_FALSE, sizeof(VertexCollection[0]), (GLvoid*)sizeof(VertexCollection[0].Position));
 	glEnableVertexAttribArray(ColorAttribID);
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
-
-
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glDisableVertexAttribArray(PositionAttribID);
+	glDisableVertexAttribArray(ColorAttribID);
 }
 
 void Entity::Render(Shader* _RenderingShader)
 {
 	_RenderingShader->Activate();
-	glDrawElements(GL_TRIANGLE_STRIP, IndexCollection.size(), GL_UNSIGNED_INT, nullptr);
+	glBindVertexArray(VAO);
+	glDrawElements(GL_TRIANGLES, IndexCollection.size(), GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+	_RenderingShader->Deactivate();
 }
 
 void Entity::Clear()
 {
 	glDisableVertexAttribArray(0);
-	glDeleteBuffers(2, VBO);
 	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &IBO);
 }
 

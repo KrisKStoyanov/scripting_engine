@@ -1,10 +1,10 @@
 #version 450 core
 precision highp float;
 
-in vec4 VertexColorEx;
+in vec4 ExVertexColor;
 
-out vec4 ColorsOut;
+out vec4 FragColor;
 
 void main(){
-	ColorsOut = VertexColorEx;
+	FragColor = ExVertexColor;
 }

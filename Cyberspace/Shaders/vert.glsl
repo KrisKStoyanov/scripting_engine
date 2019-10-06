@@ -1,11 +1,11 @@
 #version 450 core
 
-in vec4 VertexPos;
-in vec4 VertexColor;
+layout (location = 0) in vec3 VertexPos;
+layout (location = 1) in vec4 VertexColor;
 
-out vec4 VertexColorEx;
+out vec4 ExVertexColor;
 
 void main(){
-	VertexColorEx = VertexColor;
+	ExVertexColor = VertexColor;
 	gl_Position = vec4(VertexPos.x, VertexPos.y, VertexPos.z, 1.0);
 }
