@@ -7,14 +7,9 @@ CyberEngine Engine;
 
 int main(int argc, char *argv[]) {
 
-	if (Engine.Init("Cyberspace", 800, 600)) {
-		Engine.Start();
-	}
-	else {
+	if (!Engine.Init("Cyberspace", 800, 600)) {
 		return -1;
 	}
-
-	Engine.Deactivate();
 
 	return 0;
 }

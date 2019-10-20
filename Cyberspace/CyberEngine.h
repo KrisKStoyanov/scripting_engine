@@ -10,9 +10,16 @@
 #include <glm/glm.hpp>
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
 #include "Entity.h"
 #include "Shader.h"
-#include "GUI/imgui.h"
+#include "CyberRenderer.h"
+#include "CyberInterface.h"
+#include "CyberPhysics.h"
+#include "CyberAudio.h"
+#include "CyberNet.h"
+
+#include "GameInstance.h"
 
 enum LocalState {
 	STARTING,
@@ -26,27 +33,27 @@ public:
 	CyberEngine();
 	~CyberEngine();
 
-	bool Init(const char* _WindowName, unsigned int _WindowWidth, unsigned int _WindowHeight);
+	bool Init(const char* _WindowTitle, int _WindowWidth = 800, int _WindowHeight = 600);
 	void Start();
 	void Configure();
 	void Update();
+	void ProcessInput();
 	void Deactivate();
-	
-	static void GLFW_Error_Callback(int error, const char* description);
-
-	void PrintProgramLog(GLuint _ProgramID);
-	void PrintShaderLog(GLuint _ShaderID);
-
-	unsigned int CR_WindowWidth = 800;
-	unsigned int CR_WindowHeight = 600;
-
-	GLFWwindow* CR_MainWindow = nullptr;
 
 	LocalState CR_CurrentState = INACTIVE;
 
-	std::map<std::string, Entity*> CR_Entities;
+	static void GLFW_Error_Callback(int _Error, const char* _Description);
 
-	void AddShader(std::string _ShaderKey, Shader* _TargetShader);
-	std::map<std::string, Shader*> CR_Shaders;
+	unsigned int CR_WindowWidth = 800;
+	unsigned int CR_WindowHeight = 600;
+	GLFWwindow* CR_MainWindow = NULL;
+
+	GameInstance* Game = NULL;
+
+	CyberRenderer* CR_Renderer = NULL;
+	CyberInterface* CR_Interface = NULL;
+	CyberPhysics* CR_Physics = NULL;
+	CyberAudio* CR_Audio = NULL;
+	CyberNet* CR_Net = NULL;
 };
 

@@ -18,7 +18,6 @@ public:
 	~Entity();
 
 	void Setup();
-	void Render(Shader* _RenderingShader = nullptr);
 	void Clear();
 
 	GLuint ProgramID = 0;

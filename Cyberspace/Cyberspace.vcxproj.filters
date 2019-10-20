@@ -36,17 +36,23 @@
     <ClCompile Include="Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\imgui.cpp">
-      <Filter>GUI</Filter>
+    <ClCompile Include="CyberRenderer.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\imgui_demo.cpp">
-      <Filter>GUI</Filter>
+    <ClCompile Include="CyberInterface.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\imgui_draw.cpp">
-      <Filter>GUI</Filter>
+    <ClCompile Include="CyberAudio.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\imgui_widgets.cpp">
-      <Filter>GUI</Filter>
+    <ClCompile Include="CyberNet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CyberPhysics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameInstance.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,23 +71,23 @@
     <ClInclude Include="Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\imconfig.h">
-      <Filter>GUI</Filter>
+    <ClInclude Include="CyberRenderer.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\imgui.h">
-      <Filter>GUI</Filter>
+    <ClInclude Include="CyberInterface.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\imgui_internal.h">
-      <Filter>GUI</Filter>
+    <ClInclude Include="CyberAudio.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\imstb_rectpack.h">
-      <Filter>GUI</Filter>
+    <ClInclude Include="CyberNet.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\imstb_textedit.h">
-      <Filter>GUI</Filter>
+    <ClInclude Include="CyberPhysics.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\imstb_truetype.h">
-      <Filter>GUI</Filter>
+    <ClInclude Include="GameInstance.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +95,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\vert.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\GUI_Frag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\GUI_Vert.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

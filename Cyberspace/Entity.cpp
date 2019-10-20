@@ -35,15 +35,6 @@ void Entity::Setup()
 	glDisableVertexAttribArray(ColorAttribID);
 }
 
-void Entity::Render(Shader* _RenderingShader)
-{
-	_RenderingShader->Activate();
-	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, IndexCollection.size(), GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
-	_RenderingShader->Deactivate();
-}
-
 void Entity::Clear()
 {
 	glDisableVertexAttribArray(0);

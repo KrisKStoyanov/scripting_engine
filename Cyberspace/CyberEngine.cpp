@@ -8,12 +8,12 @@ CyberEngine::~CyberEngine()
 {
 }
 
-void CyberEngine::GLFW_Error_Callback(int error, const char* description)
+void CyberEngine::GLFW_Error_Callback(int _Error, const char* _Description)
 {
-	fprintf(stderr, "Glfw Error %d: %s\n", error, description);
+	fprintf(stderr, "Glfw Error %d: %s\n", _Error, _Description);
 }
 
-bool CyberEngine::Init(const char* _WindowName, unsigned int _WindowWidth, unsigned int _WindowHeight)
+bool CyberEngine::Init(const char* _WindowTitle, int _WindowWidth, int _WindowHeight)
 {
 	LocalState CurrentState = STARTING;
 	CR_WindowWidth = _WindowWidth;
@@ -30,11 +30,11 @@ bool CyberEngine::Init(const char* _WindowName, unsigned int _WindowWidth, unsig
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	CR_MainWindow = glfwCreateWindow(_WindowWidth, _WindowHeight, _WindowName, NULL, NULL);
+	CR_MainWindow = glfwCreateWindow(_WindowWidth, _WindowHeight, _WindowTitle, NULL, NULL);
 
 	if (!CR_MainWindow) {
 		glfwTerminate();
-		return -1;
+		return false;
 	}
 
 	glfwMakeContextCurrent(CR_MainWindow);
@@ -59,7 +59,7 @@ bool CyberEngine::Init(const char* _WindowName, unsigned int _WindowWidth, unsig
 	glClearColor(0.55f, 0.55f, 0.55f, 1.0f);
 	//glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT);
-
+	Start();
 	return 1;
 }
 
@@ -67,26 +67,22 @@ void CyberEngine::Start()
 {
 	CR_CurrentState = ACTIVE;
 	Configure();
+
+	Game->Start();
 	Update();
 }
 
 void CyberEngine::Configure()
 {
-	std::vector<Vertex> EntityVerts({
-		{{ 0.5f,  0.5f, 0.0f, }, {1.0f, 0.0f, 0.0f, 1.0f }},
-		{{ 0.5f, -0.5f, 0.0f, }, {1.0f, 1.0f, 0.0f, 1.0f }},
-		{{ -0.5f, -0.5f, 0.0f, }, {1.0f, 0.0f, 1.0f, 1.0f }},
-		{{ -0.5f,  0.5f, 0.0f }, {0.0f, 1.0f, 1.0f, 1.0f }}
-		});
-	std::vector<GLuint> EntityIndices({ 0,1,3, 1,2,3 });
+	CR_Renderer = new CyberRenderer();
+	CR_Interface = new CyberInterface();
+	CR_Physics = new CyberPhysics();
+	CR_Audio = new CyberAudio();
+	CR_Net = new CyberNet();
 
-	Entity* TestEntity = new Entity(EntityVerts, EntityIndices);
+	CR_Renderer->Activate();
 
-	TestEntity->Setup();
-	CR_Entities["TestEntity"] = TestEntity;
-
-	Shader* TestShader = new Shader("./Shaders/vert.glsl", "./Shaders/frag.glsl");
-	CR_Shaders["TestShader"] = TestShader;
+	Game = new GameInstance(CR_MainWindow);
 }
 
 void CyberEngine::Update()
@@ -94,67 +90,29 @@ void CyberEngine::Update()
 	while(!glfwWindowShouldClose(CR_MainWindow)){
 		
 		glfwPollEvents();
-
-		CR_Entities["TestEntity"]->Render(CR_Shaders["TestShader"]);
+		for (std::pair<std::string, Entity*> E : Game->EntityCollection) {
+			CR_Renderer->Update(E.second);
+		}
+		
+		//CR_Entities["TestEntity"]->Render(CR_Shaders["TestShader"]);
 		//ImGui::NewFrame();
 		//ImGui::Render();
 		glfwSwapBuffers(CR_MainWindow);
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
+	Deactivate();
+}
+
+void CyberEngine::ProcessInput()
+{
 }
 
 void CyberEngine::Deactivate()
 {
-	CR_Shaders["TestShader"]->Clear();
 	//ImGui::DestroyContext(); 
+	CR_Renderer->Deactivate();
+	delete CR_Renderer;
+	glfwDestroyWindow(CR_MainWindow);
 	glfwTerminate();
 }
 
-void CyberEngine::PrintProgramLog(GLuint _ProgramID)
-{
-	if (glIsProgram(_ProgramID)) {
-		int InfoLogLength = 0;
-		int MaxLength = InfoLogLength;
-
-		glGetProgramiv(_ProgramID, GL_INFO_LOG_LENGTH, &MaxLength);
-
-		char* InfoLog = new char[MaxLength];
-
-		glGetProgramInfoLog(_ProgramID, MaxLength, &InfoLogLength, InfoLog);
-		if (InfoLogLength > 0) {
-			fprintf(stdout, "%s\n", InfoLog);
-		}
-
-		delete[] InfoLog;
-	}
-	else {
-		fprintf(stdout, "%d is not a valid program ID\n", _ProgramID);
-	}
-}
-
-void CyberEngine::PrintShaderLog(GLuint _ShaderID)
-{
-	if (glIsShader(_ShaderID)) {
-		int InfoLogLength = 0;
-		int MaxLength = InfoLogLength;
-
-		glGetShaderiv(_ShaderID, GL_INFO_LOG_LENGTH, &MaxLength);
-
-		char* InfoLog = new char[MaxLength];
-
-		glGetShaderInfoLog(_ShaderID, MaxLength, &InfoLogLength, InfoLog);
-		if (InfoLogLength > 0) {
-			fprintf(stdout, "%s\n", InfoLog);
-		}
-
-		delete[] InfoLog;
-	}
-	else {
-		fprintf(stdout, "%d is not a valid shader ID\n", _ShaderID);
-	}
-}
-
-void CyberEngine::AddShader(std::string _ShaderKey, Shader* _TargetShader)
-{
-	CR_Shaders[_ShaderKey] = _TargetShader;
-}
