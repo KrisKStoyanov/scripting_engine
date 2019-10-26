@@ -7,3 +7,11 @@ CyberAudio::CyberAudio()
 CyberAudio::~CyberAudio()
 {
 }
+
+void CyberAudio::Activate()
+{
+}
+
+void CyberAudio::Deactivate()
+{
+}

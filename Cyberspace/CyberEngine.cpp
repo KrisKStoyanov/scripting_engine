@@ -16,22 +16,18 @@ void CyberEngine::GLFW_Error_Callback(int _Error, const char* _Description)
 bool CyberEngine::Init(const char* _WindowTitle, int _WindowWidth, int _WindowHeight)
 {
 	LocalState CurrentState = STARTING;
-	CR_WindowWidth = _WindowWidth;
-	CR_WindowHeight = _WindowHeight;
 
 	glfwSetErrorCallback(GLFW_Error_Callback);
 	if (!glfwInit()) {
 		return 0;
 	}
 
-	//Antialiasing
-	glfwWindowHint(GLFW_SAMPLES, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	//RENDERER SUBSYSTEM:
 
+	//WINDOW CREATION: (POWERED BY GLFW)
+	CR_WindowWidth = _WindowWidth;
+	CR_WindowHeight = _WindowHeight;
 	CR_MainWindow = glfwCreateWindow(_WindowWidth, _WindowHeight, _WindowTitle, NULL, NULL);
-
 	if (!CR_MainWindow) {
 		glfwTerminate();
 		return false;
@@ -39,6 +35,13 @@ bool CyberEngine::Init(const char* _WindowTitle, int _WindowWidth, int _WindowHe
 
 	glfwMakeContextCurrent(CR_MainWindow);
 
+	//ANTI-ALIASING SETTINGS
+	glfwWindowHint(GLFW_SAMPLES, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	//OGL INTERFACE PROVIDER (POWERED BY GLEW)
 	glewExperimental = GL_TRUE;
 	GLenum initState = glewInit();
 
@@ -63,15 +66,6 @@ bool CyberEngine::Init(const char* _WindowTitle, int _WindowWidth, int _WindowHe
 	return 1;
 }
 
-void CyberEngine::Start()
-{
-	CR_CurrentState = ACTIVE;
-	Configure();
-
-	Game->Start();
-	Update();
-}
-
 void CyberEngine::Configure()
 {
 	CR_Renderer = new CyberRenderer();
@@ -81,24 +75,48 @@ void CyberEngine::Configure()
 	CR_Net = new CyberNet();
 
 	CR_Renderer->Activate();
+	CR_Net->Activate();
 
 	Game = new GameInstance(CR_MainWindow);
 }
 
+void CyberEngine::Start()
+{
+	CR_CurrentState = ACTIVE;
+	Configure();
+	CR_Net->CreateServer();
+	CR_Net->CreateClient();
+	CR_Net->ConnectToHost();
+	Game->Start();
+	Update();
+}
+
 void CyberEngine::Update()
 {
-	while(!glfwWindowShouldClose(CR_MainWindow)){
+	while(true){
 		
 		glfwPollEvents();
 		for (std::pair<std::string, Entity*> E : Game->EntityCollection) {
 			CR_Renderer->Update(E.second);
 		}
 		
-		//CR_Entities["TestEntity"]->Render(CR_Shaders["TestShader"]);
 		//ImGui::NewFrame();
 		//ImGui::Render();
 		glfwSwapBuffers(CR_MainWindow);
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		while (CR_Net->UpdateServer()) {
+
+		}
+
+		if (glfwWindowShouldClose(CR_MainWindow)) {
+			CR_Renderer->Deactivate();
+			CR_Net->Deactivate();
+			CR_Interface->Deactivate();
+			CR_Physics->Deactivate();
+			CR_Audio->Deactivate();
+			break;
+		}
 	}
 	Deactivate();
 }

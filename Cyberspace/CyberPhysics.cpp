@@ -7,3 +7,11 @@ CyberPhysics::CyberPhysics()
 CyberPhysics::~CyberPhysics()
 {
 }
+
+void CyberPhysics::Activate()
+{
+}
+
+void CyberPhysics::Deactivate()
+{
+}

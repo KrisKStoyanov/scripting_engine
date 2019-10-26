@@ -11,6 +11,8 @@
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include <enet/enet.h>
+
 #include "Entity.h"
 #include "Shader.h"
 #include "CyberRenderer.h"
