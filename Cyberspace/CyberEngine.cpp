@@ -75,6 +75,7 @@ void CyberEngine::Configure()
 	CR_Net = new CyberNet();
 
 	CR_Renderer->Activate();
+	CR_Audio->Activate();
 	CR_Net->Activate();
 
 	Game = new GameInstance(CR_MainWindow);
@@ -87,14 +88,15 @@ void CyberEngine::Start()
 	CR_Net->CreateServer();
 	CR_Net->CreateClient();
 	CR_Net->ConnectToHost();
+	CR_Audio->PlayBGM(0);
 	Game->Start();
 	Update();
 }
 
 void CyberEngine::Update()
 {
-	while(true){
-		
+	while(CR_CurrentState == 1){
+		//glfwWindowShouldClose(CR_MainWindow)
 		glfwPollEvents();
 		for (std::pair<std::string, Entity*> E : Game->EntityCollection) {
 			CR_Renderer->Update(E.second);
@@ -105,17 +107,10 @@ void CyberEngine::Update()
 		glfwSwapBuffers(CR_MainWindow);
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		CR_Audio->Update();
+
 		while (CR_Net->UpdateServer()) {
 
-		}
-
-		if (glfwWindowShouldClose(CR_MainWindow)) {
-			CR_Renderer->Deactivate();
-			CR_Net->Deactivate();
-			CR_Interface->Deactivate();
-			CR_Physics->Deactivate();
-			CR_Audio->Deactivate();
-			break;
 		}
 	}
 	Deactivate();
@@ -127,8 +122,13 @@ void CyberEngine::ProcessInput()
 
 void CyberEngine::Deactivate()
 {
-	//ImGui::DestroyContext(); 
+	CR_CurrentState = INACTIVE;
 	CR_Renderer->Deactivate();
+	CR_Net->Deactivate();
+	CR_Interface->Deactivate();
+	CR_Physics->Deactivate();
+	CR_Audio->Deactivate();
+	//ImGui::DestroyContext(); 
 	delete CR_Renderer;
 	glfwDestroyWindow(CR_MainWindow);
 	glfwTerminate();
