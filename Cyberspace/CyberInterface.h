@@ -14,12 +14,12 @@
 class CyberInterface
 {
 public:
-	CyberInterface();
+	CyberInterface(bool& _InitStatus);
 	~CyberInterface();
-	void Activate();
+	bool Init();
 	void Configure();
 	void Process(int _Key, int _Scancode, int _Action, int _Mods);
 	void Update();
-	void Deactivate();
+	void Terminate();
 };
 

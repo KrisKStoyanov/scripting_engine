@@ -19,14 +19,13 @@
 class CyberPhysics
 {
 public:
-	CyberPhysics();
+	CyberPhysics(bool &_InitStatus);
 	~CyberPhysics();
-	void Activate();
-	void Configure();
-	void SetupPhysicsCooking();
-	void InitExtensionsLibrary();
+	bool Init();
+	bool SetupPhysicsCooking();
+	bool InitExtensionsLibrary();
 	void Update();
-	void Deactivate();
+	void Terminate();
 
 	physx::PxDefaultErrorCallback DefaultErrorCallback;
 	physx::PxDefaultAllocator DefaultAllocatorCallback;

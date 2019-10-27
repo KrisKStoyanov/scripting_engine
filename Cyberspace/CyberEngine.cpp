@@ -8,49 +8,42 @@ CyberEngine::~CyberEngine()
 {
 }
 
-void CyberEngine::GLFW_Error_Callback(int _Error, const char* _Description)
-{
-	fprintf(stderr, "Glfw Error %d: %s\n", _Error, _Description);
-}
 
 bool CyberEngine::Init(const char* _WindowTitle, int _WindowWidth, int _WindowHeight)
 {
 	LocalState CurrentState = STARTING;
 
-	glfwSetErrorCallback(GLFW_Error_Callback);
-	if (!glfwInit()) {
-		return 0;
-	}
+	bool SubsystemStatus;
 
-	//RENDERER SUBSYSTEM:
-
-	//WINDOW CREATION: (POWERED BY GLFW)
-	CR_WindowWidth = _WindowWidth;
-	CR_WindowHeight = _WindowHeight;
-	CR_MainWindow = glfwCreateWindow(_WindowWidth, _WindowHeight, _WindowTitle, NULL, NULL);
-	if (!CR_MainWindow) {
-		glfwTerminate();
+	Engine_Renderer = new CyberRenderer(SubsystemStatus, _WindowTitle, _WindowWidth, _WindowHeight);
+	if (!SubsystemStatus) {
+		printf("Engine Renderer initialization failed");
 		return false;
 	}
 
-	glfwMakeContextCurrent(CR_MainWindow);
-
-	//ANTI-ALIASING SETTINGS
-	glfwWindowHint(GLFW_SAMPLES, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-	//OGL INTERFACE PROVIDER (POWERED BY GLEW)
-	glewExperimental = GL_TRUE;
-	GLenum initState = glewInit();
-
-	if (initState != GLEW_OK) {
-		fprintf(stderr, "Error: %s\n", glewGetErrorString(initState));
-		return 0;
+	Engine_Physics = new CyberPhysics(SubsystemStatus);
+	if (!SubsystemStatus) {
+		printf("Engine Physics initialization failed");
+		return false;
 	}
-	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 
+	Engine_Audio = new CyberAudio(SubsystemStatus);
+	if (!SubsystemStatus) {
+		printf("Engine Audio initialization failed");
+		return false;
+	}
+
+	Engine_Net = new CyberNet(SubsystemStatus);
+	if (!SubsystemStatus) {
+		printf("Engine Network initialization failed");
+		return false;
+	}
+
+	Engine_Interface = new CyberInterface(SubsystemStatus);
+	if (!SubsystemStatus) {
+		printf("Engine Interface initialization failed");
+		return false;
+	}
 	//ImGui::CreateContext();
 	//ImGuiIO& IO = ImGui::GetIO();
 	//int AtlasWidth, AtlasHeight;
@@ -59,60 +52,46 @@ bool CyberEngine::Init(const char* _WindowTitle, int _WindowWidth, int _WindowHe
 
 	//ImGui::StyleColorsDark();
 
-	glClearColor(0.55f, 0.55f, 0.55f, 1.0f);
-	//glEnable(GL_DEPTH_TEST);
-	glClear(GL_COLOR_BUFFER_BIT);
-	Start();
+	//CR_Renderer = new CyberRenderer();
+	//CR_Interface = new CyberInterface();
+	//CR_Physics = new CyberPhysics();
+	//CR_Audio = new CyberAudio();
+	//CR_Net = new CyberNet();
+	Engine_State = ACTIVE;
+	Configure();
 	return 1;
 }
 
 void CyberEngine::Configure()
 {
-	CR_Renderer = new CyberRenderer();
-	CR_Interface = new CyberInterface();
-	CR_Physics = new CyberPhysics();
-	CR_Audio = new CyberAudio();
-	CR_Net = new CyberNet();
 
-	CR_Renderer->Activate();
-	CR_Physics->Activate();
-	CR_Audio->Activate();
-	CR_Net->Activate();
+	Engine_Audio->PlayBGM(0);
 
-	Game = new GameInstance(CR_MainWindow);
-}
+	Engine_Net->CreateServer();
+	Engine_Net->CreateClient();
+	Engine_Net->ConnectToHost();
 
-void CyberEngine::Start()
-{
-	CR_CurrentState = ACTIVE;
-	Configure();
-	CR_Net->CreateServer();
-	CR_Net->CreateClient();
-	CR_Net->ConnectToHost();
-	CR_Audio->PlayBGM(0);
+	Game = new GameInstance(Engine_Renderer->CR_MainWindow);
 	Game->Start();
+
 	Update();
 }
 
 void CyberEngine::Update()
 {
-	while(CR_CurrentState == 1){
+	
+	while(Engine_State == 1){
 		//glfwWindowShouldClose(CR_MainWindow)
 		glfwPollEvents();
-		for (std::pair<std::string, Entity*> E : Game->EntityCollection) {
-			CR_Renderer->Update(E.second);
-		}
+		Engine_Renderer->Update(Game->EntityCollection);
 		
 		//ImGui::NewFrame();
 		//ImGui::Render();
-		glfwSwapBuffers(CR_MainWindow);
-		glClear(GL_COLOR_BUFFER_BIT);
 
-		CR_Audio->Update();
-
-		while (CR_Net->UpdateServer()) {
+		while (Engine_Net->UpdateServer()) {
 
 		}
+
 	}
 	Deactivate();
 }
@@ -123,19 +102,17 @@ void CyberEngine::ProcessInput()
 
 void CyberEngine::Deactivate()
 {
-	CR_CurrentState = INACTIVE;
-	CR_Renderer->Deactivate();
-	CR_Net->Deactivate();
-	CR_Interface->Deactivate();
-	CR_Physics->Deactivate();
-	CR_Audio->Deactivate();
+	Engine_State = INACTIVE;
+	Engine_Renderer->Terminate();
+	Engine_Physics->Terminate();
+	Engine_Audio->Terminate();
+	Engine_Net->Terminate();
+	Engine_Interface->Terminate();
 	//ImGui::DestroyContext(); 
-	delete CR_Renderer;
-	delete CR_Physics;
-	delete CR_Net;
-	delete CR_Audio;
-	delete CR_Interface;
-	glfwDestroyWindow(CR_MainWindow);
-	glfwTerminate();
+	delete Engine_Renderer;
+	delete Engine_Physics;
+	delete Engine_Audio;
+	delete Engine_Net;
+	delete Engine_Interface;
 }
 

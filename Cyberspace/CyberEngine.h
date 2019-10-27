@@ -36,26 +36,19 @@ public:
 	~CyberEngine();
 
 	bool Init(const char* _WindowTitle, int _WindowWidth = 800, int _WindowHeight = 600);
-	void Start();
 	void Configure();
 	void Update();
 	void ProcessInput();
 	void Deactivate();
 
-	LocalState CR_CurrentState = INACTIVE;
-
-	static void GLFW_Error_Callback(int _Error, const char* _Description);
-
-	unsigned int CR_WindowWidth = 800;
-	unsigned int CR_WindowHeight = 600;
-	GLFWwindow* CR_MainWindow = NULL;
+	LocalState Engine_State = INACTIVE;
 
 	GameInstance* Game = NULL;
 
-	CyberRenderer* CR_Renderer = NULL;
-	CyberInterface* CR_Interface = NULL;
-	CyberPhysics* CR_Physics = NULL;
-	CyberAudio* CR_Audio = NULL;
-	CyberNet* CR_Net = NULL;
+	CyberRenderer* Engine_Renderer = NULL;
+	CyberInterface* Engine_Interface = NULL;
+	CyberPhysics* Engine_Physics = NULL;
+	CyberAudio* Engine_Audio = NULL;
+	CyberNet* Engine_Net = NULL;
 };
 

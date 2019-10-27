@@ -1,14 +1,15 @@
 #include "CyberPhysics.h"
 
-CyberPhysics::CyberPhysics()
+CyberPhysics::CyberPhysics(bool& _InitStatus)
 {
+	_InitStatus = Init();
 }
 
 CyberPhysics::~CyberPhysics()
 {
 }
 
-void CyberPhysics::Activate()
+bool CyberPhysics::Init()
 {
 	Foundation = PxCreateFoundation(PX_PHYSICS_VERSION, DefaultAllocatorCallback, DefaultErrorCallback);
 
@@ -21,43 +22,47 @@ void CyberPhysics::Activate()
 	}
 	else {
 		printf("PhysX Foundation initialization failed!");	
+		return false;
 	}
 	
 	if (!Physics) {
 		printf("Physics initialization failed!\n");
+		return false;
 	}
-	Configure();
+	return true;
 }
 
-void CyberPhysics::Configure()
-{
-}
 
-void CyberPhysics::SetupPhysicsCooking()
+bool CyberPhysics::SetupPhysicsCooking()
 {
 	if (Foundation != NULL) {
 		CookingPhysics = PxCreateCooking(PX_PHYSICS_VERSION, *Foundation, physx::PxCookingParams(physx::PxTolerancesScale()));
 		if (CookingPhysics != NULL) {
 			printf("Cooking Physics initialized successfully!");
+			return true;
 		}
 		else {
 			printf("Cooking Physics initialization failed!");
+			return false;
 		}
 	}
 }
 
-void CyberPhysics::InitExtensionsLibrary()
+bool CyberPhysics::InitExtensionsLibrary()
 {
 	if (!PxInitExtensions(*Physics, VisualDebugger)) {
 		printf("Extension Library initialization failed!");
+		return false;
 	}
+	printf("Extension Library initialization successfully!");
+	return true;
 }
 
 void CyberPhysics::Update()
 {
 }
 
-void CyberPhysics::Deactivate()
+void CyberPhysics::Terminate()
 {
 	if (Physics != NULL) {
 		Physics->release();

@@ -17,16 +17,16 @@
 class CyberNet
 {
 public:
-	CyberNet();
+	CyberNet(bool& _InitStatus);
 	~CyberNet();
-	bool Activate();
+	bool Init();
 	void CreateServer();
 	void CreateClient();
 	bool UpdateServer();
 	void SendPacketToPeer();
 	void DisconectPeer();
 	void ConnectToHost();
-	void Deactivate();	
+	void Terminate();	
 	ENetAddress CR_Address;
 	ENetHost* CR_Server;
 	ENetHost* CR_Client;

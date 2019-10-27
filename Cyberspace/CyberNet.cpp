@@ -1,14 +1,15 @@
 #include "CyberNet.h"
 
-CyberNet::CyberNet()
+CyberNet::CyberNet(bool& _InitStatus)
 {
+	_InitStatus = Init();
 }
 
 CyberNet::~CyberNet()
 {
 }
 
-bool CyberNet::Activate()
+bool CyberNet::Init()
 {
 	if (enet_initialize() != 0) {
 		fprintf(stderr, "An error occurred while initializing ENet.\n");
@@ -124,7 +125,7 @@ void CyberNet::ConnectToHost()
 	}
 }
 
-void CyberNet::Deactivate()
+void CyberNet::Terminate()
 {
 	if (CR_Peer != NULL) {
 		DisconectPeer();

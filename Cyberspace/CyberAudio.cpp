@@ -1,15 +1,15 @@
 #include "CyberAudio.h"
 
-CyberAudio::CyberAudio()
+CyberAudio::CyberAudio(bool& _InitStatus)
 {
-
+	_InitStatus = Init();
 }
 
 CyberAudio::~CyberAudio()
 {
 }
 
-bool CyberAudio::Activate()
+bool CyberAudio::Init()
 {
 	FMOD_RESULT EventResult;
 
@@ -25,28 +25,14 @@ bool CyberAudio::Activate()
 		return false;
 	}
 	printf("Audio system created and initialized\n");
-	//EventResult = FMOD::Studio::System::create(&HighLevelSystem);
-	//if (EventResult != FMOD_OK) {
-	//	printf("FMOD Error!\n(%d)\n", EventResult);
-	//}
-	//if (HighLevelSystem) {
-	//	printf("High-level audio system created\n");
-	//	EventResult = HighLevelSystem->getCoreSystem(&LowLevelSystem);
-	//}
-	//if (EventResult != FMOD_OK) {
-	//	printf("FMOD Error!\n(%d)\n", EventResult);
-	//}
-	Configure();
-	return true;
-}
 
-void CyberAudio::Configure()
-{
 	CoreSystem->createSound("../External Resources/Audio/TitleScreenTrack.wav", FMOD_LOOP_OFF, NULL, &BGM[0]);
 	if (BGM[0] != NULL) {
 		printf("Title screen track loaded\n");
 		BGM[0]->setDefaults(16400, 0);
 	}
+
+	return true;
 }
 
 void CyberAudio::Update()
@@ -54,8 +40,12 @@ void CyberAudio::Update()
 	
 }
 
-void CyberAudio::Deactivate()
+void CyberAudio::Terminate()
 {
+	if (CoreSystem != NULL) {
+		CoreSystem->release();
+		delete CoreSystem;
+	}
 }
 
 void CyberAudio::PlayBGM(int _Index)

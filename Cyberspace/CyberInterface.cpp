@@ -1,15 +1,17 @@
 #include "CyberInterface.h"
 
-CyberInterface::CyberInterface()
+CyberInterface::CyberInterface(bool& _InitStatus)
 {
+	_InitStatus = Init();
 }
 
 CyberInterface::~CyberInterface()
 {
 }
 
-void CyberInterface::Activate()
+bool CyberInterface::Init()
 {
+	return true;
 }
 
 void CyberInterface::Configure()
@@ -28,6 +30,6 @@ void CyberInterface::Update()
 {
 }
 
-void CyberInterface::Deactivate()
+void CyberInterface::Terminate()
 {
 }

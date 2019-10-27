@@ -17,12 +17,11 @@
 class CyberAudio
 {
 public:
-	CyberAudio();
+	CyberAudio(bool& _InitStatus);
 	~CyberAudio();
-	bool Activate();
-	void Configure();
+	bool Init();
 	void Update();
-	void Deactivate();
+	void Terminate();
 	void PlayBGM(int _Index);
 	void PlaySFX(int _Index);
 
