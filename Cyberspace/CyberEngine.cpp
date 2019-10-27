@@ -75,6 +75,7 @@ void CyberEngine::Configure()
 	CR_Net = new CyberNet();
 
 	CR_Renderer->Activate();
+	CR_Physics->Activate();
 	CR_Audio->Activate();
 	CR_Net->Activate();
 
@@ -130,6 +131,10 @@ void CyberEngine::Deactivate()
 	CR_Audio->Deactivate();
 	//ImGui::DestroyContext(); 
 	delete CR_Renderer;
+	delete CR_Physics;
+	delete CR_Net;
+	delete CR_Audio;
+	delete CR_Interface;
 	glfwDestroyWindow(CR_MainWindow);
 	glfwTerminate();
 }
