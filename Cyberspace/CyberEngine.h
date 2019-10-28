@@ -21,6 +21,8 @@
 #include "CyberAudio.h"
 #include "CyberNet.h"
 
+#include "Cyberwindow.h"
+
 #include "GameInstance.h"
 
 enum LocalState {
@@ -50,5 +52,7 @@ public:
 	CyberPhysics* Engine_Physics = NULL;
 	CyberAudio* Engine_Audio = NULL;
 	CyberNet* Engine_Net = NULL;
+
+	CyberWindow* Engine_Window = NULL;
 };
 

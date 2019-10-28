@@ -1,8 +1,8 @@
 #include "GameInstance.h"
 
-GameInstance::GameInstance(GLFWwindow* _GameWindow)
+GameInstance::GameInstance()
 {
-	GameWindow = _GameWindow;
+
 }
 
 GameInstance::~GameInstance()

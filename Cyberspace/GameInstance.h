@@ -22,7 +22,7 @@
 class GameInstance
 {
 public:
-	GameInstance(GLFWwindow* _GameWindow);
+	GameInstance();
 	~GameInstance();
 	
 	void Start();

@@ -44,7 +44,6 @@ void CyberAudio::Terminate()
 {
 	if (CoreSystem != NULL) {
 		CoreSystem->release();
-		delete CoreSystem;
 	}
 }
 

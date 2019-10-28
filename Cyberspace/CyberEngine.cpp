@@ -14,8 +14,13 @@ bool CyberEngine::Init(const char* _WindowTitle, int _WindowWidth, int _WindowHe
 	LocalState CurrentState = STARTING;
 
 	bool SubsystemStatus;
+	Engine_Window = new CyberWindow(SubsystemStatus, _WindowTitle, _WindowWidth, _WindowHeight);
+	if (!SubsystemStatus) {
+		printf("Window initialization failed");
+		return false;
+	}
 
-	Engine_Renderer = new CyberRenderer(SubsystemStatus, _WindowTitle, _WindowWidth, _WindowHeight);
+	Engine_Renderer = new CyberRenderer(SubsystemStatus);
 	if (!SubsystemStatus) {
 		printf("Engine Renderer initialization failed");
 		return false;
@@ -71,7 +76,7 @@ void CyberEngine::Configure()
 	Engine_Net->CreateClient();
 	Engine_Net->ConnectToHost();
 
-	Game = new GameInstance(Engine_Renderer->CR_MainWindow);
+	Game = new GameInstance();
 	Game->Start();
 
 	Update();
@@ -80,7 +85,7 @@ void CyberEngine::Configure()
 void CyberEngine::Update()
 {
 	
-	while(Engine_State == 1){
+	while(!glfwWindowShouldClose(Engine_Window->PlatformWindow)){
 		//glfwWindowShouldClose(CR_MainWindow)
 		glfwPollEvents();
 		Engine_Renderer->Update(Game->EntityCollection);
@@ -88,9 +93,10 @@ void CyberEngine::Update()
 		//ImGui::NewFrame();
 		//ImGui::Render();
 
-		while (Engine_Net->UpdateServer()) {
+		//while (Engine_Net->UpdateServer()) {
 
-		}
+		//}
+		Engine_Window->Update();
 
 	}
 	Deactivate();

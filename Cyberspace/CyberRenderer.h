@@ -17,9 +17,9 @@
 class CyberRenderer
 {
 public:
-	CyberRenderer(bool& _InitStatus, const char* _WindowTitle, int _WindowWidth = 800, int _WindowHeight = 600);
+	CyberRenderer(bool& _InitStatus);
 	~CyberRenderer();
-	bool Init(const char* _WindowTitle, int _WindowWidth = 800, int _WindowHeight = 600);
+	bool Init();
 	void Configure();
 	void Update(std::map<std::string, Entity*> _EntityCollection);
 	void Terminate();
@@ -28,7 +28,7 @@ public:
 	void PrintShaderLog(GLuint _ShaderID);
 	unsigned int CR_WindowWidth = 800;
 	unsigned int CR_WindowHeight = 600;
-	GLFWwindow* CR_MainWindow = NULL;
+	//GLFWwindow* CR_MainWindow = NULL;
 	std::map<std::string, Shader*> CR_Shaders;
 	static void GLFW_Error_Callback(int _Error, const char* _Description);
 };

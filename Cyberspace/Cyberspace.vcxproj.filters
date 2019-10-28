@@ -54,6 +54,18 @@
     <ClCompile Include="GameInstance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CyberWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="getbmp.h">
@@ -89,6 +101,21 @@
     <ClInclude Include="GameInstance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CyberWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\frag.glsl">
@@ -103,5 +130,23 @@
     <None Include="Shaders\GUI_Vert.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="glew32.dll" />
+    <None Include="glew32d.dll" />
+    <None Include="glfw3.dll" />
+    <None Include="PhysX_64.dll" />
+    <None Include="PhysXCommon_64.dll" />
+    <None Include="PhysXCooking_64.dll" />
+    <None Include="PhysXDevice64.dll" />
+    <None Include="PhysXFoundation_64.dll" />
+    <None Include="PhysXGpu_64.dll" />
+    <None Include="SDL2.dll" />
+    <None Include="fmodstudioL.dll" />
+    <None Include="fmod.dll" />
+    <None Include="fmodL.dll" />
+    <None Include="fmodstudio.dll" />
+    <None Include="Subsystems\Renderer\Shaders\frag.glsl" />
+    <None Include="Subsystems\Renderer\Shaders\GUI_Frag.glsl" />
+    <None Include="Subsystems\Renderer\Shaders\GUI_Vert.glsl" />
+    <None Include="Subsystems\Renderer\Shaders\vert.glsl" />
   </ItemGroup>
 </Project>

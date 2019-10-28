@@ -1,8 +1,8 @@
 #include "CyberRenderer.h"
 
-CyberRenderer::CyberRenderer(bool& _InitStatus, const char* _WindowTitle, int _WindowWidth, int _WindowHeight)
+CyberRenderer::CyberRenderer(bool& _InitStatus)
 {
-	_InitStatus = Init(_WindowTitle,_WindowWidth, _WindowHeight);
+	_InitStatus = Init();
 }
 
 CyberRenderer::~CyberRenderer()
@@ -14,25 +14,8 @@ void CyberRenderer::GLFW_Error_Callback(int _Error, const char* _Description)
 	fprintf(stderr, "Glfw Error %d: %s\n", _Error, _Description);
 }
 
-bool CyberRenderer::Init(const char* _WindowTitle, int _WindowWidth, int _WindowHeight)
+bool CyberRenderer::Init()
 {
-	glfwSetErrorCallback(GLFW_Error_Callback);
-
-	if (!glfwInit()) {
-		return false;
-	}
-
-	CR_WindowWidth = _WindowWidth;
-	CR_WindowHeight = _WindowHeight;
-	CR_MainWindow = glfwCreateWindow(_WindowWidth, _WindowHeight, _WindowTitle, NULL, NULL);
-
-	if (!CR_MainWindow) {
-		glfwTerminate();
-		return false;
-	}
-
-	glfwMakeContextCurrent(CR_MainWindow);
-
 	glewExperimental = GL_TRUE;
 	GLenum initState = glewInit();
 
@@ -63,17 +46,14 @@ void CyberRenderer::Configure()
 
 void CyberRenderer::Update(std::map<std::string, Entity*> _EntityCollection)
 {
-	while (!glfwWindowShouldClose(CR_MainWindow)) {
-		CR_Shaders["TestShader"]->Activate();
-		for (std::pair<std::string, Entity*> E : _EntityCollection) {
-			glBindVertexArray(E.second->VAO);
-			glDrawElements(GL_TRIANGLES, E.second->IndexCollection.size(), GL_UNSIGNED_INT, 0);
-			glBindVertexArray(0);
-		}
-		CR_Shaders["TestShader"]->Deactivate();
-		glfwSwapBuffers(CR_MainWindow);
-		glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT);
+	CR_Shaders["TestShader"]->Activate();
+	for (std::pair<std::string, Entity*> E : _EntityCollection) {
+		glBindVertexArray(E.second->VAO);
+		glDrawElements(GL_TRIANGLES, E.second->IndexCollection.size(), GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
 	}
+	CR_Shaders["TestShader"]->Deactivate();
 }
 
 void CyberRenderer::Terminate()
@@ -82,8 +62,8 @@ void CyberRenderer::Terminate()
 		S.second->Clear();
 	}
 
-	glfwDestroyWindow(CR_MainWindow);
-	glfwTerminate();
+	//glfwDestroyWindow(CR_MainWindow);
+	//glfwTerminate();
 }
 
 void CyberRenderer::AddShader(std::string _ShaderKey, Shader* _TargetShader)
