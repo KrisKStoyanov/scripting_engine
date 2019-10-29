@@ -14,11 +14,11 @@
 #include <enet/enet.h>
 
 #include "Entity.h"
-#include "../Subsystems/Renderer/CyberRenderer.h"
-#include "../Subsystems/Interface/CyberInterface.h"
-#include "../Subsystems/Networking/CyberNet.h"
-#include "../Subsystems/Audio/CyberAudio.h"
-#include "../Subsystems/Physics/CyberPhysics.h"
+#include "./Subsystems/Renderer/CyberRenderer.h"
+#include "./Subsystems/Interface/CyberInterface.h"
+#include "./Subsystems/Networking/CyberNet.h"
+#include "./Subsystems/Audio/CyberAudio.h"
+#include "./Subsystems/Physics/CyberPhysics.h"
 
 #include "Cyberwindow.h"
 

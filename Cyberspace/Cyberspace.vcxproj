@@ -149,12 +149,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="Subsystems\Audio\CyberAudio.cpp" />
+    <ClCompile Include="src\Subsystems\Audio\CyberAudio.cpp" />
     <ClCompile Include="src\CyberEngine.cpp" />
-    <ClCompile Include="Subsystems\Interface\CyberInterface.cpp" />
-    <ClCompile Include="Subsystems\Networking\CyberNet.cpp" />
-    <ClCompile Include="Subsystems\Physics\CyberPhysics.cpp" />
-    <ClCompile Include="Subsystems\Renderer\CyberRenderer.cpp" />
+    <ClCompile Include="src\Subsystems\Interface\CyberInterface.cpp" />
+    <ClCompile Include="src\Subsystems\Networking\CyberNet.cpp" />
+    <ClCompile Include="src\Subsystems\Physics\CyberPhysics.cpp" />
+    <ClCompile Include="src\Subsystems\Renderer\CyberRenderer.cpp" />
     <ClCompile Include="src\CyberWindow.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\GameInstance.cpp" />
@@ -162,24 +162,24 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\PhysicsObject.cpp" />
-    <ClCompile Include="Subsystems\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Subsystems\Renderer\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Core.h" />
-    <ClInclude Include="Subsystems\Audio\CyberAudio.h" />
+    <ClInclude Include="src\Subsystems\Audio\CyberAudio.h" />
     <ClInclude Include="src\CyberEngine.h" />
-    <ClInclude Include="Subsystems\Interface\CyberInterface.h" />
-    <ClInclude Include="Subsystems\Networking\CyberNet.h" />
-    <ClInclude Include="Subsystems\Physics\CyberPhysics.h" />
-    <ClInclude Include="Subsystems\Renderer\CyberRenderer.h" />
+    <ClInclude Include="src\Subsystems\Interface\CyberInterface.h" />
+    <ClInclude Include="src\Subsystems\Networking\CyberNet.h" />
+    <ClInclude Include="src\Subsystems\Physics\CyberPhysics.h" />
+    <ClInclude Include="src\Subsystems\Renderer\CyberRenderer.h" />
     <ClInclude Include="src\CyberWindow.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\GameInstance.h" />
     <ClInclude Include="src\getbmp.h" />
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\PhysicsObject.h" />
-    <ClInclude Include="Subsystems\Renderer\Shader.h" />
+    <ClInclude Include="src\Subsystems\Renderer\Shader.h" />
     <ClInclude Include="src\Vertex.h" />
   </ItemGroup>
   <ItemGroup>
@@ -187,10 +187,10 @@
     <None Include="Shaders\GUI_Frag.glsl" />
     <None Include="Shaders\GUI_Vert.glsl" />
     <None Include="Shaders\vert.glsl" />
-    <None Include="Subsystems\Renderer\Shaders\frag.glsl" />
-    <None Include="Subsystems\Renderer\Shaders\GUI_Frag.glsl" />
-    <None Include="Subsystems\Renderer\Shaders\GUI_Vert.glsl" />
-    <None Include="Subsystems\Renderer\Shaders\vert.glsl" />
+    <None Include="src\Subsystems\Renderer\Shaders\frag.glsl" />
+    <None Include="src\Subsystems\Renderer\Shaders\GUI_Frag.glsl" />
+    <None Include="src\Subsystems\Renderer\Shaders\GUI_Vert.glsl" />
+    <None Include="src\Subsystems\Renderer\Shaders\vert.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

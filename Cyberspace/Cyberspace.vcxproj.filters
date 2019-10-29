@@ -21,9 +21,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Subsystems\Audio\CyberAudio.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -51,26 +48,26 @@
     <ClCompile Include="src\PhysicsObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Subsystems\Interface\CyberInterface.cpp">
+    <ClCompile Include="src\Subsystems\Audio\CyberAudio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Subsystems\Networking\CyberNet.cpp">
+    <ClCompile Include="src\Subsystems\Interface\CyberInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Subsystems\Physics\CyberPhysics.cpp">
+    <ClCompile Include="src\Subsystems\Networking\CyberNet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Subsystems\Renderer\CyberRenderer.cpp">
+    <ClCompile Include="src\Subsystems\Physics\CyberPhysics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Subsystems\Renderer\Shader.cpp">
+    <ClCompile Include="src\Subsystems\Renderer\CyberRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Subsystems\Renderer\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Subsystems\Audio\CyberAudio.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\CyberEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -101,19 +98,22 @@
     <ClInclude Include="src\Vertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\Interface\CyberInterface.h">
+    <ClInclude Include="src\Subsystems\Audio\CyberAudio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\Networking\CyberNet.h">
+    <ClInclude Include="src\Subsystems\Interface\CyberInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\Physics\CyberPhysics.h">
+    <ClInclude Include="src\Subsystems\Networking\CyberNet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\Renderer\CyberRenderer.h">
+    <ClInclude Include="src\Subsystems\Physics\CyberPhysics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\Renderer\Shader.h">
+    <ClInclude Include="src\Subsystems\Renderer\CyberRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Subsystems\Renderer\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -130,9 +130,9 @@
     <None Include="Shaders\GUI_Vert.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Subsystems\Renderer\Shaders\frag.glsl" />
-    <None Include="Subsystems\Renderer\Shaders\GUI_Frag.glsl" />
-    <None Include="Subsystems\Renderer\Shaders\GUI_Vert.glsl" />
-    <None Include="Subsystems\Renderer\Shaders\vert.glsl" />
+    <None Include="src\Subsystems\Renderer\Shaders\frag.glsl" />
+    <None Include="src\Subsystems\Renderer\Shaders\GUI_Frag.glsl" />
+    <None Include="src\Subsystems\Renderer\Shaders\GUI_Vert.glsl" />
+    <None Include="src\Subsystems\Renderer\Shaders\vert.glsl" />
   </ItemGroup>
 </Project>

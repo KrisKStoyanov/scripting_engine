@@ -12,7 +12,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Shader.h"
 
-#include "../../src/Entity.h"
+#include "../../Entity.h"
 
 class CyberRenderer
 {

@@ -9,7 +9,7 @@
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "Vertex.h"
-#include "../Subsystems/Renderer/Shader.h"
+#include "./Subsystems/Renderer/Shader.h"
 
 extern "C"
 {
