@@ -155,13 +155,12 @@
     <ClCompile Include="src\Subsystems\Networking\CyberNet.cpp" />
     <ClCompile Include="src\Subsystems\Physics\CyberPhysics.cpp" />
     <ClCompile Include="src\Subsystems\Renderer\CyberRenderer.cpp" />
-    <ClCompile Include="src\CyberWindow.cpp" />
+    <ClCompile Include="src\Subsystems\Window\CyberWindow.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\GameInstance.cpp" />
     <ClCompile Include="src\getbmp.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
-    <ClCompile Include="src\PhysicsObject.cpp" />
     <ClCompile Include="src\Subsystems\Renderer\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -173,12 +172,11 @@
     <ClInclude Include="src\Subsystems\Networking\CyberNet.h" />
     <ClInclude Include="src\Subsystems\Physics\CyberPhysics.h" />
     <ClInclude Include="src\Subsystems\Renderer\CyberRenderer.h" />
-    <ClInclude Include="src\CyberWindow.h" />
+    <ClInclude Include="src\Subsystems\Window\CyberWindow.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\GameInstance.h" />
     <ClInclude Include="src\getbmp.h" />
     <ClInclude Include="src\Mesh.h" />
-    <ClInclude Include="src\PhysicsObject.h" />
     <ClInclude Include="src\Subsystems\Renderer\Shader.h" />
     <ClInclude Include="src\Vertex.h" />
   </ItemGroup>

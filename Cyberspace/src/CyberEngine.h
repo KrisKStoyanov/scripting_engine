@@ -20,7 +20,7 @@
 #include "./Subsystems/Audio/CyberAudio.h"
 #include "./Subsystems/Physics/CyberPhysics.h"
 
-#include "Cyberwindow.h"
+#include "Subsystems/Window/CyberWindow.h"
 
 #include "GameInstance.h"
  
