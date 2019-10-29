@@ -23,6 +23,7 @@
 #include "Cyberwindow.h"
 
 #include "GameInstance.h"
+ 
 
 enum LocalState {
 	STARTING,

@@ -134,19 +134,5 @@
     <None Include="Subsystems\Renderer\Shaders\GUI_Frag.glsl" />
     <None Include="Subsystems\Renderer\Shaders\GUI_Vert.glsl" />
     <None Include="Subsystems\Renderer\Shaders\vert.glsl" />
-    <None Include="src\fmod.dll" />
-    <None Include="src\fmodL.dll" />
-    <None Include="src\fmodstudio.dll" />
-    <None Include="src\fmodstudioL.dll" />
-    <None Include="src\glew32.dll" />
-    <None Include="src\glew32d.dll" />
-    <None Include="src\glfw3.dll" />
-    <None Include="src\PhysX_64.dll" />
-    <None Include="src\PhysXCommon_64.dll" />
-    <None Include="src\PhysXCooking_64.dll" />
-    <None Include="src\PhysXDevice64.dll" />
-    <None Include="src\PhysXFoundation_64.dll" />
-    <None Include="src\PhysXGpu_64.dll" />
-    <None Include="src\SDL2.dll" />
   </ItemGroup>
 </Project>
