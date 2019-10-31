@@ -103,6 +103,11 @@ void CyberNet::DisconectPeer()
 	enet_peer_reset(CR_Peer);
 }
 
+void CyberNet::HandleEvent(CyberEvent* _Event)
+{
+
+}
+
 void CyberNet::ConnectToHost()
 {
 	ENetEvent NetEvent;

@@ -13,19 +13,30 @@
 #include "Shader.h"
 
 #include "../../Entity.h"
+#include "../../CyberEvent.h"
+#include "../../EventList.h"
+#include "Camera.h"
+#include <queue>
 
 class CyberRenderer
 {
 public:
-	CyberRenderer(bool& _InitStatus);
+	CyberRenderer(bool& _InitStatus, int _WindowWidth, int _WindowHeight);
 	~CyberRenderer();
-	bool Init();
+	bool Init(int _WindowWidth, int _WindowHeight);
 	void Configure();
-	void Update(std::map<std::string, Entity*> _EntityCollection);
+	void Update(std::queue<CyberEvent*>& _EventQueue, std::vector<Entity*> _EntityCollection);
 	void Terminate();
 	void AddShader(std::string _ShaderKey, Shader* _TargetShader);
 	void PrintProgramLog(GLuint _ProgramID);
 	void PrintShaderLog(GLuint _ShaderID);
 	std::map<std::string, Shader*> CR_Shaders;
+	void(*MoveForward)(EventType) = MoveForwardEvent;
+	void(*MoveBackward)(EventType) = MoveBackwardEvent;
+	void(*MoveLeft)(EventType) = MoveLeftEvent;
+	void(*MoveRight)(EventType) = MoveRightEvent;
+
+	Entity* TestEntity = NULL;
+	Camera* MainCamera = NULL;
 };
 

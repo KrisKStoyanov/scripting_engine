@@ -27,6 +27,12 @@ bool CyberWindow::Init(const char* _Title, const unsigned int _Width, const unsi
 
 	SetVsync(true);
 
+	//Anti-aliasing
+	glfwWindowHint(GLFW_SAMPLES, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
 	glfwSetErrorCallback([](int _Error, const char* _Description){
 		fprintf(stderr, "Glfw Error %d: %s\n", _Error, _Description);
 		});
@@ -51,10 +57,43 @@ bool CyberWindow::GetVsyncStatus()
 	return VsyncStatus;
 }
 
-void CyberWindow::Update()
+void CyberWindow::Update(std::queue<CyberEvent*>& _EventQueue)
 {
-	glfwPollEvents();
 	glfwSwapBuffers(PlatformWindow);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glfwPollEvents();
+	if (glfwGetKey(PlatformWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+		_EventQueue.push(new CyberEvent(EventType::EXIT));
+	}
+	if (glfwGetKey(PlatformWindow, GLFW_KEY_W) == GLFW_PRESS) {
+		_EventQueue.push(new CyberEvent(EventType::MOVE_FORWARD, EventTag::GRAPHICS));
+	}
+	if (glfwGetKey(PlatformWindow, GLFW_KEY_S) == GLFW_PRESS) {
+		_EventQueue.push(new CyberEvent(EventType::MOVE_BACKWARD, EventTag::GRAPHICS));
+	}
+	if (glfwGetKey(PlatformWindow, GLFW_KEY_A) == GLFW_PRESS) {
+		_EventQueue.push(new CyberEvent(EventType::MOVE_LEFT, EventTag::GRAPHICS));
+	}
+	if (glfwGetKey(PlatformWindow, GLFW_KEY_D) == GLFW_PRESS) {
+		_EventQueue.push(new CyberEvent(EventType::MOVE_RIGHT, EventTag::GRAPHICS));
+	}
+
+	if (!_EventQueue.empty()) {
+		switch (_EventQueue.front()->Type) {
+		case EventType::START:
+			printf("START EVENT\n");
+			_EventQueue.pop();
+			break;
+		case EventType::EXIT:
+			printf("EXIT EVENT\n");
+			glfwSetWindowShouldClose(PlatformWindow, GLFW_TRUE);
+			_EventQueue.pop();
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void CyberWindow::Terminate()

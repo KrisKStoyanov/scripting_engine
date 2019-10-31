@@ -4,11 +4,12 @@
 #include <algorithm>
 #include <string>
 #include <vector>
-#include <map>
 #include <functional>
+#include <queue>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "../../CyberEvent.h"
 
 //OGL SPECIFIC IMPLEMENTATION
 class CyberWindow
@@ -20,9 +21,10 @@ public:
 	void Terminate();
 	void SetVsync(bool _Status);
 	bool GetVsyncStatus();
-	void Update();
+	void Update(std::queue<CyberEvent*>& _EventQueue);
 	GLFWwindow* PlatformWindow = NULL;
 	unsigned int Width, Height;
 	bool VsyncStatus;
+	bool Active = false;
 };
 

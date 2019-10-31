@@ -148,6 +148,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Subsystems\Renderer\Camera.cpp" />
+    <ClCompile Include="src\Subsystems\Audio\AudioComponent.cpp" />
+    <ClCompile Include="src\CyberEvent.cpp" />
+    <ClCompile Include="src\Subsystems\Renderer\GraphicsComponent.cpp" />
+    <ClCompile Include="src\Subsystems\Physics\PhysicsComponent.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Subsystems\Audio\CyberAudio.cpp" />
     <ClCompile Include="src\CyberEngine.cpp" />
@@ -160,10 +165,15 @@
     <ClCompile Include="src\GameInstance.cpp" />
     <ClCompile Include="src\getbmp.cpp" />
     <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Subsystems\Renderer\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Subsystems\Renderer\Camera.h" />
+    <ClInclude Include="src\EventList.h" />
+    <ClInclude Include="src\Subsystems\Audio\AudioComponent.h" />
+    <ClInclude Include="src\CyberEvent.h" />
+    <ClInclude Include="src\Subsystems\Renderer\GraphicsComponent.h" />
+    <ClInclude Include="src\Subsystems\Physics\PhysicsComponent.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Core.h" />
     <ClInclude Include="src\Subsystems\Audio\CyberAudio.h" />
@@ -176,7 +186,6 @@
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\GameInstance.h" />
     <ClInclude Include="src\getbmp.h" />
-    <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Subsystems\Renderer\Shader.h" />
     <ClInclude Include="src\Vertex.h" />
   </ItemGroup>

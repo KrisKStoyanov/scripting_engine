@@ -20,24 +20,24 @@ extern "C"
 
 #include "LuaBridge/LuaBridge.h"
 
+#include "./Subsystems/Physics/PhysicsComponent.h"
+#include "./Subsystems/Renderer/GraphicsComponent.h"
+#include "./Subsystems/Audio/AudioComponent.h"
+
 class Entity
 {
 public:
-	Entity(std::vector<Vertex> _Verts, std::vector<GLuint> _Indices);
+	Entity(glm::vec3 _Position, glm::vec3 _Direction);
 	~Entity();
 
-	void Setup();
+	glm::vec3 Position;
+	glm::vec3 Direction;
+
+	void Setup(GraphicsComponent* _GFX = NULL, PhysicsComponent* _PSX = NULL, AudioComponent* _Audio = NULL);
 	void Clear();
 
-	GLuint ProgramID = 0;
-	GLuint VAO = 0;
-	GLuint VBO = 0;
-	GLuint IBO = 0;
-
-	GLint PositionAttribID = 0;
-	GLint ColorAttribID = 1;
-
-	std::vector<Vertex> VertexCollection;
-	std::vector<GLuint> IndexCollection;
+	GraphicsComponent* GFX_Comp = NULL;
+	PhysicsComponent* PSX_Comp = NULL;
+	AudioComponent* Audio_Comp = NULL;
 };
 

@@ -17,22 +17,15 @@ void GameInstance::Start()
 
 void GameInstance::Configure()
 {
-	std::vector<Vertex> EntityVerts({
-		{{ 0.5f,  0.5f, 0.0f, }, {1.0f, 0.0f, 0.0f, 1.0f }},
-		{{ 0.5f, -0.5f, 0.0f, }, {1.0f, 1.0f, 0.0f, 1.0f }},
-		{{ -0.5f, -0.5f, 0.0f, }, {1.0f, 0.0f, 1.0f, 1.0f }},
-		{{ -0.5f,  0.5f, 0.0f }, {0.0f, 1.0f, 1.0f, 1.0f }}
-	});
-	std::vector<GLuint> EntityIndices({ 0,1,3, 1,2,3 });
-	AddEntity("TestEntity", EntityVerts, EntityIndices);
+	//AddEntity("TestEntity", EntityVerts, EntityIndices);
 	//Update();
 }
 
-void GameInstance::AddEntity(std::string _EntityName, std::vector<Vertex> _EntityVerts, std::vector<GLuint> _EntityIndices)
-{
-	EntityCollection[_EntityName] = new Entity(_EntityVerts, _EntityIndices);
-	EntityCollection[_EntityName]->Setup();
-}
+//void GameInstance::AddEntity(std::string _EntityName, std::vector<Vertex> _EntityVerts, std::vector<GLuint> _EntityIndices)
+//{
+//	EntityCollection[_EntityName] = new Entity(_EntityVerts, _EntityIndices);
+//	EntityCollection[_EntityName]->Setup();
+//}
 
 void GameInstance::Update()
 {

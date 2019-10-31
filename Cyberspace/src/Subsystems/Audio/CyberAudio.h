@@ -14,13 +14,17 @@
 #include <fmod.hpp>
 #include <fmod_studio.hpp>
 
+#include "../../Entity.h"
+#include "../../CyberEvent.h"
+
 class CyberAudio
 {
 public:
 	CyberAudio(bool& _InitStatus);
 	~CyberAudio();
 	bool Init();
-	void Update();
+	void Update(std::vector<Entity*> _EntityCollection);
+	void HandleEvent(CyberEvent* _Event);
 	void Terminate();
 	void PlayBGM(int _Index);
 	void PlaySFX(int _Index);

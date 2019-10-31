@@ -33,6 +33,7 @@ public:
 
 	bool Active = false;
 	GLFWwindow* GameWindow = NULL;
-	std::map<std::string, Entity*> EntityCollection;
+	std::vector<Entity*> EntityCollection;
+	//std::map<std::string, Entity*> EntityCollection;
 };
 

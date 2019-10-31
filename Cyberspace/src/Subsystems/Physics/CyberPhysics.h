@@ -12,6 +12,9 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "PxPhysicsAPI.h"
+#include "./PhysicsComponent.h"
+#include "../../Entity.h"
+#include "../../CyberEvent.h"
 
 //LocalHost for visual debugger init process
 #define PVD_HOST "127.0.0.1"
@@ -24,7 +27,8 @@ public:
 	bool Init();
 	bool SetupPhysicsCooking();
 	bool InitExtensionsLibrary();
-	void Update();
+	void Update(std::vector<Entity*> _EntityCollection);
+	void HandleEvent(CyberEvent* _Event);
 	void Terminate();
 
 	physx::PxDefaultErrorCallback DefaultErrorCallback;

@@ -35,9 +35,26 @@ bool CyberAudio::Init()
 	return true;
 }
 
-void CyberAudio::Update()
+void CyberAudio::Update(std::vector<Entity*> _EntityCollection)
 {
-	
+	for (Entity* E : _EntityCollection) {
+		if (E->Audio_Comp != NULL) {
+
+		}
+	}
+
+	//if (!_Events.empty()) {
+	//	for (int i = 0; i < _Events.back()->Tags.size(); ++i) {
+	//		if (_Events.back()->Tags[i] == EventTag::AUDIO) {
+
+	//		}
+	//	}
+	//}
+}
+
+void CyberAudio::HandleEvent(CyberEvent* _Event)
+{
+
 }
 
 void CyberAudio::Terminate()

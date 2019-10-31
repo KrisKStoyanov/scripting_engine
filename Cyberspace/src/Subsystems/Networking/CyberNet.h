@@ -13,6 +13,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <enet/enet.h>
+#include "../../CyberEvent.h"
 
 class CyberNet
 {
@@ -25,6 +26,7 @@ public:
 	bool UpdateServer();
 	void SendPacketToPeer();
 	void DisconectPeer();
+	void HandleEvent(CyberEvent* _Event);
 	void ConnectToHost();
 	void Terminate();	
 	ENetAddress CR_Address;

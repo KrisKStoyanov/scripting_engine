@@ -11,6 +11,12 @@
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "../Renderer/CyberRenderer.h"
+#include "../Physics/CyberPhysics.h"
+#include "../Audio/CyberAudio.h"
+#include "../Networking/CyberNet.h"
+#include "../../CyberEvent.h"
+
 class CyberInterface
 {
 public:
@@ -18,7 +24,6 @@ public:
 	~CyberInterface();
 	bool Init();
 	void Configure();
-	void Process(int _Key, int _Scancode, int _Action, int _Mods);
 	void Update();
 	void Terminate();
 };

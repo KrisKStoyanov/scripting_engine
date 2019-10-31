@@ -41,11 +41,10 @@ bool CyberPhysics::SetupPhysicsCooking()
 			printf("Cooking Physics initialized successfully!");
 			return true;
 		}
-		else {
-			printf("Cooking Physics initialization failed!");
-			return false;
-		}
+		printf("Cooking Physics initialization failed!");
+		return false;
 	}
+	return false;
 }
 
 bool CyberPhysics::InitExtensionsLibrary()
@@ -58,8 +57,37 @@ bool CyberPhysics::InitExtensionsLibrary()
 	return true;
 }
 
-void CyberPhysics::Update()
+void CyberPhysics::Update(std::vector<Entity*> _EntityCollection)
 {
+	for (Entity* E : _EntityCollection) {
+		if (E->PSX_Comp != NULL) {
+
+		}
+	}
+
+	//if (!_Events.empty()) {
+	//	for (int i = 0; i < _Events.back()->Tags.size(); ++i) {
+	//		if (_Events.back()->Tags[i] == EventTag::PHYSICS) {
+
+	//		}
+	//	}
+	//}
+}
+
+void CyberPhysics::HandleEvent(CyberEvent* _Event)
+{
+	if (_Event->Type == EventType::MOVE_FORWARD) {
+		//main character vehicle move forward
+	}
+	if (_Event->Type == EventType::MOVE_BACKWARD) {
+		//main character vehicle move backward
+	}
+	if (_Event->Type == EventType::MOVE_LEFT) {
+		//main character vehicle move left
+	}
+	if (_Event->Type == EventType::MOVE_RIGHT) {
+		//main character vehicle move right
+	}
 }
 
 void CyberPhysics::Terminate()

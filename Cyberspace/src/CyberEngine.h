@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <string>
 #include <vector>
-#include <map>
+#include <queue>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -19,13 +19,15 @@
 #include "./Subsystems/Networking/CyberNet.h"
 #include "./Subsystems/Audio/CyberAudio.h"
 #include "./Subsystems/Physics/CyberPhysics.h"
-
 #include "Subsystems/Window/CyberWindow.h"
 
+#include "CyberEvent.h"
+
 #include "GameInstance.h"
+#include "EventList.h"
  
 
-enum LocalState {
+enum class LocalState {
 	STARTING,
 	ACTIVE,
 	INACTIVE
@@ -40,10 +42,9 @@ public:
 	bool Init(const char* _WindowTitle, int _WindowWidth = 800, int _WindowHeight = 600);
 	void Configure();
 	void Update();
-	void ProcessInput();
 	void Deactivate();
 
-	LocalState Engine_State = INACTIVE;
+	LocalState Engine_State = LocalState::INACTIVE;
 
 	GameInstance* Game = NULL;
 
@@ -52,7 +53,9 @@ public:
 	CyberPhysics* Engine_Physics = NULL;
 	CyberAudio* Engine_Audio = NULL;
 	CyberNet* Engine_Net = NULL;
-
 	CyberWindow* Engine_Window = NULL;
+
+	std::vector<Entity*> EntityCollection;
+	std::queue<CyberEvent*> EventQueue;
 };
 
