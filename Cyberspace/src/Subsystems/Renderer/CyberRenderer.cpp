@@ -13,20 +13,16 @@ bool CyberRenderer::Init(int _WindowWidth, int _WindowHeight)
 {
 	glewExperimental = GL_TRUE;
 	GLenum initState = glewInit();
-
 	if (initState != GLEW_OK) {
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(initState));
 		return false;
 	}
-	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
-
-	glClearColor(0.55f, 0.55f, 0.55f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-
+	
+	glClearColor(0.35f, 0.35f, 0.35f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
 
 	MainCamera = new Camera(glm::vec3(0.0f,0.0f,3.0f), 60, _WindowWidth, _WindowHeight);
-	MainCamera->SetupShader("./Shaders/vert.glsl", "./Shaders/frag.glsl");
+	MainCamera->SetupShader("./Shaders/BasicVertexShader.glsl", "./Shaders/BasicFragmentShader.glsl");
 
 	return true;
 }

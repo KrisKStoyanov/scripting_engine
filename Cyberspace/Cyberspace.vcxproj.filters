@@ -145,12 +145,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\frag.glsl">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\vert.glsl">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="Shaders\GUI_Frag.glsl">
       <Filter>Shaders</Filter>
     </None>
@@ -161,5 +155,11 @@
     <None Include="src\Subsystems\Renderer\Shaders\GUI_Frag.glsl" />
     <None Include="src\Subsystems\Renderer\Shaders\GUI_Vert.glsl" />
     <None Include="src\Subsystems\Renderer\Shaders\vert.glsl" />
+    <None Include="Shaders\BasicFragmentShader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\BasicVertexShader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
