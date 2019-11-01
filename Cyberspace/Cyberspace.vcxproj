@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\objloader.cpp" />
     <ClCompile Include="src\Subsystems\Renderer\Camera.cpp" />
     <ClCompile Include="src\Subsystems\Audio\AudioComponent.cpp" />
     <ClCompile Include="src\CyberEvent.cpp" />
@@ -168,6 +169,7 @@
     <ClCompile Include="src\Subsystems\Renderer\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\objloader.h" />
     <ClInclude Include="src\Subsystems\Renderer\Camera.h" />
     <ClInclude Include="src\EventList.h" />
     <ClInclude Include="src\Subsystems\Audio\AudioComponent.h" />

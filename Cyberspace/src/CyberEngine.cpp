@@ -94,6 +94,12 @@ void CyberEngine::Configure()
 
 	EntityCollection.push_back(TestCube);
 	Engine_Renderer->TestEntity = EntityCollection.front();
+	Engine_Physics->TestEntity = EntityCollection.front();
+
+	std::vector<glm::vec3> Verts;
+	std::vector<glm::vec3> Normals;
+	std::vector<GLuint> Indices;
+	loadOBJ("../External Resources/3D/engine_model.obj", Verts, Normals);
 
 	//Engine_Audio->PlayBGM(0);
 
@@ -114,9 +120,7 @@ void CyberEngine::Update()
 	while (!glfwWindowShouldClose(Engine_Window->PlatformWindow)) {
 		Engine_Window->Update(EventQueue);
 		Engine_Renderer->Update(EventQueue, EntityCollection);
-		Engine_Physics->Update(EntityCollection);
-		Engine_Audio->Update(EntityCollection);
-		Engine_Interface->Update();		
+		Engine_Physics->Update(EventQueue, EntityCollection);
 		//	
 		//	//ImGui::NewFrame();
 		//	//ImGui::Render();

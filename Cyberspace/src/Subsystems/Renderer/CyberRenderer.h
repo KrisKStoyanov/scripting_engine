@@ -24,13 +24,10 @@ public:
 	CyberRenderer(bool& _InitStatus, int _WindowWidth, int _WindowHeight);
 	~CyberRenderer();
 	bool Init(int _WindowWidth, int _WindowHeight);
-	void Configure();
+	void Draw(GLuint _VAO, GLuint _ElementCount);
 	void Update(std::queue<CyberEvent*>& _EventQueue, std::vector<Entity*> _EntityCollection);
 	void Terminate();
-	void AddShader(std::string _ShaderKey, Shader* _TargetShader);
-	void PrintProgramLog(GLuint _ProgramID);
-	void PrintShaderLog(GLuint _ShaderID);
-	std::map<std::string, Shader*> CR_Shaders;
+
 	void(*MoveForward)(EventType) = MoveForwardEvent;
 	void(*MoveBackward)(EventType) = MoveBackwardEvent;
 	void(*MoveLeft)(EventType) = MoveLeftEvent;

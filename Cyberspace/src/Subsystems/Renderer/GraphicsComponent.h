@@ -12,24 +12,19 @@
 class GraphicsComponent
 {
 public:
-	GraphicsComponent(std::vector<Vertex> _Verts, std::vector<GLuint> _Indices);
+	GraphicsComponent(std::vector<Vertex> _VertexCollection, std::vector<GLuint> _IndexCollection);
 	~GraphicsComponent();
 
 	bool Setup();
 	void Clear();
 
-	GLuint ProgramID = 0;
-	GLuint VAO = 0;
-	GLuint VBO = 0;
-	GLuint IBO = 0;
+	GLuint ProgramID = 0, VAO = 0, VBO = 0, IBO = 0;
 
-	GLint PositionAttribID = 0;
-	GLint ColorAttribID = 1;
+	GLint PositionAttribID = 0, ColorAttribID = 1;
 
 	std::vector<Vertex> VertexCollection;
 	std::vector<GLuint> IndexCollection;
 
-	GLuint ModelMatrixLoc;
 	glm::mat4 ModelMatrix = glm::mat4(1.0f);
 };
 

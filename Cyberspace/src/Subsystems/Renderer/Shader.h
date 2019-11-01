@@ -8,10 +8,10 @@
 
 class Shader {
 public:
-	Shader(const GLchar* _VertFilePath, const GLchar* _FragFilePath);
+	Shader(const GLchar* _VertexShaderPath, const GLchar* _FragmentShaderPath);
 	~Shader();
 
-	GLuint ProgramID, VertShaderID, FragShaderID;
+	GLuint ProgramID, VertexShaderID, FragmentShaderID;
 
 	std::string ReadFile(const GLchar* _FilePath);
 
@@ -20,7 +20,7 @@ public:
 
 	void Clear();
 
-	std::string PrintShaderLog(GLuint _ShaderID);
-	std::string PrintProgramLog(GLuint _ProgramID);
+	void PrintShaderLog(GLuint _ShaderID);
+	void PrintProgramLog(GLuint _ProgramID);
 };
 

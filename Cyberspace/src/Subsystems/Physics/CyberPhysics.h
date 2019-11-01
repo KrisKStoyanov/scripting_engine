@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <string>
 #include <vector>
-#include <map>
+#include <queue>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -25,19 +25,26 @@ public:
 	CyberPhysics(bool &_InitStatus);
 	~CyberPhysics();
 	bool Init();
+	void Configure();
 	bool SetupPhysicsCooking();
 	bool InitExtensionsLibrary();
-	void Update(std::vector<Entity*> _EntityCollection);
-	void HandleEvent(CyberEvent* _Event);
+	void Update(std::queue<CyberEvent*> _EventQueue, std::vector<Entity*> _EntityCollection);
+	/*void HandleEvent(CyberEvent* _Event);*/
 	void Terminate();
 
 	physx::PxDefaultErrorCallback DefaultErrorCallback;
-	physx::PxDefaultAllocator DefaultAllocatorCallback;
+	physx::PxDefaultAllocator DefaultAllocator;
 	physx::PxFoundation* Foundation = NULL;
-	physx::PxPvd* VisualDebugger = NULL;
-	physx::PxPvdTransport* DataTransport = NULL;
 	physx::PxPhysics* Physics = NULL;
+	
+	physx::PxDefaultCpuDispatcher* Dispatcher = NULL;
+	physx::PxScene* Scene = NULL;
+	physx::PxMaterial* Material = NULL;
+
+	physx::PxPvd* VisualDebugger = NULL;
 
 	physx::PxCooking* CookingPhysics = NULL;
+
+	Entity* TestEntity = NULL;
 };
 

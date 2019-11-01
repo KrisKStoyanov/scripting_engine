@@ -67,16 +67,16 @@ void CyberWindow::Update(std::queue<CyberEvent*>& _EventQueue)
 		_EventQueue.push(new CyberEvent(EventType::EXIT));
 	}
 	if (glfwGetKey(PlatformWindow, GLFW_KEY_W) == GLFW_PRESS) {
-		_EventQueue.push(new CyberEvent(EventType::MOVE_FORWARD, EventTag::GRAPHICS));
+		_EventQueue.push(new CyberEvent(EventType::MOVE_FORWARD, EventTag::GRAPHICS, EventTag::PHYSICS));
 	}
 	if (glfwGetKey(PlatformWindow, GLFW_KEY_S) == GLFW_PRESS) {
-		_EventQueue.push(new CyberEvent(EventType::MOVE_BACKWARD, EventTag::GRAPHICS));
+		_EventQueue.push(new CyberEvent(EventType::MOVE_BACKWARD, EventTag::GRAPHICS, EventTag::PHYSICS));
 	}
 	if (glfwGetKey(PlatformWindow, GLFW_KEY_A) == GLFW_PRESS) {
-		_EventQueue.push(new CyberEvent(EventType::MOVE_LEFT, EventTag::GRAPHICS));
+		_EventQueue.push(new CyberEvent(EventType::MOVE_LEFT, EventTag::GRAPHICS, EventTag::PHYSICS));
 	}
 	if (glfwGetKey(PlatformWindow, GLFW_KEY_D) == GLFW_PRESS) {
-		_EventQueue.push(new CyberEvent(EventType::MOVE_RIGHT, EventTag::GRAPHICS));
+		_EventQueue.push(new CyberEvent(EventType::MOVE_RIGHT, EventTag::GRAPHICS, EventTag::PHYSICS));
 	}
 
 	if (!_EventQueue.empty()) {

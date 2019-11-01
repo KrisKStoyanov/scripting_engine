@@ -25,6 +25,8 @@
 
 #include "GameInstance.h"
 #include "EventList.h"
+
+#include "objloader.h"
  
 
 enum class LocalState {
