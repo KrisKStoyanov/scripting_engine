@@ -21,7 +21,7 @@ bool CyberRenderer::Init(int _WindowWidth, int _WindowHeight)
 	glClearColor(0.35f, 0.35f, 0.35f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
 
-	MainCamera = new Camera(glm::vec3(0.0f,0.0f,3.0f), 60, _WindowWidth, _WindowHeight);
+	MainCamera = new Camera(glm::vec3(-5.0f,0.0f,3.0f), 60, _WindowWidth, _WindowHeight);
 	MainCamera->SetupShader("./Shaders/BasicVertexShader.glsl", "./Shaders/BasicFragmentShader.glsl", ShaderType::BASIC);
 	MainCamera->BasicShader->Activate();
 
@@ -82,6 +82,11 @@ void CyberRenderer::Update(std::queue<CyberEvent*>& _EventQueue, std::vector<Ent
 
 void CyberRenderer::Terminate()
 {
-
+	if (MainCamera) {
+		if (MainCamera->BasicShader) {
+			MainCamera->BasicShader->Clear();
+		}
+		delete MainCamera;
+	}
 }
 
