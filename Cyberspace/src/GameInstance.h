@@ -12,11 +12,11 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Entity.h"
-#include "./Subsystems/Graphics/CyberRenderer.h"
-#include "./Subsystems/Interface/CyberInterface.h"
+#include "./Subsystems/Graphics/Renderer.h"
+#include "./Subsystems/Interface/UISystem.h"
 #include "./Subsystems/Networking/CyberNet.h"
-#include "./Subsystems/Audio/CyberAudio.h"
-#include "./Subsystems/Physics/CyberPhysics.h"
+#include "./Subsystems/Audio/AudioSystem.h"
+#include "./Subsystems/Physics/PhysicsSystem.h"
 
 class GameInstance
 {

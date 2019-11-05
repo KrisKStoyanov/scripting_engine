@@ -14,20 +14,17 @@
 #include <enet/enet.h>
 
 #include "Entity.h"
-#include "./Subsystems/Graphics/CyberRenderer.h"
-#include "./Subsystems/Interface/CyberInterface.h"
+#include "./Subsystems/Graphics/Renderer.h"
+#include "./Subsystems/Interface/UISystem.h"
 #include "./Subsystems/Networking/CyberNet.h"
-#include "./Subsystems/Audio/CyberAudio.h"
-#include "./Subsystems/Physics/CyberPhysics.h"
-#include "Subsystems/Window/CyberWindow.h"
+#include "./Subsystems/Audio/AudioSystem.h"
+#include "./Subsystems/Physics/PhysicsSystem.h"
+#include "Subsystems/Window/EngineWindow.h"
 
 #include "CyberEvent.h"
 
 #include "GameInstance.h"
 #include "EventList.h"
-
-#include "objloader.h"
- 
 
 enum class LocalState {
 	STARTING,
@@ -51,12 +48,12 @@ public:
 
 	GameInstance* Game = NULL;
 
-	CyberRenderer* Engine_Renderer = NULL;
-	CyberInterface* Engine_Interface = NULL;
-	CyberPhysics* Engine_Physics = NULL;
-	CyberAudio* Engine_Audio = NULL;
-	CyberNet* Engine_Net = NULL;
-	CyberWindow* Engine_Window = NULL;
+	EngineWindow* E_Window = NULL;
+	Renderer* E_Renderer = NULL;
+	PhysicsSystem* E_Physics = NULL;
+	AudioSystem* E_Audio = NULL;
+	UISystem* E_UI = NULL;
+	CyberNet* E_Net = NULL;
 
 	std::vector<Entity*> EntityCollection;
 	std::queue<CyberEvent*> EventQueue;

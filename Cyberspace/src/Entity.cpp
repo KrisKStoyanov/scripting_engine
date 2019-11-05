@@ -10,34 +10,34 @@ Entity::~Entity()
 {
 }
 
-void Entity::Setup(GraphicsComponent* _GFX, PhysicsComponent* _PSX , AudioComponent* _Audio)
+void Entity::Setup(Mesh* _Mesh, PhysicsComponent* _PSX , AudioComponent* _Audio)
 {
-	if (_GFX->Setup()) {
-		GFX_Comp = _GFX;
+	if (_Mesh->Setup()) {
+		m_Mesh = _Mesh;
 	}
 	if (_PSX->Setup()) {
-		PSX_Comp = _PSX;
+		m_PSX = _PSX;
 	}
 	if (_Audio->Setup()) {
-		Audio_Comp = _Audio;
+		m_Audio = _Audio;
 	}
 }
 
 void Entity::Clear()
 {
-	if (GFX_Comp != NULL) {
-		GFX_Comp->Clear();
-		GFX_Comp = nullptr;
+	if (m_Mesh != NULL) {
+		m_Mesh->Clear();
+		m_Mesh = nullptr;
 	}
 
-	if (PSX_Comp != NULL) {
-		PSX_Comp->Clear();
-		PSX_Comp = nullptr;
+	if (m_PSX != NULL) {
+		m_PSX->Clear();
+		m_PSX = nullptr;
 	}
 
-	if (Audio_Comp != NULL) {
-		Audio_Comp->Clear();
-		Audio_Comp = nullptr;
+	if (m_Audio != NULL) {
+		m_Audio->Clear();
+		m_Audio = nullptr;
 	}
 }
 

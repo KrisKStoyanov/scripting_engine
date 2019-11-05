@@ -21,7 +21,7 @@ extern "C"
 #include "LuaBridge/LuaBridge.h"
 
 #include "./Subsystems/Physics/PhysicsComponent.h"
-#include "./Subsystems/Graphics/GraphicsComponent.h"
+#include "./Subsystems/Graphics/Mesh.h"
 #include "./Subsystems/Audio/AudioComponent.h"
 
 class Entity
@@ -33,11 +33,11 @@ public:
 	glm::vec3 Position;
 	glm::vec3 Direction;
 
-	void Setup(GraphicsComponent* _GFX = NULL, PhysicsComponent* _PSX = NULL, AudioComponent* _Audio = NULL);
+	void Setup(Mesh* _Mesh = NULL, PhysicsComponent* _PSX = NULL, AudioComponent* _Audio = NULL);
 	void Clear();
 
-	GraphicsComponent* GFX_Comp = NULL;
-	PhysicsComponent* PSX_Comp = NULL;
-	AudioComponent* Audio_Comp = NULL;
+	Mesh* m_Mesh = NULL;
+	PhysicsComponent* m_PSX = NULL;
+	AudioComponent* m_Audio = NULL;
 };
 

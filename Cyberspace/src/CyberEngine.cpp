@@ -14,37 +14,37 @@ bool CyberEngine::Init(const char* _WindowTitle, int _WindowWidth, int _WindowHe
 	LocalState CurrentState = LocalState::STARTING;
 
 	bool SubsystemStatus;
-	Engine_Window = new CyberWindow(SubsystemStatus, _WindowTitle, _WindowWidth, _WindowHeight);
+	E_Window = new EngineWindow(SubsystemStatus, _WindowTitle, _WindowWidth, _WindowHeight);
 	if (!SubsystemStatus) {
 		printf("Window initialization failed");
 		return false;
 	}
 
-	Engine_Renderer = new CyberRenderer(SubsystemStatus, _WindowWidth, _WindowHeight);
+	E_Renderer = new Renderer(SubsystemStatus, _WindowWidth, _WindowHeight);
 	if (!SubsystemStatus) {
 		printf("Engine Renderer initialization failed");
 		return false;
 	}
 
-	Engine_Physics = new CyberPhysics(SubsystemStatus);
+	E_Physics = new PhysicsSystem(SubsystemStatus);
 	if (!SubsystemStatus) {
 		printf("Engine Physics initialization failed");
 		return false;
 	}
 
-	Engine_Audio = new CyberAudio(SubsystemStatus);
+	E_Audio = new AudioSystem(SubsystemStatus);
 	if (!SubsystemStatus) {
 		printf("Engine Audio initialization failed");
 		return false;
 	}
 
-	Engine_Net = new CyberNet(SubsystemStatus);
+	E_Net = new CyberNet(SubsystemStatus);
 	if (!SubsystemStatus) {
 		printf("Engine Network initialization failed");
 		return false;
 	}
 
-	Engine_Interface = new CyberInterface(SubsystemStatus);
+	E_UI = new UISystem(SubsystemStatus);
 	if (!SubsystemStatus) {
 		printf("Engine Interface initialization failed");
 		return false;
@@ -90,11 +90,11 @@ void CyberEngine::Configure()
 		0,1,4, 4,5,1,//BOTTOM
 		4,5,7, 5,6,7 //BACK
 		});
-	TestCube->Setup(new GraphicsComponent(VertexCollection, IndexCollection), new PhysicsComponent());
+	TestCube->Setup(new Mesh(VertexCollection, IndexCollection), new PhysicsComponent());
 
 	EntityCollection.push_back(TestCube);
-	Engine_Renderer->TestEntity = EntityCollection.front();
-	Engine_Physics->TestEntity = EntityCollection.front();
+	E_Renderer->TestEntity = EntityCollection.front();
+	E_Physics->TestEntity = EntityCollection.front();
 
 	//std::vector<glm::vec3> Verts;
 	//std::vector<glm::vec3> Normals;
@@ -103,9 +103,9 @@ void CyberEngine::Configure()
 
 	//Engine_Audio->PlayBGM(0);
 
-	Engine_Net->CreateServer();
-	Engine_Net->CreateClient();
-	Engine_Net->ConnectToHost();
+	E_Net->CreateServer();
+	E_Net->CreateClient();
+	E_Net->ConnectToHost();
 
 	//Game = new GameInstance();
 	//Game->Start();
@@ -125,9 +125,9 @@ float CyberEngine::ComputeDeltaTime(float _CurrentFrameTime)
 void CyberEngine::Update()
 {
 	double CursorPosX, CursorPosY;
-	while (Engine_Window->Active) {
-		Engine_Window->Update(EventQueue, CursorPosX, CursorPosY);
-		Engine_Renderer->Update(EventQueue, EntityCollection, CursorPosX, CursorPosY, ComputeDeltaTime(glfwGetTime()));
+	while (E_Window->Active) {
+		E_Window->Update(EventQueue, CursorPosX, CursorPosY);
+		E_Renderer->Update(EventQueue, EntityCollection, CursorPosX, CursorPosY, ComputeDeltaTime(glfwGetTime()));
 		//Engine_Physics->Update(EventQueue, EntityCollection);
 		//	
 		//	//ImGui::NewFrame();
@@ -144,18 +144,18 @@ void CyberEngine::Update()
 void CyberEngine::Terminate()
 {
 	Engine_State = LocalState::INACTIVE;
-	Engine_Window->Terminate();
-	Engine_Renderer->Terminate();
-	Engine_Physics->Terminate();
-	Engine_Audio->Terminate();
-	Engine_Net->Terminate();
-	Engine_Interface->Terminate();
+	E_Window->Terminate();
+	E_Renderer->Terminate();
+	E_Physics->Terminate();
+	E_Audio->Terminate();
+	E_Net->Terminate();
+	E_UI->Terminate();
 	//ImGui::DestroyContext(); 
-	delete Engine_Renderer;
-	delete Engine_Physics;
-	delete Engine_Audio;
-	delete Engine_Net;
-	delete Engine_Interface;
-	delete Engine_Window;
+	delete E_Renderer;
+	delete E_Physics;
+	delete E_Audio;
+	delete E_Net;
+	delete E_UI;
+	delete E_Window;
 }
 
