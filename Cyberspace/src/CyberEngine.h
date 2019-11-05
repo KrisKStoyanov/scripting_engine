@@ -14,7 +14,7 @@
 #include <enet/enet.h>
 
 #include "Entity.h"
-#include "./Subsystems/Renderer/CyberRenderer.h"
+#include "./Subsystems/Graphics/CyberRenderer.h"
 #include "./Subsystems/Interface/CyberInterface.h"
 #include "./Subsystems/Networking/CyberNet.h"
 #include "./Subsystems/Audio/CyberAudio.h"
@@ -43,8 +43,9 @@ public:
 
 	bool Init(const char* _WindowTitle, int _WindowWidth = 800, int _WindowHeight = 600);
 	void Configure();
+	float ComputeDeltaTime(float _CurrentFrame);
 	void Update();
-	void Deactivate();
+	void Terminate();
 
 	LocalState Engine_State = LocalState::INACTIVE;
 
@@ -59,5 +60,8 @@ public:
 
 	std::vector<Entity*> EntityCollection;
 	std::queue<CyberEvent*> EventQueue;
+
+private:
+	float DeltaTime = 0.0f, LastFrameTime = 0.0f;
 };
 

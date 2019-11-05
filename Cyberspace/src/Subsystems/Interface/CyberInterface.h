@@ -11,7 +11,7 @@
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "../Renderer/CyberRenderer.h"
+#include "../Graphics/CyberRenderer.h"
 #include "../Physics/CyberPhysics.h"
 #include "../Audio/CyberAudio.h"
 #include "../Networking/CyberNet.h"

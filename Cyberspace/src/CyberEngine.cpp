@@ -96,10 +96,10 @@ void CyberEngine::Configure()
 	Engine_Renderer->TestEntity = EntityCollection.front();
 	Engine_Physics->TestEntity = EntityCollection.front();
 
-	std::vector<glm::vec3> Verts;
-	std::vector<glm::vec3> Normals;
-	std::vector<GLuint> Indices;
-	loadOBJ("../External Resources/3D/engine_model.obj", Verts, Normals);
+	//std::vector<glm::vec3> Verts;
+	//std::vector<glm::vec3> Normals;
+	//std::vector<GLuint> Indices;
+	//loadOBJ("../External Resources/3D/engine_model.obj", Verts, Normals);
 
 	//Engine_Audio->PlayBGM(0);
 
@@ -115,12 +115,20 @@ void CyberEngine::Configure()
 	Update();
 }
 
+float CyberEngine::ComputeDeltaTime(float _CurrentFrameTime)
+{
+	DeltaTime = _CurrentFrameTime - LastFrameTime;
+	LastFrameTime = _CurrentFrameTime;
+	return DeltaTime;
+}
+
 void CyberEngine::Update()
 {
-	while (!glfwWindowShouldClose(Engine_Window->PlatformWindow)) {
-		Engine_Window->Update(EventQueue);
-		Engine_Renderer->Update(EventQueue, EntityCollection);
-		Engine_Physics->Update(EventQueue, EntityCollection);
+	double CursorPosX, CursorPosY;
+	while (Engine_Window->Active) {
+		Engine_Window->Update(EventQueue, CursorPosX, CursorPosY);
+		Engine_Renderer->Update(EventQueue, EntityCollection, CursorPosX, CursorPosY, ComputeDeltaTime(glfwGetTime()));
+		//Engine_Physics->Update(EventQueue, EntityCollection);
 		//	
 		//	//ImGui::NewFrame();
 		//	//ImGui::Render();
@@ -130,10 +138,10 @@ void CyberEngine::Update()
 		//	//}
 		//}
 	}
-	Deactivate();
+	Terminate();
 }
 
-void CyberEngine::Deactivate()
+void CyberEngine::Terminate()
 {
 	Engine_State = LocalState::INACTIVE;
 	Engine_Window->Terminate();

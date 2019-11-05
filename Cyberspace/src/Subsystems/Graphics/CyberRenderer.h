@@ -25,7 +25,7 @@ public:
 	~CyberRenderer();
 	bool Init(int _WindowWidth, int _WindowHeight);
 	void Draw(GLuint _VAO, GLuint _ElementCount);
-	void Update(std::queue<CyberEvent*>& _EventQueue, std::vector<Entity*> _EntityCollection);
+	void Update(std::queue<CyberEvent*>& _EventQueue, std::vector<Entity*> _EntityCollection, double _CursorPosX, double _CursorPosY, float _DeltaTime);
 	void Terminate();
 
 	void(*MoveForward)(EventType) = MoveForwardEvent;

@@ -9,7 +9,7 @@
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "Vertex.h"
-#include "./Subsystems/Renderer/Shader.h"
+#include "./Subsystems/Graphics/Shader.h"
 
 extern "C"
 {
@@ -21,7 +21,7 @@ extern "C"
 #include "LuaBridge/LuaBridge.h"
 
 #include "./Subsystems/Physics/PhysicsComponent.h"
-#include "./Subsystems/Renderer/GraphicsComponent.h"
+#include "./Subsystems/Graphics/GraphicsComponent.h"
 #include "./Subsystems/Audio/AudioComponent.h"
 
 class Entity

@@ -51,19 +51,10 @@
     <ClCompile Include="src\Subsystems\Physics\CyberPhysics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Subsystems\Renderer\CyberRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Subsystems\Renderer\Shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Subsystems\Window\CyberWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Subsystems\Physics\PhysicsComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Subsystems\Renderer\GraphicsComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\CyberEvent.cpp">
@@ -72,10 +63,19 @@
     <ClCompile Include="src\Subsystems\Audio\AudioComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Subsystems\Renderer\Camera.cpp">
+    <ClCompile Include="src\objloader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\objloader.cpp">
+    <ClCompile Include="src\Subsystems\Graphics\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Subsystems\Graphics\CyberRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Subsystems\Graphics\GraphicsComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Subsystems\Graphics\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -113,19 +113,10 @@
     <ClInclude Include="src\Subsystems\Physics\CyberPhysics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Subsystems\Renderer\CyberRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Subsystems\Renderer\Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Subsystems\Window\CyberWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Subsystems\Physics\PhysicsComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Subsystems\Renderer\GraphicsComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\CyberEvent.h">
@@ -137,10 +128,19 @@
     <ClInclude Include="src\EventList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Subsystems\Renderer\Camera.h">
+    <ClInclude Include="src\objloader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\objloader.h">
+    <ClInclude Include="src\Subsystems\Graphics\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Subsystems\Graphics\CyberRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Subsystems\Graphics\GraphicsComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Subsystems\Graphics\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -151,15 +151,15 @@
     <None Include="Shaders\GUI_Vert.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="src\Subsystems\Renderer\Shaders\frag.glsl" />
-    <None Include="src\Subsystems\Renderer\Shaders\GUI_Frag.glsl" />
-    <None Include="src\Subsystems\Renderer\Shaders\GUI_Vert.glsl" />
-    <None Include="src\Subsystems\Renderer\Shaders\vert.glsl" />
     <None Include="Shaders\BasicFragmentShader.glsl">
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\BasicVertexShader.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="src\Subsystems\Graphics\Shaders\frag.glsl" />
+    <None Include="src\Subsystems\Graphics\Shaders\GUI_Frag.glsl" />
+    <None Include="src\Subsystems\Graphics\Shaders\GUI_Vert.glsl" />
+    <None Include="src\Subsystems\Graphics\Shaders\vert.glsl" />
   </ItemGroup>
 </Project>

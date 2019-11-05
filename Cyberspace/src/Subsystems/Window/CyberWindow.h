@@ -11,7 +11,7 @@
 #include <GLFW/glfw3.h>
 #include "../../CyberEvent.h"
 
-//OGL SPECIFIC IMPLEMENTATION
+//OGL FOR WINDOWS - IMPLEMENTATION
 class CyberWindow
 {
 public:
@@ -21,10 +21,11 @@ public:
 	void Terminate();
 	void SetVsync(bool _Status);
 	bool GetVsyncStatus();
-	void Update(std::queue<CyberEvent*>& _EventQueue);
-	GLFWwindow* PlatformWindow = NULL;
+	void Update(std::queue<CyberEvent*>& _EventQueue, double& _CursorPosX, double& _CursorPosY);
+	GLFWwindow* MainWindow = NULL;
 	unsigned int Width, Height;
 	bool VsyncStatus;
+	double CursorPosX, CursorPosY;
 	bool Active = false;
 };
 

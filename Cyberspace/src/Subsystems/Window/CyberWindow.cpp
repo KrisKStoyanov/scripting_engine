@@ -16,14 +16,14 @@ bool CyberWindow::Init(const char* _Title, const unsigned int _Width, const unsi
 		return false;
 	}
 
-	PlatformWindow = glfwCreateWindow(_Width, _Height, _Title, NULL, NULL);
-	if (!PlatformWindow) {
+	MainWindow = glfwCreateWindow(_Width, _Height, _Title, NULL, NULL);
+	if (!MainWindow) {
 		glfwTerminate();
 		return false;
 	}
 	Width = _Width;
 	Height = _Height;
-	glfwMakeContextCurrent(PlatformWindow);
+	glfwMakeContextCurrent(MainWindow);
 
 	SetVsync(true);
 
@@ -34,14 +34,16 @@ bool CyberWindow::Init(const char* _Title, const unsigned int _Width, const unsi
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	glfwSetErrorCallback([](int _Error, const char* _Description){
-		fprintf(stderr, "Glfw Error %d: %s\n", _Error, _Description);
+		fprintf(stderr, "GLFW Error %d: %s\n", _Error, _Description);
 		});
 
-	glfwSetKeyCallback(PlatformWindow, [](GLFWwindow* _Window, int _Key, int _Scancode, int _Action, int _Mods) {
-		if (_Key == GLFW_KEY_ESCAPE && _Action == GLFW_PRESS) {
-			
-		}
-		});
+	glfwSetInputMode(MainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetKeyCallback(PlatformWindow, [](GLFWwindow* _Window, int _Key, int _Scancode, int _Action, int _Mods) {
+	//	if (_Key == GLFW_KEY_ESCAPE && _Action == GLFW_PRESS) {
+	//		
+	//	}
+	//	});
+	Active = true;
 
 	return true;
 }
@@ -57,27 +59,27 @@ bool CyberWindow::GetVsyncStatus()
 	return VsyncStatus;
 }
 
-void CyberWindow::Update(std::queue<CyberEvent*>& _EventQueue)
+void CyberWindow::Update(std::queue<CyberEvent*>& _EventQueue, double& _CursorPosX, double& _CursorPosY)
 {
-	glfwSwapBuffers(PlatformWindow);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	glfwSwapBuffers(MainWindow);
+	
 	glfwPollEvents();
-	if (glfwGetKey(PlatformWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+	if (glfwGetKey(MainWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 		_EventQueue.push(new CyberEvent(EventType::EXIT));
 	}
-	if (glfwGetKey(PlatformWindow, GLFW_KEY_W) == GLFW_PRESS) {
+	if (glfwGetKey(MainWindow, GLFW_KEY_W) == GLFW_PRESS) {
 		_EventQueue.push(new CyberEvent(EventType::MOVE_FORWARD, EventTag::GRAPHICS, EventTag::PHYSICS));
 	}
-	if (glfwGetKey(PlatformWindow, GLFW_KEY_S) == GLFW_PRESS) {
+	if (glfwGetKey(MainWindow, GLFW_KEY_S) == GLFW_PRESS) {
 		_EventQueue.push(new CyberEvent(EventType::MOVE_BACKWARD, EventTag::GRAPHICS, EventTag::PHYSICS));
 	}
-	if (glfwGetKey(PlatformWindow, GLFW_KEY_A) == GLFW_PRESS) {
+	if (glfwGetKey(MainWindow, GLFW_KEY_A) == GLFW_PRESS) {
 		_EventQueue.push(new CyberEvent(EventType::MOVE_LEFT, EventTag::GRAPHICS, EventTag::PHYSICS));
 	}
-	if (glfwGetKey(PlatformWindow, GLFW_KEY_D) == GLFW_PRESS) {
+	if (glfwGetKey(MainWindow, GLFW_KEY_D) == GLFW_PRESS) {
 		_EventQueue.push(new CyberEvent(EventType::MOVE_RIGHT, EventTag::GRAPHICS, EventTag::PHYSICS));
 	}
+	glfwGetCursorPos(MainWindow, &_CursorPosX, &_CursorPosY);
 
 	if (!_EventQueue.empty()) {
 		switch (_EventQueue.front()->Type) {
@@ -87,7 +89,8 @@ void CyberWindow::Update(std::queue<CyberEvent*>& _EventQueue)
 			break;
 		case EventType::EXIT:
 			printf("EXIT EVENT\n");
-			glfwSetWindowShouldClose(PlatformWindow, GLFW_TRUE);
+			Active = false;
+			glfwSetWindowShouldClose(MainWindow, GLFW_TRUE);
 			_EventQueue.pop();
 			break;
 		default:
@@ -98,6 +101,6 @@ void CyberWindow::Update(std::queue<CyberEvent*>& _EventQueue)
 
 void CyberWindow::Terminate()
 {
-	glfwDestroyWindow(PlatformWindow);
+	glfwDestroyWindow(MainWindow);
 	glfwTerminate();
 }

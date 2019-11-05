@@ -149,10 +149,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\objloader.cpp" />
-    <ClCompile Include="src\Subsystems\Renderer\Camera.cpp" />
+    <ClCompile Include="src\Subsystems\Graphics\Camera.cpp" />
     <ClCompile Include="src\Subsystems\Audio\AudioComponent.cpp" />
     <ClCompile Include="src\CyberEvent.cpp" />
-    <ClCompile Include="src\Subsystems\Renderer\GraphicsComponent.cpp" />
+    <ClCompile Include="src\Subsystems\Graphics\GraphicsComponent.cpp" />
     <ClCompile Include="src\Subsystems\Physics\PhysicsComponent.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Subsystems\Audio\CyberAudio.cpp" />
@@ -160,21 +160,21 @@
     <ClCompile Include="src\Subsystems\Interface\CyberInterface.cpp" />
     <ClCompile Include="src\Subsystems\Networking\CyberNet.cpp" />
     <ClCompile Include="src\Subsystems\Physics\CyberPhysics.cpp" />
-    <ClCompile Include="src\Subsystems\Renderer\CyberRenderer.cpp" />
+    <ClCompile Include="src\Subsystems\Graphics\CyberRenderer.cpp" />
     <ClCompile Include="src\Subsystems\Window\CyberWindow.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\GameInstance.cpp" />
     <ClCompile Include="src\getbmp.cpp" />
     <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\Subsystems\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Subsystems\Graphics\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objloader.h" />
-    <ClInclude Include="src\Subsystems\Renderer\Camera.h" />
+    <ClInclude Include="src\Subsystems\Graphics\Camera.h" />
     <ClInclude Include="src\EventList.h" />
     <ClInclude Include="src\Subsystems\Audio\AudioComponent.h" />
     <ClInclude Include="src\CyberEvent.h" />
-    <ClInclude Include="src\Subsystems\Renderer\GraphicsComponent.h" />
+    <ClInclude Include="src\Subsystems\Graphics\GraphicsComponent.h" />
     <ClInclude Include="src\Subsystems\Physics\PhysicsComponent.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Core.h" />
@@ -183,12 +183,12 @@
     <ClInclude Include="src\Subsystems\Interface\CyberInterface.h" />
     <ClInclude Include="src\Subsystems\Networking\CyberNet.h" />
     <ClInclude Include="src\Subsystems\Physics\CyberPhysics.h" />
-    <ClInclude Include="src\Subsystems\Renderer\CyberRenderer.h" />
+    <ClInclude Include="src\Subsystems\Graphics\CyberRenderer.h" />
     <ClInclude Include="src\Subsystems\Window\CyberWindow.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\GameInstance.h" />
     <ClInclude Include="src\getbmp.h" />
-    <ClInclude Include="src\Subsystems\Renderer\Shader.h" />
+    <ClInclude Include="src\Subsystems\Graphics\Shader.h" />
     <ClInclude Include="src\Vertex.h" />
   </ItemGroup>
   <ItemGroup>
@@ -196,10 +196,10 @@
     <None Include="Shaders\GUI_Frag.glsl" />
     <None Include="Shaders\GUI_Vert.glsl" />
     <None Include="Shaders\BasicVertexShader.glsl" />
-    <None Include="src\Subsystems\Renderer\Shaders\frag.glsl" />
-    <None Include="src\Subsystems\Renderer\Shaders\GUI_Frag.glsl" />
-    <None Include="src\Subsystems\Renderer\Shaders\GUI_Vert.glsl" />
-    <None Include="src\Subsystems\Renderer\Shaders\vert.glsl" />
+    <None Include="src\Subsystems\Graphics\Shaders\frag.glsl" />
+    <None Include="src\Subsystems\Graphics\Shaders\GUI_Frag.glsl" />
+    <None Include="src\Subsystems\Graphics\Shaders\GUI_Vert.glsl" />
+    <None Include="src\Subsystems\Graphics\Shaders\vert.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
