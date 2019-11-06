@@ -87,6 +87,9 @@
     <ClCompile Include="src\Subsystems\Graphics\Material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Subsystems\Graphics\Skybox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CyberEngine.h">
@@ -164,6 +167,9 @@
     <ClInclude Include="src\Subsystems\Graphics\Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Subsystems\Graphics\Skybox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\GUI_Frag.glsl">
@@ -178,9 +184,11 @@
     <None Include="Shaders\BasicVertexShader.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="src\Subsystems\Graphics\Shaders\GUI_Frag.glsl" />
-    <None Include="src\Subsystems\Graphics\Shaders\GUI_Vert.glsl" />
     <None Include="Shaders\TextureFragmentShader.glsl" />
     <None Include="Shaders\TextureVertexShader.glsl" />
+    <None Include="src\Subsystems\Graphics\Shaders\SkyboxVertexShader.glsl" />
+    <None Include="src\Subsystems\Graphics\Shaders\SkyboxFragmentShader.glsl" />
+    <None Include="Shaders\SkyboxVertexShader.glsl" />
+    <None Include="Shaders\SkyboxFragmentShader.glsl" />
   </ItemGroup>
 </Project>

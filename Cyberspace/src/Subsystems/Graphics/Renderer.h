@@ -17,6 +17,7 @@
 #include "../../EventList.h"
 #include "Camera.h"
 #include "Material.h"
+#include "Skybox.h"
 #include <queue>
 
 enum class ShaderType {
@@ -38,7 +39,6 @@ public:
 	Shader* SetupShader(const GLchar* _VertexShaderPath, const GLchar* _FragmentShaderPath, ShaderType _Type);
 	Shader* BasicShader = NULL;
 	Shader* TextureShader = NULL;
-	Shader* SkyboxShader = NULL;
 
 	void(*MoveForward)(EventType) = MoveForwardEvent;
 	void(*MoveBackward)(EventType) = MoveBackwardEvent;
@@ -46,5 +46,6 @@ public:
 	void(*MoveRight)(EventType) = MoveRightEvent;
 
 	Camera* MainCamera = NULL;
+	Skybox* MainSkybox = NULL;
 };
 

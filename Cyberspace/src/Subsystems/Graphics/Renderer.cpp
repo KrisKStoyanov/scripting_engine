@@ -23,6 +23,16 @@ bool Renderer::Init(int _WindowWidth, int _WindowHeight)
 
 	MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), 60, _WindowWidth, _WindowHeight);
 	TextureShader = SetupShader("./Shaders/TextureVertexShader.glsl", "./Shaders/TextureFragmentShader.glsl", ShaderType::TEXTURE);
+	std::vector<std::string> SkyboxCubemapFaces 
+	{
+		"../External Resources/3D/Skybox/blood-valley_ft.tga",
+		"../External Resources/3D/Skybox/blood-valley_bk.tga",
+		"../External Resources/3D/Skybox/blood-valley_up.tga",
+		"../External Resources/3D/Skybox/blood-valley_dn.tga",
+		"../External Resources/3D/Skybox/blood-valley_rt.tga",
+		"../External Resources/3D/Skybox/blood-valley_lf.tga"
+	};
+	MainSkybox = new Skybox(SkyboxCubemapFaces, "./Shaders/SkyboxVertexShader.glsl", "./Shaders/SkyboxFragmentShader.glsl");
 
 	return true;
 }
@@ -126,6 +136,9 @@ void Renderer::Update(std::queue<CyberEvent*>& _EventQueue, std::vector<Entity*>
 		Draw(MainCamera, E, TextureShader);
 	}
 	MainCamera->UpdateTransformMouse(_CursorPosX, -_CursorPosY);
+	glDepthFunc(GL_LEQUAL);
+	MainSkybox->Draw(MainCamera);
+	glDepthFunc(GL_LESS);
 }
 
 void Renderer::Terminate()
@@ -138,9 +151,9 @@ void Renderer::Terminate()
 		TextureShader->Clear();
 		delete TextureShader;
 	}
-	if (SkyboxShader) {
-		SkyboxShader->Clear();
-		delete SkyboxShader;
+	if (MainSkybox) {
+		MainSkybox->Clear();
+		delete MainSkybox;
 	}
 	if (MainCamera) {
 		delete MainCamera;
