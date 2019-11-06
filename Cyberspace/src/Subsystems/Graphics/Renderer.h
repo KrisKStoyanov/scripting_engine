@@ -16,6 +16,7 @@
 #include "../../CyberEvent.h"
 #include "../../EventList.h"
 #include "Camera.h"
+#include "Material.h"
 #include <queue>
 
 enum class ShaderType {

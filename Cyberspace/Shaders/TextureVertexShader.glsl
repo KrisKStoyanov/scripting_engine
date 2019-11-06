@@ -8,9 +8,13 @@ uniform mat4 ModelMatrix;
 uniform mat4 ViewMatrix;
 uniform mat4 ProjectionMatrix;
 
+out vec3 ExFragPos;
+out vec3 ExNormal;
 out vec2 ExVertexUV;
 
 void main() {
+	ExFragPos = vec3(ModelMatrix * vec4(VertexPos, 1.0f));
+	ExNormal = mat3(transpose(inverse(ModelMatrix))) * VertexNormal;
 	ExVertexUV = VertexUV;
 	gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * vec4(VertexPos, 1.0f);
 	//gl_Position = VertexPos;

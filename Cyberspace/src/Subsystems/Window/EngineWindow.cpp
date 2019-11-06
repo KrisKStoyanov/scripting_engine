@@ -64,9 +64,11 @@ void EngineWindow::Update(std::queue<CyberEvent*>& _EventQueue, double& _CursorP
 	glfwSwapBuffers(MainWindow);
 
 	glfwPollEvents();
+
 	if (glfwGetKey(MainWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 		_EventQueue.push(new CyberEvent(EventType::EXIT));
 	}
+
 	if (glfwGetKey(MainWindow, GLFW_KEY_W) == GLFW_PRESS) {
 		_EventQueue.push(new CyberEvent(EventType::MOVE_FORWARD, EventTag::GRAPHICS, EventTag::PHYSICS));
 	}
@@ -79,6 +81,7 @@ void EngineWindow::Update(std::queue<CyberEvent*>& _EventQueue, double& _CursorP
 	if (glfwGetKey(MainWindow, GLFW_KEY_D) == GLFW_PRESS) {
 		_EventQueue.push(new CyberEvent(EventType::MOVE_RIGHT, EventTag::GRAPHICS, EventTag::PHYSICS));
 	}
+
 	glfwGetCursorPos(MainWindow, &_CursorPosX, &_CursorPosY);
 
 	if (!_EventQueue.empty()) {

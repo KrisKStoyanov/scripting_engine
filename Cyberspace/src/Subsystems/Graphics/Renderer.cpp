@@ -31,18 +31,61 @@ void Renderer::Draw(Camera* _Camera, Entity* _Entity, Shader* _Shader)
 {
 	if (_Entity->m_Model) {
 		_Shader->Activate();
-
+		
 		for (int i = 0; i < _Entity->m_Model->Meshes.size(); ++i) {
+
 			_Entity->m_Model->ModelMatrix = glm::mat4(1.0f);
 			_Entity->m_Model->ModelMatrix = glm::translate(_Entity->m_Model->ModelMatrix, _Entity->Position);
-			//_Entity->m_Model->ModelMatrix = glm::rotate(_Entity->m_Model->ModelMatrix, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
-			
-			_Shader->Update(_Entity->m_Model->ModelMatrix, _Camera->ViewMatrix, _Camera->ProjectionMatrix);
+			_Entity->m_Model->ModelMatrix = glm::rotate(_Entity->m_Model->ModelMatrix, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+			_Shader->SetMat4("ProjectionMatrix", MainCamera->ProjectionMatrix);
+			_Shader->SetMat4("ViewMatrix", MainCamera->ViewMatrix);
+			_Shader->SetMat4("ModelMatrix", _Entity->m_Model->ModelMatrix);
+
+			_Shader->SetVec3("ViewPos", MainCamera->Position);
+
+			int DiffuseCount = 1;
+			int SpecularCount = 1;
+			int NormalCount = 1;
+			int HeightCount = 1;
+			for (GLuint j = 0; j < _Entity->m_Model->Meshes[j].TextureCollection.size(); ++j) {
+				glActiveTexture(GL_TEXTURE0 + j);
+				std::string name;
+				std::string number;
+				TextureType type = _Entity->m_Model->Meshes[i].TextureCollection[j].type;
+
+				switch (type) {
+				case TextureType::DIFFUSE:
+					name = "DiffuseMap";
+					//number = std::to_string(DiffuseCount++);
+					break;
+				case TextureType::SPECULAR:
+					name = "SpecularMap";
+					//number = std::to_string(SpecularCount++);
+					break;
+				case TextureType::NORMAL:
+					name = "NormalMap";
+					//number = std::to_string(NormalCount++);
+					break;
+				case TextureType::HEIGHT:
+					name = "HeightMap";
+					//number = std::to_string(HeightCount++);
+					break;
+				}
+				_Shader->SetInt("g_Material." + name + number, j);
+				glBindTexture(GL_TEXTURE_2D, _Entity->m_Model->Meshes[i].TextureCollection[j].id);
+			}
+			_Shader->SetFloat("g_Material.Shininess", 64.0f);
+
+			_Shader->SetVec3("g_Light.Position", glm::vec3(15.f, 15.f, -5.f));
+			_Shader->SetVec3("g_Light.AmbientC", glm::vec3(0.5f, 0.5f, 0.5f));
+			_Shader->SetVec3("g_Light.DiffuseC", glm::vec3(0.5f, 0.5f, 0.5f));
+			_Shader->SetVec3("g_Light.SpecularC", glm::vec3(1.0f, 1.0f, 1.0f));
+
 			glBindVertexArray(_Entity->m_Model->Meshes[i].VAO);
 			glDrawElements(GL_TRIANGLES, _Entity->m_Model->Meshes[i].IndexCollection.size(), GL_UNSIGNED_INT, 0);
 			glBindVertexArray(0);
 		}
-		_Shader->Deactivate();
 	}
 }
 
@@ -110,6 +153,14 @@ Shader* Renderer::SetupShader(const GLchar* _VertexShaderPath, const GLchar* _Fr
 	if (TempShader == NULL) {
 		printf("Failed to create shader!\nVertex shader filepath:%s\nFragment shader filepath:%s\n",_VertexShaderPath, _FragmentShaderPath);
 		return NULL;
+	}
+	switch (_Type) {
+	case ShaderType::BASIC:
+		break;
+	case ShaderType::TEXTURE:
+		break;
+	case ShaderType::SKYBOX:
+		break;
 	}
 	return TempShader;
 }

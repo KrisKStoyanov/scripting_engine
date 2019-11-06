@@ -16,6 +16,8 @@
 
 #include "../../stb_image.h"
 
+GLint TextureFromFile(const char* _Path, std::string _Directory);
+
 class Model
 {
 public:
@@ -29,7 +31,6 @@ public:
 	void ProcessNode(aiNode* _Node, const aiScene* _Scene);
 	Mesh ProcessMesh(aiMesh* _Mesh, const aiScene* _Scene);
 	std::vector<Texture> LoadMaterialTextures(aiMaterial* _Material, aiTextureType _Type, TextureType _TypeName);
-	GLint TextureFromFile(const char* _Path, std::string _Directory);
 
 	glm::mat4 ModelMatrix = glm::mat4(1.0f);
 };

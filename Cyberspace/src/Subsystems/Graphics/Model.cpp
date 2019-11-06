@@ -78,6 +78,10 @@ Mesh Model::ProcessMesh(aiMesh* _Mesh, const aiScene* _Scene)
 		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
 		std::vector<Texture> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, TextureType::SPECULAR);
 		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+		std::vector<Texture> normalMaps = LoadMaterialTextures(material, aiTextureType_NORMALS, TextureType::NORMAL);
+		textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+		std::vector<Texture> heightMaps = LoadMaterialTextures(material, aiTextureType_HEIGHT, TextureType::HEIGHT);
+		textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 	}
 	return Mesh(vertices, indices, textures);
 }
@@ -108,7 +112,7 @@ std::vector<Texture> Model::LoadMaterialTextures(aiMaterial* _Material, aiTextur
 	return textures;
 }
 
-GLint Model::TextureFromFile(const char* _Path, std::string _Directory)
+GLint TextureFromFile(const char* _Path, std::string _Directory)
 {
 	std::string filename = std::string(_Path);
 	filename = _Directory + '/' + filename;

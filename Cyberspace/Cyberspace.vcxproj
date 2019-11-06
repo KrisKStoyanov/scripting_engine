@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Subsystems\Graphics\Material.cpp" />
     <ClCompile Include="src\stb_image.cpp" />
     <ClCompile Include="src\Subsystems\Graphics\Model.cpp" />
     <ClCompile Include="src\Subsystems\Audio\AudioSystem.cpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="src\Subsystems\Interface\UISystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Subsystems\Graphics\Material.h" />
     <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="src\Subsystems\Graphics\Model.h" />
     <ClInclude Include="src\Subsystems\Audio\AudioSystem.h" />

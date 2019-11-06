@@ -8,7 +8,8 @@ enum class EventType {
 	MOVE_BACKWARD = 3,
 	MOVE_LEFT = 4,
 	MOVE_RIGHT = 5,
-	EXIT = 6
+	STOP_MOVEMENT = 6,
+	EXIT = 7
 };
 
 enum class EventTag {

@@ -26,6 +26,7 @@ public:
 	unsigned int Width, Height;
 	bool VsyncStatus;
 	double CursorPosX, CursorPosY;
+	bool ToggleRepeat = false;
 	bool Active = false;
 };
 

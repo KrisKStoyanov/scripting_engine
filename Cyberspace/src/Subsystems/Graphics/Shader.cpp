@@ -59,10 +59,6 @@ Shader::Shader(const GLchar* _VertexShaderPath, const GLchar* _FragmentShaderPat
 	if (!LinkStatus) {
 		PrintProgramLog(ProgramID);
 	}
-
-	ProjectionMatrixLoc = glGetUniformLocation(ProgramID, "ProjectionMatrix");
-	ViewMatrixLoc = glGetUniformLocation(ProgramID, "ViewMatrix");
-	ModelMatrixLoc = glGetUniformLocation(ProgramID, "ModelMatrix");
 }
 
 Shader::~Shader()
@@ -79,23 +75,6 @@ std::string Shader::ReadFile(const GLchar* _FilePath)
 	FileParser.close();
 	std::string FileContent = FileBuffer.str();
 	return FileContent;
-}
-
-void Shader::Activate()
-{
-	glUseProgram(ProgramID);
-}
-
-void Shader::Update(glm::mat4 _ModelMatrix, glm::mat4 _ViewMatrix, glm::mat4 _ProjectionMatrix)
-{
-	glUniformMatrix4fv(ModelMatrixLoc, 1, GL_FALSE, glm::value_ptr(_ModelMatrix));
-	glUniformMatrix4fv(ViewMatrixLoc, 1, GL_FALSE, glm::value_ptr(_ViewMatrix));
-	glUniformMatrix4fv(ProjectionMatrixLoc, 1, GL_FALSE, glm::value_ptr(_ProjectionMatrix));
-}
-
-void Shader::Deactivate()
-{
-	glUseProgram(0);	
 }
 
 void Shader::Clear()
