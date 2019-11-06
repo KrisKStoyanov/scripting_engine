@@ -10,19 +10,6 @@ Entity::~Entity()
 {
 }
 
-void Entity::Configure(Mesh* _Mesh, PhysicsComponent* _PSX , AudioComponent* _Audio)
-{
-	if (_Mesh->Setup()) {
-		m_Mesh = _Mesh;
-	}
-	if (_PSX->Setup()) {
-		m_PSX = _PSX;
-	}
-	if (_Audio->Setup()) {
-		m_Audio = _Audio;
-	}
-}
-
 void Entity::Configure(Model* _Model, PhysicsComponent* _PSX, AudioComponent* _Audio)
 {
 	m_Model = _Model;
@@ -36,9 +23,11 @@ void Entity::Configure(Model* _Model, PhysicsComponent* _PSX, AudioComponent* _A
 
 void Entity::Clear()
 {
-	if (m_Mesh != NULL) {
-		m_Mesh->Clear();
-		m_Mesh = nullptr;
+	if (m_Model != NULL) {
+		for (int i = 0; i < m_Model->Meshes.size(); ++i) {
+			m_Model->Meshes[i].Clear();
+		}
+		m_Model = nullptr;
 	}
 
 	if (m_PSX != NULL) {

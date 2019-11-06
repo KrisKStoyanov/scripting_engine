@@ -34,11 +34,9 @@ public:
 	glm::vec3 Position;
 	glm::vec3 Direction;
 
-	void Configure(Mesh* _Mesh = NULL, PhysicsComponent* _PSX = NULL, AudioComponent* _Audio = NULL);
 	void Configure(Model* _Model = NULL, PhysicsComponent* _PSX = NULL, AudioComponent* _Audio = NULL);
 	void Clear();
 
-	Mesh* m_Mesh = NULL;
 	Model* m_Model = NULL;
 	PhysicsComponent* m_PSX = NULL;
 	AudioComponent* m_Audio = NULL;

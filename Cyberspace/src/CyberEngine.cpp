@@ -103,6 +103,12 @@ void CyberEngine::Configure()
 
 	//Mesh* EngineMesh = new Mesh()
 
+	Model* EngineModel = new Model("../External Resources/3D/scene.gltf");
+	Entity* TestEntity = new Entity(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+
+	TestEntity->Configure(EngineModel);
+	EntityCollection.push_back(TestEntity);
+
 	//Engine_Audio->PlayBGM(0);
 
 	E_Net->CreateServer();

@@ -44,7 +44,6 @@ public:
 	void(*MoveLeft)(EventType) = MoveLeftEvent;
 	void(*MoveRight)(EventType) = MoveRightEvent;
 
-	Entity* TestEntity = NULL;
 	Camera* MainCamera = NULL;
 };
 

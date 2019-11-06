@@ -16,21 +16,21 @@
 
 #include "../../stb_image.h"
 
-GLint TextureFromFile(const char* _Path, std::string _Directory);
-
 class Model
 {
 public:
-	Model(char* _Path){
-		LoadModel(_Path);
-	}
-private:
+	Model(std::string const _Path);
+	~Model();
 	std::vector<Mesh> Meshes;
 	std::string Directory;
-	void LoadModel(std::string _Path);
+	std::vector<Texture> LoadedTextures;
+
+	void LoadModel(std::string const &_Path);
 	void ProcessNode(aiNode* _Node, const aiScene* _Scene);
 	Mesh ProcessMesh(aiMesh* _Mesh, const aiScene* _Scene);
-	std::vector<Texture> LoadMaterialTextures(aiMaterial* _Material, aiTextureType _Type, std::string _TypeName);
-	std::vector<Texture> textures_loaded;
+	std::vector<Texture> LoadMaterialTextures(aiMaterial* _Material, aiTextureType _Type, TextureType _TypeName);
+	GLint TextureFromFile(const char* _Path, std::string _Directory);
+
+	glm::mat4 ModelMatrix = glm::mat4(1.0f);
 };
 

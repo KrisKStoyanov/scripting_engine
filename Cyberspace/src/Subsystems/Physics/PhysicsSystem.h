@@ -44,7 +44,5 @@ public:
 	physx::PxPvd* VisualDebugger = NULL;
 
 	physx::PxCooking* CookingPhysics = NULL;
-
-	Entity* TestEntity = NULL;
 };
 

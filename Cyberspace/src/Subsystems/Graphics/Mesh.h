@@ -25,7 +25,5 @@ public:
 	std::vector<Vertex> VertexCollection;
 	std::vector<GLuint> IndexCollection;
 	std::vector<Texture> TextureCollection;
-
-	glm::mat4 ModelMatrix = glm::mat4(1.0f);
 };
 

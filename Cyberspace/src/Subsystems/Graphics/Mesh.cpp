@@ -4,6 +4,7 @@ Mesh::Mesh(std::vector<Vertex> _VertexCollection, std::vector<GLuint> _IndexColl
 	VertexCollection = _VertexCollection;
 	IndexCollection = _IndexCollection;
 	TextureCollection = _TextureCollection;
+	Setup();
 }
 
 Mesh::~Mesh() {

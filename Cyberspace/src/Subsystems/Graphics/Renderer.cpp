@@ -21,7 +21,7 @@ bool Renderer::Init(int _WindowWidth, int _WindowHeight)
 	glClearColor(0.35f, 0.35f, 0.35f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
 
-	MainCamera = new Camera(glm::vec3(-5.0f, 0.0f, 3.0f), 60, _WindowWidth, _WindowHeight);
+	MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), 60, _WindowWidth, _WindowHeight);
 	TextureShader = SetupShader("./Shaders/TextureVertexShader.glsl", "./Shaders/TextureFragmentShader.glsl", ShaderType::TEXTURE);
 
 	return true;
@@ -29,15 +29,21 @@ bool Renderer::Init(int _WindowWidth, int _WindowHeight)
 
 void Renderer::Draw(Camera* _Camera, Entity* _Entity, Shader* _Shader)
 {
-	_Entity->m_Mesh->ModelMatrix = glm::mat4(1.0f);
-	_Entity->m_Mesh->ModelMatrix = glm::translate(_Entity->m_Mesh->ModelMatrix, _Entity->Position);
-	_Entity->m_Mesh->ModelMatrix = glm::rotate(_Entity->m_Mesh->ModelMatrix, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
-	_Shader->Activate();
-	_Shader->Update(_Entity->m_Mesh->ModelMatrix, _Camera->ViewMatrix, _Camera->ProjectionMatrix);
-	glBindVertexArray(_Entity->m_Mesh->VAO);
-	glDrawElements(GL_TRIANGLES, _Entity->m_Mesh->IndexCollection.size(), GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
-	_Shader->Deactivate();
+	if (_Entity->m_Model) {
+		_Shader->Activate();
+
+		for (int i = 0; i < _Entity->m_Model->Meshes.size(); ++i) {
+			_Entity->m_Model->ModelMatrix = glm::mat4(1.0f);
+			_Entity->m_Model->ModelMatrix = glm::translate(_Entity->m_Model->ModelMatrix, _Entity->Position);
+			//_Entity->m_Model->ModelMatrix = glm::rotate(_Entity->m_Model->ModelMatrix, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+			
+			_Shader->Update(_Entity->m_Model->ModelMatrix, _Camera->ViewMatrix, _Camera->ProjectionMatrix);
+			glBindVertexArray(_Entity->m_Model->Meshes[i].VAO);
+			glDrawElements(GL_TRIANGLES, _Entity->m_Model->Meshes[i].IndexCollection.size(), GL_UNSIGNED_INT, 0);
+			glBindVertexArray(0);
+		}
+		_Shader->Deactivate();
+	}
 }
 
 void Renderer::Update(std::queue<CyberEvent*>& _EventQueue, std::vector<Entity*> _EntityCollection, double _CursorPosX, double _CursorPosY, float _DeltaTime)
@@ -49,22 +55,22 @@ void Renderer::Update(std::queue<CyberEvent*>& _EventQueue, std::vector<Entity*>
 			_EventQueue.front()->Tags.erase(Tag);
 			switch (_EventQueue.front()->Type) {
 			case EventType::MOVE_FORWARD:
-				MainCamera->UpdateTransformKeyboard(MovementType::MOVE_FORWARD, _DeltaTime);
+				MainCamera->UpdateTransformKeyboard(MovementType::FORWARD, _DeltaTime);
 				printf("MOVE_FORWARD EVENT\n");
 				_EventQueue.pop();
 				break;
 			case EventType::MOVE_BACKWARD:
-				MainCamera->UpdateTransformKeyboard(MovementType::MOVE_BACKWARD, _DeltaTime);
+				MainCamera->UpdateTransformKeyboard(MovementType::BACKWARD, _DeltaTime);
 				printf("MOVE_BACKWARD EVENT\n");
 				_EventQueue.pop();
 				break;
 			case EventType::MOVE_LEFT:
-				MainCamera->UpdateTransformKeyboard(MovementType::MOVE_LEFT, _DeltaTime);
+				MainCamera->UpdateTransformKeyboard(MovementType::LEFT, _DeltaTime);
 				printf("MOVE_LEFT EVENT\n");
 				_EventQueue.pop();
 				break;
 			case EventType::MOVE_RIGHT:
-				MainCamera->UpdateTransformKeyboard(MovementType::MOVE_RIGHT, _DeltaTime);
+				MainCamera->UpdateTransformKeyboard(MovementType::RIGHT, _DeltaTime);
 				printf("MOVE_RIGHT EVENT\n");
 				_EventQueue.pop();
 				break;
@@ -74,9 +80,7 @@ void Renderer::Update(std::queue<CyberEvent*>& _EventQueue, std::vector<Entity*>
 		}
 	}
 	for (Entity* E : _EntityCollection) {
-		if (E->m_Mesh != NULL) {
-			Draw(MainCamera, E, TextureShader);
-		}
+		Draw(MainCamera, E, TextureShader);
 	}
 	MainCamera->UpdateTransformMouse(_CursorPosX, -_CursorPosY);
 }

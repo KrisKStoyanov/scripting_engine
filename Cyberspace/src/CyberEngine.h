@@ -26,6 +26,8 @@
 #include "GameInstance.h"
 #include "EventList.h"
 
+#include "./Subsystems/Graphics/Model.h"
+
 enum class LocalState {
 	STARTING,
 	ACTIVE,

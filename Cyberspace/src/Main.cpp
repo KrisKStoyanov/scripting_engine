@@ -7,7 +7,7 @@ CyberEngine Engine;
 
 int main(int argc, char *argv[]) {
 
-	if (!Engine.Init("Cyberspace", 800, 600)) {
+	if (!Engine.Init("Cyberspace", 1280, 720)) {
 		return -1;
 	}
 

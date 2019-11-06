@@ -88,19 +88,19 @@ void PhysicsSystem::Update(std::queue<CyberEvent*> _EventQueue, std::vector<Enti
 			_EventQueue.front()->Tags.erase(Tag);
 			switch (_EventQueue.front()->Type) {
 			case EventType::MOVE_FORWARD:
-				TestEntity->Position += glm::vec3(0, 0.001f, 0);
+				//TestEntity->Position += glm::vec3(0, 0.001f, 0);
 				printf("MOVE_FORWARD EVENT\n");
 				break;
 			case EventType::MOVE_BACKWARD:
-				TestEntity->Position += glm::vec3(0, -0.001f, 0);
+				//TestEntity->Position += glm::vec3(0, -0.001f, 0);
 				printf("MOVE_BACKWARD EVENT\n");
 				break;
 			case EventType::MOVE_LEFT:
-				TestEntity->Position += glm::vec3(-0.001f, 0, 0);
+				//TestEntity->Position += glm::vec3(-0.001f, 0, 0);
 				printf("MOVE_LEFT EVENT\n");
 				break;
 			case EventType::MOVE_RIGHT:
-				TestEntity->Position += glm::vec3(0.001f, 0, 0);
+				//TestEntity->Position += glm::vec3(0.001f, 0, 0);
 				printf("MOVE_RIGHT EVENT\n");
 				break;
 			default:
