@@ -148,6 +148,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\stb_image.cpp" />
+    <ClCompile Include="src\Subsystems\Graphics\Model.cpp" />
     <ClCompile Include="src\Subsystems\Audio\AudioSystem.cpp" />
     <ClCompile Include="src\Subsystems\Window\EngineWindow.cpp" />
     <ClCompile Include="src\Subsystems\Physics\PhysicsSystem.cpp" />
@@ -169,6 +171,8 @@
     <ClCompile Include="src\Subsystems\Interface\UISystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\stb_image.h" />
+    <ClInclude Include="src\Subsystems\Graphics\Model.h" />
     <ClInclude Include="src\Subsystems\Audio\AudioSystem.h" />
     <ClInclude Include="src\Subsystems\Window\EngineWindow.h" />
     <ClInclude Include="src\Subsystems\Physics\PhysicsSystem.h" />
@@ -188,7 +192,8 @@
     <ClInclude Include="src\GameInstance.h" />
     <ClInclude Include="src\getbmp.h" />
     <ClInclude Include="src\Subsystems\Graphics\Shader.h" />
-    <ClInclude Include="src\Vertex.h" />
+    <ClInclude Include="src\Subsystems\Graphics\Texture.h" />
+    <ClInclude Include="src\Subsystems\Graphics\Vertex.h" />
     <ClInclude Include="src\Subsystems\Interface\UISystem.h" />
   </ItemGroup>
   <ItemGroup>
@@ -196,10 +201,10 @@
     <None Include="Shaders\GUI_Frag.glsl" />
     <None Include="Shaders\GUI_Vert.glsl" />
     <None Include="Shaders\BasicVertexShader.glsl" />
-    <None Include="src\Subsystems\Graphics\Shaders\frag.glsl" />
+    <None Include="Shaders\TextureFragmentShader.glsl" />
     <None Include="src\Subsystems\Graphics\Shaders\GUI_Frag.glsl" />
     <None Include="src\Subsystems\Graphics\Shaders\GUI_Vert.glsl" />
-    <None Include="src\Subsystems\Graphics\Shaders\vert.glsl" />
+    <None Include="Shaders\TextureVertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

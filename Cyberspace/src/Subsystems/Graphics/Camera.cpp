@@ -20,23 +20,6 @@ Camera::~Camera()
 {
 }
 
-void Camera::SetupShader(const GLchar* _VertexShaderPath, const GLchar* _FragmentShaderPath, ShaderType _Type)
-{
-	BasicShader = new Shader(_VertexShaderPath, _FragmentShaderPath);
-	if (BasicShader) {
-		ProjectionMatrixLoc = glGetUniformLocation(BasicShader->ProgramID, "ProjectionMatrix");
-		ViewMatrixLoc = glGetUniformLocation(BasicShader->ProgramID, "ViewMatrix");
-		ModelMatrixLoc = glGetUniformLocation(BasicShader->ProgramID, "ModelMatrix");
-	}
-}
-
-void Camera::UpdateScene(glm::mat4 _ModelMatrix)
-{
-	glUniformMatrix4fv(ModelMatrixLoc, 1, GL_FALSE, glm::value_ptr(_ModelMatrix));
-	glUniformMatrix4fv(ViewMatrixLoc, 1, GL_FALSE, glm::value_ptr(ViewMatrix));
-	glUniformMatrix4fv(ProjectionMatrixLoc, 1, GL_FALSE, glm::value_ptr(ProjectionMatrix));
-}
-
 void Camera::UpdateTransformKeyboard(MovementType _Type, float _DeltaTime)
 {
 	switch (_Type) {

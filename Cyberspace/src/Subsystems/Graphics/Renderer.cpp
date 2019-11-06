@@ -22,17 +22,22 @@ bool Renderer::Init(int _WindowWidth, int _WindowHeight)
 	glEnable(GL_DEPTH_TEST);
 
 	MainCamera = new Camera(glm::vec3(-5.0f, 0.0f, 3.0f), 60, _WindowWidth, _WindowHeight);
-	MainCamera->SetupShader("./Shaders/BasicVertexShader.glsl", "./Shaders/BasicFragmentShader.glsl", ShaderType::BASIC);
-	MainCamera->BasicShader->Activate();
+	TextureShader = SetupShader("./Shaders/TextureVertexShader.glsl", "./Shaders/TextureFragmentShader.glsl", ShaderType::TEXTURE);
 
 	return true;
 }
 
-void Renderer::Draw(GLuint _VAO, GLuint _ElementCount)
+void Renderer::Draw(Camera* _Camera, Entity* _Entity, Shader* _Shader)
 {
-	glBindVertexArray(_VAO);
-	glDrawElements(GL_TRIANGLES, _ElementCount, GL_UNSIGNED_INT, 0);
+	_Entity->m_Mesh->ModelMatrix = glm::mat4(1.0f);
+	_Entity->m_Mesh->ModelMatrix = glm::translate(_Entity->m_Mesh->ModelMatrix, _Entity->Position);
+	_Entity->m_Mesh->ModelMatrix = glm::rotate(_Entity->m_Mesh->ModelMatrix, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+	_Shader->Activate();
+	_Shader->Update(_Entity->m_Mesh->ModelMatrix, _Camera->ViewMatrix, _Camera->ProjectionMatrix);
+	glBindVertexArray(_Entity->m_Mesh->VAO);
+	glDrawElements(GL_TRIANGLES, _Entity->m_Mesh->IndexCollection.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
+	_Shader->Deactivate();
 }
 
 void Renderer::Update(std::queue<CyberEvent*>& _EventQueue, std::vector<Entity*> _EntityCollection, double _CursorPosX, double _CursorPosY, float _DeltaTime)
@@ -70,11 +75,7 @@ void Renderer::Update(std::queue<CyberEvent*>& _EventQueue, std::vector<Entity*>
 	}
 	for (Entity* E : _EntityCollection) {
 		if (E->m_Mesh != NULL) {
-			E->m_Mesh->ModelMatrix = glm::mat4(1.0f);
-			E->m_Mesh->ModelMatrix = glm::translate(E->m_Mesh->ModelMatrix, E->Position);
-			E->m_Mesh->ModelMatrix = glm::rotate(E->m_Mesh->ModelMatrix, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
-			Draw(E->m_Mesh->VAO, E->m_Mesh->IndexCollection.size());
-			MainCamera->UpdateScene(E->m_Mesh->ModelMatrix);
+			Draw(MainCamera, E, TextureShader);
 		}
 	}
 	MainCamera->UpdateTransformMouse(_CursorPosX, -_CursorPosY);
@@ -82,11 +83,29 @@ void Renderer::Update(std::queue<CyberEvent*>& _EventQueue, std::vector<Entity*>
 
 void Renderer::Terminate()
 {
+	if (BasicShader) {
+		BasicShader->Clear();
+		delete BasicShader;
+	}
+	if (TextureShader) {
+		TextureShader->Clear();
+		delete TextureShader;
+	}
+	if (SkyboxShader) {
+		SkyboxShader->Clear();
+		delete SkyboxShader;
+	}
 	if (MainCamera) {
-		if (MainCamera->BasicShader) {
-			MainCamera->BasicShader->Clear();
-		}
 		delete MainCamera;
 	}
 }
 
+Shader* Renderer::SetupShader(const GLchar* _VertexShaderPath, const GLchar* _FragmentShaderPath, ShaderType _Type)
+{
+	Shader* TempShader = new Shader(_VertexShaderPath, _FragmentShaderPath);
+	if (TempShader == NULL) {
+		printf("Failed to create shader!\nVertex shader filepath:%s\nFragment shader filepath:%s\n",_VertexShaderPath, _FragmentShaderPath);
+		return NULL;
+	}
+	return TempShader;
+}

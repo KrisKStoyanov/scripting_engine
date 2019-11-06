@@ -78,6 +78,12 @@
     <ClCompile Include="src\Subsystems\Interface\UISystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Subsystems\Graphics\Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stb_image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CyberEngine.h">
@@ -96,9 +102,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\getbmp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Vertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Subsystems\Networking\CyberNet.h">
@@ -143,6 +146,18 @@
     <ClInclude Include="src\Subsystems\Interface\UISystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Subsystems\Graphics\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Subsystems\Graphics\Vertex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Subsystems\Graphics\Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\GUI_Frag.glsl">
@@ -157,9 +172,9 @@
     <None Include="Shaders\BasicVertexShader.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="src\Subsystems\Graphics\Shaders\frag.glsl" />
     <None Include="src\Subsystems\Graphics\Shaders\GUI_Frag.glsl" />
     <None Include="src\Subsystems\Graphics\Shaders\GUI_Vert.glsl" />
-    <None Include="src\Subsystems\Graphics\Shaders\vert.glsl" />
+    <None Include="Shaders\TextureFragmentShader.glsl" />
+    <None Include="Shaders\TextureVertexShader.glsl" />
   </ItemGroup>
 </Project>

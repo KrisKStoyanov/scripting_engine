@@ -10,11 +10,22 @@ Entity::~Entity()
 {
 }
 
-void Entity::Setup(Mesh* _Mesh, PhysicsComponent* _PSX , AudioComponent* _Audio)
+void Entity::Configure(Mesh* _Mesh, PhysicsComponent* _PSX , AudioComponent* _Audio)
 {
 	if (_Mesh->Setup()) {
 		m_Mesh = _Mesh;
 	}
+	if (_PSX->Setup()) {
+		m_PSX = _PSX;
+	}
+	if (_Audio->Setup()) {
+		m_Audio = _Audio;
+	}
+}
+
+void Entity::Configure(Model* _Model, PhysicsComponent* _PSX, AudioComponent* _Audio)
+{
+	m_Model = _Model;
 	if (_PSX->Setup()) {
 		m_PSX = _PSX;
 	}
