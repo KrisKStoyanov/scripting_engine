@@ -11,5 +11,4 @@ void main() {
 	ExVertexUV = VertexPos;
 	vec4 pos = ProjectionMatrix * ViewMatrix * vec4(VertexPos, 1.0);
 	gl_Position = pos.xyww;
-	//gl_Position = VertexPos;
 }

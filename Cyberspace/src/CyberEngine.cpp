@@ -71,10 +71,8 @@ bool CyberEngine::Init(const char* _WindowTitle, int _WindowWidth, int _WindowHe
 
 void CyberEngine::Configure()
 {
-
 	Model* TestModel = new Model("../External Resources/3D/crysisGuy/scene.gltf");
 	Entity* TestEntity = new Entity(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-
 	TestEntity->Configure(TestModel);
 	EntityCollection.push_back(TestEntity);
 

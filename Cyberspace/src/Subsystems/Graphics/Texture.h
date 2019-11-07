@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "../../stb_image.h"
 
 enum class TextureType {
 	DIFFUSE = 0,
@@ -13,7 +14,7 @@ enum class TextureType {
 };
 
 struct Texture {
-	unsigned int id;
+	GLuint id;
 	TextureType type;
 	std::string path;
 };

@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Subsystems\Graphics\Light.cpp" />
     <ClCompile Include="src\Subsystems\Graphics\Skybox.cpp" />
     <ClCompile Include="src\Subsystems\Graphics\Material.cpp" />
     <ClCompile Include="src\stb_image.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="src\Subsystems\Interface\UISystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Subsystems\Graphics\Light.h" />
     <ClInclude Include="src\Subsystems\Graphics\Skybox.h" />
     <ClInclude Include="src\Subsystems\Graphics\Material.h" />
     <ClInclude Include="src\stb_image.h" />

@@ -20,21 +20,27 @@ bool Renderer::Init(int _WindowWidth, int _WindowHeight)
 
 	glClearColor(0.35f, 0.35f, 0.35f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
+	Setup(_WindowWidth, _WindowHeight);
+	return true;
+}
 
+void Renderer::Setup(int _WindowWidth, int _WindowHeight)
+{
 	MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), 60, _WindowWidth, _WindowHeight);
 	TextureShader = SetupShader("./Shaders/TextureVertexShader.glsl", "./Shaders/TextureFragmentShader.glsl", ShaderType::TEXTURE);
-	std::vector<std::string> SkyboxCubemapFaces 
+	std::vector<std::string> SkyboxCubemapFaces
 	{
-		"../External Resources/3D/Skybox/blood-valley_ft.tga",
-		"../External Resources/3D/Skybox/blood-valley_bk.tga",
-		"../External Resources/3D/Skybox/blood-valley_up.tga",
-		"../External Resources/3D/Skybox/blood-valley_dn.tga",
-		"../External Resources/3D/Skybox/blood-valley_rt.tga",
-		"../External Resources/3D/Skybox/blood-valley_lf.tga"
+		"../External Resources/3D/Skybox/miramar_ft.tga",
+		"../External Resources/3D/Skybox/miramar_bk.tga",
+		"../External Resources/3D/Skybox/miramar_up.tga",
+		"../External Resources/3D/Skybox/miramar_dn.tga",
+		"../External Resources/3D/Skybox/miramar_rt.tga",
+		"../External Resources/3D/Skybox/miramar_lf.tga"
 	};
 	MainSkybox = new Skybox(SkyboxCubemapFaces, "./Shaders/SkyboxVertexShader.glsl", "./Shaders/SkyboxFragmentShader.glsl");
-
-	return true;
+	DirLight = new Light(glm::vec3(-0.2f, -1.0f, -0.3f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f));
+	PointLight = new Light(glm::vec3(0.7f, 0.2f, 2.0f), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f);
+	SpotLight = new Light(MainCamera->Position, MainCamera->Front, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f, glm::cos(glm::radians(12.5f)), glm::cos(glm::radians(15.0f)));
 }
 
 void Renderer::Draw(Camera* _Camera, Entity* _Entity, Shader* _Shader)
@@ -46,7 +52,7 @@ void Renderer::Draw(Camera* _Camera, Entity* _Entity, Shader* _Shader)
 
 			_Entity->m_Model->ModelMatrix = glm::mat4(1.0f);
 			_Entity->m_Model->ModelMatrix = glm::translate(_Entity->m_Model->ModelMatrix, _Entity->Position);
-			_Entity->m_Model->ModelMatrix = glm::rotate(_Entity->m_Model->ModelMatrix, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			/*_Entity->m_Model->ModelMatrix = glm::rotate(_Entity->m_Model->ModelMatrix, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.0f, 1.0f, 0.0f));*/
 
 			_Shader->SetMat4("ProjectionMatrix", MainCamera->ProjectionMatrix);
 			_Shader->SetMat4("ViewMatrix", MainCamera->ViewMatrix);
