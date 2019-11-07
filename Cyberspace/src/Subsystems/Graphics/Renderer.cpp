@@ -39,8 +39,8 @@ void Renderer::Setup(int _WindowWidth, int _WindowHeight)
 	};
 	MainSkybox = new Skybox(SkyboxCubemapFaces, "./Shaders/SkyboxVertexShader.glsl", "./Shaders/SkyboxFragmentShader.glsl");
 	DirLight = new Light(glm::vec3(-0.2f, -1.0f, -0.3f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f));
-	PointLight = new Light(glm::vec3(0.7f, 0.2f, 2.0f), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f);
-	SpotLight = new Light(MainCamera->Position, MainCamera->Front, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f, glm::cos(glm::radians(12.5f)), glm::cos(glm::radians(15.0f)));
+	//PointLight = new Light(glm::vec3(0.7f, 0.2f, 2.0f), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f);
+	//SpotLight = new Light(MainCamera->Position, MainCamera->Front, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f, glm::cos(glm::radians(12.5f)), glm::cos(glm::radians(15.0f)));
 }
 
 void Renderer::Draw(Camera* _Camera, Entity* _Entity, Shader* _Shader)
@@ -60,43 +60,42 @@ void Renderer::Draw(Camera* _Camera, Entity* _Entity, Shader* _Shader)
 
 			_Shader->SetVec3("ViewPos", MainCamera->Position);
 
-			int DiffuseCount = 1;
-			int SpecularCount = 1;
-			int NormalCount = 1;
-			int HeightCount = 1;
-			for (GLuint j = 0; j < _Entity->m_Model->Meshes[j].TextureCollection.size(); ++j) {
+			for (GLuint j = 0; j < _Entity->m_Model->Meshes[i].TextureCollection.size(); ++j) {
 				glActiveTexture(GL_TEXTURE0 + j);
-				std::string name;
-				std::string number;
-				TextureType type = _Entity->m_Model->Meshes[i].TextureCollection[j].Type;
-
-				switch (type) {
-				case TextureType::DIFFUSE:
-					name = "DiffuseMap";
-					//number = std::to_string(DiffuseCount++);
-					break;
-				case TextureType::SPECULAR:
-					name = "SpecularMap";
-					//number = std::to_string(SpecularCount++);
-					break;
-				case TextureType::NORMAL:
-					name = "NormalMap";
-					//number = std::to_string(NormalCount++);
-					break;
-				case TextureType::HEIGHT:
-					name = "HeightMap";
-					//number = std::to_string(HeightCount++);
-					break;
-				}
-				_Shader->SetInt("g_Material." + name + number, j);
+				_Shader->SetInt("g_Material.TextureMap", j);
 				glBindTexture(GL_TEXTURE_2D, _Entity->m_Model->Meshes[i].TextureCollection[j].ID);
 			}
 			_Shader->SetFloat("g_Material.Shininess", 64.0f);
 
-			_Shader->SetVec3("g_Light.Position", glm::vec3(15.f, 15.f, -5.f));
-			_Shader->SetVec3("g_Light.AmbientC", glm::vec3(0.5f, 0.5f, 0.5f));
-			_Shader->SetVec3("g_Light.DiffuseC", glm::vec3(0.5f, 0.5f, 0.5f));
-			_Shader->SetVec3("g_Light.SpecularC", glm::vec3(1.0f, 1.0f, 1.0f));
+			if (DirLight) {
+				_Shader->SetVec3("g_DirLight.Direction", DirLight->Direction);
+				_Shader->SetVec3("g_DirLight.AmbientC", DirLight->AmbientC);
+				_Shader->SetVec3("g_DirLight.DiffuseC", DirLight->DiffuseC);
+				_Shader->SetVec3("g_DirLight.SpecularC", DirLight->SpecularC);
+			}
+			
+			if (PointLight) {
+				_Shader->SetVec3("g_PointLight.Position", PointLight->Position);
+				_Shader->SetVec3("g_PointLight.AmbientC", PointLight->AmbientC);
+				_Shader->SetVec3("g_PointLight.DiffuseC", PointLight->DiffuseC);
+				_Shader->SetVec3("g_PointLight.SpecularC", PointLight->SpecularC);
+				_Shader->SetFloat("g_PointLight.ConstantA", PointLight->ConstantA);
+				_Shader->SetFloat("g_PointLight.LinearA", PointLight->LinearA);
+				_Shader->SetFloat("g_PointLight.QuadraticA", PointLight->QuadraticA);
+			}
+			
+			if (SpotLight) {
+				_Shader->SetVec3("g_SpotLight.Position", SpotLight->Position);
+				_Shader->SetVec3("g_SpotLight.Direction", SpotLight->Direction);
+				_Shader->SetVec3("g_SpotLight.AmbientC", SpotLight->AmbientC);
+				_Shader->SetVec3("g_SpotLight.DiffuseC", SpotLight->DiffuseC);
+				_Shader->SetVec3("g_SpotLight.SpecularC", SpotLight->SpecularC);
+				_Shader->SetFloat("g_SpotLight.ConstantA", SpotLight->ConstantA);
+				_Shader->SetFloat("g_SpotLight.LinearA", SpotLight->LinearA);
+				_Shader->SetFloat("g_SpotLight.QuadraticA", SpotLight->QuadraticA);
+				_Shader->SetFloat("g_SpotLight.CutOff", SpotLight->CutOff);
+				_Shader->SetFloat("g_SpotLight.OuterCutOff", SpotLight->OuterCutOff);
+			}
 
 			glBindVertexArray(_Entity->m_Model->Meshes[i].VAO);
 			glDrawElements(GL_TRIANGLES, _Entity->m_Model->Meshes[i].IndexCollection.size(), GL_UNSIGNED_INT, 0);

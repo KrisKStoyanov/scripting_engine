@@ -8,6 +8,7 @@
 #include <GLFW/glfw3.h>
 #include "Vertex.h"
 #include "Texture.h"
+#include "Material.h"
 
 class Mesh
 {

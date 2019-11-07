@@ -20,7 +20,6 @@ enum class TextureType {
 };
 
 GLuint TextureFromFile(const char* _Path);
-GLuint TextureFromFileInDir(const char* _Path, std::string _Directory);
 
 class Texture {
 public:

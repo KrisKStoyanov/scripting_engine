@@ -95,7 +95,7 @@ std::vector<Texture> Model::LoadMaterialTextures(aiMaterial* _Material, aiTextur
 		bool skip = false;
 		for (unsigned int j = 0; j < LoadedTextures.size(); ++j) {
 			if (std::strcmp(LoadedTextures[j].Path.data(), str.C_Str()) == 0) {
-				textures.push_back(LoadedTextures[j]);
+				//textures.push_back(LoadedTextures[j]);
 				skip = true;
 				break;
 			}
