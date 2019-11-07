@@ -36,9 +36,6 @@
     <ClCompile Include="src\GameInstance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\getbmp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Subsystems\Networking\CyberNet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -49,9 +46,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Subsystems\Audio\AudioComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\objloader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Subsystems\Graphics\Camera.cpp">
@@ -96,6 +90,18 @@
     <ClCompile Include="src\Subsystems\Graphics\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ImGUI\imgui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGUI\imgui_demo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGUI\imgui_draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGUI\imgui_widgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CyberEngine.h">
@@ -113,9 +119,6 @@
     <ClInclude Include="src\GameInstance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\getbmp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Subsystems\Networking\CyberNet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -129,9 +132,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\EventList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\objloader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Subsystems\Graphics\Camera.h">
@@ -177,6 +177,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Subsystems\Graphics\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGUI\imconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGUI\imgui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGUI\imgui_internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGUI\imstb_rectpack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGUI\imstb_textedit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGUI\imstb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

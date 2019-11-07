@@ -148,6 +148,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ImGUI\imgui.cpp" />
+    <ClCompile Include="ImGUI\imgui_demo.cpp" />
+    <ClCompile Include="ImGUI\imgui_draw.cpp" />
+    <ClCompile Include="ImGUI\imgui_widgets.cpp" />
     <ClCompile Include="src\Subsystems\Graphics\Light.cpp" />
     <ClCompile Include="src\Subsystems\Graphics\Skybox.cpp" />
     <ClCompile Include="src\Subsystems\Graphics\Material.cpp" />
@@ -157,7 +161,6 @@
     <ClCompile Include="src\Subsystems\Window\EngineWindow.cpp" />
     <ClCompile Include="src\Subsystems\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="src\Subsystems\Graphics\Renderer.cpp" />
-    <ClCompile Include="src\objloader.cpp" />
     <ClCompile Include="src\Subsystems\Graphics\Camera.cpp" />
     <ClCompile Include="src\Subsystems\Audio\AudioComponent.cpp" />
     <ClCompile Include="src\CyberEvent.cpp" />
@@ -168,13 +171,18 @@
     <ClCompile Include="src\Subsystems\Networking\CyberNet.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\GameInstance.cpp" />
-    <ClCompile Include="src\getbmp.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Subsystems\Graphics\Shader.cpp" />
     <ClCompile Include="src\Subsystems\Interface\UISystem.cpp" />
     <ClCompile Include="src\Subsystems\Graphics\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ImGUI\imconfig.h" />
+    <ClInclude Include="ImGUI\imgui.h" />
+    <ClInclude Include="ImGUI\imgui_internal.h" />
+    <ClInclude Include="ImGUI\imstb_rectpack.h" />
+    <ClInclude Include="ImGUI\imstb_textedit.h" />
+    <ClInclude Include="ImGUI\imstb_truetype.h" />
     <ClInclude Include="src\Subsystems\Graphics\Light.h" />
     <ClInclude Include="src\Subsystems\Graphics\Skybox.h" />
     <ClInclude Include="src\Subsystems\Graphics\Material.h" />
@@ -184,7 +192,6 @@
     <ClInclude Include="src\Subsystems\Window\EngineWindow.h" />
     <ClInclude Include="src\Subsystems\Physics\PhysicsSystem.h" />
     <ClInclude Include="src\Subsystems\Graphics\Renderer.h" />
-    <ClInclude Include="src\objloader.h" />
     <ClInclude Include="src\Subsystems\Graphics\Camera.h" />
     <ClInclude Include="src\EventList.h" />
     <ClInclude Include="src\Subsystems\Audio\AudioComponent.h" />
@@ -197,7 +204,6 @@
     <ClInclude Include="src\Subsystems\Networking\CyberNet.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\GameInstance.h" />
-    <ClInclude Include="src\getbmp.h" />
     <ClInclude Include="src\Subsystems\Graphics\Shader.h" />
     <ClInclude Include="src\Subsystems\Graphics\Vertex.h" />
     <ClInclude Include="src\Subsystems\Interface\UISystem.h" />
