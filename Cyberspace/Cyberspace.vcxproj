@@ -172,6 +172,7 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Subsystems\Graphics\Shader.cpp" />
     <ClCompile Include="src\Subsystems\Interface\UISystem.cpp" />
+    <ClCompile Include="src\Subsystems\Graphics\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Subsystems\Graphics\Light.h" />
@@ -198,9 +199,9 @@
     <ClInclude Include="src\GameInstance.h" />
     <ClInclude Include="src\getbmp.h" />
     <ClInclude Include="src\Subsystems\Graphics\Shader.h" />
-    <ClInclude Include="src\Subsystems\Graphics\Texture.h" />
     <ClInclude Include="src\Subsystems\Graphics\Vertex.h" />
     <ClInclude Include="src\Subsystems\Interface\UISystem.h" />
+    <ClInclude Include="src\Subsystems\Graphics\Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\BasicFragmentShader.glsl" />

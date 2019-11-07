@@ -94,17 +94,14 @@ std::vector<Texture> Model::LoadMaterialTextures(aiMaterial* _Material, aiTextur
 		_Material->GetTexture(_Type, i, &str);
 		bool skip = false;
 		for (unsigned int j = 0; j < LoadedTextures.size(); ++j) {
-			if (std::strcmp(LoadedTextures[j].path.data(), str.C_Str()) == 0) {
+			if (std::strcmp(LoadedTextures[j].Path.data(), str.C_Str()) == 0) {
 				textures.push_back(LoadedTextures[j]);
 				skip = true;
 				break;
 			}
 		}
 		if (!skip) {
-			Texture texture;
-			texture.id = TextureFromFile(str.C_Str(), Directory);
-			texture.type = _TypeName;
-			texture.path = str.C_Str();
+			Texture texture(str.C_Str(), Directory, _TypeName);
 			textures.push_back(texture);
 			LoadedTextures.push_back(texture);
 		}
@@ -112,40 +109,3 @@ std::vector<Texture> Model::LoadMaterialTextures(aiMaterial* _Material, aiTextur
 	return textures;
 }
 
-GLint TextureFromFile(const char* _Path, std::string _Directory)
-{
-	std::string filename = std::string(_Path);
-	filename = _Directory + '/' + filename;
-
-	GLuint textureID;
-	glGenTextures(1, &textureID);
-
-	int width, height, nrComponents;
-	unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
-	if (data)
-	{
-		GLenum format = GL_RGBA;
-		if (nrComponents == 1)
-			format = GL_RED;
-		else if (nrComponents == 3)
-			format = GL_RGB;
-
-		glBindTexture(GL_TEXTURE_2D, textureID);
-		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		stbi_image_free(data);
-	}
-	else
-	{
-		std::cout << "Texture failed to load at path: " << _Path << std::endl;
-		stbi_image_free(data);
-	}
-
-	return textureID;
-}

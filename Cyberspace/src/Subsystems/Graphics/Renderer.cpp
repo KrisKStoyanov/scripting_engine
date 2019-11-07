@@ -68,7 +68,7 @@ void Renderer::Draw(Camera* _Camera, Entity* _Entity, Shader* _Shader)
 				glActiveTexture(GL_TEXTURE0 + j);
 				std::string name;
 				std::string number;
-				TextureType type = _Entity->m_Model->Meshes[i].TextureCollection[j].type;
+				TextureType type = _Entity->m_Model->Meshes[i].TextureCollection[j].Type;
 
 				switch (type) {
 				case TextureType::DIFFUSE:
@@ -89,7 +89,7 @@ void Renderer::Draw(Camera* _Camera, Entity* _Entity, Shader* _Shader)
 					break;
 				}
 				_Shader->SetInt("g_Material." + name + number, j);
-				glBindTexture(GL_TEXTURE_2D, _Entity->m_Model->Meshes[i].TextureCollection[j].id);
+				glBindTexture(GL_TEXTURE_2D, _Entity->m_Model->Meshes[i].TextureCollection[j].ID);
 			}
 			_Shader->SetFloat("g_Material.Shininess", 64.0f);
 
@@ -172,14 +172,6 @@ Shader* Renderer::SetupShader(const GLchar* _VertexShaderPath, const GLchar* _Fr
 	if (TempShader == NULL) {
 		printf("Failed to create shader!\nVertex shader filepath:%s\nFragment shader filepath:%s\n",_VertexShaderPath, _FragmentShaderPath);
 		return NULL;
-	}
-	switch (_Type) {
-	case ShaderType::BASIC:
-		break;
-	case ShaderType::TEXTURE:
-		break;
-	case ShaderType::SKYBOX:
-		break;
 	}
 	return TempShader;
 }

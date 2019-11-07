@@ -16,8 +16,6 @@
 
 #include "../../stb_image.h"
 
-GLint TextureFromFile(const char* _Path, std::string _Directory);
-
 class Model
 {
 public:
