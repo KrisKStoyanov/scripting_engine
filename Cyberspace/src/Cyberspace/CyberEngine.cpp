@@ -32,11 +32,12 @@ namespace Cyberspace {
 
 	void CyberEngine::Configure()
 	{
-		Model* TestModel = new Model("../External Resources/3D/crysisGuy/scene.gltf");
-
+		//Model* TestModel = new Model("../External Resources/3D/crysisGuy/scene.gltf");
 		//Model* MainModel = new Model("../External Resources/3D/Vehicle/SpaceCar.fbx");
-		Entity* MainEntity = new Entity(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f), EntityTag::MainCharacter);
-		MainEntity->Configure(TestModel);
+		Model* EngineModel = new Model("../External Resources/3D/Vehicle/SpaceCarEngine.fbx");
+
+		Entity* MainEntity = new Entity(glm::vec3(0.0f, 0.0f, -10.0f), glm::vec3(0.0f, 0.0f, -1.0f), EntityTag::MainCharacter);
+		MainEntity->Configure(EngineModel);
 		EntityCollection.insert(std::pair<EntityTag, Entity*>(MainEntity->m_Tag, MainEntity));
 
 		//Engine_Audio->PlayBGM(0);
