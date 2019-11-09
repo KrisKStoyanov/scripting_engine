@@ -16,15 +16,24 @@
 #include "../Audio/AudioSystem.h"
 #include "../Networking/CyberNet.h"
 #include "../../CyberEvent.h"
+#include "../../Core.h"
 
-class UISystem
-{
-public:
-	UISystem(bool& _InitStatus);
-	~UISystem();
-	bool Init();
-	void Configure();
-	void Update();
-	void Terminate();
-};
+namespace Cyberspace {
+
+	struct UIProps {
+		UIProps() {}
+	};
+
+	class CSPACE_API UISystem
+	{
+	public:
+		static UISystem* Create(const UIProps& _props = UIProps());
+		UISystem(const UIProps& _props);
+		~UISystem();
+		void Init(const UIProps& _props);
+		void Configure();
+		void Update();
+		void Terminate();
+	};
+}
 

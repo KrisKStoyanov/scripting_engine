@@ -14,44 +14,54 @@
 
 #include "../../Entity.h"
 #include "../../CyberEvent.h"
-#include "../../EventList.h"
 #include "Camera.h"
 #include "Material.h"
 #include "Skybox.h"
 #include "Light.h"
 #include <queue>
 
-enum class ShaderType {
-	BASIC = 0,
-	TEXTURE = 1,
-	SKYBOX = 2
-};
+namespace Cyberspace {
 
-class Renderer
-{
-public:
-	Renderer(bool& _InitStatus, int _WindowWidth, int _WindowHeight);
-	~Renderer();
-	bool Init(int _WindowWidth, int _WindowHeight);
-	void Setup(int _WindowWidth, int _WindowHeight);
-	void Draw(Camera* _Camera, Entity* _Entity, Shader* _Shader);
-	void Update(std::queue<CyberEvent*>& _EventQueue, std::vector<Entity*> _EntityCollection, double _CursorPosX, double _CursorPosY, float _DeltaTime);
-	void Terminate();
+	struct GraphicsProps {
+		unsigned int Width;
+		unsigned int Height;
+		GraphicsProps(unsigned int _width = 1280, unsigned int _height = 720) 
+		: Width (_width), Height (_height) {}
+	};
 
-	Shader* SetupShader(const GLchar* _VertexShaderPath, const GLchar* _FragmentShaderPath, ShaderType _Type);
-	Shader* BasicShader = NULL;
-	Shader* TextureShader = NULL;
+	enum class ShaderType {
+		BASIC = 0,
+		TEXTURE = 1,
+		SKYBOX = 2
+	};
 
-	Light* DirLight = NULL;
-	Light* PointLight = NULL;
-	Light* SpotLight = NULL;
+	class Renderer
+	{
+	public:
+		static Renderer* Create(const GraphicsProps& _props = GraphicsProps());
+		Renderer(const GraphicsProps& _props);
+		~Renderer();
+		void Init(const GraphicsProps& _props);
+		void Setup(int _WindowWidth, int _WindowHeight);
+		void Draw(Camera* _Camera, Entity* _Entity, Shader* _Shader);
+		void Update(std::queue<CyberEvent*>& _EventQueue, std::vector<Entity*> _EntityCollection, double _CursorPosX, double _CursorPosY, float _DeltaTime);
+		void Terminate();
 
-	void(*MoveForward)(EventType) = MoveForwardEvent;
-	void(*MoveBackward)(EventType) = MoveBackwardEvent;
-	void(*MoveLeft)(EventType) = MoveLeftEvent;
-	void(*MoveRight)(EventType) = MoveRightEvent;
+		Shader* SetupShader(const GLchar* _VertexShaderPath, const GLchar* _FragmentShaderPath, ShaderType _Type);
+		Shader* BasicShader = NULL;
+		Shader* TextureShader = NULL;
 
-	Camera* MainCamera = NULL;
-	Skybox* MainSkybox = NULL;
-};
+		Light* DirLight = NULL;
+		Light* PointLight = NULL;
+		Light* SpotLight = NULL;
+
+		//void(*MoveForward)(EventType) = MoveForwardEvent;
+		//void(*MoveBackward)(EventType) = MoveBackwardEvent;
+		//void(*MoveLeft)(EventType) = MoveLeftEvent;
+		//void(*MoveRight)(EventType) = MoveRightEvent;
+
+		Camera* MainCamera = NULL;
+		Skybox* MainSkybox = NULL;
+	};
+}
 

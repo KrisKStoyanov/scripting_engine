@@ -1,14 +1,14 @@
 #version 450 core
 
-layout (location = 0) in vec2 Pos;
-layout (location = 1) in vec2 UV;
-layout (location = 2) in vec4 Color;
+layout(location = 0) in vec3 VertexPos;
 
-out vec4 ExColor;
-out vec2 ExUV;
+uniform mat4 ViewMatrix;
+uniform mat4 ProjectionMatrix;
 
-void main(){
-	ExColor = Color;
-	ExUV = UV;
-	gl_Position = vec4(Pos.x, Pos.y, 0.0, 1.0);
+out vec3 ExVertexUV;
+
+void main() {
+	ExVertexUV = VertexPos;
+	vec4 pos = ProjectionMatrix * ViewMatrix * vec4(VertexPos, 1.0);
+	gl_Position = pos.xyww;
 }

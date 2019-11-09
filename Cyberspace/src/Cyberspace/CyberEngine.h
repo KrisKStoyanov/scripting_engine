@@ -23,41 +23,60 @@
 
 #include "CyberEvent.h"
 
-#include "EventList.h"
-
 #include "./Subsystems/Graphics/Model.h"
 
-enum class LocalState {
-	STARTING,
-	ACTIVE,
-	INACTIVE
-};
+namespace Cyberspace {
 
-class CyberEngine
-{
-public:
-	CyberEngine();
-	~CyberEngine();
+	struct EngineProps {
+		WindowProps m_WindowProps;
+		GraphicsProps m_GraphicsProps;
+		PhysicsProps m_PhysicsProps;
+		AudioProps m_AudioProps;
+		UIProps m_UIProps;
+		NetworkProps m_NetProps;
 
-	bool Init(const char* _WindowTitle, int _WindowWidth = 800, int _WindowHeight = 600);
-	void Configure();
-	float ComputeDeltaTime(float _CurrentFrame);
-	void Update();
-	void Terminate();
+		EngineProps(
+			WindowProps _wProps = WindowProps(),
+			GraphicsProps _gProps = GraphicsProps(),
+			PhysicsProps _pProps = PhysicsProps(),
+			AudioProps _aProps = AudioProps(),
+			UIProps _uiProps = UIProps(),
+			NetworkProps _netProps = NetworkProps()) :
+			m_WindowProps(_wProps),
+			m_GraphicsProps(_gProps),
+			m_PhysicsProps(_pProps),
+			m_AudioProps(_aProps),
+			m_UIProps(_uiProps),
+			m_NetProps(_netProps) {}
+	};
 
-	LocalState Engine_State = LocalState::INACTIVE;
+	class CSPACE_API CyberEngine
+	{
+	public:
+		static CyberEngine* Create(const EngineProps& _props = EngineProps());
+		CyberEngine(const EngineProps& _props);
+		~CyberEngine();
 
-	EngineWindow* E_Window = NULL;
-	Renderer* E_Renderer = NULL;
-	PhysicsSystem* E_Physics = NULL;
-	AudioSystem* E_Audio = NULL;
-	UISystem* E_UI = NULL;
-	CyberNet* E_Net = NULL;
+		void Init(const EngineProps& _props);
+		void Configure();
+		float ComputeDeltaTime(float _CurrentFrame);
+		void OnUpdate();
+		void Terminate();
 
-	std::vector<Entity*> EntityCollection;
-	std::queue<CyberEvent*> EventQueue;
+		bool m_Running = true;
 
-private:
-	float DeltaTime = 0.0f, LastFrameTime = 0.0f;
-};
+		std::vector<Entity*> EntityCollection;
+		std::queue<CyberEvent*> EventQueue;
+
+	private:
+		std::unique_ptr<EngineWindow> m_Window;
+		std::unique_ptr<Renderer> m_Renderer;
+		std::unique_ptr<PhysicsSystem> m_PhysicsSystem;
+		std::unique_ptr<AudioSystem> m_AudioSystem;
+		std::unique_ptr<UISystem> m_UISystem;
+		std::unique_ptr<CyberNet> m_NetSystem;
+		float DeltaTime = 0.0f, LastFrameTime = 0.0f;
+	};
+}
+
 

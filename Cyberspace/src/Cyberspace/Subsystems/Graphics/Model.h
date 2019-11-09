@@ -15,21 +15,25 @@
 #include "assimp/postprocess.h"
 
 #include "../../stb_image.h"
+#include "../../Core.h"
 
-class Model
-{
-public:
-	Model(std::string const _Path);
-	~Model();
-	std::vector<Mesh> Meshes;
-	std::string Directory;
-	std::vector<Texture> LoadedTextures;
+namespace Cyberspace {
+	class CSPACE_API Model
+	{
+	public:
+		Model(std::string const _Path);
+		~Model();
+		std::vector<Mesh> Meshes;
+		std::string Directory;
+		std::vector<Texture> LoadedTextures;
 
-	void LoadModel(std::string const &_Path);
-	void ProcessNode(aiNode* _Node, const aiScene* _Scene);
-	Mesh ProcessMesh(aiMesh* _Mesh, const aiScene* _Scene);
-	std::vector<Texture> LoadMaterialTextures(aiMaterial* _Material, aiTextureType _Type, TextureType _TypeName);
+		void LoadModel(std::string const& _Path);
+		void ProcessNode(aiNode* _Node, const aiScene* _Scene);
+		Mesh ProcessMesh(aiMesh* _Mesh, const aiScene* _Scene);
+		std::vector<Texture> LoadMaterialTextures(aiMaterial* _Material, aiTextureType _Type, TextureType _TypeName);
 
-	glm::mat4 ModelMatrix = glm::mat4(1.0f);
-};
+		glm::mat4 ModelMatrix = glm::mat4(1.0f);
+	};
+}
+
 

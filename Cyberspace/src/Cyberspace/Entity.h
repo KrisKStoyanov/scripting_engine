@@ -25,20 +25,25 @@ extern "C"
 #include "./Subsystems/Graphics/Model.h"
 #include "./Subsystems/Audio/AudioComponent.h"
 
-class Entity
-{
-public:
-	Entity(glm::vec3 _Position, glm::vec3 _Direction);
-	~Entity();
+#include "Core.h"
 
-	glm::vec3 Position;
-	glm::vec3 Direction;
+namespace Cyberspace {
+	class CSPACE_API Entity
+	{
+	public:
+		Entity(glm::vec3 _Position, glm::vec3 _Direction);
+		~Entity();
 
-	void Configure(Model* _Model = NULL, PhysicsComponent* _PSX = NULL, AudioComponent* _Audio = NULL);
-	void Clear();
+		glm::vec3 Position;
+		glm::vec3 Direction;
 
-	Model* m_Model = NULL;
-	PhysicsComponent* m_PSX = NULL;
-	AudioComponent* m_Audio = NULL;
-};
+		void Configure(Model* _Model = NULL, PhysicsComponent* _PSX = NULL, AudioComponent* _Audio = NULL);
+		void Clear();
+
+		Model* m_Model = NULL;
+		PhysicsComponent* m_PSX = NULL;
+		AudioComponent* m_Audio = NULL;
+	};
+}
+
 

@@ -1,8 +1,9 @@
 #include "Application.h"
 
 namespace Cyberspace {
-	Application::Application() {
 
+	Application::Application() {
+		m_Engine = std::unique_ptr<CyberEngine>(CyberEngine::Create());
 	}
 
 	Application::~Application() {
@@ -10,6 +11,11 @@ namespace Cyberspace {
 	}
 	void Application::Run()
 	{
-		while (true);
+		m_Engine->Configure();
+		while (m_Engine->m_Running)
+		{
+			m_Engine->OnUpdate();
+		}
+		m_Engine->Terminate();
 	}
 }

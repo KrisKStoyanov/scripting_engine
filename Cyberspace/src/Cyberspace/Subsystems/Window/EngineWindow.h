@@ -11,22 +11,37 @@
 #include <GLFW/glfw3.h>
 #include "../../CyberEvent.h"
 
-//OGL FOR WINDOWS - IMPLEMENTATION
-class EngineWindow
-{
-public:
-	EngineWindow(bool& _InitStatus, const char* _Title, const unsigned int _Width, const unsigned int _Height);
-	~EngineWindow();
-	bool Init(const char* _Title, const unsigned int _Width, const unsigned int _Height);
-	void Terminate();
-	void SetVsync(bool _Status);
-	bool GetVsyncStatus();
-	void Update(std::queue<CyberEvent*>& _EventQueue, double& _CursorPosX, double& _CursorPosY);
-	GLFWwindow* MainWindow = NULL;
-	unsigned int Width, Height;
-	bool VsyncStatus;
-	double CursorPosX, CursorPosY;
-	bool ToggleRepeat = false;
-	bool Active = false;
-};
+#include "../../Core.h"
+
+namespace Cyberspace {
+	//OGL FOR WINDOWS - IMPLEMENTATION
+	struct WindowProps {
+		std::string Title;
+		unsigned int Width, Height;
+		bool VSyncStatus;
+
+		WindowProps(std::string _title = "Cyberspace",
+			unsigned int _width = 1280,
+			unsigned int _height = 720,
+			bool _vSyncStatus = true) :
+			Title(_title), Width(_width), Height(_height), VSyncStatus(_vSyncStatus) {}
+	};
+
+	class CSPACE_API EngineWindow
+	{
+	public:
+		static EngineWindow* Create(const WindowProps& _props = WindowProps());
+		EngineWindow(const WindowProps& _props);
+		~EngineWindow();
+		void Init(const WindowProps& _props);
+		void Terminate();
+		void SetVSync(bool _enable);
+		bool GetVSync();
+		void Update(std::queue<CyberEvent*>& _EventQueue, double& _CursorPosX, double& _CursorPosY);
+		GLFWwindow* MainWindow = NULL;
+		bool VSyncStatus;
+		double CursorPosX, CursorPosY;
+		bool Active = false;
+	};
+}
 

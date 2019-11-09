@@ -1,19 +1,22 @@
 #include "AudioComponent.h"
 
-AudioComponent::AudioComponent() {
+namespace Cyberspace {
+	AudioComponent::AudioComponent() {
 
-}
+	}
 
-AudioComponent::~AudioComponent()
-{
-}
+	AudioComponent::~AudioComponent()
+	{
+	}
 
-bool AudioComponent::Setup()
-{
-	return false;
-}
+	bool AudioComponent::Setup()
+	{
+		return false;
+	}
 
-void AudioComponent::Clear()
-{
+	void AudioComponent::Clear()
+	{
+
+	}
 
 }

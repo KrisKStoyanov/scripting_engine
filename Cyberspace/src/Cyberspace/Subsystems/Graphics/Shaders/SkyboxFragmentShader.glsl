@@ -1,11 +1,11 @@
 #version 450 core
 precision highp float;
+out vec4 FragColor;
 
-in vec4 ExColor;
-in vec2 ExUV;
+in vec3 ExVertexUV;
 
-uniform sampler2D GUITexture;
+uniform samplerCube SkyboxCubemap;
 
 void main(){
-	FragColor = texture(GUITexture, ExUV) * ExColor;
+	FragColor = texture(SkyboxCubemap, ExVertexUV);
 }

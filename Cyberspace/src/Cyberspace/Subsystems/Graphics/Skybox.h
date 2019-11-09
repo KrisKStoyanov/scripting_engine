@@ -14,15 +14,19 @@
 #include "Shader.h"
 
 #include "../../stb_image.h"
+#include "../../Core.h"
 
-class Skybox
-{
-public:
-	Skybox(std::vector<std::string> _FaceTexturePaths, const GLchar* _VertexShaderPath, const GLchar* _FragmentShaderPath);
-	~Skybox();
-	Shader* SkyboxShader = NULL;
-	GLuint VAO = 0, VBO = 0, IBO = 0, TextureID = 0;
-	void Draw(Camera* _Camera);
-	void Clear();
-};
+namespace Cyberspace {
+	class Skybox
+	{
+	public:
+		Skybox(std::vector<std::string> _FaceTexturePaths, const GLchar* _VertexShaderPath, const GLchar* _FragmentShaderPath);
+		~Skybox();
+		Shader* SkyboxShader = NULL;
+		GLuint VAO = 0, VBO = 0, IBO = 0, TextureID = 0;
+		void Draw(Camera* _Camera);
+		void Clear();
+	};
+}
+
 

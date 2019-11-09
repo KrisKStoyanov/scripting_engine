@@ -14,24 +14,34 @@
 
 #include <enet/enet.h>
 #include "../../CyberEvent.h"
+#include "../../Core.h"
 
-class CyberNet
-{
-public:
-	CyberNet(bool& _InitStatus);
-	~CyberNet();
-	bool Init();
-	void CreateServer();
-	void CreateClient();
-	bool UpdateServer();
-	void SendPacketToPeer();
-	void DisconectPeer();
-	void HandleEvent(CyberEvent* _Event);
-	void ConnectToHost();
-	void Terminate();	
-	ENetAddress CR_Address;
-	ENetHost* CR_Server;
-	ENetHost* CR_Client;
-	ENetPeer* CR_Peer;
-};
+namespace Cyberspace {
+
+	struct NetworkProps {
+		NetworkProps() {};
+	};
+
+	class CSPACE_API CyberNet
+	{
+	public:
+		static CyberNet* Create(const NetworkProps& _props = NetworkProps());
+		CyberNet(const NetworkProps& _props);
+		~CyberNet();
+		void Init(const NetworkProps& _props);
+		void CreateServer();
+		void CreateClient();
+		bool UpdateServer();
+		void SendPacketToPeer();
+		void DisconectPeer();
+		void HandleEvent(CyberEvent* _Event);
+		void ConnectToHost();
+		void Terminate();
+		ENetAddress CR_Address;
+		ENetHost* CR_Server;
+		ENetHost* CR_Client;
+		ENetPeer* CR_Peer;
+	};
+}
+
 

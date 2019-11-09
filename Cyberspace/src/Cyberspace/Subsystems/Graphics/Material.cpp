@@ -1,9 +1,12 @@
 #include "Material.h"
 
-Material::Material() {
+namespace Cyberspace {
+	Material::Material() {
 
+	}
+
+	Material::~Material()
+	{
+	}
 }
 
-Material::~Material()
-{
-}

@@ -9,30 +9,34 @@
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "Shader.h"
+#include "../../Core.h"
 
-enum class MovementType {
-	FORWARD,
-	BACKWARD,
-	LEFT,
-	RIGHT
-};
+namespace Cyberspace {
+	enum class MovementType {
+		FORWARD,
+		BACKWARD,
+		LEFT,
+		RIGHT
+	};
 
-class Camera
-{
-public:
-	Camera(glm::vec3 _Position, float _FOV, float _ProjWidth, float _ProjHeight);
-	~Camera();
+	class CSPACE_API Camera
+	{
+	public:
+		Camera(glm::vec3 _Position, float _FOV, float _ProjWidth, float _ProjHeight);
+		~Camera();
 
-	glm::vec3 Position, Front, Up, Right, WorldUp;
-	GLfloat Yaw, Pitch, MovementSpeed, MouseSensitivity;
-	glm::mat4 ViewMatrix, ProjectionMatrix;
+		glm::vec3 Position, Front, Up, Right, WorldUp;
+		GLfloat Yaw, Pitch, MovementSpeed, MouseSensitivity;
+		glm::mat4 ViewMatrix, ProjectionMatrix;
 
-	void UpdateTransformKeyboard(MovementType _Type, float _DeltaTime);
-	void UpdateTransformMouse(GLfloat _CursorX, GLfloat _CursorY);
-	void UpdateFrontDirection();
+		void UpdateTransformKeyboard(MovementType _Type, float _DeltaTime);
+		void UpdateTransformMouse(GLfloat _CursorX, GLfloat _CursorY);
+		void UpdateFrontDirection();
 
-	float LastMousePosX;
-	float LastMousePosY;
-	bool FirstMouse = true;
-};
+		float LastMousePosX;
+		float LastMousePosY;
+		bool FirstMouse = true;
+	};
+
+}
 

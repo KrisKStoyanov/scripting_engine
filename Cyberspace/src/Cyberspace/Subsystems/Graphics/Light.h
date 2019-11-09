@@ -10,58 +10,63 @@
 #include <glm/glm.hpp>
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
-enum class LightType {
-	POINT,
-	DIRECTIONAL,
-	SPOTLIGHT
-};
+#include "../../Core.h"
 
-class Light
-{
-public:
-	Light(
-		glm::vec3 _Direction,
-		glm::vec3 _AmbientC,
-		glm::vec3 _DiffuseC,
-		glm::vec3 _SpecularC,
-		LightType _Type = LightType::DIRECTIONAL);
-	Light(
-		glm::vec3 _Position,
-		glm::vec3 _AmbientC,
-		glm::vec3 _DiffuseC,
-		glm::vec3 _SpecularC,
-		float _ConstantA,
-		float _LinearA,
-		float _QuadraticA,
-		LightType _Type = LightType::POINT);
-	Light(
-		glm::vec3 _Position,
-		glm::vec3 _Direction,
-		glm::vec3 _AmbientC,
-		glm::vec3 _DiffuseC,
-		glm::vec3 _SpecularC,
-		float _ConstantA,
-		float _LinearA,
-		float _QuadraticA,
-		float _CutOff,
-		float _OuterCutOff,
-		LightType _Type = LightType::SPOTLIGHT);
-	~Light();
+namespace Cyberspace {
+	enum class LightType {
+		POINT,
+		DIRECTIONAL,
+		SPOTLIGHT
+	};
 
-	LightType Type;
+	class CSPACE_API Light
+	{
+	public:
+		Light(
+			glm::vec3 _Direction,
+			glm::vec3 _AmbientC,
+			glm::vec3 _DiffuseC,
+			glm::vec3 _SpecularC,
+			LightType _Type = LightType::DIRECTIONAL);
+		Light(
+			glm::vec3 _Position,
+			glm::vec3 _AmbientC,
+			glm::vec3 _DiffuseC,
+			glm::vec3 _SpecularC,
+			float _ConstantA,
+			float _LinearA,
+			float _QuadraticA,
+			LightType _Type = LightType::POINT);
+		Light(
+			glm::vec3 _Position,
+			glm::vec3 _Direction,
+			glm::vec3 _AmbientC,
+			glm::vec3 _DiffuseC,
+			glm::vec3 _SpecularC,
+			float _ConstantA,
+			float _LinearA,
+			float _QuadraticA,
+			float _CutOff,
+			float _OuterCutOff,
+			LightType _Type = LightType::SPOTLIGHT);
+		~Light();
 
-	glm::vec3 Position;
-	glm::vec3 Direction;
+		LightType Type;
 
-	glm::vec3 AmbientC;
-	glm::vec3 DiffuseC;
-	glm::vec3 SpecularC;
+		glm::vec3 Position;
+		glm::vec3 Direction;
 
-	float ConstantA;
-	float LinearA;
-	float QuadraticA;
+		glm::vec3 AmbientC;
+		glm::vec3 DiffuseC;
+		glm::vec3 SpecularC;
 
-	float CutOff;
-	float OuterCutOff;
-};
+		float ConstantA;
+		float LinearA;
+		float QuadraticA;
+
+		float CutOff;
+		float OuterCutOff;
+	};
+}
+
 

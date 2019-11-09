@@ -1,11 +1,16 @@
 #pragma once
-class AudioComponent
-{
-public:
-	AudioComponent();
-	~AudioComponent();
+#include "../../Core.h"
 
-	bool Setup();
-	void Clear();
-};
+namespace Cyberspace {
+	class CSPACE_API AudioComponent
+	{
+	public:
+		AudioComponent();
+		~AudioComponent();
+
+		bool Setup();
+		void Clear();
+	};
+
+}
 

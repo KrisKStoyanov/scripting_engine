@@ -3,13 +3,13 @@
 #include <algorithm>
 #include "CyberEngine.h"
 
-CyberEngine Engine;
+//CyberEngine Engine;
 
 int main(int argc, char *argv[]) {
 
-	if (!Engine.Init("Cyberspace", 1280, 720)) {
-		return -1;
-	}
+	//if (!Engine.Init("Cyberspace", 1280, 720)) {
+	//	return -1;
+	//}
 
-	return 0;
+	//return 0;
 }

@@ -15,34 +15,44 @@
 #include "./PhysicsComponent.h"
 #include "../../Entity.h"
 #include "../../CyberEvent.h"
+#include "../../Core.h"
 
 //LocalHost for visual debugger init process
 #define PVD_HOST "127.0.0.1"
 
-class PhysicsSystem
-{
-public:
-	PhysicsSystem(bool& _InitStatus);
-	~PhysicsSystem();
-	bool Init();
-	void Configure();
-	bool SetupPhysicsCooking();
-	bool InitExtensionsLibrary();
-	void Update(std::queue<CyberEvent*> _EventQueue, std::vector<Entity*> _EntityCollection);
-	/*void HandleEvent(CyberEvent* _Event);*/
-	void Terminate();
+namespace Cyberspace {
 
-	physx::PxDefaultErrorCallback DefaultErrorCallback;
-	physx::PxDefaultAllocator DefaultAllocator;
-	physx::PxFoundation* Foundation = NULL;
-	physx::PxPhysics* Physics = NULL;
+	struct PhysicsProps {
+		PhysicsProps() {}
+	};
 
-	physx::PxDefaultCpuDispatcher* Dispatcher = NULL;
-	physx::PxScene* Scene = NULL;
-	physx::PxMaterial* Material = NULL;
+	class CSPACE_API PhysicsSystem
+	{
+	public:
+		static PhysicsSystem* Create(const PhysicsProps& _props = PhysicsProps());
+		PhysicsSystem(const PhysicsProps& _props);
+		~PhysicsSystem();
+		void Init(const PhysicsProps& _props);
+		void Configure();
+		bool SetupPhysicsCooking();
+		bool InitExtensionsLibrary();
+		void Update(std::queue<CyberEvent*> _EventQueue, std::vector<Entity*> _EntityCollection);
+		/*void HandleEvent(CyberEvent* _Event);*/
+		void Terminate();
 
-	physx::PxPvd* VisualDebugger = NULL;
+		physx::PxDefaultErrorCallback DefaultErrorCallback;
+		physx::PxDefaultAllocator DefaultAllocator;
+		physx::PxFoundation* Foundation = NULL;
+		physx::PxPhysics* Physics = NULL;
 
-	physx::PxCooking* CookingPhysics = NULL;
-};
+		physx::PxDefaultCpuDispatcher* Dispatcher = NULL;
+		physx::PxScene* Scene = NULL;
+		physx::PxMaterial* Material = NULL;
+
+		physx::PxPvd* VisualDebugger = NULL;
+
+		physx::PxCooking* CookingPhysics = NULL;
+	};
+}
+
 

@@ -75,7 +75,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glew 2.1\inc;$(SolutionDir)Dependencies\glfw 3.3\inc;$(SolutionDir)Dependencies\glm-0.9.9.6;$(SolutionDir)Dependencies\enet-1.3.14\include;$(SolutionDir)Dependencies\fmod\inc;$(SolutionDir)Dependencies\physx 4.1\inc;$(SolutionDir)Dependencies\lua-5.3.5\include;$(SolutionDir)Dependencies\LuaBridge-2.4.1\Source;$(SolutionDir)Dependencies\assimp 5.0\include;$(SolutionDir)Cyberspace\vendor\spdlog\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CSPACE_BUILD_DLL;CSPACE_PLATFORM_WINDOWS;_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -135,7 +135,6 @@
     <ClInclude Include="src\Cyberspace\Subsystems\Physics\PhysicsSystem.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Renderer.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Camera.h" />
-    <ClInclude Include="src\Cyberspace\EventList.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Audio\AudioComponent.h" />
     <ClInclude Include="src\Cyberspace\CyberEvent.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Mesh.h" />
@@ -151,16 +150,14 @@
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Texture.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\BasicFragmentShader.glsl" />
-    <None Include="Shaders\GUI_Frag.glsl" />
-    <None Include="Shaders\GUI_Vert.glsl" />
-    <None Include="Shaders\BasicVertexShader.glsl" />
-    <None Include="Shaders\SkyboxFragmentShader.glsl" />
-    <None Include="Shaders\SkyboxVertexShader.glsl" />
-    <None Include="Shaders\TextureFragmentShader.glsl" />
+    <None Include="src\Cyberspace\Subsystems\Graphics\Shaders\BasicFragmentShader.glsl" />
+    <None Include="src\Cyberspace\Subsystems\Graphics\Shaders\BasicVertexShader.glsl" />
+    <None Include="src\Cyberspace\Subsystems\Graphics\Shaders\GUI_Frag.glsl" />
+    <None Include="src\Cyberspace\Subsystems\Graphics\Shaders\GUI_Vert.glsl" />
     <None Include="src\Cyberspace\Subsystems\Graphics\Shaders\SkyboxFragmentShader.glsl" />
     <None Include="src\Cyberspace\Subsystems\Graphics\Shaders\SkyboxVertexShader.glsl" />
-    <None Include="Shaders\TextureVertexShader.glsl" />
+    <None Include="src\Cyberspace\Subsystems\Graphics\Shaders\TextureFragmentShader.glsl" />
+    <None Include="src\Cyberspace\Subsystems\Graphics\Shaders\TextureVertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
