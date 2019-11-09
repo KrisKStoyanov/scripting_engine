@@ -41,7 +41,6 @@ namespace Cyberspace {
 		GLFWwindow* MainWindow = NULL;
 		bool VSyncStatus;
 		double CursorPosX, CursorPosY;
-		bool Active = false;
 	};
 }
 

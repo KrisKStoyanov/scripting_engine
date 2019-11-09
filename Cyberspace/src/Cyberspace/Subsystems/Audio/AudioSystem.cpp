@@ -12,6 +12,7 @@ namespace Cyberspace {
 
 	AudioSystem::~AudioSystem()
 	{
+		Terminate();
 	}
 
 	void AudioSystem::Init(const AudioProps& _props)

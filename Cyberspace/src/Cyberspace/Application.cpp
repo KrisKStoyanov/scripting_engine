@@ -16,6 +16,5 @@ namespace Cyberspace {
 		{
 			m_Engine->OnUpdate();
 		}
-		m_Engine->Terminate();
 	}
 }

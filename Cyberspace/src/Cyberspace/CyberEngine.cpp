@@ -13,6 +13,7 @@ namespace Cyberspace {
 
 	CyberEngine::~CyberEngine()
 	{
+		Terminate();
 	}
 
 
@@ -63,25 +64,33 @@ namespace Cyberspace {
 		double CursorPosX, CursorPosY;
 		m_Window->Update(EventQueue, CursorPosX, CursorPosY);
 		m_Renderer->Update(EventQueue, EntityCollection, CursorPosX, CursorPosY, ComputeDeltaTime(glfwGetTime()));
-			//Engine_Physics->Update(EventQueue, EntityCollection);
-			//	
-			//	//ImGui::NewFrame();
-			//	//ImGui::Render();
 
-			//	//while (Engine_Net->UpdateServer()) {
 
-			//	//}
-			//}
+		if (!EventQueue.empty()) {
+			switch (EventQueue.front()->Type) {
+			case EventType::START:
+				printf("START EVENT\n");
+				EventQueue.pop();
+				break;
+			case EventType::EXIT:
+				printf("EXIT EVENT\n");
+				m_Running = false;
+				EventQueue.pop();
+				break;
+			default:
+				break;
+			}
+		}
 	}
 
 	void CyberEngine::Terminate()
 	{
-		m_Window->Terminate();
-		m_Renderer->Terminate();
-		m_PhysicsSystem->Terminate();
-		m_AudioSystem->Terminate();
-		m_NetSystem->Terminate();
-		m_UISystem->Terminate();
+		m_Window.reset();
+		m_Renderer.reset();
+		m_PhysicsSystem.reset();
+		m_AudioSystem.reset();
+		m_NetSystem.reset();
+		m_UISystem.reset();
 		//ImGui::DestroyContext(); 
 	}
 }

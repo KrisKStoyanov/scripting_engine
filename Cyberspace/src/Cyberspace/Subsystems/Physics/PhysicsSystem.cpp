@@ -12,6 +12,7 @@ namespace Cyberspace {
 
 	PhysicsSystem::~PhysicsSystem()
 	{
+		Terminate();
 	}
 
 	void PhysicsSystem::Init(const PhysicsProps& _props)

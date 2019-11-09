@@ -13,6 +13,7 @@ namespace Cyberspace {
 
 	CyberNet::~CyberNet()
 	{
+		Terminate();
 	}
 
 	void CyberNet::Init(const NetworkProps& _props)

@@ -13,6 +13,7 @@ namespace Cyberspace {
 
 	EngineWindow::~EngineWindow()
 	{
+		Terminate();
 	}
 
 	void EngineWindow::Init(const WindowProps& _props)
@@ -36,8 +37,6 @@ namespace Cyberspace {
 		//		
 		//	}
 		//	});
-		Active = true;
-
 	}
 
 	void EngineWindow::SetVSync(bool _Status)
@@ -54,13 +53,12 @@ namespace Cyberspace {
 	void EngineWindow::Update(std::queue<CyberEvent*>& _EventQueue, double& _CursorPosX, double& _CursorPosY)
 	{
 		glfwSwapBuffers(MainWindow);
-
 		glfwPollEvents();
 
+		glfwGetCursorPos(MainWindow, &_CursorPosX, &_CursorPosY);
 		if (glfwGetKey(MainWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 			_EventQueue.push(new CyberEvent(EventType::EXIT));
 		}
-
 		if (glfwGetKey(MainWindow, GLFW_KEY_W) == GLFW_PRESS) {
 			_EventQueue.push(new CyberEvent(EventType::MOVE_FORWARD, EventTag::GRAPHICS, EventTag::PHYSICS));
 		}
@@ -72,25 +70,6 @@ namespace Cyberspace {
 		}
 		if (glfwGetKey(MainWindow, GLFW_KEY_D) == GLFW_PRESS) {
 			_EventQueue.push(new CyberEvent(EventType::MOVE_RIGHT, EventTag::GRAPHICS, EventTag::PHYSICS));
-		}
-
-		glfwGetCursorPos(MainWindow, &_CursorPosX, &_CursorPosY);
-
-		if (!_EventQueue.empty()) {
-			switch (_EventQueue.front()->Type) {
-			case EventType::START:
-				printf("START EVENT\n");
-				_EventQueue.pop();
-				break;
-			case EventType::EXIT:
-				printf("EXIT EVENT\n");
-				Active = false;
-				glfwSetWindowShouldClose(MainWindow, GLFW_TRUE);
-				_EventQueue.pop();
-				break;
-			default:
-				break;
-			}
 		}
 	}
 

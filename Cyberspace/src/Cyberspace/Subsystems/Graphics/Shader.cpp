@@ -63,6 +63,7 @@ namespace Cyberspace {
 
 	Shader::~Shader()
 	{
+		Clear();
 	}
 
 	std::string Shader::ReadFile(const GLchar* _FilePath)

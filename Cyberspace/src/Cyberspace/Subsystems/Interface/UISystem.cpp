@@ -13,6 +13,7 @@ namespace Cyberspace {
 
 	UISystem::~UISystem()
 	{
+		Terminate();
 	}
 
 	void UISystem::Init(const UIProps& _props)
