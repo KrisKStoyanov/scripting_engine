@@ -50,7 +50,7 @@ namespace Cyberspace {
 		return VSyncStatus;
 	}
 
-	void EngineWindow::Update(bool& _engineOn, std::queue<CyberEvent*>& _EventQueue, double& _CursorPosX, double& _CursorPosY)
+	void EngineWindow::OnUpdate(bool& _engineOn, std::queue<CyberEvent*>& _EventQueue, double& _CursorPosX, double& _CursorPosY)
 	{
 		glfwSwapBuffers(MainWindow);
 		glfwPollEvents();

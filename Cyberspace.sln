@@ -7,20 +7,26 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox", "Sandbox\Sandbox.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cyberspace", "Cyberspace\Cyberspace.vcxproj", "{9A931781-84C5-40E8-BEAE-86083C18C05D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CyberNet", "CyberNet\CyberNet\CyberNet.vcxproj", "{9FEA35A0-FB9A-44FC-9A1B-481EDBC3B2E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9A931781-84C5-40E8-BEAE-86083C18C05D}.Debug|x64.ActiveCfg = Debug|x64
-		{9A931781-84C5-40E8-BEAE-86083C18C05D}.Debug|x64.Build.0 = Debug|x64
-		{9A931781-84C5-40E8-BEAE-86083C18C05D}.Release|x64.ActiveCfg = Release|x64
-		{9A931781-84C5-40E8-BEAE-86083C18C05D}.Release|x64.Build.0 = Release|x64
 		{098C9637-08B3-40E8-A92C-93560FBA9F39}.Debug|x64.ActiveCfg = Debug|x64
 		{098C9637-08B3-40E8-A92C-93560FBA9F39}.Debug|x64.Build.0 = Debug|x64
 		{098C9637-08B3-40E8-A92C-93560FBA9F39}.Release|x64.ActiveCfg = Release|x64
 		{098C9637-08B3-40E8-A92C-93560FBA9F39}.Release|x64.Build.0 = Release|x64
+		{9A931781-84C5-40E8-BEAE-86083C18C05D}.Debug|x64.ActiveCfg = Debug|x64
+		{9A931781-84C5-40E8-BEAE-86083C18C05D}.Debug|x64.Build.0 = Debug|x64
+		{9A931781-84C5-40E8-BEAE-86083C18C05D}.Release|x64.ActiveCfg = Release|x64
+		{9A931781-84C5-40E8-BEAE-86083C18C05D}.Release|x64.Build.0 = Release|x64
+		{9FEA35A0-FB9A-44FC-9A1B-481EDBC3B2E4}.Debug|x64.ActiveCfg = Debug|x64
+		{9FEA35A0-FB9A-44FC-9A1B-481EDBC3B2E4}.Debug|x64.Build.0 = Debug|x64
+		{9FEA35A0-FB9A-44FC-9A1B-481EDBC3B2E4}.Release|x64.ActiveCfg = Release|x64
+		{9FEA35A0-FB9A-44FC-9A1B-481EDBC3B2E4}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

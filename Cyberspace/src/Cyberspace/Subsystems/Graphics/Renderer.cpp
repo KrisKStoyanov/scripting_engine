@@ -108,7 +108,7 @@ namespace Cyberspace {
 		}
 	}
 
-	void Renderer::Update(std::queue<CyberEvent*>& _EventQueue, std::map<EntityTag, Entity*> _EntityCollection, double _CursorPosX, double _CursorPosY, float _DeltaTime)
+	void Renderer::OnUpdate(std::queue<CyberEvent*>& _EventQueue, std::map<EntityTag, Entity*> _EntityCollection, double _CursorPosX, double _CursorPosY, std::vector<glm::vec3>& _updatedPositions, float _DeltaTime)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		if (!_EventQueue.empty()) {
@@ -149,6 +149,8 @@ namespace Cyberspace {
 					_EntityCollection[EntityTag::MainCharacter]->SetPosition(
 						_EntityCollection[EntityTag::MainCharacter]->GetPosition() +
 						_EntityCollection[EntityTag::MainCharacter]->GetDirection() * 5.0f * _DeltaTime);
+					_EventQueue.push(new CyberEvent(EventType::UPDATE_POSITIONS, EventTag::NETWORK));
+					_updatedPositions.push_back(_EntityCollection[EntityTag::MainCharacter]->GetPosition());
 					if (_EventQueue.front()->Tags.empty()) {
 						_EventQueue.pop();
 					}
@@ -158,6 +160,8 @@ namespace Cyberspace {
 					_EntityCollection[EntityTag::MainCharacter]->SetPosition(
 						_EntityCollection[EntityTag::MainCharacter]->GetPosition() +
 						-_EntityCollection[EntityTag::MainCharacter]->GetDirection() * 5.0f * _DeltaTime);
+					_EventQueue.push(new CyberEvent(EventType::UPDATE_POSITIONS, EventTag::NETWORK));
+					_updatedPositions.push_back(_EntityCollection[EntityTag::MainCharacter]->GetPosition());
 					if (_EventQueue.front()->Tags.empty()) {
 						_EventQueue.pop();
 					}
@@ -167,6 +171,8 @@ namespace Cyberspace {
 					_EntityCollection[EntityTag::MainCharacter]->SetPosition(
 						_EntityCollection[EntityTag::MainCharacter]->GetPosition() +
 						glm::vec3(-1.0f, 0.0f, 0.0) * 5.0f * _DeltaTime);
+					_EventQueue.push(new CyberEvent(EventType::UPDATE_POSITIONS, EventTag::NETWORK));
+					_updatedPositions.push_back(_EntityCollection[EntityTag::MainCharacter]->GetPosition());
 					if (_EventQueue.front()->Tags.empty()) {
 						_EventQueue.pop();
 					}
@@ -176,6 +182,8 @@ namespace Cyberspace {
 					_EntityCollection[EntityTag::MainCharacter]->SetPosition(
 						_EntityCollection[EntityTag::MainCharacter]->GetPosition() +
 						glm::vec3(1.0f, 0.0f, 0.0) * 5.0f * _DeltaTime);
+					_EventQueue.push(new CyberEvent(EventType::UPDATE_POSITIONS, EventTag::NETWORK));
+					_updatedPositions.push_back(_EntityCollection[EntityTag::MainCharacter]->GetPosition());
 					if (_EventQueue.front()->Tags.empty()) {
 						_EventQueue.pop();
 					}

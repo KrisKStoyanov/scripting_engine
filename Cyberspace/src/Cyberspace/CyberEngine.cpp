@@ -54,10 +54,11 @@ namespace Cyberspace {
 
 	void CyberEngine::OnUpdate()
 	{
-		double CursorPosX, CursorPosY;
-		m_Window->Update(m_Running, EventQueue, CursorPosX, CursorPosY);
-		m_Renderer->Update(EventQueue, EntityCollection, CursorPosX, CursorPosY, ComputeDeltaTime(glfwGetTime()));
-		m_NetSystem->OnUpdate();
+		double cursorPosX, cursorPosY;
+		std::vector<glm::vec3> updatedPositions;
+		m_Window->OnUpdate(m_Running, EventQueue, cursorPosX, cursorPosY);
+		m_Renderer->OnUpdate(EventQueue, EntityCollection, cursorPosX, cursorPosY, updatedPositions, ComputeDeltaTime(glfwGetTime()));
+		m_NetSystem->OnUpdate(EventQueue, updatedPositions);
 	}
 
 	void CyberEngine::Terminate()

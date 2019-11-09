@@ -37,7 +37,7 @@ namespace Cyberspace {
 		void Terminate();
 		void SetVSync(bool _enable);
 		bool GetVSync();
-		void Update(bool& _engineOn, std::queue<CyberEvent*>& _EventQueue, double& _CursorPosX, double& _CursorPosY);
+		void OnUpdate(bool& _engineOn, std::queue<CyberEvent*>& _EventQueue, double& _CursorPosX, double& _CursorPosY);
 		GLFWwindow* MainWindow = NULL;
 		bool VSyncStatus;
 		double CursorPosX, CursorPosY;

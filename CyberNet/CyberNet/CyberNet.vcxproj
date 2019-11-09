@@ -56,7 +56,8 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\enet-1.3.14\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Cyberspace\src;$(SolutionDir)Dependencies\enet-1.3.14\include;$(SolutionDir)Dependencies\glew 2.1\inc;$(SolutionDir)Dependencies\glfw 3.3\inc;$(SolutionDir)Dependencies\glm-0.9.9.6;$(SolutionDir)Dependencies\fmod\inc;$(SolutionDir)Dependencies\physx 4.1\inc;$(SolutionDir)Dependencies\lua-5.3.5\include;$(SolutionDir)Dependencies\LuaBridge-2.4.1\Source;$(SolutionDir)Dependencies\assimp 5.0\include;$(SolutionDir)Dependencies\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>CSPACE_PLATFORM_WINDOWS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -72,7 +73,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\enet-1.3.14\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Cyberspace\src;$(SolutionDir)Dependencies\enet-1.3.14\include;$(SolutionDir)Dependencies\glew 2.1\inc;$(SolutionDir)Dependencies\glfw 3.3\inc;$(SolutionDir)Dependencies\glm-0.9.9.6;$(SolutionDir)Dependencies\fmod\inc;$(SolutionDir)Dependencies\physx 4.1\inc;$(SolutionDir)Dependencies\lua-5.3.5\include;$(SolutionDir)Dependencies\LuaBridge-2.4.1\Source;$(SolutionDir)Dependencies\assimp 5.0\include;$(SolutionDir)Dependencies\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>CSPACE_PLATFORM_WINDOWS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -83,7 +85,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\GameServer.cpp" />
+    <ClCompile Include="src\ServerApp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cyberspace\Cyberspace.vcxproj">
+      <Project>{9a931781-84c5-40e8-beae-86083c18c05d}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\GameServer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

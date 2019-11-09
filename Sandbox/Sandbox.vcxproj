@@ -57,7 +57,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>CSPACE_PLATFORM_WINDOWS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Cyberspace\src;$(SolutionDir)Cyberspace\vendor\spdlog\include;$(SolutionDir)Dependencies\glew 2.1\inc;$(SolutionDir)Dependencies\glfw 3.3\inc;$(SolutionDir)Dependencies\glm-0.9.9.6;$(SolutionDir)Dependencies\enet-1.3.14\include;$(SolutionDir)Dependencies\fmod\inc;$(SolutionDir)Dependencies\physx 4.1\inc;$(SolutionDir)Dependencies\lua-5.3.5\include;$(SolutionDir)Dependencies\LuaBridge-2.4.1\Source;$(SolutionDir)Dependencies\assimp 5.0\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Cyberspace\src;$(SolutionDir)Dependencies\spdlog\include;$(SolutionDir)Dependencies\glew 2.1\inc;$(SolutionDir)Dependencies\glfw 3.3\inc;$(SolutionDir)Dependencies\glm-0.9.9.6;$(SolutionDir)Dependencies\enet-1.3.14\include;$(SolutionDir)Dependencies\fmod\inc;$(SolutionDir)Dependencies\physx 4.1\inc;$(SolutionDir)Dependencies\lua-5.3.5\include;$(SolutionDir)Dependencies\LuaBridge-2.4.1\Source;$(SolutionDir)Dependencies\assimp 5.0\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

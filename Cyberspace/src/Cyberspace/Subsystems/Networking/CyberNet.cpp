@@ -55,6 +55,12 @@ namespace Cyberspace {
 		}
 	}
 
+	void CyberNet::SendPacket(PacketData* _data)
+	{
+		ENetPacket* packet = enet_packet_create(_data, sizeof(_data), ENET_PACKET_FLAG_NO_ALLOCATE);
+		enet_peer_send(m_Peer, 0, packet);
+	}
+
 	void CyberNet::Disconnect()
 	{
 		enet_peer_disconnect(m_Peer, 0);
@@ -72,7 +78,7 @@ namespace Cyberspace {
 		}
 	}
 
-	void CyberNet::OnUpdate()
+	void CyberNet::OnUpdate(std::queue<CyberEvent*>& _EventQueue, std::vector<glm::vec3> _UpdatedPositions)
 	{
 		std::string netEventData = "Placeholder Data ;)";
 		ENetEvent netEvent;
@@ -97,6 +103,23 @@ namespace Cyberspace {
 			case ENET_EVENT_TYPE_DISCONNECT:
 				printf("%s disconnected.\n", netEvent.peer->data);
 				netEvent.peer->data = NULL;
+			}
+		}
+
+		if (!_EventQueue.empty()) {
+			std::vector<EventTag>::iterator Tag = std::find(_EventQueue.front()->Tags.begin(), _EventQueue.front()->Tags.end(), EventTag::NETWORK);
+			if (Tag != _EventQueue.front()->Tags.end()) {
+				_EventQueue.front()->Tags.erase(Tag);
+				switch (_EventQueue.front()->Type) {
+
+				case EventType::UPDATE_POSITIONS:
+					PacketData* packet = new PacketData(_UpdatedPositions);
+					SendPacket(packet);
+					if (_EventQueue.front()->Tags.empty()) {
+						_EventQueue.pop();
+					}
+					break;
+				}
 			}
 		}
 	}

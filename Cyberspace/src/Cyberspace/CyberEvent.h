@@ -15,6 +15,7 @@ namespace Cyberspace {
 		CAMERA_MOVE_BACKWARD,
 		CAMERA_MOVE_LEFT,
 		CAMERA_MOVE_RIGHT,
+		UPDATE_POSITIONS
 	};
 
 	enum class EventTag {
