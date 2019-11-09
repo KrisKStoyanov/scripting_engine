@@ -32,12 +32,6 @@ namespace Cyberspace {
 		//IO.Fonts->GetTexDataAsRGBA32(&AtlasPixels, &AtlasWidth, &AtlasHeight); 
 
 		//ImGui::StyleColorsDark();
-
-		//CR_Renderer = new CyberRenderer();
-		//CR_Interface = new CyberInterface();
-		//CR_Physics = new CyberPhysics();
-		//CR_Audio = new CyberAudio();
-		//CR_Net = new CyberNet();
 		m_Running = true;
 	}
 
