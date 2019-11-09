@@ -30,7 +30,7 @@ namespace Cyberspace {
 			fprintf(stderr, "GLFW Error %d: %s\n", _Error, _Description);
 			});
 
-		//glfwSetInputMode(MainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetInputMode(MainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		//glfwSetKeyCallback(PlatformWindow, [](GLFWwindow* _Window, int _Key, int _Scancode, int _Action, int _Mods) {
 		//	if (_Key == GLFW_KEY_ESCAPE && _Action == GLFW_PRESS) {
 		//		

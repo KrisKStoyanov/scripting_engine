@@ -86,7 +86,7 @@ namespace Cyberspace {
 
 	void Skybox::Draw(Camera* _Camera)
 	{
-		SkyboxShader->Use();
+		SkyboxShader->Activate();
 
 		glm::mat4 updatedView = glm::mat4(glm::mat3(_Camera->ViewMatrix));
 		SkyboxShader->SetMat4("ViewMatrix", updatedView);
@@ -102,8 +102,7 @@ namespace Cyberspace {
 	void Skybox::Clear()
 	{
 		if (SkyboxShader) {
-			SkyboxShader->Clear();
-			SkyboxShader = nullptr;
+			delete SkyboxShader;
 		}
 		glDeleteVertexArrays(1, &VAO);
 		glDeleteBuffers(1, &VBO);

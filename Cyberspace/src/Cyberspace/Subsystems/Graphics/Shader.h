@@ -9,19 +9,18 @@
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "../../Core.h"
-#include "../Logging/Log.h"
 
 namespace Cyberspace {
 	class CSPACE_API Shader {
 	public:
-		Shader(std::string _vertexSrc, std::string _fragmentSrc);
+		Shader(const GLchar* _VertexShaderPath, const GLchar* _FragmentShaderPath);
 		~Shader();
 
-		GLuint ProgramID;
+		GLuint ProgramID, VertexShaderID, FragmentShaderID;
 
 		std::string ReadFile(const GLchar* _FilePath);
 
-		inline void Use() { glUseProgram(ProgramID); };
+		inline void Activate() { glUseProgram(ProgramID); };
 		void Clear();
 
 		void PrintShaderLog(GLuint _ShaderID);

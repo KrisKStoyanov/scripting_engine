@@ -149,16 +149,6 @@
     <ClInclude Include="src\Cyberspace\Subsystems\Interface\UISystem.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Texture.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="src\Cyberspace\Subsystems\Graphics\Shaders\BasicFragmentShader.glsl" />
-    <None Include="src\Cyberspace\Subsystems\Graphics\Shaders\BasicVertexShader.glsl" />
-    <None Include="src\Cyberspace\Subsystems\Graphics\Shaders\GUI_Frag.glsl" />
-    <None Include="src\Cyberspace\Subsystems\Graphics\Shaders\GUI_Vert.glsl" />
-    <None Include="src\Cyberspace\Subsystems\Graphics\Shaders\SkyboxFragmentShader.glsl" />
-    <None Include="src\Cyberspace\Subsystems\Graphics\Shaders\SkyboxVertexShader.glsl" />
-    <None Include="src\Cyberspace\Subsystems\Graphics\Shaders\TextureFragmentShader.glsl" />
-    <None Include="src\Cyberspace\Subsystems\Graphics\Shaders\TextureVertexShader.glsl" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
