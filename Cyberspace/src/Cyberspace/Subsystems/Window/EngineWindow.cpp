@@ -50,26 +50,42 @@ namespace Cyberspace {
 		return VSyncStatus;
 	}
 
-	void EngineWindow::Update(std::queue<CyberEvent*>& _EventQueue, double& _CursorPosX, double& _CursorPosY)
+	void EngineWindow::Update(bool& _engineOn, std::queue<CyberEvent*>& _EventQueue, double& _CursorPosX, double& _CursorPosY)
 	{
 		glfwSwapBuffers(MainWindow);
 		glfwPollEvents();
 
 		glfwGetCursorPos(MainWindow, &_CursorPosX, &_CursorPosY);
+		//Blocking event:
 		if (glfwGetKey(MainWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::EXIT));
+			_engineOn = false;
 		}
+
+		//Non-blocking event:
+		if (glfwGetKey(MainWindow, GLFW_KEY_UP) == GLFW_PRESS) {
+			_EventQueue.push(new CyberEvent(EventType::CAMERA_MOVE_FORWARD, EventTag::GRAPHICS));
+		}
+		if (glfwGetKey(MainWindow, GLFW_KEY_DOWN) == GLFW_PRESS) {
+			_EventQueue.push(new CyberEvent(EventType::CAMERA_MOVE_BACKWARD, EventTag::GRAPHICS));
+		}
+		if (glfwGetKey(MainWindow, GLFW_KEY_LEFT) == GLFW_PRESS) {
+			_EventQueue.push(new CyberEvent(EventType::CAMERA_MOVE_LEFT, EventTag::GRAPHICS));
+		}
+		if (glfwGetKey(MainWindow, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+			_EventQueue.push(new CyberEvent(EventType::CAMERA_MOVE_RIGHT, EventTag::GRAPHICS));
+		}
+
 		if (glfwGetKey(MainWindow, GLFW_KEY_W) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::MOVE_FORWARD, EventTag::GRAPHICS, EventTag::PHYSICS));
+			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_FORWARD, EventTag::GRAPHICS));
 		}
 		if (glfwGetKey(MainWindow, GLFW_KEY_S) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::MOVE_BACKWARD, EventTag::GRAPHICS, EventTag::PHYSICS));
+			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_BACKWARD, EventTag::GRAPHICS));
 		}
 		if (glfwGetKey(MainWindow, GLFW_KEY_A) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::MOVE_LEFT, EventTag::GRAPHICS, EventTag::PHYSICS));
+			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_LEFT, EventTag::GRAPHICS));
 		}
 		if (glfwGetKey(MainWindow, GLFW_KEY_D) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::MOVE_RIGHT, EventTag::GRAPHICS, EventTag::PHYSICS));
+			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_RIGHT, EventTag::GRAPHICS));
 		}
 	}
 

@@ -9,7 +9,7 @@ namespace Cyberspace {
 	}
 
 	Mesh::~Mesh() {
-
+		
 	}
 
 	bool Mesh::Setup() {

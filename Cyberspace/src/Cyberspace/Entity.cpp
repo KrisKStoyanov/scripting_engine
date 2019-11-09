@@ -1,14 +1,16 @@
 #include "Entity.h"
 
 namespace Cyberspace {
-	Entity::Entity(glm::vec3 _Position, glm::vec3 _Direction)
+	Entity::Entity(glm::vec3 _Position, glm::vec3 _Direction, EntityTag _Tag)
 	{
-		Position = _Position;
-		Direction = _Direction;
+		m_Position = _Position;
+		m_Direction = _Direction;
+		m_Tag = _Tag;
 	}
 
 	Entity::~Entity()
 	{
+		Clear();
 	}
 
 	void Entity::Configure(Model* _Model, PhysicsComponent* _PSX, AudioComponent* _Audio)
@@ -25,9 +27,6 @@ namespace Cyberspace {
 	void Entity::Clear()
 	{
 		if (m_Model != NULL) {
-			for (int i = 0; i < m_Model->Meshes.size(); ++i) {
-				m_Model->Meshes[i].Clear();
-			}
 			m_Model = nullptr;
 		}
 

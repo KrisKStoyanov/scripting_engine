@@ -26,22 +26,18 @@ namespace Cyberspace {
 		m_UISystem = std::unique_ptr<UISystem>(UISystem::Create(_props.m_UIProps));
 		m_NetSystem = std::unique_ptr<CyberNet>(CyberNet::Create(_props.m_NetProps));
 
-		//ImGui::CreateContext();
-		//ImGuiIO& IO = ImGui::GetIO();
-		//int AtlasWidth, AtlasHeight;
-		//unsigned char* AtlasPixels = NULL;
-		//IO.Fonts->GetTexDataAsRGBA32(&AtlasPixels, &AtlasWidth, &AtlasHeight); 
-
-		//ImGui::StyleColorsDark();
+		m_GameManager = std::unique_ptr<GameManager>(GameManager::Create());
 		m_Running = true;
 	}
 
 	void CyberEngine::Configure()
 	{
 		Model* TestModel = new Model("../External Resources/3D/crysisGuy/scene.gltf");
-		Entity* TestEntity = new Entity(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-		TestEntity->Configure(TestModel);
-		EntityCollection.push_back(TestEntity);
+
+		//Model* MainModel = new Model("../External Resources/3D/Vehicle/SpaceCar.fbx");
+		Entity* MainEntity = new Entity(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f), EntityTag::MainCharacter);
+		MainEntity->Configure(TestModel);
+		EntityCollection.insert(std::pair<EntityTag, Entity*>(MainEntity->m_Tag, MainEntity));
 
 		//Engine_Audio->PlayBGM(0);
 
@@ -49,7 +45,7 @@ namespace Cyberspace {
 		//E_Net->CreateClient();
 		//E_Net->ConnectToHost();
 
-		EventQueue.push(new CyberEvent(EventType::START));
+		//EventQueue.push(new CyberEvent(EventType::START));
 	}
 
 	float CyberEngine::ComputeDeltaTime(float _CurrentFrameTime)
@@ -62,36 +58,21 @@ namespace Cyberspace {
 	void CyberEngine::OnUpdate()
 	{
 		double CursorPosX, CursorPosY;
-		m_Window->Update(EventQueue, CursorPosX, CursorPosY);
+		m_Window->Update(m_Running, EventQueue, CursorPosX, CursorPosY);
 		m_Renderer->Update(EventQueue, EntityCollection, CursorPosX, CursorPosY, ComputeDeltaTime(glfwGetTime()));
-
-
-		if (!EventQueue.empty()) {
-			switch (EventQueue.front()->Type) {
-			case EventType::START:
-				printf("START EVENT\n");
-				EventQueue.pop();
-				break;
-			case EventType::EXIT:
-				printf("EXIT EVENT\n");
-				m_Running = false;
-				EventQueue.pop();
-				break;
-			default:
-				break;
-			}
-		}
 	}
 
 	void CyberEngine::Terminate()
 	{
+		for (std::pair<EntityTag, Entity*> iter : EntityCollection) {
+			delete iter.second;
+		}
 		m_Window.reset();
 		m_Renderer.reset();
 		m_PhysicsSystem.reset();
 		m_AudioSystem.reset();
 		m_NetSystem.reset();
 		m_UISystem.reset();
-		//ImGui::DestroyContext(); 
 	}
 }
 

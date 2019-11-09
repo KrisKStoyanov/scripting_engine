@@ -19,7 +19,8 @@
 #include "./Subsystems/Networking/CyberNet.h"
 #include "./Subsystems/Audio/AudioSystem.h"
 #include "./Subsystems/Physics/PhysicsSystem.h"
-#include "Subsystems/Window/EngineWindow.h"
+#include "./Subsystems/Window/EngineWindow.h"
+#include "./Subsystems/GameManager/GameManager.h"
 
 #include "CyberEvent.h"
 
@@ -65,7 +66,7 @@ namespace Cyberspace {
 
 		bool m_Running = true;
 
-		std::vector<Entity*> EntityCollection;
+		std::map<EntityTag, Entity*> EntityCollection;
 		std::queue<CyberEvent*> EventQueue;
 
 	private:
@@ -75,6 +76,7 @@ namespace Cyberspace {
 		std::unique_ptr<AudioSystem> m_AudioSystem;
 		std::unique_ptr<UISystem> m_UISystem;
 		std::unique_ptr<CyberNet> m_NetSystem;
+		std::unique_ptr<GameManager> m_GameManager;
 		float DeltaTime = 0.0f, LastFrameTime = 0.0f;
 	};
 }

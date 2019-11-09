@@ -44,7 +44,7 @@ namespace Cyberspace {
 		void Init(const GraphicsProps& _props);
 		void Setup(int _WindowWidth, int _WindowHeight);
 		void Draw(Camera* _Camera, Entity* _Entity, Shader* _Shader);
-		void Update(std::queue<CyberEvent*>& _EventQueue, std::vector<Entity*> _EntityCollection, double _CursorPosX, double _CursorPosY, float _DeltaTime);
+		void Update(std::queue<CyberEvent*>& _EventQueue, std::map<EntityTag, Entity*> _EntityCollection, double _CursorPosX, double _CursorPosY, float _DeltaTime);
 		void Terminate();
 
 		Shader* SetupShader(const GLchar* _VertexShaderPath, const GLchar* _FragmentShaderPath, ShaderType _Type);

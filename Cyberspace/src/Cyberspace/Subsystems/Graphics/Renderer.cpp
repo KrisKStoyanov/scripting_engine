@@ -55,7 +55,7 @@ namespace Cyberspace {
 			for (int i = 0; i < _Entity->m_Model->Meshes.size(); ++i) {
 
 				_Entity->m_Model->ModelMatrix = glm::mat4(1.0f);
-				_Entity->m_Model->ModelMatrix = glm::translate(_Entity->m_Model->ModelMatrix, _Entity->Position);
+				_Entity->m_Model->ModelMatrix = glm::translate(_Entity->m_Model->ModelMatrix, _Entity->GetPosition());
 				/*_Entity->m_Model->ModelMatrix = glm::rotate(_Entity->m_Model->ModelMatrix, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.0f, 1.0f, 0.0f));*/
 
 				_Shader->SetMat4("ProjectionMatrix", MainCamera->ProjectionMatrix);
@@ -108,7 +108,7 @@ namespace Cyberspace {
 		}
 	}
 
-	void Renderer::Update(std::queue<CyberEvent*>& _EventQueue, std::vector<Entity*> _EntityCollection, double _CursorPosX, double _CursorPosY, float _DeltaTime)
+	void Renderer::Update(std::queue<CyberEvent*>& _EventQueue, std::map<EntityTag, Entity*> _EntityCollection, double _CursorPosX, double _CursorPosY, float _DeltaTime)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		if (!_EventQueue.empty()) {
@@ -116,33 +116,82 @@ namespace Cyberspace {
 			if (Tag != _EventQueue.front()->Tags.end()) {
 				_EventQueue.front()->Tags.erase(Tag);
 				switch (_EventQueue.front()->Type) {
-				case EventType::MOVE_FORWARD:
+
+				case EventType::CAMERA_MOVE_FORWARD:
 					MainCamera->UpdateTransformKeyboard(MovementType::FORWARD, _DeltaTime);
-					printf("MOVE_FORWARD EVENT\n");
-					_EventQueue.pop();
+					if (_EventQueue.front()->Tags.empty()) {
+						_EventQueue.pop();
+					}
 					break;
-				case EventType::MOVE_BACKWARD:
+
+				case EventType::CAMERA_MOVE_BACKWARD:
 					MainCamera->UpdateTransformKeyboard(MovementType::BACKWARD, _DeltaTime);
-					printf("MOVE_BACKWARD EVENT\n");
-					_EventQueue.pop();
+					if (_EventQueue.front()->Tags.empty()) {
+						_EventQueue.pop();
+					}
 					break;
-				case EventType::MOVE_LEFT:
+
+				case EventType::CAMERA_MOVE_LEFT:
 					MainCamera->UpdateTransformKeyboard(MovementType::LEFT, _DeltaTime);
-					printf("MOVE_LEFT EVENT\n");
-					_EventQueue.pop();
+					if (_EventQueue.front()->Tags.empty()) {
+						_EventQueue.pop();
+					}
 					break;
-				case EventType::MOVE_RIGHT:
+
+				case EventType::CAMERA_MOVE_RIGHT:
 					MainCamera->UpdateTransformKeyboard(MovementType::RIGHT, _DeltaTime);
-					printf("MOVE_RIGHT EVENT\n");
-					_EventQueue.pop();
+					if (_EventQueue.front()->Tags.empty()) {
+						_EventQueue.pop();
+					}
 					break;
+
+				case EventType::VEHICLE_MOVE_FORWARD:
+					printf("Position: x: %f, y: %f, z: %f\n", _EntityCollection[EntityTag::MainCharacter]->GetPosition().x, _EntityCollection[EntityTag::MainCharacter]->GetPosition().y, _EntityCollection[EntityTag::MainCharacter]->GetPosition().z);
+					_EntityCollection[EntityTag::MainCharacter]->SetPosition(
+						_EntityCollection[EntityTag::MainCharacter]->GetPosition() +
+						_EntityCollection[EntityTag::MainCharacter]->GetDirection() * 5.0f * _DeltaTime);
+					if (_EventQueue.front()->Tags.empty()) {
+						_EventQueue.pop();
+					}
+					break;
+
+				case EventType::VEHICLE_MOVE_BACKWARD:
+					printf("Position: x: %f, y: %f, z: %f\n", _EntityCollection[EntityTag::MainCharacter]->GetPosition().x, _EntityCollection[EntityTag::MainCharacter]->GetPosition().y, _EntityCollection[EntityTag::MainCharacter]->GetPosition().z);
+					_EntityCollection[EntityTag::MainCharacter]->SetPosition(
+						_EntityCollection[EntityTag::MainCharacter]->GetPosition() +
+						-_EntityCollection[EntityTag::MainCharacter]->GetDirection() * 5.0f * _DeltaTime);
+					if (_EventQueue.front()->Tags.empty()) {
+						_EventQueue.pop();
+					}
+					break;
+
+				case EventType::VEHICLE_MOVE_LEFT:
+					printf("Position: x: %f, y: %f, z: %f\n", _EntityCollection[EntityTag::MainCharacter]->GetPosition().x, _EntityCollection[EntityTag::MainCharacter]->GetPosition().y, _EntityCollection[EntityTag::MainCharacter]->GetPosition().z);
+					_EntityCollection[EntityTag::MainCharacter]->SetPosition(
+						_EntityCollection[EntityTag::MainCharacter]->GetPosition() +
+						glm::vec3(-1.0f, 0.0f, 0.0) * 5.0f * _DeltaTime);
+					if (_EventQueue.front()->Tags.empty()) {
+						_EventQueue.pop();
+					}
+					break;
+
+				case EventType::VEHICLE_MOVE_RIGHT:
+					printf("Position: x: %f, y: %f, z: %f\n", _EntityCollection[EntityTag::MainCharacter]->GetPosition().x, _EntityCollection[EntityTag::MainCharacter]->GetPosition().y, _EntityCollection[EntityTag::MainCharacter]->GetPosition().z);
+					_EntityCollection[EntityTag::MainCharacter]->SetPosition(
+						_EntityCollection[EntityTag::MainCharacter]->GetPosition() +
+						glm::vec3(1.0f, 0.0f, 0.0) * 5.0f * _DeltaTime);
+					if (_EventQueue.front()->Tags.empty()) {
+						_EventQueue.pop();
+					}
+					break;
+
 				default:
 					break;
 				}
 			}
 		}
-		for (Entity* E : _EntityCollection) {
-			Draw(MainCamera, E, TextureShader);
+		for (std::pair<EntityTag, Entity*> iter : _EntityCollection) {
+			Draw(MainCamera, iter.second, TextureShader);
 		}
 		MainCamera->UpdateTransformMouse(_CursorPosX, -_CursorPosY);
 		glDepthFunc(GL_LEQUAL);

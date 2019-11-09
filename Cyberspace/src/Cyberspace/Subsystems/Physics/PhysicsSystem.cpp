@@ -90,19 +90,19 @@ namespace Cyberspace {
 			if (Tag != _EventQueue.front()->Tags.end()) {
 				_EventQueue.front()->Tags.erase(Tag);
 				switch (_EventQueue.front()->Type) {
-				case EventType::MOVE_FORWARD:
+				case EventType::VEHICLE_MOVE_FORWARD:
 					//TestEntity->Position += glm::vec3(0, 0.001f, 0);
 					printf("MOVE_FORWARD EVENT\n");
 					break;
-				case EventType::MOVE_BACKWARD:
+				case EventType::VEHICLE_MOVE_BACKWARD:
 					//TestEntity->Position += glm::vec3(0, -0.001f, 0);
 					printf("MOVE_BACKWARD EVENT\n");
 					break;
-				case EventType::MOVE_LEFT:
+				case EventType::VEHICLE_MOVE_LEFT:
 					//TestEntity->Position += glm::vec3(-0.001f, 0, 0);
 					printf("MOVE_LEFT EVENT\n");
 					break;
-				case EventType::MOVE_RIGHT:
+				case EventType::VEHICLE_MOVE_RIGHT:
 					//TestEntity->Position += glm::vec3(0.001f, 0, 0);
 					printf("MOVE_RIGHT EVENT\n");
 					break;

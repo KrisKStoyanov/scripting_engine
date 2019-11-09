@@ -18,7 +18,13 @@ namespace Cyberspace {
 
 	void UISystem::Init(const UIProps& _props)
 	{
+		//ImGui::CreateContext();
+		//ImGuiIO& IO = ImGui::GetIO();
+		//int AtlasWidth, AtlasHeight;
+		//unsigned char* AtlasPixels = NULL;
+		//IO.Fonts->GetTexDataAsRGBA32(&AtlasPixels, &AtlasWidth, &AtlasHeight); 
 
+		//ImGui::StyleColorsDark();
 	}
 
 	void UISystem::Configure()
@@ -50,6 +56,7 @@ namespace Cyberspace {
 
 	void UISystem::Terminate()
 	{
+		//ImGui::DestroyContext(); 
 	}
 
 }

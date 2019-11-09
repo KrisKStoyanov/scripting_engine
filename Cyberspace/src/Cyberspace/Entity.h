@@ -28,21 +28,37 @@ extern "C"
 #include "Core.h"
 
 namespace Cyberspace {
+
+	enum class EntityTag {
+		None = 0,
+		MainCharacter,
+		Environment,
+		IntProp
+	};
+
 	class CSPACE_API Entity
 	{
 	public:
-		Entity(glm::vec3 _Position, glm::vec3 _Direction);
+		Entity(glm::vec3 _Position, glm::vec3 _Direction, EntityTag _Tag = EntityTag::None);
 		~Entity();
-
-		glm::vec3 Position;
-		glm::vec3 Direction;
 
 		void Configure(Model* _Model = NULL, PhysicsComponent* _PSX = NULL, AudioComponent* _Audio = NULL);
 		void Clear();
 
+		inline void SetPosition(glm::vec3 _position) { m_Position = _position; }
+		inline void SetDirection(glm::vec3 _direction) { m_Direction = _direction; }
+
+		inline glm::vec3 GetPosition() { return m_Position; }
+		inline glm::vec3 GetDirection() { return m_Direction; }
+
 		Model* m_Model = NULL;
 		PhysicsComponent* m_PSX = NULL;
 		AudioComponent* m_Audio = NULL;
+
+		EntityTag m_Tag;
+	private:
+		glm::vec3 m_Position;
+		glm::vec3 m_Direction;
 	};
 }
 
