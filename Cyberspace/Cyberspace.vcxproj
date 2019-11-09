@@ -87,6 +87,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Cyberspace\Subsystems\AssetManagement\AssetManager.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\GameManager\GameManager.cpp" />
     <ClCompile Include="ImGUI\imgui.cpp" />
     <ClCompile Include="ImGUI\imgui_demo.cpp" />
@@ -117,6 +118,7 @@
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Cyberspace\Subsystems\AssetManagement\AssetManager.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\GameManager\GameManager.h" />
     <ClInclude Include="ImGUI\imconfig.h" />
     <ClInclude Include="ImGUI\imgui.h" />

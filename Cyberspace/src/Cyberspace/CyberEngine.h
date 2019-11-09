@@ -20,6 +20,7 @@
 #include "./Subsystems/Audio/AudioSystem.h"
 #include "./Subsystems/Physics/PhysicsSystem.h"
 #include "./Subsystems/Window/EngineWindow.h"
+#include "./Subsystems/AssetManagement/AssetManager.h"
 #include "./Subsystems/GameManager/GameManager.h"
 
 #include "CyberEvent.h"
@@ -35,6 +36,8 @@ namespace Cyberspace {
 		AudioProps m_AudioProps;
 		UIProps m_UIProps;
 		NetworkProps m_NetProps;
+		AMProps m_AMProps;
+		GMProps m_GMProps;
 
 		EngineProps(
 			WindowProps _wProps = WindowProps(),
@@ -42,13 +45,17 @@ namespace Cyberspace {
 			PhysicsProps _pProps = PhysicsProps(),
 			AudioProps _aProps = AudioProps(),
 			UIProps _uiProps = UIProps(),
-			NetworkProps _netProps = NetworkProps()) :
+			NetworkProps _netProps = NetworkProps(),
+			AMProps _amProps = AMProps(),
+			GMProps _gmProps = GMProps()) :
 			m_WindowProps(_wProps),
 			m_GraphicsProps(_gProps),
 			m_PhysicsProps(_pProps),
 			m_AudioProps(_aProps),
 			m_UIProps(_uiProps),
-			m_NetProps(_netProps) {}
+			m_NetProps(_netProps),
+			m_AMProps(_amProps),
+			m_GMProps(_gmProps) {}
 	};
 
 	class CSPACE_API CyberEngine
@@ -76,6 +83,7 @@ namespace Cyberspace {
 		std::unique_ptr<AudioSystem> m_AudioSystem;
 		std::unique_ptr<UISystem> m_UISystem;
 		std::unique_ptr<CyberNet> m_NetSystem;
+		std::unique_ptr<AssetManager> m_AssetManager;
 		std::unique_ptr<GameManager> m_GameManager;
 		float DeltaTime = 0.0f, LastFrameTime = 0.0f;
 	};

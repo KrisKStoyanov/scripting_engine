@@ -25,19 +25,15 @@ namespace Cyberspace {
 		m_AudioSystem = std::unique_ptr<AudioSystem>(AudioSystem::Create(_props.m_AudioProps));
 		m_UISystem = std::unique_ptr<UISystem>(UISystem::Create(_props.m_UIProps));
 		m_NetSystem = std::unique_ptr<CyberNet>(CyberNet::Create(_props.m_NetProps));
-
-		m_GameManager = std::unique_ptr<GameManager>(GameManager::Create());
+		m_AssetManager = std::unique_ptr<AssetManager>(AssetManager::Create(_props.m_AMProps));
+		m_GameManager = std::unique_ptr<GameManager>(GameManager::Create(_props.m_GMProps));
 		m_Running = true;
 	}
 
 	void CyberEngine::Configure()
 	{
-		//Model* TestModel = new Model("../External Resources/3D/crysisGuy/scene.gltf");
-		//Model* MainModel = new Model("../External Resources/3D/Vehicle/SpaceCar.fbx");
-		Model* EngineModel = new Model("../External Resources/3D/Vehicle/SpaceCarEngine.fbx");
-
 		Entity* MainEntity = new Entity(glm::vec3(0.0f, 0.0f, -10.0f), glm::vec3(0.0f, 0.0f, -1.0f), EntityTag::MainCharacter);
-		MainEntity->Configure(EngineModel);
+		MainEntity->Configure(m_AssetManager->LoadedModels["Engine"]);
 		EntityCollection.insert(std::pair<EntityTag, Entity*>(MainEntity->m_Tag, MainEntity));
 
 		//Engine_Audio->PlayBGM(0);
