@@ -42,10 +42,6 @@ namespace Cyberspace {
 
 		//Engine_Audio->PlayBGM(0);
 
-		//E_Net->CreateServer();
-		//E_Net->CreateClient();
-		//E_Net->ConnectToHost();
-
 		//EventQueue.push(new CyberEvent(EventType::START));
 	}
 
@@ -61,6 +57,7 @@ namespace Cyberspace {
 		double CursorPosX, CursorPosY;
 		m_Window->Update(m_Running, EventQueue, CursorPosX, CursorPosY);
 		m_Renderer->Update(EventQueue, EntityCollection, CursorPosX, CursorPosY, ComputeDeltaTime(glfwGetTime()));
+		m_NetSystem->OnUpdate();
 	}
 
 	void CyberEngine::Terminate()

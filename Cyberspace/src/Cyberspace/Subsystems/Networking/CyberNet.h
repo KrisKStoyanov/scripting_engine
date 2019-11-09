@@ -29,18 +29,13 @@ namespace Cyberspace {
 		CyberNet(const NetworkProps& _props);
 		~CyberNet();
 		void Init(const NetworkProps& _props);
-		void CreateServer();
 		void CreateClient();
-		bool UpdateServer();
-		void SendPacketToPeer();
-		void DisconectPeer();
-		void HandleEvent(CyberEvent* _Event);
 		void ConnectToHost();
+		void Disconnect();
+		void OnUpdate();
 		void Terminate();
-		ENetAddress CR_Address;
-		ENetHost* CR_Server;
-		ENetHost* CR_Client;
-		ENetPeer* CR_Peer;
+		ENetHost* m_Client;
+		ENetPeer* m_Peer;
 	};
 }
 

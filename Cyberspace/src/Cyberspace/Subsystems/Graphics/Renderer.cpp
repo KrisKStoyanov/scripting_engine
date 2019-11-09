@@ -146,7 +146,6 @@ namespace Cyberspace {
 					break;
 
 				case EventType::VEHICLE_MOVE_FORWARD:
-					printf("Position: x: %f, y: %f, z: %f\n", _EntityCollection[EntityTag::MainCharacter]->GetPosition().x, _EntityCollection[EntityTag::MainCharacter]->GetPosition().y, _EntityCollection[EntityTag::MainCharacter]->GetPosition().z);
 					_EntityCollection[EntityTag::MainCharacter]->SetPosition(
 						_EntityCollection[EntityTag::MainCharacter]->GetPosition() +
 						_EntityCollection[EntityTag::MainCharacter]->GetDirection() * 5.0f * _DeltaTime);
@@ -156,7 +155,6 @@ namespace Cyberspace {
 					break;
 
 				case EventType::VEHICLE_MOVE_BACKWARD:
-					printf("Position: x: %f, y: %f, z: %f\n", _EntityCollection[EntityTag::MainCharacter]->GetPosition().x, _EntityCollection[EntityTag::MainCharacter]->GetPosition().y, _EntityCollection[EntityTag::MainCharacter]->GetPosition().z);
 					_EntityCollection[EntityTag::MainCharacter]->SetPosition(
 						_EntityCollection[EntityTag::MainCharacter]->GetPosition() +
 						-_EntityCollection[EntityTag::MainCharacter]->GetDirection() * 5.0f * _DeltaTime);
@@ -166,7 +164,6 @@ namespace Cyberspace {
 					break;
 
 				case EventType::VEHICLE_MOVE_LEFT:
-					printf("Position: x: %f, y: %f, z: %f\n", _EntityCollection[EntityTag::MainCharacter]->GetPosition().x, _EntityCollection[EntityTag::MainCharacter]->GetPosition().y, _EntityCollection[EntityTag::MainCharacter]->GetPosition().z);
 					_EntityCollection[EntityTag::MainCharacter]->SetPosition(
 						_EntityCollection[EntityTag::MainCharacter]->GetPosition() +
 						glm::vec3(-1.0f, 0.0f, 0.0) * 5.0f * _DeltaTime);
@@ -176,7 +173,6 @@ namespace Cyberspace {
 					break;
 
 				case EventType::VEHICLE_MOVE_RIGHT:
-					printf("Position: x: %f, y: %f, z: %f\n", _EntityCollection[EntityTag::MainCharacter]->GetPosition().x, _EntityCollection[EntityTag::MainCharacter]->GetPosition().y, _EntityCollection[EntityTag::MainCharacter]->GetPosition().z);
 					_EntityCollection[EntityTag::MainCharacter]->SetPosition(
 						_EntityCollection[EntityTag::MainCharacter]->GetPosition() +
 						glm::vec3(1.0f, 0.0f, 0.0) * 5.0f * _DeltaTime);

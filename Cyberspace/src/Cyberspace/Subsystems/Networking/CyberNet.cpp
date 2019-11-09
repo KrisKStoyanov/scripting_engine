@@ -20,136 +20,93 @@ namespace Cyberspace {
 	{
 		if (enet_initialize() != 0) {
 			fprintf(stderr, "An error occurred while initializing ENet.\n");
-		
 		}
+		atexit(enet_deinitialize);
+		CreateClient();
 	}
 
-	void CyberNet::CreateServer()
-	{
-		CR_Address.host = ENET_HOST_ANY;
-		CR_Address.port = 1234;
-
-		CR_Server = enet_host_create(&CR_Address, 32, 2, 0, 0);
-
-		if (CR_Server == NULL) {
-			fprintf(stderr, "An error occurred while trying to create an ENet server host.\n");
-			exit(EXIT_FAILURE);
-		}
-	}
 
 	void CyberNet::CreateClient()
 	{
-		CR_Client = enet_host_create(NULL, 1, 2, 0, 0);
-		if (CR_Client == NULL) {
+		m_Client = enet_host_create(NULL, 1, 2, 0, 0);
+		if (m_Client == NULL) {
 			fprintf(stderr, "An error occurred while trying to create an ENet client host.\n");
 			exit(EXIT_FAILURE);
 		}
+		ConnectToHost();
 	}
 
-	bool CyberNet::UpdateServer()
-	{
-		ENetEvent NetEvent;
-		while (enet_host_service(CR_Client, &NetEvent, 1000) > 0) {
-			switch (NetEvent.type) {
-			case ENET_EVENT_TYPE_CONNECT:
-				printf("A new client connected from %x:%u.\n",
-					NetEvent.peer->address.host,
-					NetEvent.peer->address.port);
-
-				//NetEvent.peer->data = "Client information";
-
-				break;
-			case ENET_EVENT_TYPE_RECEIVE:
-				printf("A packet of length %u containing %s was received from %s on channel %u.\n",
-					NetEvent.packet->dataLength,
-					NetEvent.packet->data,
-					NetEvent.peer->data,
-					NetEvent.channelID);
-
-				enet_packet_destroy(NetEvent.packet);
-
-				break;
-
-			case ENET_EVENT_TYPE_DISCONNECT:
-				printf("%s disconnected.\n", (char*)NetEvent.peer->data);
-
-				NetEvent.peer->data = NULL;
-			}
-		}
-		return false;
-	}
-
-	void CyberNet::SendPacketToPeer()
-	{
-		ENetPacket* Packet = enet_packet_create("packet", strlen("packet") + 1, ENET_PACKET_FLAG_RELIABLE);
-		enet_packet_resize(Packet, strlen("packetfoo") + 1);
-		strcpy((char*)Packet->data[strlen("packet")], "foo");
-		//strcpy(&Packet->data[strlen("packet")], "foo");
-
-		enet_peer_send(CR_Peer, 0, Packet);
-		enet_host_flush(CR_Server);
-	}
-
-	void CyberNet::DisconectPeer()
-	{
-		ENetEvent NetEvent;
-
-		enet_peer_disconnect(CR_Peer, 0);
-		while (enet_host_service(CR_Client, &NetEvent, 3000) > 0) {
-			switch (NetEvent.type) {
-			case ENET_EVENT_TYPE_RECEIVE:
-				enet_packet_destroy(NetEvent.packet);
-				break;
-			case ENET_EVENT_TYPE_DISCONNECT:
-				puts("Disconnection succeeded");
-				return;
-				break;
-			}
-		}
-		enet_peer_reset(CR_Peer);
-	}
-
-	void CyberNet::HandleEvent(CyberEvent* _Event)
-	{
-
-	}
-
-	void CyberNet::ConnectToHost()
-	{
-		ENetEvent NetEvent;
-		enet_address_set_host(&CR_Address, "localhost");
-		CR_Address.port = 1234;
-
-		CR_Peer = enet_host_connect(CR_Client, &CR_Address, 2, 0);
-		if (CR_Peer == NULL) {
-			fprintf(stderr, "No available peers for initiating an ENet connection.\n");
+	void CyberNet::ConnectToHost() {
+		ENetAddress address;
+		enet_address_set_host(&address, ENET_HOST_ANY);
+		address.port = 1234;
+		m_Peer = enet_host_connect(m_Client, &address, 2, 0);
+		if (m_Peer == NULL) {
+			fprintf(stderr, "No available peers for initiating an ENet connection\n");
 			exit(EXIT_FAILURE);
 		}
-
-		if (enet_host_service(CR_Client, &NetEvent, 5000) > 0 &&
-			NetEvent.type == ENET_EVENT_TYPE_CONNECT) {
-			puts("Connection is successful");
+		ENetEvent netEvent;
+		if (enet_host_service(m_Client, &netEvent, 5000) > 0 && netEvent.type == ENET_EVENT_TYPE_CONNECT) {
+			puts("Connection to server succeeded.");
 		}
 		else {
-			enet_peer_reset(CR_Peer);
-			puts("Connection failed");
+			enet_peer_reset(m_Peer);
+			puts("Connection to server failed.");
+		}
+	}
+
+	void CyberNet::Disconnect()
+	{
+		enet_peer_disconnect(m_Peer, 0);
+		ENetEvent netEvent;
+		while (enet_host_service(m_Client, &netEvent, 3000) > 0) {
+			switch (netEvent.type)
+			{
+			case ENET_EVENT_TYPE_RECEIVE:
+				enet_packet_destroy(netEvent.packet);
+				break;
+			case ENET_EVENT_TYPE_DISCONNECT:
+				puts("Disconnection succeeded.");
+				return;
+			}
+		}
+	}
+
+	void CyberNet::OnUpdate()
+	{
+		std::string netEventData = "Placeholder Data ;)";
+		ENetEvent netEvent;
+		while (enet_host_service(m_Client, &netEvent, 0) > 0) {
+			switch (netEvent.type) {
+			case ENET_EVENT_TYPE_CONNECT:
+				printf("A new client connected from %x:%u.\n",
+					netEvent.peer->address.host,
+					netEvent.peer->address.port);
+				netEvent.peer->data = &netEventData;
+				break;
+			case ENET_EVENT_TYPE_RECEIVE:
+				printf("A packet of length %u containing %s was received  from %s on channel %u.\n",
+					netEvent.packet->dataLength,
+					netEvent.packet->data,
+					netEvent.peer->data,
+					netEvent.channelID);
+				enet_packet_destroy(netEvent.packet);
+
+				break;
+
+			case ENET_EVENT_TYPE_DISCONNECT:
+				printf("%s disconnected.\n", netEvent.peer->data);
+				netEvent.peer->data = NULL;
+			}
 		}
 	}
 
 	void CyberNet::Terminate()
 	{
-		if (CR_Peer != NULL) {
-			DisconectPeer();
+		Disconnect();
+		if (m_Client != NULL) {
+			enet_host_destroy(m_Client);
 		}
-
-		if (CR_Client != NULL) {
-			enet_host_destroy(CR_Client);
-		}
-		if (CR_Server != NULL) {
-			enet_host_destroy(CR_Server);
-		}
-
-		atexit(enet_deinitialize);
 	}
 }
 
