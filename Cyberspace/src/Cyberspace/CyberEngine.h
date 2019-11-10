@@ -25,8 +25,6 @@
 
 #include "CyberEvent.h"
 
-#include "./Subsystems/Graphics/Model.h"
-
 namespace Cyberspace {
 
 	struct EngineProps {

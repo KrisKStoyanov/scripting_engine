@@ -37,8 +37,6 @@ namespace Cyberspace {
 		void PlayBGM(int _Index);
 		void PlaySFX(int _Index);
 
-		//FMOD::Studio::System* HighLevelSystem = NULL;
-		//FMOD::System* LowLevelSystem = NULL;
 		FMOD::System* CoreSystem = NULL;
 		FMOD::Sound* BGM[2];
 		FMOD::Sound* SFX[2];

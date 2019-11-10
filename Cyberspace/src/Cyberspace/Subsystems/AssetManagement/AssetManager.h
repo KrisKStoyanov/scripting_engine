@@ -3,7 +3,8 @@
 #include <string>
 #include <unordered_map>
 #include "../../Core.h"
-#include "../../Subsystems/Graphics/Model.h"
+#include "Model.h"
+#include "Shader.h"
 
 namespace Cyberspace {
 
@@ -20,6 +21,7 @@ namespace Cyberspace {
 		void Init(const AMProps& _props);
 		void Terminate();
 		std::unordered_map<std::string, Model*> LoadedModels;
+		std::unordered_map<std::string, Shader*> LoadedShaders;
 	};
 }
 

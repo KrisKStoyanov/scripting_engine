@@ -31,7 +31,6 @@ namespace Cyberspace {
 	void Renderer::Setup(int _WindowWidth, int _WindowHeight)
 	{
 		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), 60, _WindowWidth, _WindowHeight);
-		TextureShader = SetupShader("/Shaders/TextureVertexShader.glsl", "/Shaders/TextureFragmentShader.glsl", ShaderType::TEXTURE);
 		std::vector<std::string> SkyboxCubemapFaces
 		{
 			"../External Resources/3D/Skybox/miramar_ft.tga",
@@ -41,7 +40,7 @@ namespace Cyberspace {
 			"../External Resources/3D/Skybox/miramar_rt.tga",
 			"../External Resources/3D/Skybox/miramar_lf.tga"
 		};
-		MainSkybox = new Skybox(SkyboxCubemapFaces, "/Shaders/SkyboxVertexShader.glsl", "/Shaders/SkyboxFragmentShader.glsl");
+		MainSkybox = new Skybox(SkyboxCubemapFaces);
 		DirLight = new Light(glm::vec3(-0.2f, -1.0f, -0.3f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f));
 		//PointLight = new Light(glm::vec3(0.7f, 0.2f, 2.0f), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f);
 		//SpotLight = new Light(MainCamera->Position, MainCamera->Front, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f, glm::cos(glm::radians(12.5f)), glm::cos(glm::radians(15.0f)));
@@ -108,7 +107,7 @@ namespace Cyberspace {
 		}
 	}
 
-	void Renderer::OnUpdate(std::queue<CyberEvent*>& _EventQueue, std::map<EntityTag, Entity*> _EntityCollection, double _CursorPosX, double _CursorPosY, std::vector<glm::vec3>& _updatedPositions, float _DeltaTime)
+	void Renderer::OnUpdate(std::queue<CyberEvent*>& _EventQueue, std::unordered_map<std::string, Shader*> _ShaderMap, std::map<EntityTag, Entity*> _EntityCollection, double _CursorPosX, double _CursorPosY, std::vector<glm::vec3>& _updatedPositions, float _DeltaTime)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		if (!_EventQueue.empty()) {
@@ -195,37 +194,21 @@ namespace Cyberspace {
 			}
 		}
 		for (std::pair<EntityTag, Entity*> iter : _EntityCollection) {
-			Draw(MainCamera, iter.second, TextureShader);
+			Draw(MainCamera, iter.second, _ShaderMap["Texture"]);
 		}
 		MainCamera->UpdateTransformMouse(_CursorPosX, -_CursorPosY);
 		glDepthFunc(GL_LEQUAL);
-		MainSkybox->Draw(MainCamera);
+		MainSkybox->Draw(MainCamera, _ShaderMap["Skybox"]);
 		glDepthFunc(GL_LESS);
 	}
 
 	void Renderer::Terminate()
 	{
-		if (BasicShader) {
-			delete BasicShader;
-		}
-		if (TextureShader) {
-			delete TextureShader;
-		}
 		if (MainSkybox) {
 			delete MainSkybox;
 		}
 		if (MainCamera) {
 			delete MainCamera;
 		}
-	}
-
-	Shader* Renderer::SetupShader(const GLchar* _VertexShaderPath, const GLchar* _FragmentShaderPath, ShaderType _Type)
-	{
-		Shader* TempShader = new Shader(_VertexShaderPath, _FragmentShaderPath);
-		if (TempShader == NULL) {
-			printf("Failed to create shader!\nVertex shader filepath:%s\nFragment shader filepath:%s\n", _VertexShaderPath, _FragmentShaderPath);
-			return NULL;
-		}
-		return TempShader;
 	}
 }

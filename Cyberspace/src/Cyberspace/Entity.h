@@ -9,7 +9,7 @@
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "./Subsystems/Graphics/Vertex.h"
-#include "./Subsystems/Graphics/Shader.h"
+#include "./Subsystems/AssetManagement/Shader.h"
 
 extern "C"
 {
@@ -22,7 +22,7 @@ extern "C"
 
 #include "./Subsystems/Physics/PhysicsComponent.h"
 #include "./Subsystems/Graphics/Mesh.h"
-#include "./Subsystems/Graphics/Model.h"
+#include "./Subsystems/AssetManagement/Model.h"
 #include "./Subsystems/Audio/AudioComponent.h"
 
 #include "Core.h"
@@ -31,9 +31,7 @@ namespace Cyberspace {
 
 	enum class EntityTag {
 		None = 0,
-		MainCharacter,
-		Environment,
-		IntProp
+		MainCharacter
 	};
 
 	class CSPACE_API Entity

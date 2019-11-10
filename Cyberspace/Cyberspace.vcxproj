@@ -98,7 +98,7 @@
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\Skybox.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\Material.cpp" />
     <ClCompile Include="src\Cyberspace\stb_image.cpp" />
-    <ClCompile Include="src\Cyberspace\Subsystems\Graphics\Model.cpp" />
+    <ClCompile Include="src\Cyberspace\Subsystems\AssetManagement\Model.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Audio\AudioSystem.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Window\EngineWindow.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Physics\PhysicsSystem.cpp" />
@@ -112,8 +112,7 @@
     <ClCompile Include="src\Cyberspace\CyberEngine.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Networking\CyberNet.cpp" />
     <ClCompile Include="src\Cyberspace\Entity.cpp" />
-    <ClCompile Include="src\Cyberspace\Main.cpp" />
-    <ClCompile Include="src\Cyberspace\Subsystems\Graphics\Shader.cpp" />
+    <ClCompile Include="src\Cyberspace\Subsystems\AssetManagement\Shader.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Interface\UISystem.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\Texture.cpp" />
   </ItemGroup>
@@ -133,7 +132,7 @@
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Skybox.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Material.h" />
     <ClInclude Include="src\Cyberspace\stb_image.h" />
-    <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Model.h" />
+    <ClInclude Include="src\Cyberspace\Subsystems\AssetManagement\Model.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Audio\AudioSystem.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Window\EngineWindow.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Physics\PhysicsSystem.h" />
@@ -148,7 +147,7 @@
     <ClInclude Include="src\Cyberspace\CyberEngine.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Networking\CyberNet.h" />
     <ClInclude Include="src\Cyberspace\Entity.h" />
-    <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Shader.h" />
+    <ClInclude Include="src\Cyberspace\Subsystems\AssetManagement\Shader.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Vertex.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Interface\UISystem.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Texture.h" />

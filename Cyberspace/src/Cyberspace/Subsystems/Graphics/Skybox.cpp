@@ -1,7 +1,7 @@
 #include "Skybox.h"
 
 namespace Cyberspace {
-	Skybox::Skybox(std::vector<std::string> _FaceTexturePaths, const GLchar* _VertexShaderPath, const GLchar* _FragmentShaderPath)
+	Skybox::Skybox(std::vector<std::string> _FaceTexturePaths)
 	{
 		float skyboxVertices[] = {
 
@@ -76,21 +76,20 @@ namespace Cyberspace {
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
-		SkyboxShader = new Shader(_VertexShaderPath, _FragmentShaderPath);
-		SkyboxShader->SetInt("SkyboxCubemap", 0);
 	}
 
 	Skybox::~Skybox()
 	{
 	}
 
-	void Skybox::Draw(Camera* _Camera)
+	void Skybox::Draw(Camera* _Camera, Shader* _Shader)
 	{
-		SkyboxShader->Activate();
+		_Shader->SetInt("SkyboxCubemap", TextureID);
+		_Shader->Activate();
 
 		glm::mat4 updatedView = glm::mat4(glm::mat3(_Camera->ViewMatrix));
-		SkyboxShader->SetMat4("ViewMatrix", updatedView);
-		SkyboxShader->SetMat4("ProjectionMatrix", _Camera->ProjectionMatrix);
+		_Shader->SetMat4("ViewMatrix", updatedView);
+		_Shader->SetMat4("ProjectionMatrix", _Camera->ProjectionMatrix);
 
 		glBindVertexArray(VAO);
 		glActiveTexture(GL_TEXTURE0);
@@ -101,9 +100,6 @@ namespace Cyberspace {
 
 	void Skybox::Clear()
 	{
-		if (SkyboxShader) {
-			delete SkyboxShader;
-		}
 		glDeleteVertexArrays(1, &VAO);
 		glDeleteBuffers(1, &VBO);
 	}

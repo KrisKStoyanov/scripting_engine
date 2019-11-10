@@ -11,7 +11,7 @@
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "Camera.h"
-#include "Shader.h"
+#include "../AssetManagement/Shader.h"
 
 #include "../../stb_image.h"
 #include "../../Core.h"
@@ -20,11 +20,10 @@ namespace Cyberspace {
 	class Skybox
 	{
 	public:
-		Skybox(std::vector<std::string> _FaceTexturePaths, const GLchar* _VertexShaderPath, const GLchar* _FragmentShaderPath);
+		Skybox(std::vector<std::string> _FaceTexturePaths);
 		~Skybox();
-		Shader* SkyboxShader = NULL;
 		GLuint VAO = 0, VBO = 0, IBO = 0, TextureID = 0;
-		void Draw(Camera* _Camera);
+		void Draw(Camera* _Camera, Shader* _Shader);
 		void Clear();
 	};
 }

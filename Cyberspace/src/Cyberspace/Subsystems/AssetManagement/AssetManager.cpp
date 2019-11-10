@@ -20,7 +20,9 @@ namespace Cyberspace {
 	{
 		//LoadedModels["Nanosuit"] = new Model("../External Resources/3D/crysisGuy/scene.gltf");
 		//LoadedModels["Cruiser"] = new Model("../External Resources/3D/Vehicle/SpaceCar.fbx");
-		LoadedModels["Engine"] = new Model("../External Resources/3D/Vehicle/SpaceCarEngine.fbx");
+		LoadedModels["Vehicle"] = new Model("../External Resources/3D/Vehicle/SpaceCarEngine.fbx");
+		LoadedShaders["Texture"] = new Shader("/Shaders/TextureVertexShader.glsl", "/Shaders/TextureFragmentShader.glsl");
+		LoadedShaders["Skybox"] = new Shader("/Shaders/SkyboxVertexShader.glsl", "/Shaders/SkyboxFragmentShader.glsl");
 	}
 
 	void Cyberspace::AssetManager::Terminate()

@@ -51,13 +51,7 @@
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Cyberspace\Subsystems\Graphics\Model.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Cyberspace\Subsystems\Graphics\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\Skybox.cpp">
@@ -93,9 +87,6 @@
     <ClCompile Include="src\Cyberspace\Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Cyberspace\Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Cyberspace\stb_image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -106,6 +97,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Cyberspace\Subsystems\AssetManagement\AssetManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Cyberspace\Subsystems\AssetManagement\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Cyberspace\Subsystems\AssetManagement\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -146,13 +143,7 @@
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Skybox.h">
@@ -210,6 +201,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Cyberspace\Subsystems\AssetManagement\AssetManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Cyberspace\Subsystems\AssetManagement\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Cyberspace\Subsystems\AssetManagement\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

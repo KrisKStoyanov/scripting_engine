@@ -33,7 +33,7 @@ namespace Cyberspace {
 	void CyberEngine::Configure()
 	{
 		Entity* MainEntity = new Entity(glm::vec3(0.0f, 0.0f, -10.0f), glm::vec3(0.0f, 0.0f, -1.0f), EntityTag::MainCharacter);
-		MainEntity->Configure(m_AssetManager->LoadedModels["Engine"]);
+		MainEntity->Configure(m_AssetManager->LoadedModels["Vehicle"]);
 		EntityCollection.insert(std::pair<EntityTag, Entity*>(MainEntity->m_Tag, MainEntity));
 
 		//Engine_Audio->PlayBGM(0);
@@ -53,7 +53,7 @@ namespace Cyberspace {
 		double cursorPosX, cursorPosY;
 		std::vector<glm::vec3> updatedPositions;
 		m_Window->OnUpdate(m_Running, EventQueue, cursorPosX, cursorPosY);
-		m_Renderer->OnUpdate(EventQueue, EntityCollection, cursorPosX, cursorPosY, updatedPositions, ComputeDeltaTime(glfwGetTime()));
+		m_Renderer->OnUpdate(EventQueue, m_AssetManager->LoadedShaders, EntityCollection, cursorPosX, cursorPosY, updatedPositions, ComputeDeltaTime(glfwGetTime()));
 		m_NetSystem->OnUpdate(EventQueue, updatedPositions);
 	}
 
