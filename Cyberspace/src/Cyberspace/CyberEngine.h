@@ -22,6 +22,7 @@
 #include "./Subsystems/Window/EngineWindow.h"
 #include "./Subsystems/AssetManagement/AssetManager.h"
 #include "./Subsystems/GameManager/GameManager.h"
+#include "./Subsystems/ScriptManager/ScriptManager.h"
 
 #include "CyberEvent.h"
 

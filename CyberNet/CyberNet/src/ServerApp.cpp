@@ -1,7 +1,7 @@
 #include "GameServer.h"
 
 int main(int argc, char** argv) {
-	GameServer* server = new GameServer();
+	GameServer* server = GameServer::Create();
 	server->Init();
 	server->CreateServer();
 	server->OnUpdate();

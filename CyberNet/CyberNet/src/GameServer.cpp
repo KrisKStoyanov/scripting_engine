@@ -8,6 +8,11 @@ GameServer::~GameServer()
 {
 }
 
+GameServer* GameServer::Create()
+{
+	return new GameServer();
+}
+
 int GameServer::Init()
 {
 	//Init ENet:
@@ -63,6 +68,7 @@ void GameServer::OnUpdate()
 				break;
 
 			case ENET_EVENT_TYPE_DISCONNECT:
+				printf("%s PACKET NAME", netEvent.packet->data);
 				printf("%s disconnected.\n", netEvent.peer->data);
 				netEvent.peer->data = NULL;
 				//Check if peer is still connected and force disconnect

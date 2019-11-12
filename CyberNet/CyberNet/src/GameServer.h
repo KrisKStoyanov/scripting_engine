@@ -13,8 +13,7 @@ class GameServer
 {
 public:
 	//std::vector<Entity*> ServerEntityCollection;
-	GameServer();
-	~GameServer();
+	static GameServer* Create();
 	int Init();
 	void CreateServer();
 	void SendPacket(Cyberspace::PacketData* _data);
@@ -24,5 +23,8 @@ public:
 	ENetHost* m_Server;
 	bool m_Running = true;
 	std::vector<ENetPeer*> m_Peers;
+private:
+	GameServer();
+	~GameServer();
 };
 

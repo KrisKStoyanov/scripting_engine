@@ -26,6 +26,7 @@ namespace Cyberspace {
 		
 	struct PacketData {
 		std::vector<glm::vec3> m_Positions;
+		std::string PacketName = "LUL";
 		PacketData(std::vector<glm::vec3> _positions) : m_Positions(_positions) {}
 	};
 

@@ -72,6 +72,10 @@ namespace Cyberspace {
 				enet_packet_destroy(netEvent.packet);
 				break;
 			case ENET_EVENT_TYPE_DISCONNECT:
+				std::vector<glm::vec3> TESTLUL;
+				TESTLUL.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+				m_Peer->data = (void*)"LUL";
+				SendPacket(new PacketData(TESTLUL));
 				puts("Disconnection succeeded.");
 				return;
 			}
@@ -101,7 +105,7 @@ namespace Cyberspace {
 				break;
 
 			case ENET_EVENT_TYPE_DISCONNECT:
-				printf("%s disconnected.\n", netEvent.peer->data);
+				printf("%s disconnected.\n", static_cast<const char*>(netEvent.peer->data));
 				netEvent.peer->data = NULL;
 			}
 		}

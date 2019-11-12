@@ -36,6 +36,10 @@ namespace Cyberspace {
 		MainEntity->Configure(m_AssetManager->LoadedModels["Vehicle"]);
 		EntityCollection.insert(std::pair<EntityTag, Entity*>(MainEntity->m_Tag, MainEntity));
 
+		//Entity* EnvironmentEntity = new Entity(glm::vec3(0.0f, 0.0f, -10.0f), glm::vec3(0.0f, 0.0f, -1.0f), EntityTag::None);
+		//EnvironmentEntity->Configure(m_AssetManager->LoadedModels["Environment"]);
+		//EntityCollection.insert(std::pair<EntityTag, Entity*>(EnvironmentEntity->m_Tag, EnvironmentEntity));
+
 		//Engine_Audio->PlayBGM(0);
 
 		//EventQueue.push(new CyberEvent(EventType::START));

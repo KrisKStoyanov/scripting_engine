@@ -19,4 +19,14 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\BasicFragmentShader.glsl" />
+    <None Include="Shaders\BasicVertexShader.glsl" />
+    <None Include="Shaders\GUI_Frag.glsl" />
+    <None Include="Shaders\GUI_Vert.glsl" />
+    <None Include="Shaders\SkyboxFragmentShader.glsl" />
+    <None Include="Shaders\SkyboxVertexShader.glsl" />
+    <None Include="Shaders\TextureFragmentShader.glsl" />
+    <None Include="Shaders\TextureVertexShader.glsl" />
+  </ItemGroup>
 </Project>

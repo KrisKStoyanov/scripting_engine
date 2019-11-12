@@ -9,7 +9,19 @@
 namespace Cyberspace {
 
 	struct AMProps {
-		AMProps() {}
+		std::string VehicleModelPath;
+		std::string ModelVertexShaderPath, ModelFragmentShaderPath;
+		std::string SkyboxVertexShaderPath, SkyboxFragmentShaderPath;
+		AMProps(
+			std::string _VehicleModelPath = "../External Resources/3D/Vehicle/SpaceCarEngine.fbx",
+			std::string _ModelVertexShaderPath = "/Shaders/TextureVertexShader.glsl",
+			std::string _ModelFragmentShaderPath = "/Shaders/TextureFragmentShader.glsl",
+			std::string _SkyboxVertexShaderPath = "/Shaders/SkyboxVertexShader.glsl",
+			std::string _SkyboxFragmentShaderPath = "/Shaders/SkyboxFragmentShader.glsl") :
+			VehicleModelPath(_VehicleModelPath), 
+			ModelVertexShaderPath(_ModelVertexShaderPath), ModelFragmentShaderPath(_ModelFragmentShaderPath),
+			SkyboxVertexShaderPath(_SkyboxVertexShaderPath), SkyboxFragmentShaderPath(_SkyboxFragmentShaderPath)
+		{}
 	};
 
 	class CSPACE_API AssetManager
