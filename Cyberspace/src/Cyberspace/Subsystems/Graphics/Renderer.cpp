@@ -25,22 +25,13 @@ namespace Cyberspace {
 
 		glClearColor(0.35f, 0.35f, 0.35f, 1.0f);
 		glEnable(GL_DEPTH_TEST);
-		Setup(_props.Width, _props.Height);
+		Setup(_props);
 	}
 
-	void Renderer::Setup(int _WindowWidth, int _WindowHeight)
+	void Renderer::Setup(const GraphicsProps& _props)
 	{
-		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), 60, _WindowWidth, _WindowHeight);
-		std::vector<std::string> SkyboxCubemapFaces
-		{
-			"../External Resources/3D/Skybox/miramar_ft.tga",
-			"../External Resources/3D/Skybox/miramar_bk.tga",
-			"../External Resources/3D/Skybox/miramar_up.tga",
-			"../External Resources/3D/Skybox/miramar_dn.tga",
-			"../External Resources/3D/Skybox/miramar_rt.tga",
-			"../External Resources/3D/Skybox/miramar_lf.tga"
-		};
-		MainSkybox = new Skybox(SkyboxCubemapFaces);
+		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), _props.FOV, _props.Width, _props.Width);
+		MainSkybox = new Skybox(_props.SkyboxFaceTexturePaths);
 		DirLight = new Light(glm::vec3(-0.2f, -1.0f, -0.3f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f));
 		//PointLight = new Light(glm::vec3(0.7f, 0.2f, 2.0f), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f);
 		//SpotLight = new Light(MainCamera->Position, MainCamera->Front, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f, glm::cos(glm::radians(12.5f)), glm::cos(glm::radians(15.0f)));
@@ -194,7 +185,7 @@ namespace Cyberspace {
 			}
 		}
 		for (std::pair<EntityTag, Entity*> iter : _EntityCollection) {
-			Draw(MainCamera, iter.second, _ShaderMap["Texture"]);
+			Draw(MainCamera, iter.second, _ShaderMap["Model"]);
 		}
 		MainCamera->UpdateTransformMouse(_CursorPosX, -_CursorPosY);
 		glDepthFunc(GL_LEQUAL);

@@ -26,8 +26,22 @@ namespace Cyberspace {
 	struct GraphicsProps {
 		unsigned int Width;
 		unsigned int Height;
-		GraphicsProps(unsigned int _width = 1280, unsigned int _height = 720) 
-		: Width (_width), Height (_height) {}
+		float FOV;
+		std::vector<std::string> SkyboxFaceTexturePaths;
+		GraphicsProps(
+			unsigned int _width = 1280, 
+			unsigned int _height = 720,
+			float _fov = 60.0f,
+			std::vector<std::string> _skyboxFaceTexturePaths = std::vector<std::string>{
+			"../resources/3D/Skybox/miramar_ft.tga",
+			"../resources/3D/Skybox/miramar_bk.tga",
+			"../resources/3D/Skybox/miramar_up.tga",
+			"../resources/3D/Skybox/miramar_dn.tga",
+			"../resources/3D/Skybox/miramar_rt.tga",
+			"../resources/3D/Skybox/miramar_lf.tga"
+			})
+		: Width (_width), Height (_height),
+		FOV(_fov), SkyboxFaceTexturePaths(_skyboxFaceTexturePaths) {}
 	};
 
 	class Renderer
@@ -37,7 +51,7 @@ namespace Cyberspace {
 		Renderer(const GraphicsProps& _props);
 		~Renderer();
 		void Init(const GraphicsProps& _props);
-		void Setup(int _WindowWidth, int _WindowHeight);
+		void Setup(const GraphicsProps& _props);
 		void Draw(Camera* _Camera, Entity* _Entity, Shader* _Shader);
 		void OnUpdate(std::queue<CyberEvent*>& _EventQueue, std::unordered_map<std::string, Shader*> _ShaderMap, std::map<EntityTag, Entity*> _EntityCollection, double _CursorPosX, double _CursorPosY, std::vector<glm::vec3>& _updatedPositions, float _DeltaTime);
 		void Terminate();

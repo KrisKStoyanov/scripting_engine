@@ -89,14 +89,8 @@
     <ClCompile Include="src\SandboxApp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\BasicFragmentShader.glsl" />
-    <None Include="Shaders\BasicVertexShader.glsl" />
-    <None Include="Shaders\GUI_Frag.glsl" />
-    <None Include="Shaders\GUI_Vert.glsl" />
-    <None Include="Shaders\SkyboxFragmentShader.glsl" />
-    <None Include="Shaders\SkyboxVertexShader.glsl" />
-    <None Include="Shaders\TextureFragmentShader.glsl" />
-    <None Include="Shaders\TextureVertexShader.glsl" />
+    <None Include="resources\3D\Vehicle\SpaceCar.FBX" />
+    <None Include="resources\3D\Vehicle\SpaceCarEngine.FBX" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

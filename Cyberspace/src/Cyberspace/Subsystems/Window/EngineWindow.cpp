@@ -25,18 +25,13 @@ namespace Cyberspace {
 		MainWindow = glfwCreateWindow(_props.Width, _props.Height, _props.Title.c_str(), NULL, NULL);
 		glfwMakeContextCurrent(MainWindow);
 
-		SetVSync(true);
+		SetVSync(_props.VSyncStatus);
 
 		glfwSetErrorCallback([](int _Error, const char* _Description) {
 			fprintf(stderr, "GLFW Error %d: %s\n", _Error, _Description);
 			});
 
 		glfwSetInputMode(MainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-		//glfwSetKeyCallback(PlatformWindow, [](GLFWwindow* _Window, int _Key, int _Scancode, int _Action, int _Mods) {
-		//	if (_Key == GLFW_KEY_ESCAPE && _Action == GLFW_PRESS) {
-		//		
-		//	}
-		//	});
 	}
 
 	void EngineWindow::SetVSync(bool _Status)

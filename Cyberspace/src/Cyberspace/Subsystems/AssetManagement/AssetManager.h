@@ -13,11 +13,11 @@ namespace Cyberspace {
 		std::string ModelVertexShaderPath, ModelFragmentShaderPath;
 		std::string SkyboxVertexShaderPath, SkyboxFragmentShaderPath;
 		AMProps(
-			std::string _VehicleModelPath = "../External Resources/3D/Vehicle/SpaceCarEngine.fbx",
-			std::string _ModelVertexShaderPath = "/Shaders/TextureVertexShader.glsl",
-			std::string _ModelFragmentShaderPath = "/Shaders/TextureFragmentShader.glsl",
-			std::string _SkyboxVertexShaderPath = "/Shaders/SkyboxVertexShader.glsl",
-			std::string _SkyboxFragmentShaderPath = "/Shaders/SkyboxFragmentShader.glsl") :
+			std::string _VehicleModelPath = "../resources/3D/Vehicle/SpaceCarEngine.fbx",
+			std::string _ModelVertexShaderPath = "../resources/Shaders/TextureVertexShader.glsl",
+			std::string _ModelFragmentShaderPath = "../resources/Shaders/TextureFragmentShader.glsl",
+			std::string _SkyboxVertexShaderPath = "../resources/Shaders/SkyboxVertexShader.glsl",
+			std::string _SkyboxFragmentShaderPath = "../resources/Shaders/SkyboxFragmentShader.glsl") :
 			VehicleModelPath(_VehicleModelPath), 
 			ModelVertexShaderPath(_ModelVertexShaderPath), ModelFragmentShaderPath(_ModelFragmentShaderPath),
 			SkyboxVertexShaderPath(_SkyboxVertexShaderPath), SkyboxFragmentShaderPath(_SkyboxFragmentShaderPath)
