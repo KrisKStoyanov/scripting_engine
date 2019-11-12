@@ -21,7 +21,9 @@
 namespace Cyberspace {
 
 	struct AudioProps {
-		AudioProps() {}
+		const char* TitleScreenBGMFilePath;
+		AudioProps(const char* _titleScreenBGMFilePath = "../resources/Audio/TitleScreenTrack.wav") :
+		TitleScreenBGMFilePath(_titleScreenBGMFilePath) {}
 	};
 
 	class CSPACE_API AudioSystem

@@ -1,12 +1,12 @@
 window = {
-    title = "ScriptedEdit",
-    width = 600,
+    title = "Bombastic",
+    width = 800,
     height = 600,
     vsync = true
 }
 
 graphics = {
-    cameraWidth = 600,
+    cameraWidth = 800,
     cameraHeight = 600,
     cameraFOV = 60
 }
@@ -24,5 +24,5 @@ physics = {
 }
 
 audio = {
-
+   titleScreenBgmFilePath = "../resources/Audio/TitleScreenTrack.wav"
 }

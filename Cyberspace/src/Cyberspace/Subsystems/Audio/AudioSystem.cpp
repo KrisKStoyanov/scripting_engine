@@ -30,7 +30,7 @@ namespace Cyberspace {
 		}
 		printf("Audio system created and initialized\n");
 
-		CoreSystem->createSound("../External Resources/Audio/TitleScreenTrack.wav", FMOD_LOOP_OFF, NULL, &BGM[0]);
+		CoreSystem->createSound(_props.TitleScreenBGMFilePath, FMOD_LOOP_OFF, NULL, &BGM[0]);
 		if (BGM[0] != NULL) {
 			printf("Title screen track loaded\n");
 			BGM[0]->setDefaults(16400, 0);

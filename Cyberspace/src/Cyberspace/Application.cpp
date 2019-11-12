@@ -28,6 +28,9 @@ namespace Cyberspace {
 		luabridge::LuaRef amSkyboxVertexShaderPath = amProps["skyboxVertexShaderPath"];
 		luabridge::LuaRef amSkyboxFragmentShaderPath = amProps["skyboxFragmentShaderPath"];
 
+		luabridge::LuaRef audioProps = luabridge::getGlobal(engineSettingsParser, "audio");
+		luabridge::LuaRef audioTitleScreenBgmFilePath = audioProps["titleScreenBgmFilePath"];
+
 		//Cast data through to c++ native format
 		std::string winPropsTitle = winTitle.cast<std::string>();
 		int winPropsWidth = winWidth.cast<int>();
@@ -43,6 +46,8 @@ namespace Cyberspace {
 		std::string amPropsModelFragmentShaderPath = amModelFragmentShaderPath.cast<std::string>();
 		std::string amPropsSkyboxVertexShaderPath = amSkyboxVertexShaderPath.cast<std::string>();
 		std::string amPropsSkyboxFragmentShaderPath = amSkyboxFragmentShaderPath.cast<std::string>();
+
+		const char* audioPropsTitleScreenBgmFilePath = audioTitleScreenBgmFilePath.cast<const char*>();
 
 		//Create engine settings formatting struct
 		EngineProps EProps;
@@ -61,6 +66,8 @@ namespace Cyberspace {
 		EProps.m_AMProps.ModelFragmentShaderPath = amPropsModelFragmentShaderPath;
 		EProps.m_AMProps.SkyboxVertexShaderPath = amPropsSkyboxVertexShaderPath;
 		EProps.m_AMProps.SkyboxFragmentShaderPath = amPropsSkyboxFragmentShaderPath;
+
+		EProps.m_AudioProps.TitleScreenBGMFilePath = audioPropsTitleScreenBgmFilePath;
 
 		m_Engine = std::unique_ptr<CyberEngine>(CyberEngine::Create(EProps));
 	}

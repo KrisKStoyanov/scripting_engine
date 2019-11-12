@@ -40,6 +40,7 @@ namespace Cyberspace {
 		//EnvironmentEntity->Configure(m_AssetManager->LoadedModels["Environment"]);
 		//EntityCollection.insert(std::pair<EntityTag, Entity*>(EnvironmentEntity->m_Tag, EnvironmentEntity));
 
+		m_AudioSystem->PlayBGM(0);
 		//Engine_Audio->PlayBGM(0);
 
 		//EventQueue.push(new CyberEvent(EventType::START));
