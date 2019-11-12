@@ -21,8 +21,7 @@
 #include "./Subsystems/Physics/PhysicsSystem.h"
 #include "./Subsystems/Window/EngineWindow.h"
 #include "./Subsystems/AssetManagement/AssetManager.h"
-#include "./Subsystems/GameManager/GameManager.h"
-#include "./Subsystems/ScriptManager/ScriptManager.h"
+#include "./Subsystems/GameManagement/GameManager.h"
 
 #include "CyberEvent.h"
 
@@ -84,6 +83,7 @@ namespace Cyberspace {
 		std::unique_ptr<CyberNet> m_NetSystem;
 		std::unique_ptr<AssetManager> m_AssetManager;
 		std::unique_ptr<GameManager> m_GameManager;
+
 		float DeltaTime = 0.0f, LastFrameTime = 0.0f;
 	};
 }
