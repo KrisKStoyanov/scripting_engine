@@ -79,7 +79,7 @@ namespace Cyberspace {
 	void Application::Run()
 	{
 		m_Engine->Configure();
-		while (m_Engine->m_Running)
+		while (m_Engine->GetTick())
 		{
 			m_Engine->OnUpdate();
 		}

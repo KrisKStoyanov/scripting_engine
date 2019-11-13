@@ -52,8 +52,8 @@ namespace Cyberspace {
 		~Renderer();
 		void Init(const GraphicsProps& _props);
 		void Setup(const GraphicsProps& _props);
-		void Draw(Camera* _Camera, Entity* _Entity, Shader* _Shader);
-		void OnUpdate(std::queue<CyberEvent*>& _EventQueue, std::unordered_map<std::string, Shader*> _ShaderMap, std::map<EntityTag, Entity*> _EntityCollection, double _CursorPosX, double _CursorPosY, std::vector<glm::vec3>& _updatedPositions, float _DeltaTime);
+		void Draw(Camera* _Camera, Model* _Model, Transform* _Transform, Shader* _Shader);
+		void OnUpdate(std::queue<CyberEvent*>& _EventQueue, std::unordered_map<std::string, Shader*> _ShaderMap, std::unordered_map<std::string, Entity*> _EntityMap, double _CursorPosX, double _CursorPosY, std::vector<glm::vec3>& _updatedPositions, float _DeltaTime);
 		void Terminate();
 
 		Light* DirLight = NULL;

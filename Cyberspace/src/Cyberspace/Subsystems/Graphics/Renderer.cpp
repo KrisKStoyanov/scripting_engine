@@ -38,66 +38,64 @@ namespace Cyberspace {
 		//SpotLight = new Light(MainCamera->Position, MainCamera->Front, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f, glm::cos(glm::radians(12.5f)), glm::cos(glm::radians(15.0f)));
 	}
 
-	void Renderer::Draw(Camera* _Camera, Entity* _Entity, Shader* _Shader)
+	void Renderer::Draw(Camera* _Camera, Model* _Model, Transform* _Transform, Shader* _Shader)
 	{
-		if (_Entity->m_Model) {
-			_Shader->Activate();
+		_Shader->Activate();
 
-			for (int i = 0; i < _Entity->m_Model->Meshes.size(); ++i) {
-				_Entity->GetTransform()->Translate(_Entity->GetTransform()->GetPosition());
-				//_Entity->GetTransform()->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
-				//_Entity->GetTransform()->Rotate(-90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-				_Shader->SetMat4("ProjectionMatrix", MainCamera->ProjectionMatrix);
-				_Shader->SetMat4("ViewMatrix", MainCamera->ViewMatrix);
-				_Shader->SetMat4("ModelMatrix", _Entity->GetTransform()->GetModelMatrix());
+		for (int i = 0; i < _Model->Meshes.size(); ++i) {
+			_Transform->Translate(_Transform->GetPosition());
+			//_Entity->GetTransform()->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
+			//_Entity->GetTransform()->Rotate(-90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+			_Shader->SetMat4("ProjectionMatrix", MainCamera->ProjectionMatrix);
+			_Shader->SetMat4("ViewMatrix", MainCamera->ViewMatrix);
+			_Shader->SetMat4("ModelMatrix", _Transform->GetModelMatrix());
 
-				_Shader->SetVec3("ViewPos", MainCamera->GetTransform()->GetPosition());
+			_Shader->SetVec3("ViewPos", MainCamera->GetTransform()->GetPosition());
 
-				for (GLuint j = 0; j < _Entity->m_Model->Meshes[i].TextureCollection.size(); ++j) {
-					glActiveTexture(GL_TEXTURE0 + j);
-					_Shader->SetInt("g_Material.TextureMap", j);
-					glBindTexture(GL_TEXTURE_2D, _Entity->m_Model->Meshes[i].TextureCollection[j].ID);
-				}
-				_Shader->SetFloat("g_Material.Shininess", 64.0f);
-
-				if (DirLight) {
-					_Shader->SetVec3("g_DirLight.Direction", DirLight->Direction);
-					_Shader->SetVec3("g_DirLight.AmbientC", DirLight->AmbientC);
-					_Shader->SetVec3("g_DirLight.DiffuseC", DirLight->DiffuseC);
-					_Shader->SetVec3("g_DirLight.SpecularC", DirLight->SpecularC);
-				}
-
-				if (PointLight) {
-					_Shader->SetVec3("g_PointLight.Position", PointLight->Position);
-					_Shader->SetVec3("g_PointLight.AmbientC", PointLight->AmbientC);
-					_Shader->SetVec3("g_PointLight.DiffuseC", PointLight->DiffuseC);
-					_Shader->SetVec3("g_PointLight.SpecularC", PointLight->SpecularC);
-					_Shader->SetFloat("g_PointLight.ConstantA", PointLight->ConstantA);
-					_Shader->SetFloat("g_PointLight.LinearA", PointLight->LinearA);
-					_Shader->SetFloat("g_PointLight.QuadraticA", PointLight->QuadraticA);
-				}
-
-				if (SpotLight) {
-					_Shader->SetVec3("g_SpotLight.Position", SpotLight->Position);
-					_Shader->SetVec3("g_SpotLight.Direction", SpotLight->Direction);
-					_Shader->SetVec3("g_SpotLight.AmbientC", SpotLight->AmbientC);
-					_Shader->SetVec3("g_SpotLight.DiffuseC", SpotLight->DiffuseC);
-					_Shader->SetVec3("g_SpotLight.SpecularC", SpotLight->SpecularC);
-					_Shader->SetFloat("g_SpotLight.ConstantA", SpotLight->ConstantA);
-					_Shader->SetFloat("g_SpotLight.LinearA", SpotLight->LinearA);
-					_Shader->SetFloat("g_SpotLight.QuadraticA", SpotLight->QuadraticA);
-					_Shader->SetFloat("g_SpotLight.CutOff", SpotLight->CutOff);
-					_Shader->SetFloat("g_SpotLight.OuterCutOff", SpotLight->OuterCutOff);
-				}
-
-				glBindVertexArray(_Entity->m_Model->Meshes[i].VAO);
-				glDrawElements(GL_TRIANGLES, _Entity->m_Model->Meshes[i].IndexCollection.size(), GL_UNSIGNED_INT, 0);
-				glBindVertexArray(0);
+			for (GLuint j = 0; j < _Model->Meshes[i].TextureCollection.size(); ++j) {
+				glActiveTexture(GL_TEXTURE0 + j);
+				_Shader->SetInt("g_Material.TextureMap", j);
+				glBindTexture(GL_TEXTURE_2D, _Model->Meshes[i].TextureCollection[j].ID);
 			}
+			_Shader->SetFloat("g_Material.Shininess", 64.0f);
+
+			if (DirLight) {
+				_Shader->SetVec3("g_DirLight.Direction", DirLight->Direction);
+				_Shader->SetVec3("g_DirLight.AmbientC", DirLight->AmbientC);
+				_Shader->SetVec3("g_DirLight.DiffuseC", DirLight->DiffuseC);
+				_Shader->SetVec3("g_DirLight.SpecularC", DirLight->SpecularC);
+			}
+
+			if (PointLight) {
+				_Shader->SetVec3("g_PointLight.Position", PointLight->Position);
+				_Shader->SetVec3("g_PointLight.AmbientC", PointLight->AmbientC);
+				_Shader->SetVec3("g_PointLight.DiffuseC", PointLight->DiffuseC);
+				_Shader->SetVec3("g_PointLight.SpecularC", PointLight->SpecularC);
+				_Shader->SetFloat("g_PointLight.ConstantA", PointLight->ConstantA);
+				_Shader->SetFloat("g_PointLight.LinearA", PointLight->LinearA);
+				_Shader->SetFloat("g_PointLight.QuadraticA", PointLight->QuadraticA);
+			}
+
+			if (SpotLight) {
+				_Shader->SetVec3("g_SpotLight.Position", SpotLight->Position);
+				_Shader->SetVec3("g_SpotLight.Direction", SpotLight->Direction);
+				_Shader->SetVec3("g_SpotLight.AmbientC", SpotLight->AmbientC);
+				_Shader->SetVec3("g_SpotLight.DiffuseC", SpotLight->DiffuseC);
+				_Shader->SetVec3("g_SpotLight.SpecularC", SpotLight->SpecularC);
+				_Shader->SetFloat("g_SpotLight.ConstantA", SpotLight->ConstantA);
+				_Shader->SetFloat("g_SpotLight.LinearA", SpotLight->LinearA);
+				_Shader->SetFloat("g_SpotLight.QuadraticA", SpotLight->QuadraticA);
+				_Shader->SetFloat("g_SpotLight.CutOff", SpotLight->CutOff);
+				_Shader->SetFloat("g_SpotLight.OuterCutOff", SpotLight->OuterCutOff);
+			}
+
+			glBindVertexArray(_Model->Meshes[i].VAO);
+			glDrawElements(GL_TRIANGLES, _Model->Meshes[i].IndexCollection.size(), GL_UNSIGNED_INT, 0);
+			glBindVertexArray(0);
 		}
 	}
 
-	void Renderer::OnUpdate(std::queue<CyberEvent*>& _EventQueue, std::unordered_map<std::string, Shader*> _ShaderMap, std::map<EntityTag, Entity*> _EntityCollection, double _CursorPosX, double _CursorPosY, std::vector<glm::vec3>& _updatedPositions, float _DeltaTime)
+	void Renderer::OnUpdate(std::queue<CyberEvent*>& _EventQueue, std::unordered_map<std::string, Shader*> _ShaderMap, std::unordered_map<std::string, Entity*> _EntityMap, double _CursorPosX, double _CursorPosY, std::vector<glm::vec3>& _updatedPositions, float _DeltaTime)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		if (!_EventQueue.empty()) {
@@ -134,7 +132,7 @@ namespace Cyberspace {
 					}
 					break;
 
-				case EventType::VEHICLE_MOVE_FORWARD:
+				/*case EventType::VEHICLE_MOVE_FORWARD:
 
 					_EntityCollection[EntityTag::MainCharacter]->GetTransform()->Translate(
 						_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetPosition() +
@@ -185,15 +183,15 @@ namespace Cyberspace {
 					if (_EventQueue.front()->Tags.empty()) {
 						_EventQueue.pop();
 					}
-					break;
+					break;*/
 
 				default:
 					break;
 				}
 			}
 		}
-		for (std::pair<EntityTag, Entity*> iter : _EntityCollection) {
-			Draw(MainCamera, iter.second, _ShaderMap["Model"]);
+		for (std::pair<std::string, Entity*> iter : _EntityMap) {
+			Draw(MainCamera, iter.second->GetModel(), iter.second->GetTransform(), _ShaderMap["Model"]);
 		}
 		MainCamera->UpdateTransformMouse(_CursorPosX, -_CursorPosY);
 		glDepthFunc(GL_LEQUAL);

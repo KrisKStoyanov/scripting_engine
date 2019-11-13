@@ -1,6 +1,9 @@
 #pragma once
+#include <unordered_map>
+#include <string>
 #include "../../Entity.h"
 #include "../../Core.h"
+#include "CyberMap.h"
 
 namespace Cyberspace {
 
@@ -15,10 +18,7 @@ namespace Cyberspace {
 		GameManager(const GMProps& _props);
 		~GameManager();
 		void Init(const GMProps& _props);
-		Entity* GetInspectedEntity();
-		void InspectEntity(Entity* _Entity);
-	private:
-		Entity* m_InspectEntity = nullptr;
+		CyberMap* MainMap = NULL;
 	};
 }
 

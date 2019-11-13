@@ -27,19 +27,16 @@ namespace Cyberspace {
 		m_NetSystem = std::unique_ptr<CyberNet>(CyberNet::Create(_props.m_NetProps));
 		m_AssetManager = std::unique_ptr<AssetManager>(AssetManager::Create(_props.m_AMProps));
 		m_GameManager = std::unique_ptr<GameManager>(GameManager::Create(_props.m_GMProps));
-		m_Running = true;
+		m_Tick = true;
 	}
 
 	void CyberEngine::Configure()
 	{
-		Entity* MainEntity = new Entity(new Transform(glm::vec3(0.0f, 0.0f, -10.0f), glm::vec3(0.0f, 0.0f, -1.0f)), EntityTag::MainCharacter);
-		MainEntity->Configure(m_AssetManager->LoadedModels["Vehicle"]);
-		EntityCollection.insert(std::pair<EntityTag, Entity*>(MainEntity->m_Tag, MainEntity));
-
-		//Entity* EnvironmentEntity = new Entity(new Transform(glm::vec3(0.0f, 0.0f, -10.0f), glm::vec3(0.0f, 0.0f, -1.0f)), EntityTag::None);
-		//EnvironmentEntity->Configure(m_AssetManager->LoadedModels["Environment"]);
-		////EnvironmentEntity->GetTransform()->Rotate(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-		//EntityCollection.insert(std::pair<EntityTag, Entity*>(EnvironmentEntity->m_Tag, EnvironmentEntity));
+		m_GameManager->MainMap = new CyberMap();
+		Entity* PlayerEntity = new Entity();
+		PlayerEntity->SetTransform(new Transform(glm::vec3(0.0f, 0.0f, -10.0f), glm::vec3(0.0f, 0.0f, -1.0f)));
+		PlayerEntity->SetModel(m_AssetManager->LoadedModels["Vehicle"]);
+		m_GameManager->MainMap->AddEntity("Player", PlayerEntity);
 
 		m_AudioSystem->PlayBGM(0);
 		//Engine_Audio->PlayBGM(0);
@@ -58,16 +55,13 @@ namespace Cyberspace {
 	{
 		double cursorPosX, cursorPosY;
 		std::vector<glm::vec3> updatedPositions;
-		m_Window->OnUpdate(m_Running, EventQueue, cursorPosX, cursorPosY);
-		m_Renderer->OnUpdate(EventQueue, m_AssetManager->LoadedShaders, EntityCollection, cursorPosX, cursorPosY, updatedPositions, ComputeDeltaTime(glfwGetTime()));
+		m_Window->OnUpdate(m_Tick, EventQueue, cursorPosX, cursorPosY);
+		m_Renderer->OnUpdate(EventQueue, m_AssetManager->LoadedShaders, m_GameManager->MainMap->MapEntities, cursorPosX, cursorPosY, updatedPositions, ComputeDeltaTime(glfwGetTime()));
 		m_NetSystem->OnUpdate(EventQueue, updatedPositions);
 	}
 
 	void CyberEngine::Terminate()
 	{
-		for (std::pair<EntityTag, Entity*> iter : EntityCollection) {
-			delete iter.second;
-		}
 		m_Window.reset();
 		m_Renderer.reset();
 		m_PhysicsSystem.reset();

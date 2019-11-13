@@ -70,18 +70,18 @@ namespace Cyberspace {
 			_EventQueue.push(new CyberEvent(EventType::CAMERA_MOVE_RIGHT, EventTag::GRAPHICS));
 		}
 
-		if (glfwGetKey(MainWindow, GLFW_KEY_W) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_FORWARD, EventTag::GRAPHICS));
-		}
-		if (glfwGetKey(MainWindow, GLFW_KEY_S) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_BACKWARD, EventTag::GRAPHICS));
-		}
-		if (glfwGetKey(MainWindow, GLFW_KEY_A) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_LEFT, EventTag::GRAPHICS));
-		}
-		if (glfwGetKey(MainWindow, GLFW_KEY_D) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_RIGHT, EventTag::GRAPHICS));
-		}
+		//if (glfwGetKey(MainWindow, GLFW_KEY_W) == GLFW_PRESS) {
+		//	_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_FORWARD, EventTag::GRAPHICS));
+		//}
+		//if (glfwGetKey(MainWindow, GLFW_KEY_S) == GLFW_PRESS) {
+		//	_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_BACKWARD, EventTag::GRAPHICS));
+		//}
+		//if (glfwGetKey(MainWindow, GLFW_KEY_A) == GLFW_PRESS) {
+		//	_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_LEFT, EventTag::GRAPHICS));
+		//}
+		//if (glfwGetKey(MainWindow, GLFW_KEY_D) == GLFW_PRESS) {
+		//	_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_RIGHT, EventTag::GRAPHICS));
+		//}
 	}
 
 	void EngineWindow::Terminate()

@@ -69,9 +69,9 @@ namespace Cyberspace {
 		void OnUpdate();
 		void Terminate();
 
-		bool m_Running = true;
+		inline bool GetTick() { return m_Tick; }
+		bool m_Tick = false;
 
-		std::map<EntityTag, Entity*> EntityCollection;
 		std::queue<CyberEvent*> EventQueue;
 
 	private:

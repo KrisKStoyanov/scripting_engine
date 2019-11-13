@@ -30,30 +30,25 @@ extern "C"
 
 namespace Cyberspace {
 
-	enum class EntityTag {
-		None = 0,
-		MainCharacter
-	};
-
 	class CSPACE_API Entity
 	{
 	public:
-		Entity(Transform* _transform = new Transform(), EntityTag _Tag = EntityTag::None);
+		Entity();
 		~Entity();
 
-		void Configure(Model* _Model = NULL, PhysicsComponent* _PSX = NULL, AudioComponent* _Audio = NULL);
 		void Clear();
 
 		inline void SetTransform(Transform* _transform) { m_Transform = _transform; }
 		inline Transform* GetTransform() { return m_Transform; }
 
-		Model* m_Model = NULL;
+		inline void SetModel(Model* _model) { m_Model = _model; }
+		inline Model* GetModel() { return m_Model; }
+
 		PhysicsComponent* m_PSX = NULL;
 		AudioComponent* m_Audio = NULL;
-
-		EntityTag m_Tag;
 	private:
 		Transform* m_Transform;
+		Model* m_Model = NULL;
 	};
 }
 

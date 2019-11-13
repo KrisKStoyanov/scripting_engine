@@ -87,7 +87,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Cyberspace\Subsystems\GameManagement\CyberMap.cpp" />
+    <ClCompile Include="ImGUI\imgui_impl_glfw.cpp" />
+    <ClCompile Include="ImGUI\imgui_impl_opengl3.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\AssetManagement\AssetManager.cpp" />
+    <ClCompile Include="src\Cyberspace\Subsystems\GameManagement\CyberMap.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\GameManagement\GameManager.cpp" />
     <ClCompile Include="ImGUI\imgui.cpp" />
     <ClCompile Include="ImGUI\imgui_demo.cpp" />
@@ -118,7 +122,11 @@
     <ClCompile Include="src\Cyberspace\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Cyberspace\Subsystems\GameManagement\CyberMap.h" />
+    <ClInclude Include="ImGUI\imgui_impl_glfw.h" />
+    <ClInclude Include="ImGUI\imgui_impl_opengl3.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\AssetManagement\AssetManager.h" />
+    <ClInclude Include="src\Cyberspace\Subsystems\GameManagement\CyberMap.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\GameManagement\GameManager.h" />
     <ClInclude Include="ImGUI\imconfig.h" />
     <ClInclude Include="ImGUI\imgui.h" />

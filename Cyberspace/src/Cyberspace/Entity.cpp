@@ -1,10 +1,8 @@
 #include "Entity.h"
 
 namespace Cyberspace {
-	Entity::Entity(Transform* _transform, EntityTag _tag)
+	Entity::Entity()
 	{
-		m_Transform = _transform;
-		m_Tag = _tag;
 	}
 
 	Entity::~Entity()
@@ -12,19 +10,12 @@ namespace Cyberspace {
 		Clear();
 	}
 
-	void Entity::Configure(Model* _Model, PhysicsComponent* _PSX, AudioComponent* _Audio)
-	{
-		m_Model = _Model;
-		if (_PSX->Setup()) {
-			m_PSX = _PSX;
-		}
-		if (_Audio->Setup()) {
-			m_Audio = _Audio;
-		}
-	}
-
 	void Entity::Clear()
 	{
+		if (m_Transform != NULL) {
+			m_Transform = nullptr;
+		}
+
 		if (m_Model != NULL) {
 			m_Model = nullptr;
 		}

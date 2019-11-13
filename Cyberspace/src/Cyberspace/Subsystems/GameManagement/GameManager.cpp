@@ -19,14 +19,4 @@ namespace Cyberspace {
 	{
 
 	}
-
-	Entity* Cyberspace::GameManager::GetInspectedEntity()
-	{
-		return m_InspectEntity;
-	}
-
-	void Cyberspace::GameManager::InspectEntity(Entity* _Entity)
-	{
-		m_InspectEntity = _Entity;
-	}
 }
