@@ -20,6 +20,7 @@ namespace Cyberspace {
 		luabridge::LuaRef gfxWidth = gfxProps["cameraWidth"];
 		luabridge::LuaRef gfxHeight = gfxProps["cameraHeight"];
 		luabridge::LuaRef gfxFOV = gfxProps["cameraFOV"];
+		luabridge::LuaRef gfxSkyboxFaceTexturePaths = gfxProps["skyboxFaceTexturePaths"];
 
 		luabridge::LuaRef amProps = luabridge::getGlobal(engineSettingsParser, "assetManagement");
 		luabridge::LuaRef amVehicleModelPath = amProps["vehicleModelPath"];
@@ -73,7 +74,7 @@ namespace Cyberspace {
 	}
 
 	Application::~Application() {
-
+		m_Engine.reset();
 	}
 	void Application::Run()
 	{

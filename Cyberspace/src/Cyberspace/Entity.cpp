@@ -1,11 +1,10 @@
 #include "Entity.h"
 
 namespace Cyberspace {
-	Entity::Entity(glm::vec3 _Position, glm::vec3 _Direction, EntityTag _Tag)
+	Entity::Entity(Transform* _transform, EntityTag _tag)
 	{
-		m_Position = _Position;
-		m_Direction = _Direction;
-		m_Tag = _Tag;
+		m_Transform = _transform;
+		m_Tag = _tag;
 	}
 
 	Entity::~Entity()

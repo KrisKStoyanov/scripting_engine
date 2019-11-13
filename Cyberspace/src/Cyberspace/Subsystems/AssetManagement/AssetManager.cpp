@@ -25,6 +25,7 @@ namespace Cyberspace {
 		//LoadedShaders["Texture"] = new Shader("/Shaders/TextureVertexShader.glsl", "/Shaders/TextureFragmentShader.glsl");
 		//LoadedShaders["Skybox"] = new Shader("/Shaders/SkyboxVertexShader.glsl", "/Shaders/SkyboxFragmentShader.glsl");
 		LoadedModels["Vehicle"] = new Model(_props.VehicleModelPath);
+		LoadedModels["Environment"] = new Model(_props.EnvironmentModelPath);
 		LoadedShaders["Model"] = new Shader(_props.ModelVertexShaderPath.c_str(), _props.ModelFragmentShaderPath.c_str());
 		LoadedShaders["Skybox"] = new Shader(_props.SkyboxVertexShaderPath.c_str(), _props.SkyboxFragmentShaderPath.c_str());
 	}

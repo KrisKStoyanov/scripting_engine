@@ -9,16 +9,18 @@
 namespace Cyberspace {
 
 	struct AMProps {
-		std::string VehicleModelPath;
+		std::string VehicleModelPath, EnvironmentModelPath, CharacterModelPath;
 		std::string ModelVertexShaderPath, ModelFragmentShaderPath;
 		std::string SkyboxVertexShaderPath, SkyboxFragmentShaderPath;
 		AMProps(
 			std::string _VehicleModelPath = "../resources/3D/Vehicle/SpaceCarEngine.fbx",
+			std::string _EnvironmentModelPath = "../resources/3D/Environment/CanyonEnvironment.fbx",
+			std::string _CharacterModelPath = "",
 			std::string _ModelVertexShaderPath = "../resources/Shaders/TextureVertexShader.glsl",
 			std::string _ModelFragmentShaderPath = "../resources/Shaders/TextureFragmentShader.glsl",
 			std::string _SkyboxVertexShaderPath = "../resources/Shaders/SkyboxVertexShader.glsl",
 			std::string _SkyboxFragmentShaderPath = "../resources/Shaders/SkyboxFragmentShader.glsl") :
-			VehicleModelPath(_VehicleModelPath), 
+			VehicleModelPath(_VehicleModelPath), EnvironmentModelPath(_EnvironmentModelPath), CharacterModelPath(_CharacterModelPath),
 			ModelVertexShaderPath(_ModelVertexShaderPath), ModelFragmentShaderPath(_ModelFragmentShaderPath),
 			SkyboxVertexShaderPath(_SkyboxVertexShaderPath), SkyboxFragmentShaderPath(_SkyboxFragmentShaderPath)
 		{}

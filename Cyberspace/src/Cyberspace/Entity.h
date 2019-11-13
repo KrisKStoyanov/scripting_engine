@@ -26,6 +26,7 @@ extern "C"
 #include "./Subsystems/Audio/AudioComponent.h"
 
 #include "Core.h"
+#include "Transform.h"
 
 namespace Cyberspace {
 
@@ -37,17 +38,14 @@ namespace Cyberspace {
 	class CSPACE_API Entity
 	{
 	public:
-		Entity(glm::vec3 _Position, glm::vec3 _Direction, EntityTag _Tag = EntityTag::None);
+		Entity(Transform* _transform = new Transform(), EntityTag _Tag = EntityTag::None);
 		~Entity();
 
 		void Configure(Model* _Model = NULL, PhysicsComponent* _PSX = NULL, AudioComponent* _Audio = NULL);
 		void Clear();
 
-		inline void SetPosition(glm::vec3 _position) { m_Position = _position; }
-		inline void SetDirection(glm::vec3 _direction) { m_Direction = _direction; }
-
-		inline glm::vec3 GetPosition() { return m_Position; }
-		inline glm::vec3 GetDirection() { return m_Direction; }
+		inline void SetTransform(Transform* _transform) { m_Transform = _transform; }
+		inline Transform* GetTransform() { return m_Transform; }
 
 		Model* m_Model = NULL;
 		PhysicsComponent* m_PSX = NULL;
@@ -55,8 +53,7 @@ namespace Cyberspace {
 
 		EntityTag m_Tag;
 	private:
-		glm::vec3 m_Position;
-		glm::vec3 m_Direction;
+		Transform* m_Transform;
 	};
 }
 

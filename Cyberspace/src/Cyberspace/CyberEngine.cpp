@@ -32,12 +32,13 @@ namespace Cyberspace {
 
 	void CyberEngine::Configure()
 	{
-		Entity* MainEntity = new Entity(glm::vec3(0.0f, 0.0f, -10.0f), glm::vec3(0.0f, 0.0f, -1.0f), EntityTag::MainCharacter);
+		Entity* MainEntity = new Entity(new Transform(glm::vec3(0.0f, 0.0f, -10.0f), glm::vec3(0.0f, 0.0f, -1.0f)), EntityTag::MainCharacter);
 		MainEntity->Configure(m_AssetManager->LoadedModels["Vehicle"]);
 		EntityCollection.insert(std::pair<EntityTag, Entity*>(MainEntity->m_Tag, MainEntity));
 
-		//Entity* EnvironmentEntity = new Entity(glm::vec3(0.0f, 0.0f, -10.0f), glm::vec3(0.0f, 0.0f, -1.0f), EntityTag::None);
+		//Entity* EnvironmentEntity = new Entity(Transform(glm::vec3(0.0f, 0.0f, -10.0f), glm::vec3(0.0f, 0.0f, -1.0f)), EntityTag::None);
 		//EnvironmentEntity->Configure(m_AssetManager->LoadedModels["Environment"]);
+		//EnvironmentEntity->m_Model->ModelMatrix = glm::rotate(EnvironmentEntity->m_Model->ModelMatrix, 90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 		//EntityCollection.insert(std::pair<EntityTag, Entity*>(EnvironmentEntity->m_Tag, EnvironmentEntity));
 
 		m_AudioSystem->PlayBGM(0);

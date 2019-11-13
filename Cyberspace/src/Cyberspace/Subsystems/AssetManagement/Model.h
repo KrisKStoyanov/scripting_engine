@@ -32,8 +32,6 @@ namespace Cyberspace {
 		void ProcessNode(aiNode* _Node, const aiScene* _Scene);
 		Mesh ProcessMesh(aiMesh* _Mesh, const aiScene* _Scene);
 		std::vector<Texture> LoadMaterialTextures(aiMaterial* _Material, aiTextureType _Type, TextureType _TypeName);
-
-		glm::mat4 ModelMatrix = glm::mat4(1.0f);
 	};
 }
 

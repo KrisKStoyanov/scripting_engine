@@ -44,15 +44,14 @@ namespace Cyberspace {
 
 			for (int i = 0; i < _Entity->m_Model->Meshes.size(); ++i) {
 
-				_Entity->m_Model->ModelMatrix = glm::mat4(1.0f);
-				_Entity->m_Model->ModelMatrix = glm::translate(_Entity->m_Model->ModelMatrix, _Entity->GetPosition());
+				_Entity->GetTransform()->Translate();
 				/*_Entity->m_Model->ModelMatrix = glm::rotate(_Entity->m_Model->ModelMatrix, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.0f, 1.0f, 0.0f));*/
 
 				_Shader->SetMat4("ProjectionMatrix", MainCamera->ProjectionMatrix);
 				_Shader->SetMat4("ViewMatrix", MainCamera->ViewMatrix);
-				_Shader->SetMat4("ModelMatrix", _Entity->m_Model->ModelMatrix);
+				_Shader->SetMat4("ModelMatrix", _Entity->GetTransform()->GetModelMatrix());
 
-				_Shader->SetVec3("ViewPos", MainCamera->Position);
+				_Shader->SetVec3("ViewPos", MainCamera->GetTransform()->GetPosition());
 
 				for (GLuint j = 0; j < _Entity->m_Model->Meshes[i].TextureCollection.size(); ++j) {
 					glActiveTexture(GL_TEXTURE0 + j);
@@ -136,44 +135,53 @@ namespace Cyberspace {
 					break;
 
 				case EventType::VEHICLE_MOVE_FORWARD:
-					_EntityCollection[EntityTag::MainCharacter]->SetPosition(
-						_EntityCollection[EntityTag::MainCharacter]->GetPosition() +
-						_EntityCollection[EntityTag::MainCharacter]->GetDirection() * 5.0f * _DeltaTime);
+
+					_EntityCollection[EntityTag::MainCharacter]->GetTransform()->Translate(
+						_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetPosition() +
+						_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetOrientation()
+						* 50.0f * _DeltaTime);
+
 					_EventQueue.push(new CyberEvent(EventType::UPDATE_POSITIONS, EventTag::NETWORK));
-					_updatedPositions.push_back(_EntityCollection[EntityTag::MainCharacter]->GetPosition());
+					_updatedPositions.push_back(_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetPosition());
 					if (_EventQueue.front()->Tags.empty()) {
 						_EventQueue.pop();
 					}
 					break;
 
 				case EventType::VEHICLE_MOVE_BACKWARD:
-					_EntityCollection[EntityTag::MainCharacter]->SetPosition(
-						_EntityCollection[EntityTag::MainCharacter]->GetPosition() +
-						-_EntityCollection[EntityTag::MainCharacter]->GetDirection() * 5.0f * _DeltaTime);
+
+					_EntityCollection[EntityTag::MainCharacter]->GetTransform()->Translate(
+						_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetPosition() +
+						-_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetOrientation()
+						* 50.0f * _DeltaTime);
+
 					_EventQueue.push(new CyberEvent(EventType::UPDATE_POSITIONS, EventTag::NETWORK));
-					_updatedPositions.push_back(_EntityCollection[EntityTag::MainCharacter]->GetPosition());
+					_updatedPositions.push_back(_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetPosition());
 					if (_EventQueue.front()->Tags.empty()) {
 						_EventQueue.pop();
 					}
 					break;
 
 				case EventType::VEHICLE_MOVE_LEFT:
-					_EntityCollection[EntityTag::MainCharacter]->SetPosition(
-						_EntityCollection[EntityTag::MainCharacter]->GetPosition() +
-						glm::vec3(-1.0f, 0.0f, 0.0) * 5.0f * _DeltaTime);
+					_EntityCollection[EntityTag::MainCharacter]->GetTransform()->Translate(
+						_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetPosition() +
+						-_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetRightDir()
+						* 50.0f * _DeltaTime);
+
 					_EventQueue.push(new CyberEvent(EventType::UPDATE_POSITIONS, EventTag::NETWORK));
-					_updatedPositions.push_back(_EntityCollection[EntityTag::MainCharacter]->GetPosition());
+					_updatedPositions.push_back(_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetPosition());
 					if (_EventQueue.front()->Tags.empty()) {
 						_EventQueue.pop();
 					}
 					break;
 
 				case EventType::VEHICLE_MOVE_RIGHT:
-					_EntityCollection[EntityTag::MainCharacter]->SetPosition(
-						_EntityCollection[EntityTag::MainCharacter]->GetPosition() +
-						glm::vec3(1.0f, 0.0f, 0.0) * 5.0f * _DeltaTime);
+					_EntityCollection[EntityTag::MainCharacter]->GetTransform()->Translate(
+						_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetPosition() +
+						_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetRightDir()
+						* 50.0f * _DeltaTime);
 					_EventQueue.push(new CyberEvent(EventType::UPDATE_POSITIONS, EventTag::NETWORK));
-					_updatedPositions.push_back(_EntityCollection[EntityTag::MainCharacter]->GetPosition());
+					_updatedPositions.push_back(_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetPosition());
 					if (_EventQueue.front()->Tags.empty()) {
 						_EventQueue.pop();
 					}
