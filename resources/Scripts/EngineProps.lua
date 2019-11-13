@@ -12,7 +12,7 @@ graphics = {
 }
 
 assetManagement = {
-    vehicleModelPath = "../resources/3D/Vehicle/SpaceCarEngine.fbx",
+    vehicleModelPath = "../resources/3D/Vehicle/SpaceCar.fbx",
     modelVertexShaderPath = "../resources/Shaders/TextureVertexShader.glsl",
     modelFragmentShaderPath = "../resources/Shaders/TextureFragmentShader.glsl",
     skyboxVertexShaderPath = "../resources/Shaders/SkyboxVertexShader.glsl",

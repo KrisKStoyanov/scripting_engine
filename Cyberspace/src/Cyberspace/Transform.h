@@ -8,21 +8,21 @@ namespace Cyberspace {
 	class CSPACE_API Transform
 	{
 	public:
-		Transform(glm::vec3 _position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 _orientation = glm::vec3(0.0f, 0.0f, -1.0f));
+		Transform(glm::vec3 _position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 _rotation = glm::vec3(0.0f, 0.0f, -1.0f));
 		~Transform();
 		void Translate(glm::vec3 _translation);
-		void Translate();
-		void Rotate(glm::vec3 _eulerAngles);
+		void Rotate(float _angle, glm::vec3 _rotationAxis);
+		void Scale(glm::vec3 _scalingRatio);
 		void LookAt(Transform _target, glm::vec3 _worldUp = glm::vec3(0.0f,1.0f,0.0f));
 
 		inline void SetPosition(glm::vec3 _position) { m_Position = _position; }
-		inline void SetOrientation(glm::vec3 _orientation) { 
-			m_Orientation = _orientation;
-			m_LocalRightDir = glm::normalize(glm::cross(m_Orientation, m_WorldUpDir));
-			m_LocalUpDir = glm::normalize(glm::cross(m_LocalRightDir, m_Orientation));
+		inline void SetOrientation(glm::vec3 _rotation) {
+			m_Rotation = _rotation;
+			m_LocalRightDir = glm::normalize(glm::cross(m_Rotation, m_WorldUpDir));
+			m_LocalUpDir = glm::normalize(glm::cross(m_LocalRightDir, m_Rotation));
 		}
 		inline glm::vec3 GetPosition() { return m_Position; }
-		inline glm::vec3 GetOrientation() { return m_Orientation; };
+		inline glm::vec3 GetOrientation() { return m_Rotation; };
 
 		inline glm::vec3 GetRightDir() { return m_LocalRightDir; }
 		inline glm::vec3 GetUpDir() { return m_LocalUpDir; }
@@ -33,7 +33,9 @@ namespace Cyberspace {
 
 	private:
 		glm::vec3 m_Position;
-		glm::vec3 m_Orientation;
+		glm::vec3 m_Scale;
+		glm::vec3 m_Rotation;
+
 		glm::vec3 m_EulerAngles; //Y,Z,X compliant
 		glm::mat4 m_ModelMatrix = glm::mat4(1.0f);
 

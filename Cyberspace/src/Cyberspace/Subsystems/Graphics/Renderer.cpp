@@ -33,6 +33,7 @@ namespace Cyberspace {
 		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), _props.FOV, _props.Width, _props.Height);
 		MainSkybox = new Skybox(_props.SkyboxFaceTexturePaths);
 		DirLight = new Light(glm::vec3(-0.2f, -1.0f, -0.3f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f));
+		
 		//PointLight = new Light(glm::vec3(0.7f, 0.2f, 2.0f), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f);
 		//SpotLight = new Light(MainCamera->Position, MainCamera->Front, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f, glm::cos(glm::radians(12.5f)), glm::cos(glm::radians(15.0f)));
 	}
@@ -43,10 +44,9 @@ namespace Cyberspace {
 			_Shader->Activate();
 
 			for (int i = 0; i < _Entity->m_Model->Meshes.size(); ++i) {
-
-				_Entity->GetTransform()->Translate();
-				/*_Entity->m_Model->ModelMatrix = glm::rotate(_Entity->m_Model->ModelMatrix, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.0f, 1.0f, 0.0f));*/
-
+				_Entity->GetTransform()->Translate(_Entity->GetTransform()->GetPosition());
+				//_Entity->GetTransform()->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
+				//_Entity->GetTransform()->Rotate(-90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 				_Shader->SetMat4("ProjectionMatrix", MainCamera->ProjectionMatrix);
 				_Shader->SetMat4("ViewMatrix", MainCamera->ViewMatrix);
 				_Shader->SetMat4("ModelMatrix", _Entity->GetTransform()->GetModelMatrix());
