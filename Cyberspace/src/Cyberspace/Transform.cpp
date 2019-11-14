@@ -1,10 +1,11 @@
 #include "Transform.h"
 
 namespace Cyberspace {
-	Transform::Transform(glm::vec3 _position, glm::vec3 _rotation)
+	Transform::Transform(glm::vec3 _position, glm::vec3 _rotation, glm::vec3 _scale)
 	{
 		m_Position = _position;
 		m_Rotation = _rotation;
+		m_Scale = _scale;
 	}
 
 	Transform::~Transform()

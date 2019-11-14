@@ -4,12 +4,33 @@
 #include "../../Entity.h"
 #include "../../Core.h"
 #include "CyberMap.h"
+#include <queue>
+#include "../../CyberEvent.h"
+#include "../AssetManagement/Model.h"
+#include "../AssetManagement/AssetManager.h"
 
 namespace Cyberspace {
 
 	struct GMProps {
-		GMProps () {}
+		std::string PlayerTag;
+		std::string PlayerModelTag;
+		std::string StartMapTag;
+		glm::vec3 PlayerSpawnPosition;
+		float PlayerSpeed;
+		GMProps(
+			std::string _playerTag = "Player",
+			std::string _playerModelTag = "Vehicle",
+			std::string _startMapTag = "TitleScreen",
+			glm::vec3 _playerSpawnPosition = glm::vec3(0.0f, 0.0f, -10.0f),
+			float _playerSpeed = 5.0f) :
+			PlayerTag(_playerTag),
+			PlayerModelTag(_playerModelTag),
+			StartMapTag(_startMapTag),
+			PlayerSpawnPosition(_playerSpawnPosition),
+			PlayerSpeed(_playerSpeed)
+		{}
 	};
+
 
 	class CSPACE_API GameManager
 	{
@@ -18,7 +39,15 @@ namespace Cyberspace {
 		GameManager(const GMProps& _props);
 		~GameManager();
 		void Init(const GMProps& _props);
-		CyberMap* MainMap = NULL;
+		void OnUpdate(std::queue<CyberEvent*> _EventQueue);
+		void Terminate();
+
+		Entity* PlayerEntity = NULL;
+		Model* PlayerModel = NULL;
+		float PlayerSpeed;
+
+		std::string CurrentMap = "Test";
+		std::unordered_map<std::string, CyberMap*> GameMaps;
 	};
 }
 

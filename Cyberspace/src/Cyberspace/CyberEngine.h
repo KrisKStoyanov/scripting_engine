@@ -2,11 +2,10 @@
 #include "Core.h"
 #include "Entity.h"
 #include "./Subsystems/Graphics/Renderer.h"
-#include "./Subsystems/Interface/UISystem.h"
+#include "./Subsystems/Interface/UIController.h"
 #include "./Subsystems/Networking/CyberNet.h"
 #include "./Subsystems/Audio/AudioSystem.h"
 #include "./Subsystems/Physics/PhysicsSystem.h"
-#include "./Subsystems/Window/EngineWindow.h"
 #include "./Subsystems/AssetManagement/AssetManager.h"
 #include "./Subsystems/GameManagement/GameManager.h"
 
@@ -16,29 +15,26 @@
 namespace Cyberspace {
 
 	struct EngineProps {
-		WindowProps m_WindowProps;
+		UIProps m_UIProps;
 		GraphicsProps m_GraphicsProps;
 		PhysicsProps m_PhysicsProps;
 		AudioProps m_AudioProps;
-		UIProps m_UIProps;
 		NetworkProps m_NetProps;
 		AMProps m_AMProps;
 		GMProps m_GMProps;
 
 		EngineProps(
-			WindowProps _wProps = WindowProps(),
+			UIProps _uiProps = UIProps(),
 			GraphicsProps _gProps = GraphicsProps(),
 			PhysicsProps _pProps = PhysicsProps(),
 			AudioProps _aProps = AudioProps(),
-			UIProps _uiProps = UIProps(),
 			NetworkProps _netProps = NetworkProps(),
 			AMProps _amProps = AMProps(),
 			GMProps _gmProps = GMProps()) :
-			m_WindowProps(_wProps),
+			m_UIProps(_uiProps),
 			m_GraphicsProps(_gProps),
 			m_PhysicsProps(_pProps),
 			m_AudioProps(_aProps),
-			m_UIProps(_uiProps),
 			m_NetProps(_netProps),
 			m_AMProps(_amProps),
 			m_GMProps(_gmProps) {}
@@ -52,7 +48,6 @@ namespace Cyberspace {
 		~CyberEngine();
 
 		void Init(const EngineProps& _props);
-		void Configure();
 		float ComputeDeltaTime(float _CurrentFrame);
 		void OnUpdate();
 		void Terminate();
@@ -64,11 +59,10 @@ namespace Cyberspace {
 		std::queue<CyberEvent*> EventQueue;
 
 	private:
-		std::unique_ptr<EngineWindow> m_Window;
 		std::unique_ptr<Renderer> m_Renderer;
 		std::unique_ptr<PhysicsSystem> m_PhysicsSystem;
 		std::unique_ptr<AudioSystem> m_AudioSystem;
-		std::unique_ptr<UISystem> m_UISystem;
+		std::unique_ptr<UIController> m_UIController;
 		std::unique_ptr<CyberNet> m_NetSystem;
 		std::unique_ptr<AssetManager> m_AssetManager;
 		std::unique_ptr<GameManager> m_GameManager;

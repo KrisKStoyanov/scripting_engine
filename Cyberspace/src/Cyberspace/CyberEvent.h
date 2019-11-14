@@ -16,15 +16,17 @@ namespace Cyberspace {
 		CAMERA_MOVE_BACKWARD,
 		CAMERA_MOVE_LEFT,
 		CAMERA_MOVE_RIGHT,
+		TOGGLE_CAMERA_MOVEMENT,
 		UPDATE_POSITIONS
 	};
 
 	enum class EventTag {
 		NONE = 0,
-		GRAPHICS = 1,
-		PHYSICS = 2,
-		AUDIO = 3,
-		NETWORK = 4
+		WINDOW = 1,
+		GRAPHICS = 2,
+		PHYSICS = 3,
+		AUDIO = 4,
+		NETWORK = 5
 	};
 
 	class CSPACE_API CyberEvent

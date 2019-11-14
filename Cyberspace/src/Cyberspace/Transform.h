@@ -8,7 +8,10 @@ namespace Cyberspace {
 	class CSPACE_API Transform
 	{
 	public:
-		Transform(glm::vec3 _position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 _rotation = glm::vec3(0.0f, 0.0f, -1.0f));
+		Transform(
+			glm::vec3 _position = glm::vec3(0.0f, 0.0f, 0.0f), 
+			glm::vec3 _rotation = glm::vec3(0.0f, 0.0f, -1.0f), 
+			glm::vec3 _scale = glm::vec3(1.0f, 1.0f, 1.0f));
 		~Transform();
 		void Translate(glm::vec3 _translation);
 		void Rotate(float _angle, glm::vec3 _rotationAxis);

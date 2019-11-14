@@ -53,10 +53,14 @@ namespace Cyberspace {
 		//Create engine settings formatting struct
 		EngineProps EProps;
 
-		EProps.m_WindowProps.Title = winPropsTitle;
-		EProps.m_WindowProps.Width = winPropsWidth;
-		EProps.m_WindowProps.Height = winPropsHeight;
-		EProps.m_WindowProps.VSyncStatus = winPropsVSync;
+		WindowProps WProps;
+		WProps.Title = winPropsTitle;
+		WProps.Width = winPropsWidth;
+		WProps.Height = winPropsHeight;
+		WProps.VSync = winPropsVSync;
+		WProps.Cursor = true;
+
+		EProps.m_UIProps.PrimaryWindowProps = WProps;
 
 		EProps.m_GraphicsProps.Width = gfxPropsWidth;
 		EProps.m_GraphicsProps.Height = gfxPropsHeight;
@@ -78,7 +82,6 @@ namespace Cyberspace {
 	}
 	void Application::Run()
 	{
-		m_Engine->Configure();
 		while (m_Engine->GetTick())
 		{
 			m_Engine->OnUpdate();

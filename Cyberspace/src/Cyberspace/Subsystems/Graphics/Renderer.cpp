@@ -44,8 +44,6 @@ namespace Cyberspace {
 
 		for (int i = 0; i < _Model->Meshes.size(); ++i) {
 			_Transform->Translate(_Transform->GetPosition());
-			//_Entity->GetTransform()->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
-			//_Entity->GetTransform()->Rotate(-90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 			_Shader->SetMat4("ProjectionMatrix", MainCamera->ProjectionMatrix);
 			_Shader->SetMat4("ViewMatrix", MainCamera->ViewMatrix);
 			_Shader->SetMat4("ModelMatrix", _Transform->GetModelMatrix());
@@ -95,7 +93,7 @@ namespace Cyberspace {
 		}
 	}
 
-	void Renderer::OnUpdate(std::queue<CyberEvent*>& _EventQueue, std::unordered_map<std::string, Shader*> _ShaderMap, std::unordered_map<std::string, Entity*> _EntityMap, double _CursorPosX, double _CursorPosY, std::vector<glm::vec3>& _updatedPositions, float _DeltaTime)
+	void Renderer::OnUpdate(std::queue<CyberEvent*>& _EventQueue, std::unordered_map<std::string, Shader*> _ShaderMap, std::unordered_map<std::string, Entity*> _EntityMap, double _CursorPosX, double _CursorPosY, float _DeltaTime)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		if (!_EventQueue.empty()) {
@@ -104,7 +102,15 @@ namespace Cyberspace {
 				_EventQueue.front()->Tags.erase(Tag);
 				switch (_EventQueue.front()->Type) {
 
+				case EventType::TOGGLE_CAMERA_MOVEMENT:
+					m_EnableCameraMovement = !m_EnableCameraMovement;
+					if (_EventQueue.front()->Tags.empty()) {
+						_EventQueue.pop();
+					}
+					break;
+
 				case EventType::CAMERA_MOVE_FORWARD:
+					if (m_EnableCameraMovement)
 					MainCamera->UpdateTransformKeyboard(MovementType::FORWARD, _DeltaTime);
 					if (_EventQueue.front()->Tags.empty()) {
 						_EventQueue.pop();
@@ -112,6 +118,7 @@ namespace Cyberspace {
 					break;
 
 				case EventType::CAMERA_MOVE_BACKWARD:
+					if (m_EnableCameraMovement)
 					MainCamera->UpdateTransformKeyboard(MovementType::BACKWARD, _DeltaTime);
 					if (_EventQueue.front()->Tags.empty()) {
 						_EventQueue.pop();
@@ -119,6 +126,7 @@ namespace Cyberspace {
 					break;
 
 				case EventType::CAMERA_MOVE_LEFT:
+					if (m_EnableCameraMovement)
 					MainCamera->UpdateTransformKeyboard(MovementType::LEFT, _DeltaTime);
 					if (_EventQueue.front()->Tags.empty()) {
 						_EventQueue.pop();
@@ -126,6 +134,7 @@ namespace Cyberspace {
 					break;
 
 				case EventType::CAMERA_MOVE_RIGHT:
+					if(m_EnableCameraMovement)
 					MainCamera->UpdateTransformKeyboard(MovementType::RIGHT, _DeltaTime);
 					if (_EventQueue.front()->Tags.empty()) {
 						_EventQueue.pop();
@@ -139,7 +148,9 @@ namespace Cyberspace {
 		for (std::pair<std::string, Entity*> iter : _EntityMap) {
 			Draw(MainCamera, iter.second->GetModel(), iter.second->GetTransform(), _ShaderMap["Model"]);
 		}
-		MainCamera->UpdateTransformMouse(_CursorPosX, -_CursorPosY);
+		if (m_EnableCameraMovement) {
+			MainCamera->UpdateTransformMouse(_CursorPosX, -_CursorPosY);
+		}
 		glDepthFunc(GL_LEQUAL);
 		MainSkybox->Draw(MainCamera, _ShaderMap["Skybox"]);
 		glDepthFunc(GL_LESS);
