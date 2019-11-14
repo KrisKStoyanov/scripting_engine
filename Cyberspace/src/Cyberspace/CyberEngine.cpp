@@ -32,6 +32,8 @@ namespace Cyberspace {
 
 	void CyberEngine::Configure()
 	{
+		m_UISystem->Setup(m_Window.get());
+
 		m_GameManager->MainMap = new CyberMap();
 		Entity* PlayerEntity = new Entity();
 		PlayerEntity->SetTransform(new Transform(glm::vec3(0.0f, 0.0f, -10.0f), glm::vec3(0.0f, 0.0f, -1.0f)));
@@ -57,6 +59,7 @@ namespace Cyberspace {
 		std::vector<glm::vec3> updatedPositions;
 		m_Window->OnUpdate(m_Tick, EventQueue, cursorPosX, cursorPosY);
 		m_Renderer->OnUpdate(EventQueue, m_AssetManager->LoadedShaders, m_GameManager->MainMap->MapEntities, cursorPosX, cursorPosY, updatedPositions, ComputeDeltaTime(glfwGetTime()));
+		m_UISystem->OnUpdate(EventQueue);
 		m_NetSystem->OnUpdate(EventQueue, updatedPositions);
 	}
 

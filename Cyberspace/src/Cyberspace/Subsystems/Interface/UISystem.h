@@ -11,12 +11,14 @@
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "../Graphics/Renderer.h"
-#include "../Physics/PhysicsSystem.h"
-#include "../Audio/AudioSystem.h"
-#include "../Networking/CyberNet.h"
 #include "../../CyberEvent.h"
 #include "../../Core.h"
+
+#include "../../Cyberspace/ImGUI/imgui.h"
+#include "../../Cyberspace/ImGUI/imgui_impl_glfw.h"
+#include "../../Cyberspace/ImGUI/imgui_impl_opengl3.h"
+#include <queue>
+#include "../Window/EngineWindow.h"
 
 namespace Cyberspace {
 
@@ -31,8 +33,9 @@ namespace Cyberspace {
 		UISystem(const UIProps& _props);
 		~UISystem();
 		void Init(const UIProps& _props);
+		void Setup(EngineWindow* _window);
 		void Configure();
-		void Update();
+		void OnUpdate(std::queue<CyberEvent*>& _eventQueue);
 		void Terminate();
 	};
 }

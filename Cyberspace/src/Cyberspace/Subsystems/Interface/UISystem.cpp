@@ -18,6 +18,11 @@ namespace Cyberspace {
 
 	void UISystem::Init(const UIProps& _props)
 	{
+		//IMGUI_CHECKVERSION();
+		//ImGui::CreateContext();
+		//ImGuiIO& io = ImGui::GetIO(); (void)io;
+		//ImGui::StyleColorsDark();
+		//ImGui_ImplOpenGL3_Init("#version 450");
 		//ImGui::CreateContext();
 		//ImGuiIO& IO = ImGui::GetIO();
 		//int AtlasWidth, AtlasHeight;
@@ -27,36 +32,38 @@ namespace Cyberspace {
 		//ImGui::StyleColorsDark();
 	}
 
+	void UISystem::Setup(EngineWindow* _window)
+	{
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		ImGui::StyleColorsDark();
+		ImGui_ImplOpenGL3_Init("#version 450");
+		ImGui_ImplGlfw_InitForOpenGL(_window->MainWindow, true);
+	}
+
 	void UISystem::Configure()
 	{
 	}
 
-	void UISystem::Update()
+	void UISystem::OnUpdate(std::queue<CyberEvent*>& _eventQueue)
 	{
-		//if (!_Events.empty()) {
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
 
-		//		//	for (CyberEvent* Event : PendingEvents) {
+		ImGui::Begin("Hi World!");
+		ImGui::End();
 
-		//		//		if (std::find(PendingEvents.begin(), PendingEvents.end(), Event) != PendingEvents.end()) {
-		//		//			Engine_Renderer->HandleEvent(Event);
-		//		//		}
-		//		//		if (std::find(PendingEvents.begin(), PendingEvents.end(), Event) != PendingEvents.end()) {
-		//		//			Engine_Physics->HandleEvent(Event);
-		//		//		}
-		//		//		if (std::find(PendingEvents.begin(), PendingEvents.end(), Event) != PendingEvents.end()) {
-		//		//			Engine_Audio->HandleEvent(Event);
-		//		//		}
-		//		//		if (std::find(PendingEvents.begin(), PendingEvents.end(), Event) != PendingEvents.end()) {
-		//		//			Engine_Net->HandleEvent(Event);
-		//		//		}
-		//		//	}
-		//		//}
-		//}
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 
 	void UISystem::Terminate()
 	{
-		//ImGui::DestroyContext(); 
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyContext();
 	}
 
 }

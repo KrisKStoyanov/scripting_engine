@@ -33,14 +33,17 @@ namespace Cyberspace {
 		static EngineWindow* Create(const WindowProps& _props = WindowProps());
 		EngineWindow(const WindowProps& _props);
 		~EngineWindow();
-		void Init(const WindowProps& _props);
+		void InitWindow(const WindowProps& _props);
+		void InitUI();
 		void Terminate();
 		void SetVSync(bool _enable);
 		bool GetVSync();
 		void OnUpdate(bool& _engineOn, std::queue<CyberEvent*>& _EventQueue, double& _CursorPosX, double& _CursorPosY);
+		void OnUpdateUI();
 		GLFWwindow* MainWindow = NULL;
 		bool VSyncStatus;
 		double CursorPosX, CursorPosY;
 	};
 }
+
 

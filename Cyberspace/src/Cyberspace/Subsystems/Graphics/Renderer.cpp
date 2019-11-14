@@ -131,60 +131,6 @@ namespace Cyberspace {
 						_EventQueue.pop();
 					}
 					break;
-
-				/*case EventType::VEHICLE_MOVE_FORWARD:
-
-					_EntityCollection[EntityTag::MainCharacter]->GetTransform()->Translate(
-						_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetPosition() +
-						_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetOrientation()
-						* 50.0f * _DeltaTime);
-
-					_EventQueue.push(new CyberEvent(EventType::UPDATE_POSITIONS, EventTag::NETWORK));
-					_updatedPositions.push_back(_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetPosition());
-					if (_EventQueue.front()->Tags.empty()) {
-						_EventQueue.pop();
-					}
-					break;
-
-				case EventType::VEHICLE_MOVE_BACKWARD:
-
-					_EntityCollection[EntityTag::MainCharacter]->GetTransform()->Translate(
-						_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetPosition() +
-						-_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetOrientation()
-						* 50.0f * _DeltaTime);
-
-					_EventQueue.push(new CyberEvent(EventType::UPDATE_POSITIONS, EventTag::NETWORK));
-					_updatedPositions.push_back(_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetPosition());
-					if (_EventQueue.front()->Tags.empty()) {
-						_EventQueue.pop();
-					}
-					break;
-
-				case EventType::VEHICLE_MOVE_LEFT:
-					_EntityCollection[EntityTag::MainCharacter]->GetTransform()->Translate(
-						_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetPosition() +
-						-_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetRightDir()
-						* 50.0f * _DeltaTime);
-
-					_EventQueue.push(new CyberEvent(EventType::UPDATE_POSITIONS, EventTag::NETWORK));
-					_updatedPositions.push_back(_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetPosition());
-					if (_EventQueue.front()->Tags.empty()) {
-						_EventQueue.pop();
-					}
-					break;
-
-				case EventType::VEHICLE_MOVE_RIGHT:
-					_EntityCollection[EntityTag::MainCharacter]->GetTransform()->Translate(
-						_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetPosition() +
-						_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetRightDir()
-						* 50.0f * _DeltaTime);
-					_EventQueue.push(new CyberEvent(EventType::UPDATE_POSITIONS, EventTag::NETWORK));
-					_updatedPositions.push_back(_EntityCollection[EntityTag::MainCharacter]->GetTransform()->GetPosition());
-					if (_EventQueue.front()->Tags.empty()) {
-						_EventQueue.pop();
-					}
-					break;*/
-
 				default:
 					break;
 				}

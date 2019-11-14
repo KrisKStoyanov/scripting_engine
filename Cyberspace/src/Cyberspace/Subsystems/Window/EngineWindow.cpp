@@ -8,7 +8,7 @@ namespace Cyberspace {
 
 	EngineWindow::EngineWindow(const WindowProps& _props)
 	{
-		Init(_props);
+		InitWindow(_props);
 	}
 
 	EngineWindow::~EngineWindow()
@@ -16,7 +16,7 @@ namespace Cyberspace {
 		Terminate();
 	}
 
-	void EngineWindow::Init(const WindowProps& _props)
+	void EngineWindow::InitWindow(const WindowProps& _props)
 	{
 		if (!glfwInit()) {
 			printf("GLFW Window failed to initialize");
@@ -31,7 +31,7 @@ namespace Cyberspace {
 			fprintf(stderr, "GLFW Error %d: %s\n", _Error, _Description);
 			});
 
-		glfwSetInputMode(MainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		//glfwSetInputMode(MainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	}
 
 	void EngineWindow::SetVSync(bool _Status)
@@ -82,6 +82,11 @@ namespace Cyberspace {
 		//if (glfwGetKey(MainWindow, GLFW_KEY_D) == GLFW_PRESS) {
 		//	_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_RIGHT, EventTag::GRAPHICS));
 		//}
+	}
+
+	void EngineWindow::OnUpdateUI()
+	{
+
 	}
 
 	void EngineWindow::Terminate()
