@@ -1,11 +1,12 @@
 #pragma once
-#include <vector>
 #include "Core.h"
+#include <vector>
 
 namespace Cyberspace {
 	enum class EventType {
 		NONE = 0,
 		START,
+		PAUSE,
 		EXIT,
 		VEHICLE_MOVE_FORWARD,
 		VEHICLE_MOVE_BACKWARD,

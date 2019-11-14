@@ -1,15 +1,5 @@
 #pragma once
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include <string>
-#include <vector>
-#include <map>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/matrix.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "../../Core.h"
 
 #include "../../CyberEvent.h"
 #include "../../Core.h"
@@ -17,7 +7,6 @@
 #include "../../Cyberspace/ImGUI/imgui.h"
 #include "../../Cyberspace/ImGUI/imgui_impl_glfw.h"
 #include "../../Cyberspace/ImGUI/imgui_impl_opengl3.h"
-#include <queue>
 #include "../Window/EngineWindow.h"
 
 namespace Cyberspace {
@@ -35,8 +24,17 @@ namespace Cyberspace {
 		void Init(const UIProps& _props);
 		void Setup(EngineWindow* _window);
 		void Configure();
-		void OnUpdate(std::queue<CyberEvent*>& _eventQueue);
+		void OnUpdate(EngineWindow* _Window, std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue);
 		void Terminate();
+
+		bool m_StartGame = false;
+
+		bool m_ShowStartMenu = true;
+		bool m_ShowOptionsMenu = false;
+
+		bool m_ShowWindowSettings = false;
+		bool m_ShowGraphicsSettings = false;
+		bool m_ShowAudioSettings = false;
 	};
 }
 

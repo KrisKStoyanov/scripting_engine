@@ -1,18 +1,5 @@
 #pragma once
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include <string>
-#include <vector>
-#include <queue>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/matrix.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include <enet/enet.h>
-
+#include "Core.h"
 #include "Entity.h"
 #include "./Subsystems/Graphics/Renderer.h"
 #include "./Subsystems/Interface/UISystem.h"
@@ -24,6 +11,7 @@
 #include "./Subsystems/GameManagement/GameManager.h"
 
 #include "CyberEvent.h"
+#include "EventListener.h"
 
 namespace Cyberspace {
 
@@ -72,6 +60,7 @@ namespace Cyberspace {
 		inline bool GetTick() { return m_Tick; }
 		bool m_Tick = false;
 
+		std::queue<CyberEvent*> BlockingEventQueue;
 		std::queue<CyberEvent*> EventQueue;
 
 	private:

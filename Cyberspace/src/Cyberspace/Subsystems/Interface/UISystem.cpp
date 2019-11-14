@@ -18,11 +18,11 @@ namespace Cyberspace {
 
 	void UISystem::Init(const UIProps& _props)
 	{
-		//IMGUI_CHECKVERSION();
-		//ImGui::CreateContext();
-		//ImGuiIO& io = ImGui::GetIO(); (void)io;
-		//ImGui::StyleColorsDark();
-		//ImGui_ImplOpenGL3_Init("#version 450");
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		ImGui::StyleColorsDark();
+		ImGui_ImplOpenGL3_Init("#version 450");
 		//ImGui::CreateContext();
 		//ImGuiIO& IO = ImGui::GetIO();
 		//int AtlasWidth, AtlasHeight;
@@ -34,11 +34,6 @@ namespace Cyberspace {
 
 	void UISystem::Setup(EngineWindow* _window)
 	{
-		IMGUI_CHECKVERSION();
-		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO(); (void)io;
-		ImGui::StyleColorsDark();
-		ImGui_ImplOpenGL3_Init("#version 450");
 		ImGui_ImplGlfw_InitForOpenGL(_window->MainWindow, true);
 	}
 
@@ -46,15 +41,50 @@ namespace Cyberspace {
 	{
 	}
 
-	void UISystem::OnUpdate(std::queue<CyberEvent*>& _eventQueue)
+	void UISystem::OnUpdate(EngineWindow* _window, std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue)
 	{
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
+		//float time = (float)glfwGetTime();
+		//io.DeltaTime = m_Time > 0.0f ? (time - m_Time) : (1.0f / 60.0f);
+		//m_Time = time;
 
-		ImGui::Begin("Hi World!");
-		ImGui::End();
+		if (m_ShowStartMenu) {
+			ImGui::Begin("Main Menu");
+			
+			if (ImGui::Button("Start")) {
+				m_StartGame = !m_StartGame;
+				m_ShowStartMenu = !m_ShowStartMenu;
+			}
+			
+			if (ImGui::Button("Options")) {
+				m_ShowOptionsMenu = !m_ShowOptionsMenu;
+				m_ShowStartMenu = !m_ShowStartMenu;
+			}
 
+			if (ImGui::Button("Exit")) {
+				_BlockingEventQueue.push(new CyberEvent(EventType::EXIT));
+			}
+
+			ImGui::End();
+		}
+
+		if (m_ShowOptionsMenu) {
+			ImGui::Begin("Options");
+
+			//ImGui::InputInt("Resolution X", &_window->m_WindowWidth);
+			//ImGui::InputInt("Resolution Y", &_window->m_WindowHeight);
+			//ImGui::Checkbox("VSync", &_window->m_VSync);
+
+			if (ImGui::Button("Back")) {
+				m_ShowOptionsMenu = !m_ShowOptionsMenu;
+				m_ShowStartMenu = !m_ShowStartMenu;
+			}
+
+			ImGui::End();
+		}
+		
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}

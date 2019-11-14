@@ -1,17 +1,19 @@
 #include "PhysicsComponent.h"
 
-PhysicsComponent::PhysicsComponent() {
+namespace Cyberspace {
+	PhysicsComponent::PhysicsComponent() {
 
-}
+	}
 
-PhysicsComponent::~PhysicsComponent() {
+	PhysicsComponent::~PhysicsComponent() {
 
-}
+	}
 
-bool PhysicsComponent::Setup() {
-	return true;
-}
+	bool PhysicsComponent::Setup() {
+		return true;
+	}
 
-void PhysicsComponent::Clear() {
+	void PhysicsComponent::Clear() {
 
+	}
 }

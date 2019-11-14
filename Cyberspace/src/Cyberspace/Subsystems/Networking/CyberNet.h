@@ -1,22 +1,11 @@
 #pragma once
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <algorithm>
-#include <string>
-#include <vector>
-#include <map>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/matrix.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <queue>
+#include "../../Core.h"
 
 #include <enet/enet.h>
 #include "../../CyberEvent.h"
 #include "../../Core.h"
 #include "../../Entity.h"
+#include <queue>
 
 namespace Cyberspace {
 

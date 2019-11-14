@@ -1,3 +1,4 @@
+#include "../cspacepch.h"
 #include "CyberEngine.h"
 
 namespace Cyberspace {
@@ -57,14 +58,32 @@ namespace Cyberspace {
 	{
 		double cursorPosX, cursorPosY;
 		std::vector<glm::vec3> updatedPositions;
-		m_Window->OnUpdate(m_Tick, EventQueue, cursorPosX, cursorPosY);
+		m_Window->OnUpdate(BlockingEventQueue, EventQueue, cursorPosX, cursorPosY);
 		m_Renderer->OnUpdate(EventQueue, m_AssetManager->LoadedShaders, m_GameManager->MainMap->MapEntities, cursorPosX, cursorPosY, updatedPositions, ComputeDeltaTime(glfwGetTime()));
-		m_UISystem->OnUpdate(EventQueue);
+		m_UISystem->OnUpdate(m_Window.get(),BlockingEventQueue, EventQueue);
 		m_NetSystem->OnUpdate(EventQueue, updatedPositions);
+		
+		if (!BlockingEventQueue.empty()) {
+			switch (BlockingEventQueue.front()->Type) {
+			case EventType::EXIT:
+				Terminate();
+				break;
+			case EventType::PAUSE:
+				break;
+			default:
+				break;
+			}
+		}
 	}
 
 	void CyberEngine::Terminate()
 	{
+		while (!BlockingEventQueue.empty()) {
+			BlockingEventQueue.pop();
+		}
+		while (!EventQueue.empty()) {
+			EventQueue.pop();
+		}
 		m_Window.reset();
 		m_Renderer.reset();
 		m_PhysicsSystem.reset();

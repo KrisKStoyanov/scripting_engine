@@ -31,21 +31,20 @@ namespace Cyberspace {
 			fprintf(stderr, "GLFW Error %d: %s\n", _Error, _Description);
 			});
 
-		//glfwSetInputMode(MainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		m_WindowWidth = _props.Width;
+		m_WindowHeight = _props.Height;
+		m_VSync = _props.VSyncStatus;
+
+		if (m_ShowCursor) {
+			glfwSetInputMode(MainWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		}
+		else {
+			glfwSetInputMode(MainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		}
+		
 	}
 
-	void EngineWindow::SetVSync(bool _Status)
-	{
-		_Status ? glfwSwapInterval(1) : glfwSwapInterval(0);
-		VSyncStatus = _Status;
-	}
-
-	bool EngineWindow::GetVSync()
-	{
-		return VSyncStatus;
-	}
-
-	void EngineWindow::OnUpdate(bool& _engineOn, std::queue<CyberEvent*>& _EventQueue, double& _CursorPosX, double& _CursorPosY)
+	void EngineWindow::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, double& _CursorPosX, double& _CursorPosY)
 	{
 		glfwSwapBuffers(MainWindow);
 		glfwPollEvents();
@@ -53,7 +52,7 @@ namespace Cyberspace {
 		glfwGetCursorPos(MainWindow, &_CursorPosX, &_CursorPosY);
 		//Blocking event:
 		if (glfwGetKey(MainWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-			_engineOn = false;
+			_BlockingEventQueue.push(new CyberEvent(EventType::EXIT));
 		}
 
 		//Non-blocking event:
@@ -82,11 +81,6 @@ namespace Cyberspace {
 		//if (glfwGetKey(MainWindow, GLFW_KEY_D) == GLFW_PRESS) {
 		//	_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_RIGHT, EventTag::GRAPHICS));
 		//}
-	}
-
-	void EngineWindow::OnUpdateUI()
-	{
-
 	}
 
 	void EngineWindow::Terminate()

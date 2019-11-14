@@ -1,11 +1,16 @@
 #pragma once
-class PhysicsComponent
-{
-public:
-	PhysicsComponent();
-	~PhysicsComponent();
+#include "../../Core.h"
 
-	bool Setup();
-	void Clear();
-};
+namespace Cyberspace {
+	class CSPACE_API PhysicsComponent
+	{
+	public:
+		PhysicsComponent();
+		~PhysicsComponent();
+
+		bool Setup();
+		void Clear();
+	};
+}
+
 

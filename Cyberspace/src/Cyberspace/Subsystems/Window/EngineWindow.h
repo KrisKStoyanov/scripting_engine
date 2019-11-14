@@ -1,4 +1,6 @@
 #pragma once
+#include <GLFW/glfw3.h>
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <algorithm>
@@ -6,9 +8,6 @@
 #include <vector>
 #include <functional>
 #include <queue>
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include "../../CyberEvent.h"
 
 #include "../../Core.h"
@@ -34,14 +33,17 @@ namespace Cyberspace {
 		EngineWindow(const WindowProps& _props);
 		~EngineWindow();
 		void InitWindow(const WindowProps& _props);
-		void InitUI();
 		void Terminate();
-		void SetVSync(bool _enable);
-		bool GetVSync();
-		void OnUpdate(bool& _engineOn, std::queue<CyberEvent*>& _EventQueue, double& _CursorPosX, double& _CursorPosY);
-		void OnUpdateUI();
+		inline void SetVSync(bool _enable) {
+			_enable ? glfwSwapInterval(1) : glfwSwapInterval(0);
+			m_VSync = _enable;
+		}
+		inline bool GetVSync() { return m_VSync; }
+		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, double& _CursorPosX, double& _CursorPosY);
 		GLFWwindow* MainWindow = NULL;
-		bool VSyncStatus;
+		int m_WindowWidth = 0, m_WindowHeight = 0;
+		bool m_VSync;
+		bool m_ShowCursor = true;
 		double CursorPosX, CursorPosY;
 	};
 }

@@ -1,15 +1,12 @@
 #pragma once
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include <sstream>
-#include <vector>
-#include <GL/glew.h>
-#include <glm/glm.hpp>
-#include <glm/matrix.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "Core.h"
 #include "./Subsystems/Graphics/Vertex.h"
 #include "./Subsystems/AssetManagement/Shader.h"
+
+#include "./Subsystems/Physics/PhysicsComponent.h"
+#include "./Subsystems/Graphics/Mesh.h"
+#include "./Subsystems/AssetManagement/Model.h"
+#include "./Subsystems/Audio/AudioComponent.h"
 
 extern "C"
 {
@@ -20,12 +17,6 @@ extern "C"
 
 #include "LuaBridge/LuaBridge.h"
 
-#include "./Subsystems/Physics/PhysicsComponent.h"
-#include "./Subsystems/Graphics/Mesh.h"
-#include "./Subsystems/AssetManagement/Model.h"
-#include "./Subsystems/Audio/AudioComponent.h"
-
-#include "Core.h"
 #include "Transform.h"
 
 namespace Cyberspace {
