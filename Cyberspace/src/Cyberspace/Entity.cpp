@@ -5,6 +5,12 @@ namespace Cyberspace {
 	{
 	}
 
+	Entity::Entity(const Entity& _other)
+	{
+		m_Transform = _other.m_Transform;
+		m_Model = _other.m_Model;
+	}
+
 	Entity::~Entity()
 	{
 		Clear();

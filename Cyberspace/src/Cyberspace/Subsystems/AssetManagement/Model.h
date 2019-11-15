@@ -23,6 +23,7 @@ namespace Cyberspace {
 	{
 	public:
 		Model(std::string const _Path);
+		Model(const Model& _other);
 		~Model();
 		std::vector<Mesh> Meshes;
 		std::string Directory;

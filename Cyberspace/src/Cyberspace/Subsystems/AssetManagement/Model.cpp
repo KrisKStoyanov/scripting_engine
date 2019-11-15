@@ -5,6 +5,13 @@ namespace Cyberspace {
 		LoadModel(_Path);
 	}
 
+	Model::Model(const Model& _other)
+	{
+		Meshes = _other.Meshes;
+		Directory = _other.Directory;
+		LoadedTextures = _other.LoadedTextures;
+	}
+
 	Model::~Model()
 	{
 	}

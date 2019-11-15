@@ -12,6 +12,12 @@ namespace Cyberspace {
 			glm::vec3 _position = glm::vec3(0.0f, 0.0f, 0.0f), 
 			glm::vec3 _rotation = glm::vec3(0.0f, 0.0f, -1.0f), 
 			glm::vec3 _scale = glm::vec3(1.0f, 1.0f, 1.0f));
+		//Copy constructor
+		inline Transform(const Transform& _other) : 
+			m_Position(_other.m_Position),
+			m_Rotation(_other.m_Rotation),
+			m_Scale(_other.m_Scale)
+		{}
 		~Transform();
 		void Translate(glm::vec3 _translation);
 		void Rotate(float _angle, glm::vec3 _rotationAxis);
@@ -39,7 +45,6 @@ namespace Cyberspace {
 		glm::vec3 m_Scale;
 		glm::vec3 m_Rotation;
 
-		glm::vec3 m_EulerAngles; //Y,Z,X compliant
 		glm::mat4 m_ModelMatrix = glm::mat4(1.0f);
 
 		//Overwrite on every rotation

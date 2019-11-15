@@ -50,7 +50,6 @@ namespace Cyberspace {
 	{
 	public:
 		static Renderer* Create(EngineWindow* _window, const GraphicsProps& _props = GraphicsProps());
-		Renderer(EngineWindow* _window, const GraphicsProps& _props);
 		~Renderer();
 		void Init(EngineWindow* _window, const GraphicsProps& _props);
 		void Setup(const GraphicsProps& _props);
@@ -72,6 +71,7 @@ namespace Cyberspace {
 
 		bool m_EnableCameraMovement = false;
 	private:
+		Renderer(EngineWindow* _window, const GraphicsProps& _props);
 		bool m_ToggleGUI = true;
 		std::unique_ptr<GUIToolkit> m_GUI;
 	};

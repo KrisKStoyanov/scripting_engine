@@ -25,6 +25,7 @@ namespace Cyberspace {
 	{
 	public:
 		Entity();
+		Entity(const Entity& _other);
 		~Entity();
 
 		void Clear();
