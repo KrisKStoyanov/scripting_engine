@@ -57,13 +57,10 @@ namespace Cyberspace {
 		WProps.Title = winPropsTitle;
 		WProps.Width = winPropsWidth;
 		WProps.Height = winPropsHeight;
-		EProps.m_UIProps.VSync = winPropsVSync;
-		EProps.m_UIProps.Cursor = true;
+		WProps.VSync = winPropsVSync;
+		WProps.CursorEnabled = true;
 
-		EProps.m_UIProps.windowProps = WProps;
-
-		EProps.m_GraphicsProps.Width = gfxPropsWidth;
-		EProps.m_GraphicsProps.Height = gfxPropsHeight;
+		EProps.m_GraphicsProps.windowProps = EProps.m_UIProps.windowProps = WProps;
 		EProps.m_GraphicsProps.FOV = gfxPropsFOV;
 
 		EProps.m_AMProps.VehicleModelPath = amPropsVehicleModelPath;

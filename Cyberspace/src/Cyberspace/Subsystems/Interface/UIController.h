@@ -8,15 +8,9 @@ namespace Cyberspace {
 
 	struct UIProps {
 		WindowProps windowProps;
-		bool VSync;
-		bool Cursor;
 		UIProps(
-			WindowProps _windowProps = WindowProps(), 
-			bool _vsync = true,
-			bool _cursor = true) 
-		: windowProps(_windowProps),
-		VSync (_vsync),
-		Cursor (_cursor) {}
+			WindowProps _windowProps = WindowProps()) 
+		: windowProps(_windowProps) {}
 	};
 	class CSPACE_API UIController
 	{
@@ -27,12 +21,6 @@ namespace Cyberspace {
 		void DeleteWindow(std::string _tag);
 		void SetGraphicsContext(EngineWindow* _window);
 
-		inline bool GetVSync() { return m_VSync; }
-		void SetVSync(bool _enable);
-
-		bool GetCursor() { return m_Cursor; }
-		void SetCursor(bool _enable);
-
 		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue);
 		void Terminate();
 		std::string FocusedWindow;
@@ -41,8 +29,6 @@ namespace Cyberspace {
 		~UIController();
 	private:
 		UIController(const UIProps& _props);
-		bool m_Cursor;
-		bool m_VSync;
 	};
 }
 

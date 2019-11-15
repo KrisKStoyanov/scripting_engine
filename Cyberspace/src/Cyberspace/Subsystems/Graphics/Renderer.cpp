@@ -1,12 +1,12 @@
 #include "Renderer.h"
 
 namespace Cyberspace {
-	Renderer* Renderer::Create(EngineWindow* _window, const GraphicsProps& _props)
+	Renderer* Renderer::Create(EngineWindow*& _window, const GraphicsProps& _props)
 	{
 		return new Renderer(_window, _props);
 	}
 
-	Renderer::Renderer(EngineWindow* _window, const GraphicsProps& _props)
+	Renderer::Renderer(EngineWindow*& _window, const GraphicsProps& _props)
 	{
 		Init(_window, _props);
 	}
@@ -16,7 +16,7 @@ namespace Cyberspace {
 		Terminate();
 	}
 
-	void Renderer::Init(EngineWindow* _window, const GraphicsProps& _props)
+	void Renderer::Init(EngineWindow*& _window, const GraphicsProps& _props)
 	{
 		glewExperimental = GL_TRUE;
 		GLenum initState = glewInit();
@@ -26,15 +26,16 @@ namespace Cyberspace {
 
 		glClearColor(0.35f, 0.35f, 0.35f, 1.0f);
 		glEnable(GL_DEPTH_TEST);
-
+		
+		_window->SetVSync(_props.windowProps.VSync);
 		m_GUI = std::unique_ptr<GUIToolkit>(GUIToolkit::Create(_window, _props.guiProps));
-
+		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), _props.FOV, _props.windowProps.Width, _props.windowProps.Height);
+		
 		Setup(_props);
 	}
 
 	void Renderer::Setup(const GraphicsProps& _props)
 	{
-		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), _props.FOV, _props.Width, _props.Height);
 		MainSkybox = new Skybox(_props.SkyboxFaceTexturePaths);
 		DirLight = new Light(glm::vec3(-0.2f, -1.0f, -0.3f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f));
 		

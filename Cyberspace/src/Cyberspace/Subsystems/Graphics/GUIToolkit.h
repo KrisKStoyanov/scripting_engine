@@ -27,15 +27,15 @@ namespace Cyberspace {
 	class CSPACE_API GUIToolkit
 	{
 	public:
-		static GUIToolkit* Create(EngineWindow* _window, const GUIProps& _props = GUIProps());
+		static GUIToolkit* Create(EngineWindow*& _window, const GUIProps& _props = GUIProps());
 		~GUIToolkit();
-		void Init(EngineWindow* _window, const GUIProps& _props);
-		void Configure(EngineWindow* _window);
+		void Init(EngineWindow*& _window, const GUIProps& _props);
+		void Configure(EngineWindow*& _window);
 		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue);
 		void Terminate();
 		GUIState CurrentState = StartMenu;
 	private:
-		GUIToolkit(EngineWindow* _window, const GUIProps& _props);
+		GUIToolkit(EngineWindow*& _window, const GUIProps& _props);
 	};
 }
 

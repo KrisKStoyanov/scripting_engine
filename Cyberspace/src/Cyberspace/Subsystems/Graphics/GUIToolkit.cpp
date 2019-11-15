@@ -1,12 +1,12 @@
 #include "GUIToolkit.h"
 
 namespace Cyberspace {
-	GUIToolkit* GUIToolkit::Create(EngineWindow* _window, const GUIProps& _props)
+	GUIToolkit* GUIToolkit::Create(EngineWindow*& _window, const GUIProps& _props)
 	{
 		return new GUIToolkit(_window, _props);
 	}
 
-	GUIToolkit::GUIToolkit(EngineWindow* _window, const GUIProps& _props) {
+	GUIToolkit::GUIToolkit(EngineWindow*& _window, const GUIProps& _props) {
 		Init(_window, _props);
 	}
 
@@ -15,7 +15,7 @@ namespace Cyberspace {
 		Terminate();
 	}
 
-	void GUIToolkit::Init(EngineWindow* _window, const GUIProps& _props)
+	void GUIToolkit::Init(EngineWindow*& _window, const GUIProps& _props)
 	{
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
@@ -25,7 +25,7 @@ namespace Cyberspace {
 		Configure(_window);
 	}
 
-	void GUIToolkit::Configure(EngineWindow* _window)
+	void GUIToolkit::Configure(EngineWindow*& _window)
 	{
 		ImGui_ImplGlfw_InitForOpenGL(_window->GetNativeWindow(), true);
 	}
