@@ -19,7 +19,6 @@ namespace Cyberspace {
 	struct EngineProps {
 		UIProps m_UIProps;
 		GraphicsProps m_GraphicsProps;
-		GUIProps m_GUIProps;
 		PhysicsProps m_PhysicsProps;
 		AudioProps m_AudioProps;
 		NetworkProps m_NetProps;
@@ -29,7 +28,6 @@ namespace Cyberspace {
 		EngineProps(
 			UIProps _uiProps = UIProps(),
 			GraphicsProps _gProps = GraphicsProps(),
-			GUIProps _guiProps = GUIProps(),
 			PhysicsProps _pProps = PhysicsProps(),
 			AudioProps _aProps = AudioProps(),
 			NetworkProps _netProps = NetworkProps(),
@@ -37,7 +35,6 @@ namespace Cyberspace {
 			GMProps _gmProps = GMProps()) :
 			m_UIProps(_uiProps),
 			m_GraphicsProps(_gProps),
-			m_GUIProps(_guiProps),
 			m_PhysicsProps(_pProps),
 			m_AudioProps(_aProps),
 			m_NetProps(_netProps),
@@ -49,7 +46,7 @@ namespace Cyberspace {
 	{
 	public:
 		static CyberEngine* Create(const EngineProps& _props = EngineProps());
-		CyberEngine(const EngineProps& _props);
+
 		~CyberEngine();
 
 		void Init(const EngineProps& _props);
@@ -57,14 +54,15 @@ namespace Cyberspace {
 		void Terminate();
 
 		inline bool GetTick() { return m_Tick; }
+		inline void SetTick(const bool _tick) { m_Tick = _tick; }
 
 	private:
+		CyberEngine(const EngineProps& _props);
 		std::queue<CyberEvent*> BlockingEventQueue;
 		std::queue<CyberEvent*> EventQueue;
 
 		std::unique_ptr<UIController> m_UIController;
 		std::unique_ptr<Renderer> m_Renderer;
-		std::unique_ptr<GUIToolkit> m_GUIToolkit;
 		std::unique_ptr<PhysicsSystem> m_PhysicsSystem;
 		std::unique_ptr<AudioSystem> m_AudioSystem;
 		std::unique_ptr<CyberNet> m_NetSystem;

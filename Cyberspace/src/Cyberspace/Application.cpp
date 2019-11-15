@@ -1,6 +1,5 @@
 #include "Application.h"
 
-//Windows implementation
 namespace Cyberspace {
 
 	Application::Application() {
@@ -58,8 +57,8 @@ namespace Cyberspace {
 		WProps.Title = winPropsTitle;
 		WProps.Width = winPropsWidth;
 		WProps.Height = winPropsHeight;
-		WProps.VSync = winPropsVSync;
-		WProps.Cursor = true;
+		EProps.m_UIProps.VSync = winPropsVSync;
+		EProps.m_UIProps.Cursor = true;
 
 		EProps.m_UIProps.windowProps = WProps;
 

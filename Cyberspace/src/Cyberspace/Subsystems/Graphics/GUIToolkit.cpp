@@ -1,13 +1,13 @@
 #include "GUIToolkit.h"
 
 namespace Cyberspace {
-	GUIToolkit* GUIToolkit::Create(const GUIProps& _props)
+	GUIToolkit* GUIToolkit::Create(EngineWindow* _window, const GUIProps& _props)
 	{
-		return new GUIToolkit(_props);
+		return new GUIToolkit(_window, _props);
 	}
 
-	GUIToolkit::GUIToolkit(const GUIProps& _props) {
-		Init(_props);
+	GUIToolkit::GUIToolkit(EngineWindow* _window, const GUIProps& _props) {
+		Init(_window, _props);
 	}
 
 	GUIToolkit::~GUIToolkit()
@@ -15,19 +15,19 @@ namespace Cyberspace {
 		Terminate();
 	}
 
-	void GUIToolkit::Init(const GUIProps& _props)
+	void GUIToolkit::Init(EngineWindow* _window, const GUIProps& _props)
 	{
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
 		ImGui::StyleColorsDark();
 		ImGui_ImplOpenGL3_Init("#version 450");
-		Configure(_props.RenderTarget);
+		Configure(_window);
 	}
 
 	void GUIToolkit::Configure(EngineWindow* _window)
 	{
-		ImGui_ImplGlfw_InitForOpenGL(_window->GetWindow(), true);
+		ImGui_ImplGlfw_InitForOpenGL(_window->GetNativeWindow(), true);
 	}
 
 	void GUIToolkit::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue)

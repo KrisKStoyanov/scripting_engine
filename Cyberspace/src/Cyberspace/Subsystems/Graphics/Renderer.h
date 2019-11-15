@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <string>
 #include <vector>
-#include <map>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -20,6 +19,7 @@
 #include "Light.h"
 #include <queue>
 #include <unordered_map>
+#include "GUIToolkit.h"
 
 namespace Cyberspace {
 
@@ -28,6 +28,7 @@ namespace Cyberspace {
 		unsigned int Height;
 		float FOV;
 		std::vector<std::string> SkyboxFaceTexturePaths;
+		GUIProps guiProps;
 		GraphicsProps(
 			unsigned int _width = 1280, 
 			unsigned int _height = 720,
@@ -39,21 +40,22 @@ namespace Cyberspace {
 			"../resources/3D/Skybox/miramar_dn.tga",
 			"../resources/3D/Skybox/miramar_rt.tga",
 			"../resources/3D/Skybox/miramar_lf.tga"
-			})
+			}, GUIProps _guiProps = GUIProps())
 		: Width (_width), Height (_height),
-		FOV(_fov), SkyboxFaceTexturePaths(_skyboxFaceTexturePaths) {}
+		FOV(_fov), SkyboxFaceTexturePaths(_skyboxFaceTexturePaths)
+		, guiProps(_guiProps) {}
 	};
 
 	class Renderer
 	{
 	public:
-		static Renderer* Create(const GraphicsProps& _props = GraphicsProps());
-		Renderer(const GraphicsProps& _props);
+		static Renderer* Create(EngineWindow* _window, const GraphicsProps& _props = GraphicsProps());
+		Renderer(EngineWindow* _window, const GraphicsProps& _props);
 		~Renderer();
-		void Init(const GraphicsProps& _props);
+		void Init(EngineWindow* _window, const GraphicsProps& _props);
 		void Setup(const GraphicsProps& _props);
 		void Draw(Camera* _Camera, Model* _Model, Transform* _Transform, Shader* _Shader);
-		void OnUpdate(std::queue<CyberEvent*>& _EventQueue, std::unordered_map<std::string, Shader*> _ShaderMap, std::unordered_map<std::string, Entity*> _EntityMap, double _CursorPosX, double _CursorPosY, float _DeltaTime);
+		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, std::unordered_map<std::string, Shader*> _ShaderMap, std::unordered_map<std::string, Entity*> _EntityMap, double _CursorPosX, double _CursorPosY, float _DeltaTime);
 		void Terminate();
 
 		Light* DirLight = NULL;
@@ -69,6 +71,9 @@ namespace Cyberspace {
 		Skybox* MainSkybox = NULL;
 
 		bool m_EnableCameraMovement = false;
+	private:
+		bool m_ToggleGUI = true;
+		std::unique_ptr<GUIToolkit> m_GUI;
 	};
 }
 

@@ -25,6 +25,8 @@ namespace Cyberspace {
 			});
 
 		CreateWindow(_props.windowProps);
+		SetVSync(_props.VSync);
+		SetCursor(_props.Cursor);
 	}
 
 	void UIController::CreateWindow(const WindowProps& _props, bool _setFocus)
@@ -43,12 +45,43 @@ namespace Cyberspace {
 
 	void UIController::SetGraphicsContext(EngineWindow* _window)
 	{
-		glfwMakeContextCurrent(_window->GetWindow());
+		glfwMakeContextCurrent(_window->GetNativeWindow());
+	}
+
+	void UIController::SetVSync(bool _enable)
+	{
+		m_VSync = _enable;
+		m_VSync ? glfwSwapInterval(1) : glfwSwapInterval(0);
+	}
+
+	void UIController::SetCursor(bool _enable)
+	{
+		m_Cursor = _enable;
+		m_Cursor ?
+			glfwSetInputMode(AvailableWindows[FocusedWindow]->GetNativeWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL) :
+			glfwSetInputMode(AvailableWindows[FocusedWindow]->GetNativeWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	}
 
 	void UIController::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue)
 	{
 		AvailableWindows[FocusedWindow]->OnUpdate(_BlockingEventQueue, _EventQueue, CursorPosX, CursorPosY);
+
+		if (!_BlockingEventQueue.empty()) {
+			std::vector<EventTag>::iterator Tag = std::find(_BlockingEventQueue.front()->Tags.begin(), _BlockingEventQueue.front()->Tags.end(), EventTag::WINDOW);
+			if (Tag != _BlockingEventQueue.front()->Tags.end()) {
+				_BlockingEventQueue.front()->Tags.erase(Tag);
+				switch (_BlockingEventQueue.front()->Type) {
+
+				case EventType::TOGGLE_CURSOR:
+					m_Cursor = !m_Cursor;
+					SetCursor(m_Cursor);
+					if (_BlockingEventQueue.front()->Tags.empty()) {
+						_BlockingEventQueue.pop();
+					}
+					break;
+				}
+			}
+		}
 	}
 
 	void UIController::Terminate()

@@ -13,18 +13,21 @@ namespace Cyberspace {
 
 	struct GMProps {
 		std::string PlayerTag;
-		std::string PlayerModelTag;
+		std::string VehicleTag;
+		std::string EnvironmentTag;
 		std::string StartMapTag;
 		glm::vec3 PlayerSpawnPosition;
 		float PlayerSpeed;
 		GMProps(
-			std::string _playerTag = "Player",
-			std::string _playerModelTag = "Vehicle",
+			std::string _playerTag = "Vehicle",
+			std::string _vehicleTag = "VehicleModel",
+			std::string _environmentTag = "Canyon",
 			std::string _startMapTag = "TitleScreen",
 			glm::vec3 _playerSpawnPosition = glm::vec3(0.0f, 0.0f, -10.0f),
 			float _playerSpeed = 5.0f) :
 			PlayerTag(_playerTag),
-			PlayerModelTag(_playerModelTag),
+			VehicleTag(_vehicleTag),
+			EnvironmentTag(_environmentTag),
 			StartMapTag(_startMapTag),
 			PlayerSpawnPosition(_playerSpawnPosition),
 			PlayerSpeed(_playerSpeed)

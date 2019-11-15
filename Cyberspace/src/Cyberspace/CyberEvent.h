@@ -5,9 +5,14 @@
 namespace Cyberspace {
 	enum class EventType {
 		NONE = 0,
+		//Blocking
 		START,
 		PAUSE,
 		EXIT,
+		TOGGLE_CAMERA_MOVEMENT,
+		TOGGLE_CURSOR,
+		TOGGLE_GUI,
+		//Non-blocking
 		VEHICLE_MOVE_FORWARD,
 		VEHICLE_MOVE_BACKWARD,
 		VEHICLE_MOVE_LEFT,
@@ -16,7 +21,6 @@ namespace Cyberspace {
 		CAMERA_MOVE_BACKWARD,
 		CAMERA_MOVE_LEFT,
 		CAMERA_MOVE_RIGHT,
-		TOGGLE_CAMERA_MOVEMENT,
 		UPDATE_POSITIONS
 	};
 

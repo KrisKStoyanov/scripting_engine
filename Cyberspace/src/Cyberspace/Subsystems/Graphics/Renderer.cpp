@@ -1,13 +1,14 @@
 #include "Renderer.h"
 
 namespace Cyberspace {
-	Renderer* Renderer::Create(const GraphicsProps& _props)
+	Renderer* Renderer::Create(EngineWindow* _window, const GraphicsProps& _props)
 	{
-		return new Renderer(_props);
+		return new Renderer(_window, _props);
 	}
-	Renderer::Renderer(const GraphicsProps& _props)
+
+	Renderer::Renderer(EngineWindow* _window, const GraphicsProps& _props)
 	{
-		Init(_props);
+		Init(_window, _props);
 	}
 
 	Renderer::~Renderer()
@@ -15,7 +16,7 @@ namespace Cyberspace {
 		Terminate();
 	}
 
-	void Renderer::Init(const GraphicsProps& _props)
+	void Renderer::Init(EngineWindow* _window, const GraphicsProps& _props)
 	{
 		glewExperimental = GL_TRUE;
 		GLenum initState = glewInit();
@@ -25,6 +26,9 @@ namespace Cyberspace {
 
 		glClearColor(0.35f, 0.35f, 0.35f, 1.0f);
 		glEnable(GL_DEPTH_TEST);
+
+		m_GUI = std::unique_ptr<GUIToolkit>(GUIToolkit::Create(_window, _props.guiProps));
+
 		Setup(_props);
 	}
 
@@ -93,25 +97,38 @@ namespace Cyberspace {
 		}
 	}
 
-	void Renderer::OnUpdate(std::queue<CyberEvent*>& _EventQueue, std::unordered_map<std::string, Shader*> _ShaderMap, std::unordered_map<std::string, Entity*> _EntityMap, double _CursorPosX, double _CursorPosY, float _DeltaTime)
+	void Renderer::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, std::unordered_map<std::string, Shader*> _ShaderMap, std::unordered_map<std::string, Entity*> _EntityMap, double _CursorPosX, double _CursorPosY, float _DeltaTime)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		if (!_BlockingEventQueue.empty()) {
+			std::vector<EventTag>::iterator Tag = std::find(_BlockingEventQueue.front()->Tags.begin(), _BlockingEventQueue.front()->Tags.end(), EventTag::GRAPHICS);
+			if (Tag != _BlockingEventQueue.front()->Tags.end()) {
+				_BlockingEventQueue.front()->Tags.erase(Tag);
+				switch (_BlockingEventQueue.front()->Type) {
+				case EventType::TOGGLE_CAMERA_MOVEMENT:
+					m_EnableCameraMovement = !m_EnableCameraMovement;
+					if (_BlockingEventQueue.front()->Tags.empty()) {
+						_BlockingEventQueue.pop();
+					}
+					break;
+				case EventType::TOGGLE_GUI:
+					m_ToggleGUI = !m_ToggleGUI;
+					if (_BlockingEventQueue.front()->Tags.empty()) {
+						_BlockingEventQueue.pop();
+					}
+					break;
+				}
+			}
+		}
 		if (!_EventQueue.empty()) {
 			std::vector<EventTag>::iterator Tag = std::find(_EventQueue.front()->Tags.begin(), _EventQueue.front()->Tags.end(), EventTag::GRAPHICS);
 			if (Tag != _EventQueue.front()->Tags.end()) {
 				_EventQueue.front()->Tags.erase(Tag);
 				switch (_EventQueue.front()->Type) {
 
-				case EventType::TOGGLE_CAMERA_MOVEMENT:
-					m_EnableCameraMovement = !m_EnableCameraMovement;
-					if (_EventQueue.front()->Tags.empty()) {
-						_EventQueue.pop();
-					}
-					break;
-
 				case EventType::CAMERA_MOVE_FORWARD:
 					if (m_EnableCameraMovement)
-					MainCamera->UpdateTransformKeyboard(MovementType::FORWARD, _DeltaTime);
+						MainCamera->UpdateTransformKeyboard(MovementType::FORWARD, _DeltaTime);
 					if (_EventQueue.front()->Tags.empty()) {
 						_EventQueue.pop();
 					}
@@ -119,7 +136,7 @@ namespace Cyberspace {
 
 				case EventType::CAMERA_MOVE_BACKWARD:
 					if (m_EnableCameraMovement)
-					MainCamera->UpdateTransformKeyboard(MovementType::BACKWARD, _DeltaTime);
+						MainCamera->UpdateTransformKeyboard(MovementType::BACKWARD, _DeltaTime);
 					if (_EventQueue.front()->Tags.empty()) {
 						_EventQueue.pop();
 					}
@@ -127,15 +144,15 @@ namespace Cyberspace {
 
 				case EventType::CAMERA_MOVE_LEFT:
 					if (m_EnableCameraMovement)
-					MainCamera->UpdateTransformKeyboard(MovementType::LEFT, _DeltaTime);
+						MainCamera->UpdateTransformKeyboard(MovementType::LEFT, _DeltaTime);
 					if (_EventQueue.front()->Tags.empty()) {
 						_EventQueue.pop();
 					}
 					break;
 
 				case EventType::CAMERA_MOVE_RIGHT:
-					if(m_EnableCameraMovement)
-					MainCamera->UpdateTransformKeyboard(MovementType::RIGHT, _DeltaTime);
+					if (m_EnableCameraMovement)
+						MainCamera->UpdateTransformKeyboard(MovementType::RIGHT, _DeltaTime);
 					if (_EventQueue.front()->Tags.empty()) {
 						_EventQueue.pop();
 					}
@@ -154,6 +171,9 @@ namespace Cyberspace {
 		glDepthFunc(GL_LEQUAL);
 		MainSkybox->Draw(MainCamera, _ShaderMap["Skybox"]);
 		glDepthFunc(GL_LESS);
+		if (m_ToggleGUI) {
+			m_GUI->OnUpdate(_BlockingEventQueue, _EventQueue);
+		}	
 	}
 
 	void Renderer::Terminate()
@@ -164,5 +184,6 @@ namespace Cyberspace {
 		if (MainCamera) {
 			delete MainCamera;
 		}
+		m_GUI.reset();
 	}
 }

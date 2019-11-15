@@ -129,7 +129,7 @@
     <ClCompile Include="src\Cyberspace\Subsystems\Interface\EngineWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Cyberspace\Subsystems\Interface\GUIToolkit.cpp">
+    <ClCompile Include="src\Cyberspace\Subsystems\Graphics\GUIToolkit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -260,10 +260,10 @@
     <ClInclude Include="src\Cyberspace\Subsystems\Interface\EngineWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Cyberspace\Subsystems\Interface\GUIToolkit.h">
+    <ClInclude Include="src\Cyberspace\Core\Timestep.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Cyberspace\Core\Timestep.h">
+    <ClInclude Include="src\Cyberspace\Subsystems\Graphics\GUIToolkit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
