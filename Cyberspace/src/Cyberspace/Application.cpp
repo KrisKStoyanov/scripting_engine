@@ -1,5 +1,6 @@
 #include "Application.h"
 
+//Windows implementation
 namespace Cyberspace {
 
 	Application::Application() {
@@ -60,7 +61,7 @@ namespace Cyberspace {
 		WProps.VSync = winPropsVSync;
 		WProps.Cursor = true;
 
-		EProps.m_UIProps.PrimaryWindowProps = WProps;
+		EProps.m_UIProps.windowProps = WProps;
 
 		EProps.m_GraphicsProps.Width = gfxPropsWidth;
 		EProps.m_GraphicsProps.Height = gfxPropsHeight;
@@ -84,7 +85,12 @@ namespace Cyberspace {
 	{
 		while (m_Engine->GetTick())
 		{
-			m_Engine->OnUpdate();
+			float time = (float)glfwGetTime();
+			Timestep timestep = time - m_LastFrameTime;
+			m_LastFrameTime = time;
+
+			m_Engine->OnUpdate(timestep);
+			
 		}
 	}
 }

@@ -131,6 +131,7 @@
     <ClCompile Include="src\Cyberspace\Subsystems\Interface\UIController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Cyberspace\Core\Timestep.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Interface\GUIToolkit.h" />
     <ClInclude Include="src\cspacepch.h" />
     <ClInclude Include="src\Cyberspace\EventListener.h" />

@@ -263,5 +263,8 @@
     <ClInclude Include="src\Cyberspace\Subsystems\Interface\GUIToolkit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Cyberspace\Core\Timestep.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

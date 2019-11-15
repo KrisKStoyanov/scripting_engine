@@ -11,12 +11,15 @@
 
 #include "CyberEvent.h"
 #include "EventListener.h"
+#include "Core/Timestep.h"
+#include "Subsystems/Logging/Log.h"
 
 namespace Cyberspace {
 
 	struct EngineProps {
 		UIProps m_UIProps;
 		GraphicsProps m_GraphicsProps;
+		GUIProps m_GUIProps;
 		PhysicsProps m_PhysicsProps;
 		AudioProps m_AudioProps;
 		NetworkProps m_NetProps;
@@ -26,6 +29,7 @@ namespace Cyberspace {
 		EngineProps(
 			UIProps _uiProps = UIProps(),
 			GraphicsProps _gProps = GraphicsProps(),
+			GUIProps _guiProps = GUIProps(),
 			PhysicsProps _pProps = PhysicsProps(),
 			AudioProps _aProps = AudioProps(),
 			NetworkProps _netProps = NetworkProps(),
@@ -33,6 +37,7 @@ namespace Cyberspace {
 			GMProps _gmProps = GMProps()) :
 			m_UIProps(_uiProps),
 			m_GraphicsProps(_gProps),
+			m_GUIProps(_guiProps),
 			m_PhysicsProps(_pProps),
 			m_AudioProps(_aProps),
 			m_NetProps(_netProps),
@@ -48,26 +53,25 @@ namespace Cyberspace {
 		~CyberEngine();
 
 		void Init(const EngineProps& _props);
-		float ComputeDeltaTime(float _CurrentFrame);
-		void OnUpdate();
+		void OnUpdate(const Timestep _ts);
 		void Terminate();
 
 		inline bool GetTick() { return m_Tick; }
-		bool m_Tick = false;
 
+	private:
 		std::queue<CyberEvent*> BlockingEventQueue;
 		std::queue<CyberEvent*> EventQueue;
 
-	private:
+		std::unique_ptr<UIController> m_UIController;
 		std::unique_ptr<Renderer> m_Renderer;
+		std::unique_ptr<GUIToolkit> m_GUIToolkit;
 		std::unique_ptr<PhysicsSystem> m_PhysicsSystem;
 		std::unique_ptr<AudioSystem> m_AudioSystem;
-		std::unique_ptr<UIController> m_UIController;
 		std::unique_ptr<CyberNet> m_NetSystem;
 		std::unique_ptr<AssetManager> m_AssetManager;
 		std::unique_ptr<GameManager> m_GameManager;
 
-		float DeltaTime = 0.0f, LastFrameTime = 0.0f;
+		bool m_Tick = false;
 	};
 }
 

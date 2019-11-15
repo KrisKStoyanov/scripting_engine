@@ -22,8 +22,8 @@ namespace Cyberspace {
 	{
 		m_UIController = std::unique_ptr<UIController>(UIController::Create(_props.m_UIProps));
 		m_Renderer = std::unique_ptr<Renderer>(Renderer::Create(_props.m_GraphicsProps));
-		m_UIController->m_GUIToolkit = std::unique_ptr<GUIToolkit>(GUIToolkit::Create(_props.m_UIProps.GuiProps));
-		m_UIController->SetGraphicsContext(m_UIController->AvailableWindows[m_UIController->FocusedWindow]);
+		m_GUIToolkit = std::unique_ptr<GUIToolkit>(
+			GUIToolkit::Create(GUIProps(m_UIController->AvailableWindows[_props.m_UIProps.windowProps.Title])));
 		m_PhysicsSystem = std::unique_ptr<PhysicsSystem>(PhysicsSystem::Create(_props.m_PhysicsProps));
 		m_AudioSystem = std::unique_ptr<AudioSystem>(AudioSystem::Create(_props.m_AudioProps));
 		m_NetSystem = std::unique_ptr<CyberNet>(CyberNet::Create(_props.m_NetProps));
@@ -43,24 +43,17 @@ namespace Cyberspace {
 		m_Tick = true;
 	}
 
-	float CyberEngine::ComputeDeltaTime(float _CurrentFrameTime)
+	void CyberEngine::OnUpdate(const Timestep _ts)
 	{
-		DeltaTime = _CurrentFrameTime - LastFrameTime;
-		LastFrameTime = _CurrentFrameTime;
-		return DeltaTime;
-	}
-
-	void CyberEngine::OnUpdate()
-	{
+		CSPACE_CORE_TRACE("Delta time: {0}s ({1}ms)", _ts.GetSeconds(), _ts.GetMilliseconds());
 		std::vector<glm::vec3> updatedPositions;
 		m_UIController->OnUpdate(BlockingEventQueue, EventQueue);
 		m_Renderer->OnUpdate(
 			EventQueue, m_AssetManager->LoadedShaders,
 			m_GameManager->GameMaps[m_GameManager->CurrentMap]->MapEntities,
-			m_UIController->CursorPosX, m_UIController->CursorPosY,
-			ComputeDeltaTime(glfwGetTime()));
+			m_UIController->CursorPosX, m_UIController->CursorPosY, _ts.GetSeconds());
+		m_GUIToolkit->OnUpdate(BlockingEventQueue, EventQueue);
 		m_NetSystem->OnUpdate(EventQueue, updatedPositions);
-		m_UIController->OnUpdateGUI(BlockingEventQueue, EventQueue);
 		
 		if (!BlockingEventQueue.empty()) {
 			switch (BlockingEventQueue.front()->Type) {

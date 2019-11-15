@@ -15,7 +15,6 @@ namespace Cyberspace {
 	{
 		m_Props = _props;
 		m_Window = glfwCreateWindow(m_Props.Width, m_Props.Height, m_Props.Title.c_str(), NULL, NULL);
-		//SetVSync(m_Props.VSync);
 		SetCursor(m_Props.Cursor);
 	}
 
@@ -58,6 +57,16 @@ namespace Cyberspace {
 		//		}
 		//	}
 		//}
+	}
+
+	GLFWwindow* EngineWindow::GetWindow()
+	{
+		return m_Window; 
+	}
+
+	WindowProps EngineWindow::GetWindowProps()
+	{
+		return m_Props;
 	}
 
 	void EngineWindow::Terminate()

@@ -24,13 +24,26 @@ namespace Cyberspace {
 			fprintf(stderr, "GLFW Error %d: %s\n", _Error, _Description);
 			});
 
-		AvailableWindows[FocusedWindow] = new EngineWindow(_props.PrimaryWindowProps);
-		glfwMakeContextCurrent(AvailableWindows[FocusedWindow]->m_Window);
+		CreateWindow(_props.windowProps);
+	}
+
+	void UIController::CreateWindow(const WindowProps& _props, bool _setFocus)
+	{
+		AvailableWindows[_props.Title] = new EngineWindow(_props);
+		if (_setFocus) {
+			FocusedWindow = _props.Title;
+			SetGraphicsContext(AvailableWindows[_props.Title]);
+		}
+	}
+
+	void UIController::DeleteWindow(std::string _tag)
+	{
+		AvailableWindows.erase(_tag);
 	}
 
 	void UIController::SetGraphicsContext(EngineWindow* _window)
 	{
-		m_GUIToolkit->Configure(_window);
+		glfwMakeContextCurrent(_window->GetWindow());
 	}
 
 	void UIController::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue)
@@ -38,17 +51,12 @@ namespace Cyberspace {
 		AvailableWindows[FocusedWindow]->OnUpdate(_BlockingEventQueue, _EventQueue, CursorPosX, CursorPosY);
 	}
 
-	void UIController::OnUpdateGUI(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue)
-	{
-		m_GUIToolkit->OnUpdate(_BlockingEventQueue, _EventQueue);
-	}
-
 	void UIController::Terminate()
 	{
 		for (auto it : AvailableWindows) {
 			delete it.second;
 		}
-		m_GUIToolkit.reset();
+
 		glfwTerminate();
 	}
 }

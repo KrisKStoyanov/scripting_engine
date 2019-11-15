@@ -10,7 +10,17 @@
 namespace Cyberspace {
 
 	struct GUIProps {
-		GUIProps() {}
+		EngineWindow* RenderTarget;
+		GUIProps(EngineWindow* _renderTarget = nullptr) :
+		RenderTarget(_renderTarget) {}
+	};
+
+	enum GUIState : int {
+		None = 0,
+		StartMenu,
+		Settings,
+		Gameplay,
+		PauseMenu,
 	};
 
 	class CSPACE_API GUIToolkit
@@ -22,7 +32,7 @@ namespace Cyberspace {
 		void Configure(EngineWindow* _window);
 		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue);
 		void Terminate();
-
+		GUIState CurrentState = StartMenu;
 	private:
 		GUIToolkit(const GUIProps& _props);
 	};

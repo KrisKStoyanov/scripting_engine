@@ -56,6 +56,10 @@ namespace Cyberspace {
 
 		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, double& _CursorPosX, double& _CursorPosY);
 		
+		GLFWwindow* GetWindow();
+		WindowProps GetWindowProps();
+
+	private:
 		GLFWwindow* m_Window = NULL;
 		WindowProps m_Props;
 	};
