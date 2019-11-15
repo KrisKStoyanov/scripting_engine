@@ -266,5 +266,8 @@
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\GUIToolkit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\EngineProps.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

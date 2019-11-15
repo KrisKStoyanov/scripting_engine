@@ -5,13 +5,10 @@
 #include "../../CyberEvent.h"
 #include "../../Core.h"
 #include "../../Entity.h"
+#include "../../../EngineProps.h"
 #include <queue>
 
 namespace Cyberspace {
-
-	struct NetworkProps {
-		NetworkProps() {};
-	};
 		
 	struct PacketData {
 		std::vector<glm::vec3> m_Positions;

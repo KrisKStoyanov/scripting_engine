@@ -30,30 +30,55 @@ namespace Cyberspace {
 		ImGui_ImplGlfw_InitForOpenGL(_window->GetNativeWindow(), true);
 	}
 
-	void GUIToolkit::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue)
+	void GUIToolkit::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, GraphicsProps& _props)
 	{
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		switch (CurrentState) {
-		case StartMenu:
+		switch (m_State) {
+		case GUIState::StartMenu:
 			ImGui::Begin("Main Menu");
-			ImGui::Button("Start");
-			ImGui::Button("Settings");
-			ImGui::Button("Exit");
+			if (ImGui::Button("Start")) {
+				m_State = GUIState::Gameplay;
+			}
+			if (ImGui::Button("Settings")) {
+				m_State = GUIState::Settings;
+			}
+			if (ImGui::Button("Exit")) {
+				_BlockingEventQueue.push(new CyberEvent(EventType::EXIT));
+			}
 			ImGui::End();
 			break;
-		case Gameplay:
+		case GUIState::Settings:
+			ImGui::Begin("Settings");
+			ImGui::SliderFloat("FOV: ", &_props.FOV, 30.0f, 90.0f);
+			ImGui::Checkbox("VSync: ", &_props.windowProps.VSync);
+			ImGui::SliderInt("ResX: ", &_props.windowProps.Width, 800.0f, 1280.0f);
+			ImGui::SliderInt("ResY: ", &_props.windowProps.Height, 600.0f, 720.0f);
+			if (ImGui::Button("Apply")) {
+				_BlockingEventQueue.push(new CyberEvent(EventType::UPDATE_SETTINGS, EventTag::GRAPHICS));
+			}
+			if (ImGui::Button("Back")) {
+				m_State = GUIState::StartMenu;
+			}
+			ImGui::End();
+			break;
+		case GUIState::Gameplay:
 			ImGui::Begin("Gameplay");
-			ImGui::Button("Pause");
+			if (ImGui::Button("Pause")) {
+				m_State = GUIState::PauseMenu;
+			}
 			ImGui::End();
 			break;
-		case PauseMenu:
+		case GUIState::PauseMenu:
 			ImGui::Begin("Pause Menu");
-			ImGui::Button("Resume");
-			ImGui::Button("Settings");
-			ImGui::Button("Back to Main Menu");
+			if (ImGui::Button("Resume")) {
+				m_State = GUIState::Gameplay;
+			}
+			if (ImGui::Button("Back to Main Menu")) {
+				m_State = GUIState::StartMenu;
+			}
 			ImGui::End();
 			break;
 		default:

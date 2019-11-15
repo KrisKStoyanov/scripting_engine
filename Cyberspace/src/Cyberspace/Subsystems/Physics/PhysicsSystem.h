@@ -16,15 +16,12 @@
 #include "../../Entity.h"
 #include "../../CyberEvent.h"
 #include "../../Core.h"
+#include "../../../EngineProps.h"
 
 //LocalHost for visual debugger init process
-#define PVD_HOST "127.0.0.1"
+constexpr auto PVD_HOST = "127.0.0.1";
 
 namespace Cyberspace {
-
-	struct PhysicsProps {
-		PhysicsProps() {}
-	};
 
 	class CSPACE_API PhysicsSystem
 	{

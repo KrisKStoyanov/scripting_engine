@@ -9,27 +9,11 @@
 #include <functional>
 #include <queue>
 #include "../../CyberEvent.h"
-
+#include "../../../EngineProps.h"
 #include "../../Core.h"
 
 //Windows implementation - [GLFW Powered]
 namespace Cyberspace {
-
-	struct WindowProps {
-		int Width;
-		int Height;
-		std::string Title;
-		bool VSync;
-		bool CursorEnabled;
-		WindowProps(std::string _title = "Cyberspace",
-			unsigned int _width = 1280,
-			unsigned int _height = 720,
-			bool _vsync = true,
-			bool _cursorEnabled = true) :
-			Width(_width), Height(_height), Title(_title),
-			VSync(_vsync), CursorEnabled(_cursorEnabled)
-		{}
-	};
 
 	class CSPACE_API EngineWindow
 	{

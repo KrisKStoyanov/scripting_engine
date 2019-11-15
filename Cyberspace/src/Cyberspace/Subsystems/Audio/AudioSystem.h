@@ -16,15 +16,10 @@
 
 #include "../../Entity.h"
 #include "../../CyberEvent.h"
+#include "../../../EngineProps.h"
 #include "../../Core.h"
 
 namespace Cyberspace {
-
-	struct AudioProps {
-		const char* TitleScreenBGMFilePath;
-		AudioProps(const char* _titleScreenBGMFilePath = "../resources/Audio/TitleScreenTrack.wav") :
-		TitleScreenBGMFilePath(_titleScreenBGMFilePath) {}
-	};
 
 	class CSPACE_API AudioSystem
 	{

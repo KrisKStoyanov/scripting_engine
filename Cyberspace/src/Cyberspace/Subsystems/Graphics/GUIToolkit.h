@@ -10,13 +10,7 @@
 
 namespace Cyberspace {
 
-	struct GUIProps {
-		std::string RenderTarget;
-		GUIProps(std::string _renderTarget = "Cyberspace") :
-		RenderTarget(_renderTarget) {}
-	};
-
-	enum GUIState : int {
+	enum class GUIState : int {
 		None = 0,
 		StartMenu,
 		Settings,
@@ -31,11 +25,17 @@ namespace Cyberspace {
 		~GUIToolkit();
 		void Init(EngineWindow*& _window, const GUIProps& _props);
 		void Configure(EngineWindow*& _window);
-		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue);
+		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, GraphicsProps& _props);
 		void Terminate();
-		GUIState CurrentState = StartMenu;
+		
+		inline GUIState GetState() { return m_State; }
+		inline void SetState(GUIState _state) { m_State = _state; }
+
 	private:
+		GUIState m_State = GUIState::StartMenu;
 		GUIToolkit(EngineWindow*& _window, const GUIProps& _props);
+
+		GraphicsProps m_GraphicsProps;
 	};
 }
 

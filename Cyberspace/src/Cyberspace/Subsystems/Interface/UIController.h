@@ -6,12 +6,6 @@
 
 namespace Cyberspace {
 
-	struct UIProps {
-		WindowProps windowProps;
-		UIProps(
-			WindowProps _windowProps = WindowProps()) 
-		: windowProps(_windowProps) {}
-	};
 	class CSPACE_API UIController
 	{
 	public:

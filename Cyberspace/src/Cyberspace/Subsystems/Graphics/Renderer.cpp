@@ -8,6 +8,7 @@ namespace Cyberspace {
 
 	Renderer::Renderer(EngineWindow*& _window, const GraphicsProps& _props)
 	{
+		m_Props = _props;
 		Init(_window, _props);
 	}
 
@@ -23,20 +24,33 @@ namespace Cyberspace {
 		if (initState != GLEW_OK) {
 			fprintf(stderr, "Error: %s\n", glewGetErrorString(initState));
 		}
-
+		
 		glClearColor(0.35f, 0.35f, 0.35f, 1.0f);
 		glEnable(GL_DEPTH_TEST);
 		
-		_window->SetVSync(_props.windowProps.VSync);
+		//_window->SetVSync(_props.windowProps.VSync);
 		m_GUI = std::unique_ptr<GUIToolkit>(GUIToolkit::Create(_window, _props.guiProps));
-		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), _props.FOV, _props.windowProps.Width, _props.windowProps.Height);
-		
-		Setup(_props);
+
+		Configure(_props);
+		Setup();
 	}
 
-	void Renderer::Setup(const GraphicsProps& _props)
+	void Renderer::Configure(const GraphicsProps& _props)
 	{
-		MainSkybox = new Skybox(_props.SkyboxFaceTexturePaths);
+		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), _props.FOV, _props.windowProps.Width, _props.windowProps.Height);
+	}
+
+	void Renderer::Setup()
+	{
+		std::vector<std::string> SkyboxFaceTexturePaths = std::vector<std::string>{
+			"../resources/3D/Skybox/miramar_ft.tga",
+			"../resources/3D/Skybox/miramar_bk.tga",
+			"../resources/3D/Skybox/miramar_up.tga",
+			"../resources/3D/Skybox/miramar_dn.tga",
+			"../resources/3D/Skybox/miramar_rt.tga",
+			"../resources/3D/Skybox/miramar_lf.tga"
+		};
+		MainSkybox = new Skybox(SkyboxFaceTexturePaths);
 		DirLight = new Light(glm::vec3(-0.2f, -1.0f, -0.3f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f));
 		
 		//PointLight = new Light(glm::vec3(0.7f, 0.2f, 2.0f), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f);
@@ -98,7 +112,12 @@ namespace Cyberspace {
 		}
 	}
 
-	void Renderer::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, std::unordered_map<std::string, Shader*> _ShaderMap, std::unordered_map<std::string, Entity*> _EntityMap, double _CursorPosX, double _CursorPosY, float _DeltaTime)
+	void Renderer::OnUpdate(
+		std::queue<CyberEvent*>& _BlockingEventQueue, 
+		std::queue<CyberEvent*>& _EventQueue, 
+		std::unordered_map<std::string, Shader*> _ShaderMap, 
+		std::unordered_map<std::string, Entity*> _EntityMap, 
+		double _CursorPosX, double _CursorPosY, float _DeltaTime)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		if (!_BlockingEventQueue.empty()) {
@@ -114,6 +133,12 @@ namespace Cyberspace {
 					break;
 				case EventType::TOGGLE_GUI:
 					m_ToggleGUI = !m_ToggleGUI;
+					if (_BlockingEventQueue.front()->Tags.empty()) {
+						_BlockingEventQueue.pop();
+					}
+					break;
+				case EventType::UPDATE_SETTINGS:
+					Configure(m_Props);
 					if (_BlockingEventQueue.front()->Tags.empty()) {
 						_BlockingEventQueue.pop();
 					}
@@ -173,7 +198,8 @@ namespace Cyberspace {
 		MainSkybox->Draw(MainCamera, _ShaderMap["Skybox"]);
 		glDepthFunc(GL_LESS);
 		if (m_ToggleGUI) {
-			m_GUI->OnUpdate(_BlockingEventQueue, _EventQueue);
+			//Refactor idea - isolate GUIToolkit and pass every subsystem property container
+			m_GUI->OnUpdate(_BlockingEventQueue, _EventQueue, m_Props);
 		}	
 	}
 

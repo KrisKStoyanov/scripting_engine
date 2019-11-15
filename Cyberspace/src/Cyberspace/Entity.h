@@ -31,10 +31,10 @@ namespace Cyberspace {
 		void Clear();
 
 		inline void SetTransform(Transform* _transform) { m_Transform = _transform; }
-		inline Transform* GetTransform() { return m_Transform; }
+		inline Transform*& GetTransform() { return m_Transform; }
 
 		inline void SetModel(Model* _model) { m_Model = _model; }
-		inline Model* GetModel() { return m_Model; }
+		inline Model*& GetModel() { return m_Model; }
 
 		PhysicsComponent* m_PSX = NULL;
 		AudioComponent* m_Audio = NULL;

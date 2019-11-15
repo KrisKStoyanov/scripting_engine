@@ -33,6 +33,7 @@ namespace Cyberspace {
 		if (_setFocus) {
 			FocusedWindow = _props.Title;
 			SetGraphicsContext(AvailableWindows[_props.Title]);
+			AvailableWindows[_props.Title]->SetVSync(_props.VSync);
 		}
 	}
 
