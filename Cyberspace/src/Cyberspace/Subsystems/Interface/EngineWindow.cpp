@@ -20,7 +20,7 @@ namespace Cyberspace {
 		m_Props = _props;
 
 		if (!glfwInit()) {
-			printf("GLFW Window failed to initialize");
+			printf("GLFW failed to initialize");
 		}
 		glfwSetErrorCallback([](int _Error, const char* _Description) {
 			fprintf(stderr, "GLFW Error %d: %s\n", _Error, _Description);
@@ -34,15 +34,12 @@ namespace Cyberspace {
 
 	void EngineWindow::Recreate(const WindowProps& _props)
 	{
-		GLFWwindow* bufferWindow = glfwCreateWindow(m_Props.Width, m_Props.Height, m_Props.Title.c_str(), NULL, NULL);
+		GLFWwindow* bufferWindow = glfwCreateWindow(_props.Width, _props.Height, _props.Title.c_str(), NULL, m_Window);
 		glfwDestroyWindow(m_Window);
 		m_Window = bufferWindow;
-		glewExperimental = GL_TRUE;
-		GLenum initState = glewInit();
-		if (initState != GLEW_OK) {
-			fprintf(stderr, "Error: %s\n", glewGetErrorString(initState));
-		}
 		glfwMakeContextCurrent(m_Window);
+
+		ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
 	}
 
 	void EngineWindow::SetCursorEnabled(bool _enable)
@@ -59,7 +56,7 @@ namespace Cyberspace {
 		m_VSync ? glfwSwapInterval(1) : glfwSwapInterval(0);
 	}
 
-	void EngineWindow::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, double _cursorPosX, double _cursorPosY)
+	void EngineWindow::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, double &_cursorPosX, double &_cursorPosY)
 	{
 		glfwSwapBuffers(m_Window);
 		glfwPollEvents();
@@ -94,7 +91,7 @@ namespace Cyberspace {
 				_BlockingEventQueue.front()->Tags.erase(Tag);
 				switch (_BlockingEventQueue.front()->Type) {
 
-				case EventType::TOGGLE_CURSOR:
+				case EventType::TOGGLE_CAMERA_MOVEMENT:
 					m_Cursor = !m_Cursor;
 					SetCursorEnabled(m_Cursor);
 					if (_BlockingEventQueue.front()->Tags.empty()) {

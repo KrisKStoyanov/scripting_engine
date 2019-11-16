@@ -59,7 +59,8 @@ namespace Cyberspace {
 			switch (BlockingEventQueue.front()->Type) {
 			case EventType::UPDATE_SETTINGS:
 				m_UIController->Restart(m_Props.m_GraphicsProps.windowProps);
-				m_Renderer->Init(m_Props.m_GraphicsProps);
+				m_Renderer->Restart(m_Props.m_GraphicsProps, m_AssetManager->LoadedModels);
+				//m_Renderer->Init(m_Props.m_GraphicsProps);
 				//m_GUI->Init(m_UIController->GetWindow(), m_Props.m_GraphicsProps.guiProps);
 				BlockingEventQueue.pop();
 				break;

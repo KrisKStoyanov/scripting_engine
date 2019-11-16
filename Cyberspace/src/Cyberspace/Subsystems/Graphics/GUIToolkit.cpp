@@ -36,6 +36,7 @@ namespace Cyberspace {
 			ImGui::Begin("Main Menu");
 			if (ImGui::Button("Start")) {
 				m_State = GUIState::Gameplay;
+				_BlockingEventQueue.push(new CyberEvent(EventType::TOGGLE_CAMERA_MOVEMENT, EventTag::GRAPHICS, EventTag::WINDOW));
 			}
 			if (ImGui::Button("Settings")) {
 				m_State = GUIState::Settings;

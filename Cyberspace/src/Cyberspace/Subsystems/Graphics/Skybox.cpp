@@ -80,6 +80,7 @@ namespace Cyberspace {
 
 	Skybox::~Skybox()
 	{
+		Clear();
 	}
 
 	void Skybox::Draw(Camera* _Camera, Shader* _Shader)
@@ -100,6 +101,7 @@ namespace Cyberspace {
 
 	void Skybox::Clear()
 	{
+		glDisableVertexAttribArray(0);
 		glDeleteVertexArrays(1, &VAO);
 		glDeleteBuffers(1, &VBO);
 	}

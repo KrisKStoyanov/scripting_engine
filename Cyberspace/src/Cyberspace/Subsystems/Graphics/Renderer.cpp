@@ -33,6 +33,23 @@ namespace Cyberspace {
 		Setup();
 	}
 
+	void Renderer::Restart(const GraphicsProps& _props, std::unordered_map<std::string, Model*>& _models)
+	{
+		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), _props.FOV, _props.windowProps.Width, _props.windowProps.Height);
+
+		for (auto m : _models) {
+			for (auto mesh : m.second->Meshes) {
+				mesh.Clear();
+				mesh.Setup();
+			}
+		}
+		//delete MainSkybox;
+		MainSkybox->Clear();
+		Setup();
+		glClearColor(0.35f, 0.35f, 0.35f, 1.0f);
+		glEnable(GL_DEPTH_TEST);
+	}
+
 
 	void Renderer::Setup()
 	{

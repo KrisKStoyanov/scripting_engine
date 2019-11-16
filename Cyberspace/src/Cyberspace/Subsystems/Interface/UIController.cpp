@@ -25,13 +25,11 @@ namespace Cyberspace {
 			});
 
 		m_Window = new EngineWindow(_props);
-		glfwMakeContextCurrent(m_Window->GetNativeWindow());
-		m_Window->SetVSync(_props.VSync);
 	}
 
 	void UIController::Restart(const WindowProps& _props)
 	{
-		//Pending implementation!!!!
+		m_Window->Recreate(_props);
 	}
 
 	void UIController::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue)

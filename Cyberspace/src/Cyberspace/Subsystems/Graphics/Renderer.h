@@ -29,6 +29,7 @@ namespace Cyberspace {
 		static Renderer* Create(const GraphicsProps& _props = GraphicsProps());
 		~Renderer();
 		void Init(const GraphicsProps& _props);
+		void Restart(const GraphicsProps& _props, std::unordered_map<std::string, Model*>& _models);
 		void Setup();
 		void Draw(Camera* _Camera, Model* _Model, Transform* _Transform, Shader* _Shader);
 		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, std::unordered_map<std::string, Shader*> _ShaderMap, std::unordered_map<std::string, Entity*> _EntityMap, double _CursorPosX, double _CursorPosY, float _DeltaTime);

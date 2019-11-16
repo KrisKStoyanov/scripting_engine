@@ -13,6 +13,10 @@
 #include "../../../EngineProps.h"
 #include "../../Core.h"
 
+#include "../../Cyberspace/ImGUI/imgui.h"
+#include "../../Cyberspace/ImGUI/imgui_impl_glfw.h"
+#include "../../Cyberspace/ImGUI/imgui_impl_opengl3.h"
+
 //Windows implementation - [GLFW Powered]
 namespace Cyberspace {
 
@@ -33,7 +37,7 @@ namespace Cyberspace {
 		void SetCursorEnabled(bool _enable);
 
 		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue,
-		double _cursorPosX, double _cursorPosY);
+		double& _cursorPosX, double& _cursorPosY);
 
 		GLFWwindow* GetNativeWindow();
 		WindowProps GetWindowProps();
