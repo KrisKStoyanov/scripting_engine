@@ -11,6 +11,7 @@ namespace Cyberspace {
 	public:
 		static UIController* Create(const WindowProps& _props = WindowProps());
 		void Init(const WindowProps& _props);		
+		void Restart(const WindowProps& _props); 
 		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue);
 		void Terminate();
 		

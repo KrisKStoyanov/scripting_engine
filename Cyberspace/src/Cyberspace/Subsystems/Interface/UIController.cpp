@@ -29,6 +29,11 @@ namespace Cyberspace {
 		m_Window->SetVSync(_props.VSync);
 	}
 
+	void UIController::Restart(const WindowProps& _props)
+	{
+		//Pending implementation!!!!
+	}
+
 	void UIController::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue)
 	{
 		m_Window->OnUpdate(_BlockingEventQueue, _EventQueue, CursorPosX, CursorPosY);

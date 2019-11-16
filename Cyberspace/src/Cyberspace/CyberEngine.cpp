@@ -58,7 +58,9 @@ namespace Cyberspace {
 		if (!BlockingEventQueue.empty()) {
 			switch (BlockingEventQueue.front()->Type) {
 			case EventType::UPDATE_SETTINGS:
-				
+				m_UIController->Restart(m_Props.m_GraphicsProps.windowProps);
+				m_Renderer->Init(m_Props.m_GraphicsProps);
+				//m_GUI->Init(m_UIController->GetWindow(), m_Props.m_GraphicsProps.guiProps);
 				BlockingEventQueue.pop();
 				break;
 			case EventType::EXIT:
@@ -82,6 +84,7 @@ namespace Cyberspace {
 		}
 		m_GameManager.reset();
 		m_AssetManager.reset();
+		m_GUI.reset();
 		m_Renderer.reset();
 		m_UIController.reset();
 		m_PhysicsSystem.reset();
