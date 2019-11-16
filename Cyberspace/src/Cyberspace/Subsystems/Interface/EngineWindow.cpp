@@ -1,9 +1,13 @@
 #include "EngineWindow.h"
 
 namespace Cyberspace {
+	EngineWindow* EngineWindow::Create(const WindowProps& _props)
+	{
+		return new EngineWindow(_props);
+	}
 	EngineWindow::EngineWindow(const WindowProps& _props)
 	{
-		Configure(_props);
+		Init(_props);
 	}
 
 	EngineWindow::~EngineWindow()
@@ -11,11 +15,34 @@ namespace Cyberspace {
 		Terminate();
 	}
 
-	void EngineWindow::Configure(const WindowProps& _props)
+	void EngineWindow::Init(const WindowProps& _props)
 	{
 		m_Props = _props;
+
+		if (!glfwInit()) {
+			printf("GLFW Window failed to initialize");
+		}
+		glfwSetErrorCallback([](int _Error, const char* _Description) {
+			fprintf(stderr, "GLFW Error %d: %s\n", _Error, _Description);
+			});
+
 		m_Window = glfwCreateWindow(m_Props.Width, m_Props.Height, m_Props.Title.c_str(), NULL, NULL);
-		SetCursorEnabled(_props.CursorEnabled);
+		glfwMakeContextCurrent(m_Window);
+		SetVSync(m_Props.VSync);
+		SetCursorEnabled(m_Props.CursorEnabled);
+	}
+
+	void EngineWindow::Recreate(const WindowProps& _props)
+	{
+		GLFWwindow* bufferWindow = glfwCreateWindow(m_Props.Width, m_Props.Height, m_Props.Title.c_str(), NULL, NULL);
+		glfwDestroyWindow(m_Window);
+		m_Window = bufferWindow;
+		glewExperimental = GL_TRUE;
+		GLenum initState = glewInit();
+		if (initState != GLEW_OK) {
+			fprintf(stderr, "Error: %s\n", glewGetErrorString(initState));
+		}
+		glfwMakeContextCurrent(m_Window);
 	}
 
 	void EngineWindow::SetCursorEnabled(bool _enable)
@@ -32,12 +59,12 @@ namespace Cyberspace {
 		m_VSync ? glfwSwapInterval(1) : glfwSwapInterval(0);
 	}
 
-	void EngineWindow::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, double& _CursorPosX, double& _CursorPosY)
+	void EngineWindow::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, double _cursorPosX, double _cursorPosY)
 	{
 		glfwSwapBuffers(m_Window);
 		glfwPollEvents();
 
-		glfwGetCursorPos(m_Window, &_CursorPosX, &_CursorPosY);
+		glfwGetCursorPos(m_Window, &_cursorPosX, &_cursorPosY);
 		if (glfwGetKey(m_Window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 			_BlockingEventQueue.push(new CyberEvent(EventType::EXIT));
 		}

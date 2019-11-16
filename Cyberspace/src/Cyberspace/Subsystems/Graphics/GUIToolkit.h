@@ -24,8 +24,7 @@ namespace Cyberspace {
 		static GUIToolkit* Create(EngineWindow*& _window, const GUIProps& _props = GUIProps());
 		~GUIToolkit();
 		void Init(EngineWindow*& _window, const GUIProps& _props);
-		void Configure(EngineWindow*& _window);
-		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, GraphicsProps& _props);
+		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, EngineProps& _props);
 		void Terminate();
 		
 		inline GUIState GetState() { return m_State; }

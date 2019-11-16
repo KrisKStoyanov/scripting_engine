@@ -1,13 +1,11 @@
 window = {
-    title = "Bombastic - Visual Studio",
-    width = 1280,
-    height = 720,
+    title = "Bombastic",
+    width = 1600,
+    height = 900,
     vsync = true
 }
 
 graphics = {
-    cameraWidth = 1280,
-    cameraHeight = 720,
     cameraFOV = 60
 }
 

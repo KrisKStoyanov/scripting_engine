@@ -10,7 +10,7 @@ namespace Cyberspace {
 	public:
 		Application();
 		virtual ~Application();
-		
+
 		void Run(); 
 	private:
 		std::unique_ptr<CyberEngine> m_Engine; 

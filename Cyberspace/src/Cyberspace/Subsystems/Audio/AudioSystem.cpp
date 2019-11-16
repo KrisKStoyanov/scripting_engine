@@ -37,21 +37,27 @@ namespace Cyberspace {
 		}
 	}
 
-	void AudioSystem::Update(std::vector<Entity*> _EntityCollection)
+	void AudioSystem::Configure(const AudioProps& _props)
 	{
-		for (Entity* E : _EntityCollection) {
-			if (E->m_Audio != NULL) {
+	}
 
+	void AudioSystem::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue)
+	{
+		if (!_BlockingEventQueue.empty()) {
+			std::vector<EventTag>::iterator Tag = std::find(_BlockingEventQueue.front()->Tags.begin(), _BlockingEventQueue.front()->Tags.end(), EventTag::GRAPHICS);
+			if (Tag != _BlockingEventQueue.front()->Tags.end()) {
+				_BlockingEventQueue.front()->Tags.erase(Tag);
+				switch (_BlockingEventQueue.front()->Type) {
+				case EventType::UPDATE_SETTINGS:
+					Configure(m_Props);
+					if (_BlockingEventQueue.front()->Tags.empty()) {
+						_BlockingEventQueue.pop();
+					}
+					break;
+
+				}
 			}
 		}
-
-		//if (!_Events.empty()) {
-		//	for (int i = 0; i < _Events.back()->Tags.size(); ++i) {
-		//		if (_Events.back()->Tags[i] == EventTag::AUDIO) {
-
-		//		}
-		//	}
-		//}
 	}
 
 	void AudioSystem::HandleEvent(CyberEvent* _Event)

@@ -9,20 +9,18 @@ namespace Cyberspace {
 	class CSPACE_API UIController
 	{
 	public:
-		static UIController* Create(const UIProps& _props = UIProps());
-		void Init(const UIProps& _props);
-		void CreateWindow(const WindowProps& _props, bool _setFocus = true);
-		void DeleteWindow(std::string _tag);
-		void SetGraphicsContext(EngineWindow* _window);
-
+		static UIController* Create(const WindowProps& _props = WindowProps());
+		void Init(const WindowProps& _props);		
 		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue);
 		void Terminate();
-		std::string FocusedWindow;
-		std::unordered_map<std::string, EngineWindow*> AvailableWindows;
+		
+		inline EngineWindow*& GetWindow() { return m_Window; }
+
 		double CursorPosX, CursorPosY;
 		~UIController();
 	private:
-		UIController(const UIProps& _props);
+		EngineWindow* m_Window;
+		UIController(const WindowProps& _props);
 	};
 }
 

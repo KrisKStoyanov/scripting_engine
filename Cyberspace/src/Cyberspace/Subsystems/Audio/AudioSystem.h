@@ -19,6 +19,8 @@
 #include "../../../EngineProps.h"
 #include "../../Core.h"
 
+#include <queue>
+
 namespace Cyberspace {
 
 	class CSPACE_API AudioSystem
@@ -28,7 +30,8 @@ namespace Cyberspace {
 		AudioSystem(const AudioProps& _props);
 		~AudioSystem();
 		void Init(const AudioProps& _props);
-		void Update(std::vector<Entity*> _EntityCollection);
+		void Configure(const AudioProps& _props);
+		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue);
 		void HandleEvent(CyberEvent* _Event);
 		void Terminate();
 		void PlayBGM(int _Index);
@@ -42,6 +45,8 @@ namespace Cyberspace {
 
 		FMOD::Channel* BGM_Channel = NULL;
 		FMOD::Channel* SFX_Channel = NULL;
+	private:
+		AudioProps m_Props;
 	};
 }
 

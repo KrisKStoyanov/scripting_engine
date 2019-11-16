@@ -22,15 +22,10 @@ namespace Cyberspace {
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
 		ImGui::StyleColorsDark();
 		ImGui_ImplOpenGL3_Init("#version 450");
-		Configure(_window);
-	}
-
-	void GUIToolkit::Configure(EngineWindow*& _window)
-	{
 		ImGui_ImplGlfw_InitForOpenGL(_window->GetNativeWindow(), true);
 	}
 
-	void GUIToolkit::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, GraphicsProps& _props)
+	void GUIToolkit::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, EngineProps& _props)
 	{
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -52,12 +47,12 @@ namespace Cyberspace {
 			break;
 		case GUIState::Settings:
 			ImGui::Begin("Settings");
-			ImGui::SliderFloat("FOV: ", &_props.FOV, 30.0f, 90.0f);
-			ImGui::Checkbox("VSync: ", &_props.windowProps.VSync);
-			ImGui::SliderInt("ResX: ", &_props.windowProps.Width, 800.0f, 1280.0f);
-			ImGui::SliderInt("ResY: ", &_props.windowProps.Height, 600.0f, 720.0f);
+			ImGui::SliderFloat("FOV: ", &_props.m_GraphicsProps.FOV, 30.0f, 90.0f);
+			ImGui::Checkbox("VSync: ", &_props.m_GraphicsProps.windowProps.VSync);
+			ImGui::SliderInt("ResX: ", &_props.m_GraphicsProps.windowProps.Width, 800.0f, 1280.0f);
+			ImGui::SliderInt("ResY: ", &_props.m_GraphicsProps.windowProps.Height, 600.0f, 720.0f);
 			if (ImGui::Button("Apply")) {
-				_BlockingEventQueue.push(new CyberEvent(EventType::UPDATE_SETTINGS, EventTag::GRAPHICS));
+				_BlockingEventQueue.push(new CyberEvent(EventType::UPDATE_SETTINGS));
 			}
 			if (ImGui::Button("Back")) {
 				m_State = GUIState::StartMenu;

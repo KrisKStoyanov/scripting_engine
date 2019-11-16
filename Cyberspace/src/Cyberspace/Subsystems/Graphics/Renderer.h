@@ -26,11 +26,10 @@ namespace Cyberspace {
 	class CSPACE_API Renderer
 	{
 	public:
-		static Renderer* Create(EngineWindow*& _window, const GraphicsProps& _props = GraphicsProps());
+		static Renderer* Create(const GraphicsProps& _props = GraphicsProps());
 		~Renderer();
-		void Init(EngineWindow*& _window, const GraphicsProps& _props);
+		void Init(const GraphicsProps& _props);
 		void Setup();
-		void Configure(const GraphicsProps& _props);
 		void Draw(Camera* _Camera, Model* _Model, Transform* _Transform, Shader* _Shader);
 		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, std::unordered_map<std::string, Shader*> _ShaderMap, std::unordered_map<std::string, Entity*> _EntityMap, double _CursorPosX, double _CursorPosY, float _DeltaTime);
 		void Terminate();
@@ -49,9 +48,7 @@ namespace Cyberspace {
 
 		bool m_EnableCameraMovement = false;
 	private:
-		Renderer(EngineWindow*& _window, const GraphicsProps& _props);
-		bool m_ToggleGUI = true;
-		std::unique_ptr<GUIToolkit> m_GUI;
+		Renderer(const GraphicsProps& _props);
 		GraphicsProps m_Props;
 	};
 }

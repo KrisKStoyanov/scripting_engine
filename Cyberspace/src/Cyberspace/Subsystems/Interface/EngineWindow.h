@@ -1,4 +1,5 @@
 #pragma once
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <string>
 #include <iostream>
@@ -18,9 +19,11 @@ namespace Cyberspace {
 	class CSPACE_API EngineWindow
 	{
 	public:
-		EngineWindow(const WindowProps& _props = WindowProps());
+		static EngineWindow* Create(const WindowProps& _props = WindowProps());
+		EngineWindow(const WindowProps& _props);
 		~EngineWindow();
-		void Configure(const WindowProps& _props);
+		void Init(const WindowProps& _props);
+		void Recreate(const WindowProps& _props);
 		void Terminate();
 
 		inline bool GetVSync() { return m_VSync; }
@@ -29,11 +32,11 @@ namespace Cyberspace {
 		inline bool GetCursorEnabled() { return m_Cursor; }
 		void SetCursorEnabled(bool _enable);
 
-		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, double& _CursorPosX, double& _CursorPosY);
+		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue,
+		double _cursorPosX, double _cursorPosY);
 
 		GLFWwindow* GetNativeWindow();
 		WindowProps GetWindowProps();
-
 	private:
 		bool m_VSync;
 		bool m_Cursor;

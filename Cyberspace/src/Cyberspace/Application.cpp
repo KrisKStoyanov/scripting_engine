@@ -17,10 +17,7 @@ namespace Cyberspace {
 		luabridge::LuaRef winVSync = winProps["vsync"];
 
 		luabridge::LuaRef gfxProps = luabridge::getGlobal(engineSettingsParser, "graphics");
-		luabridge::LuaRef gfxWidth = gfxProps["cameraWidth"];
-		luabridge::LuaRef gfxHeight = gfxProps["cameraHeight"];
 		luabridge::LuaRef gfxFOV = gfxProps["cameraFOV"];
-		luabridge::LuaRef gfxSkyboxFaceTexturePaths = gfxProps["skyboxFaceTexturePaths"];
 
 		luabridge::LuaRef amProps = luabridge::getGlobal(engineSettingsParser, "assetManagement");
 		luabridge::LuaRef amVehicleModelPath = amProps["vehicleModelPath"];
@@ -38,8 +35,6 @@ namespace Cyberspace {
 		int winPropsHeight = winHeight.cast<int>();
 		int winPropsVSync = winVSync.cast<bool>();
 
-		int gfxPropsWidth = gfxWidth.cast<int>();
-		int gfxPropsHeight = gfxHeight.cast<int>();
 		int gfxPropsFOV = gfxFOV.cast<float>();
 
 		std::string amPropsVehicleModelPath = amVehicleModelPath.cast<std::string>();
@@ -60,7 +55,7 @@ namespace Cyberspace {
 		WProps.VSync = winPropsVSync;
 		WProps.CursorEnabled = true;
 
-		EProps.m_GraphicsProps.windowProps = EProps.m_UIProps.windowProps = WProps;
+		EProps.m_GraphicsProps.windowProps = WProps;
 		EProps.m_GraphicsProps.FOV = gfxPropsFOV;
 
 		EProps.m_AMProps.VehicleModelPath = amPropsVehicleModelPath;

@@ -1,15 +1,15 @@
 #include "Renderer.h"
 
 namespace Cyberspace {
-	Renderer* Renderer::Create(EngineWindow*& _window, const GraphicsProps& _props)
+	Renderer* Renderer::Create(const GraphicsProps& _props)
 	{
-		return new Renderer(_window, _props);
+		return new Renderer(_props);
 	}
 
-	Renderer::Renderer(EngineWindow*& _window, const GraphicsProps& _props)
+	Renderer::Renderer(const GraphicsProps& _props)
 	{
 		m_Props = _props;
-		Init(_window, _props);
+		Init(_props);
 	}
 
 	Renderer::~Renderer()
@@ -17,7 +17,7 @@ namespace Cyberspace {
 		Terminate();
 	}
 
-	void Renderer::Init(EngineWindow*& _window, const GraphicsProps& _props)
+	void Renderer::Init(const GraphicsProps& _props)
 	{
 		glewExperimental = GL_TRUE;
 		GLenum initState = glewInit();
@@ -27,18 +27,12 @@ namespace Cyberspace {
 		
 		glClearColor(0.35f, 0.35f, 0.35f, 1.0f);
 		glEnable(GL_DEPTH_TEST);
-		
-		//_window->SetVSync(_props.windowProps.VSync);
-		m_GUI = std::unique_ptr<GUIToolkit>(GUIToolkit::Create(_window, _props.guiProps));
 
-		Configure(_props);
+		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), _props.FOV, _props.windowProps.Width, _props.windowProps.Height);
+
 		Setup();
 	}
 
-	void Renderer::Configure(const GraphicsProps& _props)
-	{
-		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), _props.FOV, _props.windowProps.Width, _props.windowProps.Height);
-	}
 
 	void Renderer::Setup()
 	{
@@ -131,18 +125,6 @@ namespace Cyberspace {
 						_BlockingEventQueue.pop();
 					}
 					break;
-				case EventType::TOGGLE_GUI:
-					m_ToggleGUI = !m_ToggleGUI;
-					if (_BlockingEventQueue.front()->Tags.empty()) {
-						_BlockingEventQueue.pop();
-					}
-					break;
-				case EventType::UPDATE_SETTINGS:
-					Configure(m_Props);
-					if (_BlockingEventQueue.front()->Tags.empty()) {
-						_BlockingEventQueue.pop();
-					}
-					break;
 				}
 			}
 		}
@@ -196,11 +178,7 @@ namespace Cyberspace {
 		}
 		glDepthFunc(GL_LEQUAL);
 		MainSkybox->Draw(MainCamera, _ShaderMap["Skybox"]);
-		glDepthFunc(GL_LESS);
-		if (m_ToggleGUI) {
-			//Refactor idea - isolate GUIToolkit and pass every subsystem property container
-			m_GUI->OnUpdate(_BlockingEventQueue, _EventQueue, m_Props);
-		}	
+		glDepthFunc(GL_LESS);	
 	}
 
 	void Renderer::Terminate()
@@ -211,6 +189,5 @@ namespace Cyberspace {
 		if (MainCamera) {
 			delete MainCamera;
 		}
-		m_GUI.reset();
 	}
 }
