@@ -12,22 +12,21 @@
 #include "../../CyberEvent.h"
 #include "../../../EngineProps.h"
 #include "../../Core.h"
+#include "../Graphics/GraphicsContext.h"
 
 #include "../../Cyberspace/ImGUI/imgui.h"
 #include "../../Cyberspace/ImGUI/imgui_impl_glfw.h"
 #include "../../Cyberspace/ImGUI/imgui_impl_opengl3.h"
 
-//Windows implementation - [GLFW Powered]
 namespace Cyberspace {
 
 	class CSPACE_API EngineWindow
 	{
 	public:
-		static EngineWindow* Create(const WindowProps& _props = WindowProps());
-		EngineWindow(const WindowProps& _props);
+		static EngineWindow* Create(const GraphicsProps& _props = GraphicsProps());
 		~EngineWindow();
-		void Init(const WindowProps& _props);
-		void Recreate(const WindowProps& _props);
+		void Init(const GraphicsProps& _props);
+		void Recreate(const GraphicsProps& _props);
 		void Terminate();
 
 		inline bool GetVSync() { return m_VSync; }
@@ -36,16 +35,14 @@ namespace Cyberspace {
 		inline bool GetCursorEnabled() { return m_Cursor; }
 		void SetCursorEnabled(bool _enable);
 
-		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue,
-		double& _cursorPosX, double& _cursorPosY);
-
+		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue);
+		double CursorPosX, CursorPosY;
 		GLFWwindow* GetNativeWindow();
-		WindowProps GetWindowProps();
 	private:
+		EngineWindow(const GraphicsProps& _props);
 		bool m_VSync;
 		bool m_Cursor;
-		
-		WindowProps m_Props;
+
 		GLFWwindow* m_Window = NULL;
 	};
 }

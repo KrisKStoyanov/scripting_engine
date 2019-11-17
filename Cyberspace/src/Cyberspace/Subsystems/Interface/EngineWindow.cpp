@@ -1,11 +1,11 @@
 #include "EngineWindow.h"
 
 namespace Cyberspace {
-	EngineWindow* EngineWindow::Create(const WindowProps& _props)
+	EngineWindow* EngineWindow::Create(const GraphicsProps& _props)
 	{
 		return new EngineWindow(_props);
 	}
-	EngineWindow::EngineWindow(const WindowProps& _props)
+	EngineWindow::EngineWindow(const GraphicsProps& _props)
 	{
 		Init(_props);
 	}
@@ -15,10 +15,8 @@ namespace Cyberspace {
 		Terminate();
 	}
 
-	void EngineWindow::Init(const WindowProps& _props)
+	void EngineWindow::Init(const GraphicsProps& _props)
 	{
-		m_Props = _props;
-
 		if (!glfwInit()) {
 			printf("GLFW failed to initialize");
 		}
@@ -26,17 +24,79 @@ namespace Cyberspace {
 			fprintf(stderr, "GLFW Error %d: %s\n", _Error, _Description);
 			});
 
-		m_Window = glfwCreateWindow(m_Props.Width, m_Props.Height, m_Props.Title.c_str(), NULL, NULL);
+		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+		const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+		//Pre-window creation settings:
+		if (_props.m_Defaults) {
+			glfwDefaultWindowHints();
+		}
+		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+		//if (_props.m_Fullscreen) {
+		//	glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
+		//}
+		//if (_props.m_BrdrlessFull) {
+		//	glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+		//	glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+		//	glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+		//	glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+		//}
+
+		if (_props.m_MSAA) {
+			glfwWindowHint(GLFW_SAMPLES, 4);
+			glEnable(GL_MULTISAMPLE);
+		}
+		if(_props.m_Fullscreen) {
+			m_Window = glfwCreateWindow(_props.m_ResX, _props.m_ResY, _props.m_WinTitle.c_str(), monitor, NULL);
+		}
+		else {
+			m_Window = glfwCreateWindow(_props.m_ResX, _props.m_ResY, _props.m_WinTitle.c_str(), NULL, NULL);
+		}
+		
 		glfwMakeContextCurrent(m_Window);
-		SetVSync(m_Props.VSync);
-		SetCursorEnabled(m_Props.CursorEnabled);
+
+		//Post-window creation settings:
+		//if (_props.m_BrdrlessFull && !_props.m_Fullscreen) {
+		//	glfwSetWindowMonitor(m_Window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+		//}
+
+		if (_props.m_VSync) {
+			glfwSwapInterval(1);
+		} 
+		else {
+			glfwSwapInterval(0);
+		}
+		if (_props.m_EnCursor) {
+			glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+				
+		}
+		else {
+			glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		}
 	}
 
-	void EngineWindow::Recreate(const WindowProps& _props)
+	void EngineWindow::Recreate(const GraphicsProps& _props)
 	{
-		GLFWwindow* bufferWindow = glfwCreateWindow(_props.Width, _props.Height, _props.Title.c_str(), NULL, m_Window);
-		glfwDestroyWindow(m_Window);
-		m_Window = bufferWindow;
+		if (_props.m_MSAA) {
+			glfwWindowHint(GLFW_SAMPLES, 4);
+			glEnable(GL_MULTISAMPLE);
+		}
+		//if (_props.m_Fullscreen) {
+		//	glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
+		//}
+		if(_props.m_Defaults) {
+			glfwDefaultWindowHints();
+			glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+		}
+		if (_props.m_Fullscreen) {
+			GLFWwindow* bufferWindow = glfwCreateWindow(_props.m_ResX, _props.m_ResY, _props.m_WinTitle.c_str(), glfwGetPrimaryMonitor(), m_Window);
+			glfwDestroyWindow(m_Window);
+			m_Window = bufferWindow;
+		}
+		else {
+			GLFWwindow* bufferWindow = glfwCreateWindow(_props.m_ResX, _props.m_ResY, _props.m_WinTitle.c_str(), NULL, m_Window);
+			glfwDestroyWindow(m_Window);
+			m_Window = bufferWindow;
+		}
 		glfwMakeContextCurrent(m_Window);
 
 		ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
@@ -56,12 +116,12 @@ namespace Cyberspace {
 		m_VSync ? glfwSwapInterval(1) : glfwSwapInterval(0);
 	}
 
-	void EngineWindow::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, double &_cursorPosX, double &_cursorPosY)
+	void EngineWindow::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue)
 	{
 		glfwSwapBuffers(m_Window);
 		glfwPollEvents();
 
-		glfwGetCursorPos(m_Window, &_cursorPosX, &_cursorPosY);
+		glfwGetCursorPos(m_Window, &CursorPosX, &CursorPosY);
 		if (glfwGetKey(m_Window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 			_BlockingEventQueue.push(new CyberEvent(EventType::EXIT));
 		}
@@ -109,13 +169,9 @@ namespace Cyberspace {
 		return m_Window; 
 	}
 
-	WindowProps EngineWindow::GetWindowProps()
-	{
-		return m_Props;
-	}
-
 	void EngineWindow::Terminate()
 	{
 		glfwDestroyWindow(m_Window);
+		glfwTerminate();
 	}
 }

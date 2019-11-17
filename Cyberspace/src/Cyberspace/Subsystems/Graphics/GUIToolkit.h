@@ -18,12 +18,18 @@ namespace Cyberspace {
 		PauseMenu,
 	};
 
+	struct ResDisplayFormat {
+		const char* DisplayFormat;
+		int ResX;
+		int ResY;
+	};
+
 	class CSPACE_API GUIToolkit
 	{
 	public:
-		static GUIToolkit* Create(EngineWindow*& _window, const GUIProps& _props = GUIProps());
+		static GUIToolkit* Create(EngineWindow* _window, const GraphicsProps& _props = GraphicsProps());
 		~GUIToolkit();
-		void Init(EngineWindow*& _window, const GUIProps& _props);
+		void Init(EngineWindow* _window, const GraphicsProps& _props);
 		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, EngineProps& _props);
 		void Terminate();
 		
@@ -32,9 +38,11 @@ namespace Cyberspace {
 
 	private:
 		GUIState m_State = GUIState::StartMenu;
-		GUIToolkit(EngineWindow*& _window, const GUIProps& _props);
+		GUIToolkit(EngineWindow* _window, const GraphicsProps& _props);
 
-		GraphicsProps m_GraphicsProps;
+		const char* m_CurrentRes;
+		const char* m_Resolutions[3] = { "1600x900", "1280x720", "800x600" };
+		bool showDemo = true;
 	};
 }
 

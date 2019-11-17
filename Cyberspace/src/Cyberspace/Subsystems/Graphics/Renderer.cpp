@@ -8,7 +8,6 @@ namespace Cyberspace {
 
 	Renderer::Renderer(const GraphicsProps& _props)
 	{
-		m_Props = _props;
 		Init(_props);
 	}
 
@@ -28,14 +27,22 @@ namespace Cyberspace {
 		glClearColor(0.35f, 0.35f, 0.35f, 1.0f);
 		glEnable(GL_DEPTH_TEST);
 
-		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), _props.FOV, _props.windowProps.Width, _props.windowProps.Height);
+		DirLight = new Light(
+			glm::vec3(-0.2f, -1.0f, -0.3f), 
+			glm::vec3(0.5f, 0.5f, 0.5f), 
+			glm::vec3(0.5f, 0.5f, 0.5f), 
+			glm::vec3(1.0f, 1.0f, 1.0f));
 
-		Setup();
+		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), _props.m_FOV, _props.m_ResX, _props.m_ResY);
+		MainSkybox = new Skybox(SkyboxFaceTexturePaths);	
+
+		//PointLight = new Light(glm::vec3(0.7f, 0.2f, 2.0f), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f);
+		//SpotLight = new Light(MainCamera->Position, MainCamera->Front, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f, glm::cos(glm::radians(12.5f)), glm::cos(glm::radians(15.0f)));
 	}
 
 	void Renderer::Restart(const GraphicsProps& _props, std::unordered_map<std::string, Model*>& _models)
 	{
-		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), _props.FOV, _props.windowProps.Width, _props.windowProps.Height);
+		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), _props.m_FOV, _props.m_ResX, _props.m_ResY);
 
 		for (auto m : _models) {
 			for (auto mesh : m.second->Meshes) {
@@ -43,29 +50,10 @@ namespace Cyberspace {
 				mesh.Setup();
 			}
 		}
-		//delete MainSkybox;
 		MainSkybox->Clear();
-		Setup();
+		MainSkybox = new Skybox(SkyboxFaceTexturePaths);
 		glClearColor(0.35f, 0.35f, 0.35f, 1.0f);
 		glEnable(GL_DEPTH_TEST);
-	}
-
-
-	void Renderer::Setup()
-	{
-		std::vector<std::string> SkyboxFaceTexturePaths = std::vector<std::string>{
-			"../resources/3D/Skybox/miramar_ft.tga",
-			"../resources/3D/Skybox/miramar_bk.tga",
-			"../resources/3D/Skybox/miramar_up.tga",
-			"../resources/3D/Skybox/miramar_dn.tga",
-			"../resources/3D/Skybox/miramar_rt.tga",
-			"../resources/3D/Skybox/miramar_lf.tga"
-		};
-		MainSkybox = new Skybox(SkyboxFaceTexturePaths);
-		DirLight = new Light(glm::vec3(-0.2f, -1.0f, -0.3f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f));
-		
-		//PointLight = new Light(glm::vec3(0.7f, 0.2f, 2.0f), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f);
-		//SpotLight = new Light(MainCamera->Position, MainCamera->Front, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f, glm::cos(glm::radians(12.5f)), glm::cos(glm::radians(15.0f)));
 	}
 
 	void Renderer::Draw(Camera* _Camera, Model* _Model, Transform* _Transform, Shader* _Shader)

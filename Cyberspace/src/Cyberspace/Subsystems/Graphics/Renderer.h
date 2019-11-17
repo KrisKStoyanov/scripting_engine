@@ -30,7 +30,6 @@ namespace Cyberspace {
 		~Renderer();
 		void Init(const GraphicsProps& _props);
 		void Restart(const GraphicsProps& _props, std::unordered_map<std::string, Model*>& _models);
-		void Setup();
 		void Draw(Camera* _Camera, Model* _Model, Transform* _Transform, Shader* _Shader);
 		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, std::unordered_map<std::string, Shader*> _ShaderMap, std::unordered_map<std::string, Entity*> _EntityMap, double _CursorPosX, double _CursorPosY, float _DeltaTime);
 		void Terminate();
@@ -45,12 +44,20 @@ namespace Cyberspace {
 		//void(*MoveRight)(EventType) = MoveRightEvent;
 
 		Camera* MainCamera = NULL;
+
+		std::vector<std::string> SkyboxFaceTexturePaths = std::vector<std::string>{
+			"../resources/3D/Skybox/miramar_ft.tga",
+			"../resources/3D/Skybox/miramar_bk.tga",
+			"../resources/3D/Skybox/miramar_up.tga",
+			"../resources/3D/Skybox/miramar_dn.tga",
+			"../resources/3D/Skybox/miramar_rt.tga",
+			"../resources/3D/Skybox/miramar_lf.tga"
+		};
 		Skybox* MainSkybox = NULL;
 
 		bool m_EnableCameraMovement = false;
 	private:
 		Renderer(const GraphicsProps& _props);
-		GraphicsProps m_Props;
 	};
 }
 

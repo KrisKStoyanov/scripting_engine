@@ -1,12 +1,13 @@
-window = {
-    title = "Bombastic",
-    width = 1600,
-    height = 900,
-    vsync = true
-}
-
-graphics = {
-    cameraFOV = 60
+Graphics = {
+    winTitle = "SPACE (IDE)",
+    defaultResX = 1600,
+    defaultResY = 900,
+    fullscreen = false,
+    borderlessFullscreen = false,
+    fov = 60,
+    enableCursor = true,
+    vsync = true,
+    msaa = true
 }
 
 assetManagement = {

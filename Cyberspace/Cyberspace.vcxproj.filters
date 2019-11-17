@@ -123,13 +123,13 @@
     <ClCompile Include="src\cspacepch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Cyberspace\Subsystems\Interface\UIController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Cyberspace\Subsystems\Interface\EngineWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\GUIToolkit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Cyberspace\Subsystems\Graphics\GraphicsContext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -254,9 +254,6 @@
     <ClInclude Include="src\cspacepch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Cyberspace\Subsystems\Interface\UIController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Cyberspace\Subsystems\Interface\EngineWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -267,6 +264,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\EngineProps.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Cyberspace\Subsystems\Graphics\GraphicsContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

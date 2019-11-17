@@ -2,7 +2,7 @@
 #include "Core.h"
 #include "Entity.h"
 #include "./Subsystems/Graphics/Renderer.h"
-#include "./Subsystems/Interface/UIController.h"
+#include "./Subsystems/Interface/EngineWindow.h"
 #include "./Subsystems/Networking/CyberNet.h"
 #include "./Subsystems/Audio/AudioSystem.h"
 #include "./Subsystems/Physics/PhysicsSystem.h"
@@ -36,7 +36,7 @@ namespace Cyberspace {
 		std::queue<CyberEvent*> BlockingEventQueue;
 		std::queue<CyberEvent*> EventQueue;
 
-		std::unique_ptr<UIController> m_UIController;
+		std::unique_ptr<EngineWindow> m_Window;
 		std::unique_ptr<Renderer> m_Renderer;
 		std::unique_ptr<GUIToolkit> m_GUI;
 		std::unique_ptr<PhysicsSystem> m_PhysicsSystem;

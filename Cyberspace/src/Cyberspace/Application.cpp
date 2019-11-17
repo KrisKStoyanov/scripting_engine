@@ -10,14 +10,16 @@ namespace Cyberspace {
 		lua_pcall(engineSettingsParser, 0, 0, 0);
 
 		//Parse scripted data through lua
-		luabridge::LuaRef winProps = luabridge::getGlobal(engineSettingsParser, "window");
-		luabridge::LuaRef winTitle = winProps["title"];
-		luabridge::LuaRef winWidth = winProps["width"];
-		luabridge::LuaRef winHeight = winProps["height"];
-		luabridge::LuaRef winVSync = winProps["vsync"];
-
-		luabridge::LuaRef gfxProps = luabridge::getGlobal(engineSettingsParser, "graphics");
-		luabridge::LuaRef gfxFOV = gfxProps["cameraFOV"];
+		luabridge::LuaRef gfxProps = luabridge::getGlobal(engineSettingsParser, "Graphics");
+		luabridge::LuaRef gfxWinTitle = gfxProps["winTitle"];
+		luabridge::LuaRef gfxResX = gfxProps["defaultResX"];
+		luabridge::LuaRef gfxResY = gfxProps["defaultResY"];
+		luabridge::LuaRef gfxFullscreen = gfxProps["fullscreen"];
+		luabridge::LuaRef gfxBrdrless = gfxProps["borderlessFullscreen"];
+		luabridge::LuaRef gfxFov = gfxProps["fov"];
+		luabridge::LuaRef gfxEnCursor = gfxProps["enableCursor"];
+		luabridge::LuaRef gfxVsync = gfxProps["vsync"];
+		luabridge::LuaRef gfxMsaa = gfxProps["msaa"];
 
 		luabridge::LuaRef amProps = luabridge::getGlobal(engineSettingsParser, "assetManagement");
 		luabridge::LuaRef amVehicleModelPath = amProps["vehicleModelPath"];
@@ -29,42 +31,25 @@ namespace Cyberspace {
 		luabridge::LuaRef audioProps = luabridge::getGlobal(engineSettingsParser, "audio");
 		luabridge::LuaRef audioTitleScreenBgmFilePath = audioProps["titleScreenBgmFilePath"];
 
-		//Cast data through to c++ native format
-		std::string winPropsTitle = winTitle.cast<std::string>();
-		int winPropsWidth = winWidth.cast<int>();
-		int winPropsHeight = winHeight.cast<int>();
-		int winPropsVSync = winVSync.cast<bool>();
-
-		int gfxPropsFOV = gfxFOV.cast<float>();
-
-		std::string amPropsVehicleModelPath = amVehicleModelPath.cast<std::string>();
-		std::string amPropsModelVertexShaderPath = amModelVertexShaderPath.cast<std::string>();
-		std::string amPropsModelFragmentShaderPath = amModelFragmentShaderPath.cast<std::string>();
-		std::string amPropsSkyboxVertexShaderPath = amSkyboxVertexShaderPath.cast<std::string>();
-		std::string amPropsSkyboxFragmentShaderPath = amSkyboxFragmentShaderPath.cast<std::string>();
-
-		const char* audioPropsTitleScreenBgmFilePath = audioTitleScreenBgmFilePath.cast<const char*>();
-
-		//Create engine settings formatting struct
+		//Convert scripted data into engine format settings
 		EngineProps EProps;
+		EProps.m_GraphicsProps.m_WinTitle = gfxWinTitle.cast<std::string>();
+		EProps.m_GraphicsProps.m_ResX = gfxResX.cast<int>();
+		EProps.m_GraphicsProps.m_ResY = gfxResY.cast<int>();
+		EProps.m_GraphicsProps.m_Fullscreen = gfxFullscreen.cast<bool>();
+		EProps.m_GraphicsProps.m_BrdrlessFull = gfxBrdrless.cast<bool>();
+		EProps.m_GraphicsProps.m_FOV = gfxFov.cast<float>();
+		EProps.m_GraphicsProps.m_EnCursor = gfxEnCursor.cast<bool>();
+		EProps.m_GraphicsProps.m_VSync = gfxVsync.cast<bool>();
+		EProps.m_GraphicsProps.m_MSAA = gfxMsaa.cast<bool>();
 
-		WindowProps WProps;
-		WProps.Title = winPropsTitle;
-		WProps.Width = winPropsWidth;
-		WProps.Height = winPropsHeight;
-		WProps.VSync = winPropsVSync;
-		WProps.CursorEnabled = true;
+		EProps.m_AMProps.VehicleModelPath = amVehicleModelPath.cast<std::string>();
+		EProps.m_AMProps.ModelVertexShaderPath = amModelVertexShaderPath.cast<std::string>();
+		EProps.m_AMProps.ModelFragmentShaderPath = amModelFragmentShaderPath.cast<std::string>();
+		EProps.m_AMProps.SkyboxVertexShaderPath = amSkyboxVertexShaderPath.cast<std::string>();
+		EProps.m_AMProps.SkyboxFragmentShaderPath = amSkyboxFragmentShaderPath.cast<std::string>();
 
-		EProps.m_GraphicsProps.windowProps = WProps;
-		EProps.m_GraphicsProps.FOV = gfxPropsFOV;
-
-		EProps.m_AMProps.VehicleModelPath = amPropsVehicleModelPath;
-		EProps.m_AMProps.ModelVertexShaderPath = amPropsModelVertexShaderPath;
-		EProps.m_AMProps.ModelFragmentShaderPath = amPropsModelFragmentShaderPath;
-		EProps.m_AMProps.SkyboxVertexShaderPath = amPropsSkyboxVertexShaderPath;
-		EProps.m_AMProps.SkyboxFragmentShaderPath = amPropsSkyboxFragmentShaderPath;
-
-		EProps.m_AudioProps.TitleScreenBGMFilePath = audioPropsTitleScreenBgmFilePath;
+		EProps.m_AudioProps.TitleScreenBGMFilePath = audioTitleScreenBgmFilePath.cast<const char*>();
 
 		m_Engine = std::unique_ptr<CyberEngine>(CyberEngine::Create(EProps));
 	}

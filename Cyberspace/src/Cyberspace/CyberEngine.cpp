@@ -9,6 +9,7 @@ namespace Cyberspace {
 
 	CyberEngine::CyberEngine(const EngineProps& _props)
 	{
+		m_Props = _props;
 		Init(_props);
 	}
 
@@ -20,16 +21,25 @@ namespace Cyberspace {
 
 	void CyberEngine::Init(const EngineProps& _props)
 	{
-		m_UIController = std::unique_ptr<UIController>(UIController::Create(_props.m_GraphicsProps.windowProps));
+		//OGL, GLFW, Dear ImGUI:
+		m_Window = std::unique_ptr<EngineWindow>(EngineWindow::Create(_props.m_GraphicsProps));
 		m_Renderer = std::unique_ptr<Renderer>(Renderer::Create(_props.m_GraphicsProps));
-		m_GUI = std::unique_ptr<GUIToolkit>(GUIToolkit::Create(
-			m_UIController->GetWindow(),_props.m_GraphicsProps.guiProps));
-		m_PhysicsSystem = std::unique_ptr<PhysicsSystem>(PhysicsSystem::Create(_props.m_PhysicsProps));
-		m_AudioSystem = std::unique_ptr<AudioSystem>(AudioSystem::Create(_props.m_AudioProps));
-		m_NetSystem = std::unique_ptr<CyberNet>(CyberNet::Create(_props.m_NetProps));
-		m_AssetManager = std::unique_ptr<AssetManager>(AssetManager::Create(_props.m_AMProps));
-		m_GameManager = std::unique_ptr<GameManager>(GameManager::Create(_props.m_GMProps));
+		m_GUI = std::unique_ptr<GUIToolkit>(GUIToolkit::Create(m_Window.get(),_props.m_GraphicsProps));
 
+		//PhysX:
+		m_PhysicsSystem = std::unique_ptr<PhysicsSystem>(PhysicsSystem::Create(_props.m_PhysicsProps));
+		
+		//Fmod:
+		m_AudioSystem = std::unique_ptr<AudioSystem>(AudioSystem::Create(_props.m_AudioProps));
+		
+		//Enet
+		m_NetSystem = std::unique_ptr<CyberNet>(CyberNet::Create(_props.m_NetProps));
+		
+		//Assimp
+		m_AssetManager = std::unique_ptr<AssetManager>(AssetManager::Create(_props.m_AMProps));
+
+		//------
+		m_GameManager = std::unique_ptr<GameManager>(GameManager::Create(_props.m_GMProps));
 		m_GameManager->PlayerEntity->SetModel(m_AssetManager->LoadedModels[_props.m_GMProps.PlayerTag]);
 
 		//m_AudioSystem->PlayBGM(0);
@@ -47,27 +57,28 @@ namespace Cyberspace {
 	{
 		//CSPACE_CORE_TRACE("Delta time: {0}s ({1}ms)", _ts.GetSeconds(), _ts.GetMilliseconds());
 		std::vector<glm::vec3> updatedPositions;
-		m_UIController->OnUpdate(BlockingEventQueue, EventQueue);
+		m_Window->OnUpdate(BlockingEventQueue, EventQueue);
 		m_Renderer->OnUpdate(BlockingEventQueue, EventQueue, 
 			m_AssetManager->LoadedShaders,
 			m_GameManager->GameMaps[m_GameManager->CurrentMap]->MapEntities,
-			m_UIController->CursorPosX, m_UIController->CursorPosY, _ts.GetSeconds());
+			m_Window->CursorPosX, m_Window->CursorPosY, _ts.GetSeconds());
 		m_GUI->OnUpdate(BlockingEventQueue, EventQueue, m_Props);
 		m_NetSystem->OnUpdate(EventQueue, updatedPositions);
 		
 		if (!BlockingEventQueue.empty()) {
 			switch (BlockingEventQueue.front()->Type) {
 			case EventType::UPDATE_SETTINGS:
-				m_UIController->Restart(m_Props.m_GraphicsProps.windowProps);
+				m_Window->Recreate(m_Props.m_GraphicsProps);
 				m_Renderer->Restart(m_Props.m_GraphicsProps, m_AssetManager->LoadedModels);
-				//m_Renderer->Init(m_Props.m_GraphicsProps);
-				//m_GUI->Init(m_UIController->GetWindow(), m_Props.m_GraphicsProps.guiProps);
+				m_Props.m_GraphicsProps.m_Defaults = false;
 				BlockingEventQueue.pop();
 				break;
 			case EventType::EXIT:
 				SetTick(false);
+				BlockingEventQueue.pop();
 				break;
 			case EventType::PAUSE:
+				BlockingEventQueue.pop();
 				break;
 			default:
 				break;
@@ -87,7 +98,7 @@ namespace Cyberspace {
 		m_AssetManager.reset();
 		m_GUI.reset();
 		m_Renderer.reset();
-		m_UIController.reset();
+		m_Window.reset();
 		m_PhysicsSystem.reset();
 		m_PhysicsSystem.reset();
 		m_AudioSystem.reset();

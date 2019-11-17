@@ -91,6 +91,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Cyberspace\Subsystems\Graphics\GraphicsContext.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\GUIToolkit.cpp" />
     <ClCompile Include="src\cspacepch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
@@ -128,9 +129,9 @@
     <ClCompile Include="src\Cyberspace\Subsystems\AssetManagement\Shader.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\Texture.cpp" />
     <ClCompile Include="src\Cyberspace\Transform.cpp" />
-    <ClCompile Include="src\Cyberspace\Subsystems\Interface\UIController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Cyberspace\Subsystems\Graphics\GraphicsContext.h" />
     <ClInclude Include="src\Cyberspace\Core\Timestep.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\GUIToolkit.h" />
     <ClInclude Include="src\cspacepch.h" />
@@ -172,7 +173,6 @@
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Vertex.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Texture.h" />
     <ClInclude Include="src\Cyberspace\Transform.h" />
-    <ClInclude Include="src\Cyberspace\Subsystems\Interface\UIController.h" />
     <ClInclude Include="src\EngineProps.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

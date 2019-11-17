@@ -5,37 +5,32 @@
 #include <glm/gtc/type_ptr.hpp>
 
 namespace Cyberspace {
-	struct WindowProps {
-		int Width;
-		int Height;
-		std::string Title;
-		bool VSync;
-		bool CursorEnabled;
-		WindowProps(std::string _title = "Cyberspace",
-			unsigned int _width = 1280,
-			unsigned int _height = 720,
-			bool _vsync = true,
-			bool _cursorEnabled = true) :
-			Width(_width), Height(_height), Title(_title),
-			VSync(_vsync), CursorEnabled(_cursorEnabled)
-		{}
-	};
-
-	struct GUIProps {
-
-		GUIProps()
-		{}
-	};
-
+	
 	struct GraphicsProps {
-		float FOV;
-		WindowProps windowProps;
-		GUIProps guiProps;
+		std::string m_WinTitle;
+		int m_ResX;
+		int m_ResY;
+		bool m_Fullscreen;
+		bool m_BrdrlessFull;
+		float m_FOV;
+		bool m_EnCursor;
+		bool m_MSAA;
+		bool m_VSync;
+		bool m_Defaults;
 		GraphicsProps(
-			float _fov = 60.0f,
-			WindowProps _windowProps = WindowProps(), GUIProps _guiProps = GUIProps())
-			: FOV(_fov)
-			, windowProps(_windowProps), guiProps(_guiProps) {}
+			std::string _title = "Cyberspace",
+			int _resX = 1600, int _resY = 900,
+			bool _fullscreen = false, bool _brdrlessFull = false,
+			float _fov = 60.0f, bool _enCursor = true,
+			bool _msaa = true, bool _vsync = true,
+			bool _defaults = false)
+			:
+			m_ResX(_resX), m_ResY(_resY),
+			m_Fullscreen(_fullscreen), 
+			m_BrdrlessFull(_brdrlessFull),
+			m_FOV(_fov), m_EnCursor(_enCursor),
+			m_MSAA(_msaa), m_VSync(_vsync),
+			m_Defaults(_defaults) {}
 	};
 
 	struct AMProps {
