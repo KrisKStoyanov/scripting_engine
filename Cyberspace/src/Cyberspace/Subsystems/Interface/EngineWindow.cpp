@@ -30,8 +30,13 @@ namespace Cyberspace {
 			glfwWindowHint(GLFW_SAMPLES, 4);
 			glEnable(GL_MULTISAMPLE);
 		}
-		m_Monitor = glfwGetPrimaryMonitor();
-		m_Window = glfwCreateWindow(_props.m_DisFormat.ResX, _props.m_DisFormat.ResY, _props.m_WinTitle.c_str(), _props.m_Fullscreen ? m_Monitor : NULL, NULL);
+
+		m_Window = glfwCreateWindow(
+			_props.m_DisFormat.ResX, 
+			_props.m_DisFormat.ResY, 
+			_props.m_WinTitle.c_str(), 
+			_props.m_Fullscreen ? glfwGetPrimaryMonitor() : NULL, 
+			NULL);
 		glfwMakeContextCurrent(m_Window);
 
 		if (_props.m_VSync) {
@@ -62,7 +67,7 @@ namespace Cyberspace {
 			_props.m_DisFormat.ResX, 
 			_props.m_DisFormat.ResY,
 			_props.m_WinTitle.c_str(),
-			_props.m_Fullscreen ? m_Monitor : NULL,
+			_props.m_Fullscreen ? glfwGetPrimaryMonitor() : NULL,
 			m_Window);
 
 		glfwDestroyWindow(m_Window);

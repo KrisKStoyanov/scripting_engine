@@ -44,7 +44,6 @@ namespace Cyberspace {
 		bool m_Cursor;
 
 		GLFWwindow* m_Window = NULL;
-		GLFWmonitor* m_Monitor = NULL;
 	};
 }
 
