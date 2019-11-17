@@ -1,15 +1,26 @@
 #pragma once
 #include <string>
+#include <vector>
 #include <glm/glm.hpp>
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+//This file is used to set the properties of the game/application
+//through multiple different settings for each individual API integrated in the engine
+
 namespace Cyberspace {
 	
+	//Resolution Display Format (e.g. 1600x900)
+	struct ResDisplayFormat {
+		std::string DisplayFormat;
+		int ResX;
+		int ResY;
+	};
+
+	//Graphics Properties
 	struct GraphicsProps {
 		std::string m_WinTitle;
-		int m_ResX;
-		int m_ResY;
+		ResDisplayFormat m_DisFormat;
 		bool m_Fullscreen;
 		bool m_BrdrlessFull;
 		float m_FOV;
@@ -17,20 +28,31 @@ namespace Cyberspace {
 		bool m_MSAA;
 		bool m_VSync;
 		bool m_Defaults;
+		std::vector<ResDisplayFormat> m_AvDisFormats;
 		GraphicsProps(
 			std::string _title = "Cyberspace",
-			int _resX = 1600, int _resY = 900,
+			ResDisplayFormat _disFormat = { "1600x900", 1600, 900 },
 			bool _fullscreen = false, bool _brdrlessFull = false,
 			float _fov = 60.0f, bool _enCursor = true,
 			bool _msaa = true, bool _vsync = true,
-			bool _defaults = false)
+			bool _defaults = false,
+			std::vector<ResDisplayFormat> _displayFormats = std::vector<ResDisplayFormat>{
+				{"1600x900", 1600, 900 },
+				{ "1280x720", 1280, 720 },
+				{ "800x600", 800, 600 }
+			})
 			:
-			m_ResX(_resX), m_ResY(_resY),
+			m_WinTitle(_title),
+			m_DisFormat(_disFormat),
 			m_Fullscreen(_fullscreen), 
 			m_BrdrlessFull(_brdrlessFull),
 			m_FOV(_fov), m_EnCursor(_enCursor),
 			m_MSAA(_msaa), m_VSync(_vsync),
-			m_Defaults(_defaults) {}
+			m_Defaults(_defaults),
+			m_AvDisFormats(_displayFormats)
+		{
+			m_DisFormat.DisplayFormat = std::to_string(m_DisFormat.ResX) + "x" + std::to_string(m_DisFormat.ResY);
+		}
 	};
 
 	struct AMProps {

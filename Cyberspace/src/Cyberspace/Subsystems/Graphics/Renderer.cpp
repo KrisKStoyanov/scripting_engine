@@ -33,7 +33,7 @@ namespace Cyberspace {
 			glm::vec3(0.5f, 0.5f, 0.5f), 
 			glm::vec3(1.0f, 1.0f, 1.0f));
 
-		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), _props.m_FOV, _props.m_ResX, _props.m_ResY);
+		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), _props.m_FOV, _props.m_DisFormat.ResX, _props.m_DisFormat.ResY);
 		MainSkybox = new Skybox(SkyboxFaceTexturePaths);	
 
 		//PointLight = new Light(glm::vec3(0.7f, 0.2f, 2.0f), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f);
@@ -42,7 +42,7 @@ namespace Cyberspace {
 
 	void Renderer::Restart(const GraphicsProps& _props, std::unordered_map<std::string, Model*>& _models)
 	{
-		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), _props.m_FOV, _props.m_ResX, _props.m_ResY);
+		MainCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), _props.m_FOV, _props.m_DisFormat.ResX, _props.m_DisFormat.ResY);
 
 		for (auto m : _models) {
 			for (auto mesh : m.second->Meshes) {

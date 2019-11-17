@@ -18,12 +18,6 @@ namespace Cyberspace {
 		PauseMenu,
 	};
 
-	struct ResDisplayFormat {
-		const char* DisplayFormat;
-		int ResX;
-		int ResY;
-	};
-
 	class CSPACE_API GUIToolkit
 	{
 	public:
@@ -40,8 +34,6 @@ namespace Cyberspace {
 		GUIState m_State = GUIState::StartMenu;
 		GUIToolkit(EngineWindow* _window, const GraphicsProps& _props);
 
-		const char* m_CurrentRes;
-		const char* m_Resolutions[3] = { "1600x900", "1280x720", "800x600" };
 		bool showDemo = true;
 	};
 }

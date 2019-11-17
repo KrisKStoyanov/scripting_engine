@@ -91,6 +91,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Cyberspace\Subsystems\Scripting\Script.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\GraphicsContext.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\GUIToolkit.cpp" />
     <ClCompile Include="src\cspacepch.cpp">
@@ -131,6 +132,7 @@
     <ClCompile Include="src\Cyberspace\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Cyberspace\Subsystems\Scripting\Script.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\GraphicsContext.h" />
     <ClInclude Include="src\Cyberspace\Core\Timestep.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\GUIToolkit.h" />

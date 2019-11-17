@@ -8,15 +8,6 @@
 #include "./Subsystems/AssetManagement/Model.h"
 #include "./Subsystems/Audio/AudioComponent.h"
 
-extern "C"
-{
-#include "lua.h"
-#include "lauxlib.h"
-#include "lualib.h"
-}
-
-#include "LuaBridge/LuaBridge.h"
-
 #include "Transform.h"
 
 namespace Cyberspace {

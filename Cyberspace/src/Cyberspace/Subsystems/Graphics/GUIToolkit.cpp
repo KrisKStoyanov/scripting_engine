@@ -52,11 +52,12 @@ namespace Cyberspace {
 			ImGui::Checkbox("VSync: ", &_props.m_GraphicsProps.m_VSync);
 			ImGui::Checkbox("4xMSAA: ", &_props.m_GraphicsProps.m_MSAA);
 			ImGui::Checkbox("Fullscreen: ", &_props.m_GraphicsProps.m_Fullscreen);
-			if (ImGui::BeginCombo("Resolution: ", m_CurrentRes, ImGuiComboFlags_NoArrowButton)) {
-				for (int i = 0; i < IM_ARRAYSIZE(m_Resolutions); ++i) {
-					bool is_selected = (m_CurrentRes == m_Resolutions[i]);
-					if (ImGui::Selectable(m_Resolutions[i], is_selected)) {
-						m_CurrentRes = m_Resolutions[i];
+			if (ImGui::BeginCombo("Resolution: ", _props.m_GraphicsProps.m_DisFormat.DisplayFormat.c_str(), ImGuiComboFlags_NoArrowButton)) {
+				for (int i = 0; i < _props.m_GraphicsProps.m_AvDisFormats.size(); ++i) {
+					bool is_selected = (
+						_props.m_GraphicsProps.m_DisFormat.DisplayFormat == _props.m_GraphicsProps.m_AvDisFormats[i].DisplayFormat);
+					if (ImGui::Selectable(_props.m_GraphicsProps.m_AvDisFormats[i].DisplayFormat.c_str(), is_selected)) {
+						_props.m_GraphicsProps.m_DisFormat = _props.m_GraphicsProps.m_AvDisFormats[i];
 					}
 					if (is_selected) {
 						ImGui::SetItemDefaultFocus();

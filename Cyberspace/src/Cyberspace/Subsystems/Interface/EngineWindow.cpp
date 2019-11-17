@@ -46,10 +46,10 @@ namespace Cyberspace {
 			glEnable(GL_MULTISAMPLE);
 		}
 		if(_props.m_Fullscreen) {
-			m_Window = glfwCreateWindow(_props.m_ResX, _props.m_ResY, _props.m_WinTitle.c_str(), monitor, NULL);
+			m_Window = glfwCreateWindow(_props.m_DisFormat.ResX, _props.m_DisFormat.ResY, _props.m_WinTitle.c_str(), monitor, NULL);
 		}
 		else {
-			m_Window = glfwCreateWindow(_props.m_ResX, _props.m_ResY, _props.m_WinTitle.c_str(), NULL, NULL);
+			m_Window = glfwCreateWindow(_props.m_DisFormat.ResX, _props.m_DisFormat.ResY, _props.m_WinTitle.c_str(), NULL, NULL);
 		}
 		
 		glfwMakeContextCurrent(m_Window);
@@ -88,12 +88,12 @@ namespace Cyberspace {
 			glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 		}
 		if (_props.m_Fullscreen) {
-			GLFWwindow* bufferWindow = glfwCreateWindow(_props.m_ResX, _props.m_ResY, _props.m_WinTitle.c_str(), glfwGetPrimaryMonitor(), m_Window);
+			GLFWwindow* bufferWindow = glfwCreateWindow(_props.m_DisFormat.ResX, _props.m_DisFormat.ResY, _props.m_WinTitle.c_str(), glfwGetPrimaryMonitor(), m_Window);
 			glfwDestroyWindow(m_Window);
 			m_Window = bufferWindow;
 		}
 		else {
-			GLFWwindow* bufferWindow = glfwCreateWindow(_props.m_ResX, _props.m_ResY, _props.m_WinTitle.c_str(), NULL, m_Window);
+			GLFWwindow* bufferWindow = glfwCreateWindow(_props.m_DisFormat.ResX, _props.m_DisFormat.ResY, _props.m_WinTitle.c_str(), NULL, m_Window);
 			glfwDestroyWindow(m_Window);
 			m_Window = bufferWindow;
 		}

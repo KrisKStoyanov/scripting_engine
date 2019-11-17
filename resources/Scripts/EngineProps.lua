@@ -10,6 +10,21 @@ Graphics = {
     msaa = true
 }
 
+ResFormatList = {
+    ResFormat1 = {
+    	ResX = 1600,
+	ResY = 900
+    },
+    ResFormat2 = {
+    	ResX = 1280,
+	ResY = 720
+    },
+    ResFormat3 = {
+    	ResX = 800,
+	ResY = 600
+    }
+}
+
 assetManagement = {
     vehicleModelPath = "../resources/3D/Vehicle/SpaceCar.fbx",
     modelVertexShaderPath = "../resources/Shaders/TextureVertexShader.glsl",
