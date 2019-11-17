@@ -70,7 +70,6 @@ namespace Cyberspace {
 			case EventType::UPDATE_SETTINGS:
 				m_Window->Recreate(m_Props.m_GraphicsProps);
 				m_Renderer->Restart(m_Props.m_GraphicsProps, m_AssetManager->LoadedModels);
-				m_Props.m_GraphicsProps.m_Defaults = false;
 				BlockingEventQueue.pop();
 				break;
 			case EventType::EXIT:

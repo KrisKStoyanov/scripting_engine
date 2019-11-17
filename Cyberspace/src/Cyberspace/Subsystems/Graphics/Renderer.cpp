@@ -24,7 +24,6 @@ namespace Cyberspace {
 			fprintf(stderr, "Error: %s\n", glewGetErrorString(initState));
 		}
 		
-		glClearColor(0.35f, 0.35f, 0.35f, 1.0f);
 		glEnable(GL_DEPTH_TEST);
 
 		DirLight = new Light(
@@ -52,7 +51,6 @@ namespace Cyberspace {
 		}
 		MainSkybox->Clear();
 		MainSkybox = new Skybox(SkyboxFaceTexturePaths);
-		glClearColor(0.35f, 0.35f, 0.35f, 1.0f);
 		glEnable(GL_DEPTH_TEST);
 	}
 
