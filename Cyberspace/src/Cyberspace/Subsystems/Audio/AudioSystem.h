@@ -45,8 +45,6 @@ namespace Cyberspace {
 
 		FMOD::Channel* BGM_Channel = NULL;
 		FMOD::Channel* SFX_Channel = NULL;
-	private:
-		AudioProps m_Props;
 	};
 }
 

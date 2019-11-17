@@ -20,7 +20,6 @@ namespace Cyberspace {
 	{
 	public:
 		static CyberNet* Create(const NetworkProps& _props = NetworkProps());
-		CyberNet(const NetworkProps& _props);
 		~CyberNet();
 		void Init(const NetworkProps& _props);
 		void CreateClient();
@@ -31,6 +30,8 @@ namespace Cyberspace {
 		void Terminate();
 		ENetHost* m_Client;
 		ENetPeer* m_Peer;
+	private:
+		CyberNet(const NetworkProps& _props);
 	};
 }
 

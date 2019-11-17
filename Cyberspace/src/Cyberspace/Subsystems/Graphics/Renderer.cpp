@@ -113,24 +113,10 @@ namespace Cyberspace {
 		std::queue<CyberEvent*>& _BlockingEventQueue, 
 		std::queue<CyberEvent*>& _EventQueue, 
 		std::unordered_map<std::string, Shader*> _ShaderMap, 
-		std::unordered_map<std::string, Entity*> _EntityMap, 
+		std::unordered_map<int, Entity*> _EntityMap, 
 		double _CursorPosX, double _CursorPosY, float _DeltaTime)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		if (!_BlockingEventQueue.empty()) {
-			std::vector<EventTag>::iterator Tag = std::find(_BlockingEventQueue.front()->Tags.begin(), _BlockingEventQueue.front()->Tags.end(), EventTag::GRAPHICS);
-			if (Tag != _BlockingEventQueue.front()->Tags.end()) {
-				_BlockingEventQueue.front()->Tags.erase(Tag);
-				switch (_BlockingEventQueue.front()->Type) {
-				case EventType::TOGGLE_CAMERA_MOVEMENT:
-					m_EnableCameraMovement = !m_EnableCameraMovement;
-					if (_BlockingEventQueue.front()->Tags.empty()) {
-						_BlockingEventQueue.pop();
-					}
-					break;
-				}
-			}
-		}
 		if (!_EventQueue.empty()) {
 			std::vector<EventTag>::iterator Tag = std::find(_EventQueue.front()->Tags.begin(), _EventQueue.front()->Tags.end(), EventTag::GRAPHICS);
 			if (Tag != _EventQueue.front()->Tags.end()) {
@@ -173,7 +159,7 @@ namespace Cyberspace {
 				}
 			}
 		}
-		for (std::pair<std::string, Entity*> iter : _EntityMap) {
+		for (std::pair<int, Entity*> iter : _EntityMap) {
 			Draw(MainCamera, iter.second->GetModel(), iter.second->GetTransform(), _ShaderMap["Model"]);
 		}
 		if (m_EnableCameraMovement) {

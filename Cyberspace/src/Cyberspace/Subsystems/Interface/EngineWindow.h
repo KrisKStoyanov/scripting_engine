@@ -27,22 +27,14 @@ namespace Cyberspace {
 		~EngineWindow();
 		void Init(const GraphicsProps& _props);
 		void Recreate(const GraphicsProps& _props);
+		void Configure(const GraphicsProps& _props);
 		void Terminate();
-
-		inline bool GetVSync() { return m_VSync; }
-		void SetVSync(bool _enable);
-
-		inline bool GetCursorEnabled() { return m_Cursor; }
-		void SetCursorEnabled(bool _enable);
 
 		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue);
 		double CursorPosX, CursorPosY;
 		GLFWwindow* GetNativeWindow();
 	private:
 		EngineWindow(const GraphicsProps& _props);
-		bool m_VSync;
-		bool m_Cursor;
-
 		GLFWwindow* m_Window = NULL;
 	};
 }

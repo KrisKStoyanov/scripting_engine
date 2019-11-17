@@ -38,20 +38,8 @@ namespace Cyberspace {
 			_props.m_Fullscreen ? glfwGetPrimaryMonitor() : NULL, 
 			NULL);
 		glfwMakeContextCurrent(m_Window);
+		Configure(_props);
 
-		if (_props.m_VSync) {
-			glfwSwapInterval(1);
-		} 
-		else {
-			glfwSwapInterval(0);
-		}
-		if (_props.m_EnCursor) {
-			glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-				
-		}
-		else {
-			glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-		}
 	}
 
 	void EngineWindow::Recreate(const GraphicsProps& _props)
@@ -74,22 +62,26 @@ namespace Cyberspace {
 		m_Window = bufferWindow;
 		
 		glfwMakeContextCurrent(m_Window);
+		Configure(_props);
 
 		ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
 	}
 
-	void EngineWindow::SetCursorEnabled(bool _enable)
+	void EngineWindow::Configure(const GraphicsProps& _props)
 	{
-		m_Cursor = _enable;
-		m_Cursor ?
-			glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL) :
-			glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	}
+		if (_props.m_VSync) {
+			glfwSwapInterval(1);
+		}
+		else {
+			glfwSwapInterval(0);
+		}
+		if (_props.m_EnCursor) {
+			glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
-	void EngineWindow::SetVSync(bool _enable)
-	{
-		m_VSync = _enable;
-		m_VSync ? glfwSwapInterval(1) : glfwSwapInterval(0);
+		}
+		else {
+			glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		}
 	}
 
 	void EngineWindow::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue)
@@ -98,14 +90,12 @@ namespace Cyberspace {
 		glfwPollEvents();
 
 		glfwGetCursorPos(m_Window, &CursorPosX, &CursorPosY);
-		if (glfwGetKey(m_Window, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(m_Window)) {
+		if (glfwWindowShouldClose(m_Window)) {
 			_BlockingEventQueue.push(new CyberEvent(EventType::EXIT));
 		}
-		if (glfwGetKey(m_Window, GLFW_KEY_G) == GLFW_PRESS) {
-			_BlockingEventQueue.push(new CyberEvent(EventType::TOGGLE_GUI, EventTag::GRAPHICS));
-		}
-		if (glfwGetKey(m_Window, GLFW_KEY_C) == GLFW_PRESS) {
-			_BlockingEventQueue.push(new CyberEvent(EventType::TOGGLE_CURSOR, EventTag::WINDOW));
+
+		if (glfwGetKey(m_Window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+			_BlockingEventQueue.push(new CyberEvent(EventType::PAUSE));
 		}
 
 		if (glfwGetKey(m_Window, GLFW_KEY_UP) == GLFW_PRESS) {
@@ -121,23 +111,18 @@ namespace Cyberspace {
 			_EventQueue.push(new CyberEvent(EventType::CAMERA_MOVE_RIGHT, EventTag::GRAPHICS));
 		}
 
-		if (!_BlockingEventQueue.empty()) {
-			std::vector<EventTag>::iterator Tag = std::find(_BlockingEventQueue.front()->Tags.begin(), _BlockingEventQueue.front()->Tags.end(), EventTag::WINDOW);
-			if (Tag != _BlockingEventQueue.front()->Tags.end()) {
-				_BlockingEventQueue.front()->Tags.erase(Tag);
-				switch (_BlockingEventQueue.front()->Type) {
-
-				case EventType::TOGGLE_CAMERA_MOVEMENT:
-					m_Cursor = !m_Cursor;
-					SetCursorEnabled(m_Cursor);
-					if (_BlockingEventQueue.front()->Tags.empty()) {
-						_BlockingEventQueue.pop();
-					}
-					break;
-				}
-			}
+		if (glfwGetKey(m_Window, GLFW_KEY_W) == GLFW_PRESS) {
+			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_FORWARD));
 		}
-	
+		if (glfwGetKey(m_Window, GLFW_KEY_S) == GLFW_PRESS) {
+			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_BACKWARD));
+		}
+		if (glfwGetKey(m_Window, GLFW_KEY_A) == GLFW_PRESS) {
+			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_LEFT));
+		}
+		if (glfwGetKey(m_Window, GLFW_KEY_D) == GLFW_PRESS) {
+			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_RIGHT));
+		}
 	}
 
 	GLFWwindow* EngineWindow::GetNativeWindow()

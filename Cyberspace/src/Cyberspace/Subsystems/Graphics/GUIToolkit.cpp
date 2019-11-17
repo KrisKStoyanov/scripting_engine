@@ -34,9 +34,13 @@ namespace Cyberspace {
 		switch (m_State) {
 		case GUIState::StartMenu:
 			ImGui::Begin("Main Menu");
+			if (ImGui::Button("Connect")) {
+				_BlockingEventQueue.push(new CyberEvent(EventType::CONNECT));
+			}
 			if (ImGui::Button("Start")) {
 				m_State = GUIState::Gameplay;
-				_BlockingEventQueue.push(new CyberEvent(EventType::TOGGLE_CAMERA_MOVEMENT, EventTag::GRAPHICS, EventTag::WINDOW));
+				_props.m_GraphicsProps.m_EnCursor = false;
+				_BlockingEventQueue.push(new CyberEvent(EventType::START));
 			}
 			if (ImGui::Button("Settings")) {
 				m_State = GUIState::Settings;
@@ -78,21 +82,16 @@ namespace Cyberspace {
 			ImGui::End();
 			break;
 		case GUIState::Gameplay:
-			ImGui::Begin("Gameplay");
-			if (ImGui::Button("Pause")) {
-				m_State = GUIState::PauseMenu;
+			if (_props.m_GMProps.Paused) {
+				if (ImGui::Button("Resume")) {
+					_props.m_GraphicsProps.m_EnCursor = false;
+					_props.m_GMProps.Paused = false;
+					_BlockingEventQueue.push(new CyberEvent(EventType::RESUME));
+				}
+				if (ImGui::Button("Back to Main Menu")) {
+					m_State = GUIState::StartMenu;
+				}
 			}
-			ImGui::End();
-			break;
-		case GUIState::PauseMenu:
-			ImGui::Begin("Pause Menu");
-			if (ImGui::Button("Resume")) {
-				m_State = GUIState::Gameplay;
-			}
-			if (ImGui::Button("Back to Main Menu")) {
-				m_State = GUIState::StartMenu;
-			}
-			ImGui::End();
 			break;
 		default:
 			break;

@@ -9,10 +9,11 @@
 #include <enet/enet.h>
 #include <iostream>
 
+//Not part of the DLL (using API namespace for object references)
 class GameServer
 {
 public:
-	//std::vector<Entity*> ServerEntityCollection;
+	std::vector<glm::vec3> ServerEntityPositions;
 	static GameServer* Create();
 	int Init();
 	void CreateServer();

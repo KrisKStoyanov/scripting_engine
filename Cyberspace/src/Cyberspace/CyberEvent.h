@@ -8,10 +8,9 @@ namespace Cyberspace {
 		//Blocking
 		START,
 		PAUSE,
+		RESUME,
 		EXIT,
-		TOGGLE_CAMERA_MOVEMENT,
-		TOGGLE_CURSOR,
-		TOGGLE_GUI,
+		CONNECT,
 		UPDATE_SETTINGS,
 		//Non-blocking
 		VEHICLE_MOVE_FORWARD,

@@ -6,11 +6,11 @@ namespace Cyberspace {
 
 	class CSPACE_API CyberMap {
 	public:
-		CyberMap();
+		CyberMap(std::unordered_map<int, Entity*> _mapEntities);
 		~CyberMap();
-		void AddEntity(std::string _tag, Entity* _entity);
-		void RemoveEntity(std::string _tag);
-		std::unordered_map<std::string, Entity*> MapEntities;
-		glm::vec3 PlayerSpawnPosition = glm::vec3(0.0f, 0.0f, 0.0f);
+		void AddEntity(int _id, Entity* _entity);
+		void RemoveEntity(int _id);
+		std::unordered_map<int, Entity*> m_Entities;
+		glm::vec3 m_SpawnPosition = glm::vec3(0.0f, 0.0f, 0.0f);
 	};
 }

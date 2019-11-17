@@ -43,21 +43,7 @@ namespace Cyberspace {
 
 	void AudioSystem::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue)
 	{
-		if (!_BlockingEventQueue.empty()) {
-			std::vector<EventTag>::iterator Tag = std::find(_BlockingEventQueue.front()->Tags.begin(), _BlockingEventQueue.front()->Tags.end(), EventTag::GRAPHICS);
-			if (Tag != _BlockingEventQueue.front()->Tags.end()) {
-				_BlockingEventQueue.front()->Tags.erase(Tag);
-				switch (_BlockingEventQueue.front()->Type) {
-				case EventType::UPDATE_SETTINGS:
-					Configure(m_Props);
-					if (_BlockingEventQueue.front()->Tags.empty()) {
-						_BlockingEventQueue.pop();
-					}
-					break;
 
-				}
-			}
-		}
 	}
 
 	void AudioSystem::HandleEvent(CyberEvent* _Event)

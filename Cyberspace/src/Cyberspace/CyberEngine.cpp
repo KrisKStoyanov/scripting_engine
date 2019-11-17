@@ -39,8 +39,7 @@ namespace Cyberspace {
 		m_AssetManager = std::unique_ptr<AssetManager>(AssetManager::Create(_props.m_AMProps));
 
 		//------
-		m_GameManager = std::unique_ptr<GameManager>(GameManager::Create(_props.m_GMProps));
-		m_GameManager->PlayerEntity->SetModel(m_AssetManager->LoadedModels[_props.m_GMProps.PlayerTag]);
+		m_GameManager = std::unique_ptr<GameManager>(GameManager::Create(m_AssetManager->LoadedModels, _props.m_GMProps));
 
 		//m_AudioSystem->PlayBGM(0);
 		//m_GameManager->PlayerEntity = new Entity();
@@ -60,13 +59,38 @@ namespace Cyberspace {
 		m_Window->OnUpdate(BlockingEventQueue, EventQueue);
 		m_Renderer->OnUpdate(BlockingEventQueue, EventQueue, 
 			m_AssetManager->LoadedShaders,
-			m_GameManager->GameMaps[m_GameManager->CurrentMap]->MapEntities,
+			m_GameManager->GameMaps[m_GameManager->CurrentMapID]->m_Entities,
 			m_Window->CursorPosX, m_Window->CursorPosY, _ts.GetSeconds());
 		m_GUI->OnUpdate(BlockingEventQueue, EventQueue, m_Props);
-		m_NetSystem->OnUpdate(EventQueue, updatedPositions);
+		m_GameManager->OnUpdate(EventQueue, _ts.GetSeconds());
+		if (m_Props.m_NetProps.m_ClientState == ClientState::Connected) {
+			m_NetSystem->OnUpdate(EventQueue, updatedPositions);
+		}
 		
 		if (!BlockingEventQueue.empty()) {
 			switch (BlockingEventQueue.front()->Type) {
+			case EventType::CONNECT:
+				m_Props.m_NetProps.m_ClientState = ClientState::Connected;
+				m_NetSystem->ConnectToHost();
+				BlockingEventQueue.pop();
+				break;
+			case EventType::START:
+				m_Window->Configure(m_Props.m_GraphicsProps);
+				m_Renderer->SetCameraMovement(true);
+				BlockingEventQueue.pop();
+				break;
+			case EventType::PAUSE:
+				m_Props.m_GraphicsProps.m_EnCursor = true;
+				m_Props.m_GMProps.Paused = true;
+				m_Window->Configure(m_Props.m_GraphicsProps);
+				m_Renderer->SetCameraMovement(false);
+				BlockingEventQueue.pop();
+				break;
+			case EventType::RESUME:
+				m_Window->Configure(m_Props.m_GraphicsProps);
+				m_Renderer->SetCameraMovement(true);
+				BlockingEventQueue.pop();
+				break;
 			case EventType::UPDATE_SETTINGS:
 				m_Window->Recreate(m_Props.m_GraphicsProps);
 				m_Renderer->Restart(m_Props.m_GraphicsProps, m_AssetManager->LoadedModels);
@@ -74,9 +98,6 @@ namespace Cyberspace {
 				break;
 			case EventType::EXIT:
 				SetTick(false);
-				BlockingEventQueue.pop();
-				break;
-			case EventType::PAUSE:
 				BlockingEventQueue.pop();
 				break;
 			default:

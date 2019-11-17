@@ -1,9 +1,11 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <unordered_map>
 #include <glm/glm.hpp>
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "Cyberspace/Entity.h"
 
 //This file is used to set the properties of the game/application
 //through multiple different settings for each individual API integrated in the engine
@@ -89,30 +91,44 @@ namespace Cyberspace {
 	};
 
 	struct GMProps {
-		std::string PlayerTag;
-		std::string VehicleTag;
-		std::string EnvironmentTag;
-		std::string StartMapTag;
-		glm::vec3 PlayerSpawnPosition;
-		float PlayerSpeed;
-		GMProps(
-			std::string _playerTag = "Vehicle",
-			std::string _vehicleTag = "VehicleModel",
-			std::string _environmentTag = "Canyon",
-			std::string _startMapTag = "TitleScreen",
-			glm::vec3 _playerSpawnPosition = glm::vec3(0.0f, 0.0f, -10.0f),
-			float _playerSpeed = 5.0f) :
-			PlayerTag(_playerTag),
-			VehicleTag(_vehicleTag),
-			EnvironmentTag(_environmentTag),
-			StartMapTag(_startMapTag),
-			PlayerSpawnPosition(_playerSpawnPosition),
-			PlayerSpeed(_playerSpeed)
-		{}
+		int m_PlayerID;
+		int m_MapID;
+		glm::vec3 m_SpawnPosition;
+		std::string m_PlayerModelTag;
+		std::unordered_map<int, Entity*> m_Entities;
+		bool Paused = false;
+		GMProps(int _playerID = 0, int _mapID = 0,
+			glm::vec3 _spawnPosition = glm::vec3(0.0f, 0.0f, -10.0f),
+			std::string _playerModelTag = "Vehicle",
+			std::unordered_map<int, Entity*> _entities = 
+			std::unordered_map<int, Entity*>{
+				{ 0, new Entity() }
+			})
+			: 
+			m_PlayerID(_playerID),
+			m_MapID(_mapID),
+			m_SpawnPosition(_spawnPosition),
+			m_PlayerModelTag(_playerModelTag),
+			m_Entities(_entities)
+		{
+		}
+	};
+
+	enum class ClientState : int
+	{
+		Disconnected = 0,
+		Connected,		
+		Connecting,
+		Reconnecting,
+		Disconnecting
 	};
 
 	struct NetworkProps {
-		NetworkProps() {};
+		ClientState m_ClientState;
+		NetworkProps(
+			ClientState _state = ClientState::Disconnected) :
+			m_ClientState(_state)
+		{}
 	};
 
 	struct PhysicsProps {

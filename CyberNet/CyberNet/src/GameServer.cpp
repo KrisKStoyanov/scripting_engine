@@ -21,6 +21,7 @@ int GameServer::Init()
 		return EXIT_FAILURE;
 	}
 	atexit(enet_deinitialize);
+	CreateServer();
 }
 
 void GameServer::CreateServer()
@@ -32,12 +33,13 @@ void GameServer::CreateServer()
 		fprintf(stderr, "An error occured while trying to create an ENet server host.\n");
 		exit(EXIT_FAILURE);
 	}
-	printf("Server is running...\n");
+	printf("Server is running..\n");
+	OnUpdate();
 }
 
 void GameServer::SendPacket(Cyberspace::PacketData* _data)
 {
-	ENetPacket* packet = enet_packet_create(_data, sizeof(_data), ENET_PACKET_FLAG_NO_ALLOCATE);
+	ENetPacket* packet = enet_packet_create(_data, sizeof(_data), ENET_PACKET_FLAG_UNRELIABLE_FRAGMENT);
 	for (ENetPeer* peer : m_Peers) {
 		enet_peer_send(peer, 0, packet);
 	}
@@ -45,16 +47,15 @@ void GameServer::SendPacket(Cyberspace::PacketData* _data)
 
 void GameServer::OnUpdate()
 {
-	std::string netEventData = "Client Info";
 	while (m_Running) {
 		ENetEvent netEvent;
-		while (enet_host_service(m_Server, &netEvent, 0) > 0) {
+		while (enet_host_service(m_Server, &netEvent, 1000) > 0) {
 			switch (netEvent.type) {
 			case ENET_EVENT_TYPE_CONNECT:
 				printf("A new client connected from %x:%u.\n",
 					netEvent.peer->address.host,
 					netEvent.peer->address.port);
-				netEvent.peer->data = &netEventData;
+				netEvent.peer->data = &netEvent.data;
 				m_Peers.push_back(netEvent.peer);
 				break;
 			case ENET_EVENT_TYPE_RECEIVE:
@@ -68,13 +69,13 @@ void GameServer::OnUpdate()
 				break;
 
 			case ENET_EVENT_TYPE_DISCONNECT:
-				printf("%s PACKET NAME", netEvent.packet->data);
 				printf("%s disconnected.\n", netEvent.peer->data);
 				netEvent.peer->data = NULL;
 				//Check if peer is still connected and force disconnect
 			}
 		}
 	}
+	Terminate();
 }
 
 void GameServer::Terminate()

@@ -1,19 +1,19 @@
 #include "CyberMap.h"
 
 namespace Cyberspace {
-	CyberMap::CyberMap() {
-
+	CyberMap::CyberMap(std::unordered_map<int, Entity*> _mapEntities) {
+		m_Entities = _mapEntities;
 	}
 
 	CyberMap::~CyberMap() {
 
 	}
-	void CyberMap::AddEntity(std::string _tag, Entity* _entity)
+	void CyberMap::AddEntity(int _id, Entity* _entity)
 	{
-		MapEntities[_tag] = _entity;
+		m_Entities[_id] = _entity;
 	}
-	void CyberMap::RemoveEntity(std::string _tag)
+	void CyberMap::RemoveEntity(int _id)
 	{
-		MapEntities.erase(_tag);
+		m_Entities.erase(_id);
 	}
 }

@@ -135,6 +135,9 @@
     <ClCompile Include="src\Cyberspace\Subsystems\Scripting\Script.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Cyberspace\Subsystems\Networking\ClientEntity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImGUI\imconfig.h">
@@ -273,6 +276,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Cyberspace\Subsystems\Scripting\Script.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Cyberspace\Subsystems\Networking\ClientEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
