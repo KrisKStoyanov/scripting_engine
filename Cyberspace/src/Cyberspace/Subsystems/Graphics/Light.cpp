@@ -1,3 +1,4 @@
+#include "cspacepch.h"
 #include "Light.h"
 
 namespace Cyberspace {

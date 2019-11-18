@@ -1,3 +1,4 @@
+#include "cspacepch.h"
 #include "GameManager.h"
 
 namespace Cyberspace {

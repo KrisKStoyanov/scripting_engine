@@ -1,3 +1,4 @@
+#include "cspacepch.h"
 #include "Log.h"
 
 namespace Cyberspace {

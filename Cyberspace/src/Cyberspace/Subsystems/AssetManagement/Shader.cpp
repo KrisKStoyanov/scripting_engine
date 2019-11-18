@@ -1,3 +1,4 @@
+#include "cspacepch.h"
 #include "Shader.h"
 namespace Cyberspace {
 	Shader::Shader(const GLchar* _VertexShaderPath, const GLchar* _FragmentShaderPath)

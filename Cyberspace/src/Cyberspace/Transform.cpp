@@ -1,3 +1,4 @@
+#include "cspacepch.h"
 #include "Transform.h"
 
 namespace Cyberspace {

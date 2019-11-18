@@ -1,3 +1,4 @@
+#include "cspacepch.h"
 #include "Camera.h"
 
 namespace Cyberspace {

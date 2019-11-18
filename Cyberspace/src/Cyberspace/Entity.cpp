@@ -1,3 +1,4 @@
+#include "cspacepch.h"
 #include "Entity.h"
 
 namespace Cyberspace {

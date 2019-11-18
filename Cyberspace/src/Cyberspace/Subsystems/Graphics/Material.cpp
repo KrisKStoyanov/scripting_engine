@@ -1,3 +1,4 @@
+#include "cspacepch.h"
 #include "Material.h"
 
 namespace Cyberspace {

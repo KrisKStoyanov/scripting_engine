@@ -1,3 +1,4 @@
+#include "cspacepch.h"
 #include "CyberMap.h"
 
 namespace Cyberspace {

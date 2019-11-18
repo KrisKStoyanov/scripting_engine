@@ -1,4 +1,4 @@
-#include "../cspacepch.h"
+#include "cspacepch.h"
 #include "CyberEngine.h"
 
 namespace Cyberspace {

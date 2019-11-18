@@ -1,3 +1,4 @@
+#include "cspacepch.h"
 #include "AssetManager.h"
 
 namespace Cyberspace {

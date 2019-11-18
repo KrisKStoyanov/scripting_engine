@@ -1,3 +1,4 @@
+#include "cspacepch.h"
 #include "GUIToolkit.h"
 
 namespace Cyberspace {

@@ -1,3 +1,4 @@
+#include "cspacepch.h"
 #include "AudioComponent.h"
 
 namespace Cyberspace {

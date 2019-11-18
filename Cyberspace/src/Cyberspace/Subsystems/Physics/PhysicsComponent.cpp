@@ -1,3 +1,4 @@
+#include "cspacepch.h"
 #include "PhysicsComponent.h"
 
 namespace Cyberspace {
