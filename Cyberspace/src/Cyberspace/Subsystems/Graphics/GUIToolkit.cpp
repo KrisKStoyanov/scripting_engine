@@ -31,7 +31,7 @@ namespace Cyberspace {
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
-		ImGui::ShowDemoWindow(&showDemo);
+		
 		switch (m_State) {
 		case GUIState::StartMenu:
 			ImGui::Begin("Main Menu");

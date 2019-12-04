@@ -2,7 +2,7 @@
 
 namespace Cyberspace {
 
-	class Timestep {
+	class CSPACE_API Timestep {
 	public:
 		Timestep(float _time = 0.0f) : m_Time(_time)
 		{
