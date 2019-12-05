@@ -19,15 +19,18 @@ namespace Cyberspace {
 	void GameManager::Init(std::unordered_map<std::string, Model*> _models, const GMProps& _props)
 	{
 		PlayerEntityID = _props.m_PlayerID;
+		int EnvironmentID = PlayerEntityID++;
 		CurrentMapID = _props.m_MapID;
-		GameMaps[CurrentMapID] = new CyberMap(_props.m_Entities);
+		GameMaps[CurrentMapID] = new CyberMap();
 		GameMaps[CurrentMapID]->m_SpawnPosition = _props.m_SpawnPosition;
+		GameMaps[CurrentMapID]->AddEntity(PlayerEntityID, new Entity());
+		GameMaps[CurrentMapID]->AddEntity(EnvironmentID, new Entity());
 		GameMaps[CurrentMapID]->m_Entities[PlayerEntityID]->SetTransform(new Transform(_props.m_SpawnPosition));
 		GameMaps[CurrentMapID]->m_Entities[PlayerEntityID]->SetModel(_models[_props.m_PlayerModelTag]);
 		GameMaps[CurrentMapID]->m_Entities[PlayerEntityID]->GetTransform()->Rotate(-90.0f, 0.0f, -90.0f);
-		GameMaps[CurrentMapID]->m_Entities[1]->SetTransform(new Transform(_props.m_SpawnPosition));
-		GameMaps[CurrentMapID]->m_Entities[1]->SetModel(_models[_props.m_EnvironmentModelTag]);
-		GameMaps[CurrentMapID]->m_Entities[1]->GetTransform()->Rotate(-90.0f, 0.0f, -90.0f);
+		GameMaps[CurrentMapID]->m_Entities[EnvironmentID]->SetTransform(new Transform(_props.m_SpawnPosition));
+		GameMaps[CurrentMapID]->m_Entities[EnvironmentID]->SetModel(_models[_props.m_EnvironmentModelTag]);
+		GameMaps[CurrentMapID]->m_Entities[EnvironmentID]->GetTransform()->Rotate(-90.0f, 0.0f, -90.0f);
 	}
 	void GameManager::OnUpdate(std::queue<CyberEvent*>& _EventQueue, float _DeltaTime)
 	{

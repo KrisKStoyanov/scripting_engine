@@ -6,6 +6,10 @@ namespace Cyberspace {
 		m_Entities = _mapEntities;
 	}
 
+	CyberMap::CyberMap()
+	{
+	}
+
 	CyberMap::~CyberMap() {
 
 	}
