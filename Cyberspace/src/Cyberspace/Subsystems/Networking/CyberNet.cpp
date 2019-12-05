@@ -36,7 +36,7 @@ namespace Cyberspace {
 		}
 	}
 
-	void CyberNet::ConnectToHost() {
+	bool CyberNet::ConnectToHost() {
 		ENetAddress address;
 		enet_address_set_host(&address, ENET_HOST_ANY);
 		address.port = 1234;
@@ -48,11 +48,12 @@ namespace Cyberspace {
 		ENetEvent netEvent;
 		if (enet_host_service(m_Client, &netEvent, 5000) > 0 && netEvent.type == ENET_EVENT_TYPE_CONNECT) {
 			puts("Connection to server succeeded.");
-			//SendPacket(new PacketData())
+			return true;
 		}
 		else {
 			enet_peer_reset(m_Peer);
 			puts("Connection to server failed.");
+			return false;
 		}
 	}
 
@@ -82,7 +83,7 @@ namespace Cyberspace {
 		}
 	}
 
-	void CyberNet::OnUpdate(std::queue<CyberEvent*>& _EventQueue, std::vector<glm::vec3> _UpdatedPositions)
+	void CyberNet::OnUpdate(std::queue<CyberEvent*>& _EventQueue)
 	{
 		ENetEvent netEvent;
 		while (enet_host_service(m_Client, &netEvent, 0) > 0) {

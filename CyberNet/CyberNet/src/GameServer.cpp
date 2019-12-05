@@ -40,6 +40,9 @@ void GameServer::CreateServer()
 void GameServer::SendPacket(Cyberspace::PacketData* _data)
 {
 	ENetPacket* packet = enet_packet_create(_data, sizeof(_data), ENET_PACKET_FLAG_UNRELIABLE_FRAGMENT);
+	//for (auto it : m_PeerMap) {
+	//	enet_peer_send(it.second, 0, packet);
+	//}
 	for (ENetPeer* peer : m_Peers) {
 		enet_peer_send(peer, 0, packet);
 	}
@@ -55,21 +58,24 @@ void GameServer::OnUpdate()
 				printf("A new client connected from %x:%u.\n",
 					netEvent.peer->address.host,
 					netEvent.peer->address.port);
-				netEvent.peer->data = &netEvent.data;
+				netEvent.peer->data = &playerId;
 				m_Peers.push_back(netEvent.peer);
+				//Cyberspace::PacketData* peerData = new Cyberspace::PacketData(entityPositions);
+				//SendPacket(peerData);
 				break;
 			case ENET_EVENT_TYPE_RECEIVE:
-				printf("A packet of length %u containing %s was received  from %s on channel %u.\n",
+				printf("A packet of length %u containing %s was received from %s on channel %u.\n",
 					netEvent.packet->dataLength,
 					netEvent.packet->data,
-					netEvent.peer->data,
+					&netEvent.peer->data,
 					netEvent.channelID);
+				
 				enet_packet_destroy(netEvent.packet);
 
 				break;
 
 			case ENET_EVENT_TYPE_DISCONNECT:
-				printf("%s disconnected.\n", netEvent.peer->data);
+				printf("%s disconnected.\n", &netEvent.peer->data);
 				netEvent.peer->data = NULL;
 				//Check if peer is still connected and force disconnect
 			}

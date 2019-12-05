@@ -64,14 +64,31 @@ namespace Cyberspace {
 		m_GUI->OnUpdate(BlockingEventQueue, EventQueue, m_Props);
 		m_GameManager->OnUpdate(EventQueue, _ts.GetSeconds());
 		if (m_Props.m_NetProps.m_ClientState == ClientState::Connected) {
-			m_NetSystem->OnUpdate(EventQueue, updatedPositions);
+			m_NetSystem->OnUpdate(EventQueue);
+			m_NetSystem->SendPacket(
+				new PacketData(
+					m_GameManager->PlayerEntityID,
+					m_GameManager->GameMaps[m_GameManager->CurrentMapID]->
+					m_Entities[m_GameManager->PlayerEntityID]->GetTransform()->GetPosition()));
 		}
 		
 		if (!BlockingEventQueue.empty()) {
 			switch (BlockingEventQueue.front()->Type) {
 			case EventType::CONNECT:
-				m_Props.m_NetProps.m_ClientState = ClientState::Connected;
-				m_NetSystem->ConnectToHost();
+				if (m_NetSystem->ConnectToHost()) {
+					m_Props.m_NetProps.m_ClientState = ClientState::Connected;
+					for (auto it : m_GameManager->GameMaps[m_GameManager->CurrentMapID]->m_Entities) {
+						m_NetSystem->SendPacket(new PacketData(it.first, it.second->GetTransform()->GetPosition()));
+					}
+				}
+				else {
+					m_Props.m_NetProps.m_ClientState = ClientState::Disconnected;
+				}			
+				BlockingEventQueue.pop();
+				break;
+			case EventType::DISCONNECT:
+				m_NetSystem->Disconnect();
+				m_Props.m_NetProps.m_ClientState = ClientState::Disconnected;
 				BlockingEventQueue.pop();
 				break;
 			case EventType::START:

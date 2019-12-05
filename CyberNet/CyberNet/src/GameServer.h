@@ -13,7 +13,7 @@
 class GameServer
 {
 public:
-	std::vector<glm::vec3> ServerEntityPositions;
+	std::unordered_map<int, glm::vec3> entityPositions;
 	static GameServer* Create();
 	int Init();
 	void CreateServer();
@@ -24,6 +24,7 @@ public:
 	ENetHost* m_Server;
 	bool m_Running = true;
 	std::vector<ENetPeer*> m_Peers;
+	std::string playerId = "1";
 private:
 	GameServer();
 	~GameServer();

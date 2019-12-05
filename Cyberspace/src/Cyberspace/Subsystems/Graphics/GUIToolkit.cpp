@@ -35,8 +35,19 @@ namespace Cyberspace {
 		switch (m_State) {
 		case GUIState::StartMenu:
 			ImGui::Begin("Main Menu");
-			if (ImGui::Button("Connect")) {
-				_BlockingEventQueue.push(new CyberEvent(EventType::CONNECT));
+			if (_props.m_NetProps.m_ClientState == ClientState::Connected) {
+				if (ImGui::Button("Disconnect")) {
+					if (_props.m_NetProps.m_ClientState != ClientState::Disconnected) {
+						_props.m_NetProps.m_ClientState = ClientState::Disconnecting;
+						_BlockingEventQueue.push(new CyberEvent(EventType::DISCONNECT));
+					}
+				}
+			}
+			else {
+				if (ImGui::Button("Connect")) {
+					_props.m_NetProps.m_ClientState = ClientState::Connecting;
+					_BlockingEventQueue.push(new CyberEvent(EventType::CONNECT));
+				}
 			}
 			if (ImGui::Button("Start")) {
 				m_State = GUIState::Gameplay;

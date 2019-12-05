@@ -11,6 +11,7 @@ namespace Cyberspace {
 		RESUME,
 		EXIT,
 		CONNECT,
+		DISCONNECT,
 		UPDATE_SETTINGS,
 		//Non-blocking
 		VEHICLE_MOVE_FORWARD,

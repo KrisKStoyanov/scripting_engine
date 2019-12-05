@@ -99,7 +99,7 @@ namespace Cyberspace {
 		std::unordered_map<int, Entity*> m_Entities;
 		bool Paused = false;
 		GMProps(int _playerID = 0, int _mapID = 0,
-			glm::vec3 _spawnPosition = glm::vec3(0.0f, -2.5f, -10.0f),
+			glm::vec3 _spawnPosition = glm::vec3(0.0f, -5.f, -30.0f),
 			std::string _playerModelTag = "Vehicle",
 			std::string _envModelTag = "Environment")
 			: 
