@@ -69,7 +69,7 @@ void GameServer::OnUpdate()
 					netEvent.packet->data,
 					&netEvent.peer->data,
 					netEvent.channelID);
-				
+				enet_host_broadcast(m_Server, 0, netEvent.packet);
 				enet_packet_destroy(netEvent.packet);
 
 				break;
