@@ -57,6 +57,17 @@ namespace Cyberspace {
 		}
 	}
 
+	void CyberNet::ProcessPacket(ENetPacket* _packet)
+	{
+		Cyberspace::PacketData* data = (Cyberspace::PacketData*)_packet->data;
+		printf("Received Packet:\n"
+			"Length: %u \n"
+			"Contents: EntityID: %u Entity Position: X:%f, Y:%f, Z:%f \n",
+			_packet->dataLength,
+			data->entityID,
+			data->entityPos.x, data->entityPos.y, data->entityPos.z);
+	}
+
 	void CyberNet::SendPacket(PacketData* _data)
 	{
 		ENetPacket* packet = enet_packet_create(_data, sizeof(_data), ENET_PACKET_FLAG_UNRELIABLE_FRAGMENT);
@@ -95,11 +106,12 @@ namespace Cyberspace {
 				netEvent.peer->data = &netEvent.data;
 				break;
 			case ENET_EVENT_TYPE_RECEIVE:
-				printf("A packet of length %u containing %s was received  from %s on channel %u.\n",
-					netEvent.packet->dataLength,
-					netEvent.packet->data,
-					netEvent.peer->data,
-					netEvent.channelID);
+				//printf("A packet of length %u containing %s was received  from %s on channel %u.\n",
+				//	netEvent.packet->dataLength,
+				//	netEvent.packet->data,
+				//	netEvent.peer->data,
+				//	netEvent.channelID);
+				ProcessPacket(netEvent.packet);
 				enet_packet_destroy(netEvent.packet);
 				break;
 

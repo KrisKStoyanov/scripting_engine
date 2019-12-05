@@ -19,7 +19,7 @@ namespace Cyberspace {
 			const GMProps& _props = GMProps());
 		~GameManager();
 		void Init(std::unordered_map<std::string, Model*> _models, const GMProps& _props);
-		void OnUpdate(std::queue<CyberEvent*>& _EventQueue, float _DeltaTime);
+		void OnUpdate(std::queue<CyberEvent*>& _EventQueue, EngineProps _props, float _DeltaTime);
 		void Terminate();
 
 		float PlayerSpeed = 5.0f;

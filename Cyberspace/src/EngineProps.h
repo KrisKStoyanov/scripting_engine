@@ -123,6 +123,7 @@ namespace Cyberspace {
 
 	struct NetworkProps {
 		ClientState m_ClientState;
+		std::unordered_map<int, glm::vec3> m_NetEntityPositions;
 		NetworkProps(
 			ClientState _state = ClientState::Disconnected) :
 			m_ClientState(_state)

@@ -32,8 +32,13 @@ namespace Cyberspace {
 		GameMaps[CurrentMapID]->m_Entities[EnvironmentID]->SetModel(_models[_props.m_EnvironmentModelTag]);
 		GameMaps[CurrentMapID]->m_Entities[EnvironmentID]->GetTransform()->Rotate(-90.0f, 0.0f, -90.0f);
 	}
-	void GameManager::OnUpdate(std::queue<CyberEvent*>& _EventQueue, float _DeltaTime)
+	void GameManager::OnUpdate(std::queue<CyberEvent*>& _EventQueue, EngineProps _props, float _DeltaTime)
 	{
+		if (_props.m_NetProps.m_ClientState == ClientState::Connected) {
+			for (auto it : _props.m_NetProps.m_NetEntityPositions) {
+				GameMaps[CurrentMapID]->m_Entities[it.first]->GetTransform()->SetPosition(it.second);
+			}
+		}
 		if (!_EventQueue.empty()) {
 			switch (_EventQueue.front()->Type) {
 			case EventType::VEHICLE_MOVE_FORWARD:

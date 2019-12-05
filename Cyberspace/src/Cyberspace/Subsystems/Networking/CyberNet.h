@@ -24,6 +24,7 @@ namespace Cyberspace {
 		void Init(const NetworkProps& _props);
 		void CreateClient();
 		bool ConnectToHost();
+		void ProcessPacket(ENetPacket* _packet);
 		void SendPacket(PacketData* _data);
 		void Disconnect();
 		void OnUpdate(std::queue<CyberEvent*>& _EventQueue);

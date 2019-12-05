@@ -62,7 +62,7 @@ namespace Cyberspace {
 			m_GameManager->GameMaps[m_GameManager->CurrentMapID]->m_Entities,
 			m_Window->CursorPosX, m_Window->CursorPosY, _ts.GetSeconds());
 		m_GUI->OnUpdate(BlockingEventQueue, EventQueue, m_Props);
-		m_GameManager->OnUpdate(EventQueue, _ts.GetSeconds());
+		m_GameManager->OnUpdate(EventQueue, m_Props, _ts.GetSeconds());
 		if (m_Props.m_NetProps.m_ClientState == ClientState::Connected) {
 			m_NetSystem->OnUpdate(EventQueue);
 			m_NetSystem->SendPacket(
