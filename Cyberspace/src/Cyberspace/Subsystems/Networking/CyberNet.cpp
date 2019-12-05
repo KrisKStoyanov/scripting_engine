@@ -101,7 +101,6 @@ namespace Cyberspace {
 					netEvent.peer->data,
 					netEvent.channelID);
 				enet_packet_destroy(netEvent.packet);
-
 				break;
 
 			case ENET_EVENT_TYPE_DISCONNECT:
@@ -109,23 +108,6 @@ namespace Cyberspace {
 				netEvent.peer->data = NULL;
 			}
 		}
-
-		//if (!_EventQueue.empty()) {
-		//	std::vector<EventTag>::iterator Tag = std::find(_EventQueue.front()->Tags.begin(), _EventQueue.front()->Tags.end(), EventTag::NETWORK);
-		//	if (Tag != _EventQueue.front()->Tags.end()) {
-		//		_EventQueue.front()->Tags.erase(Tag);
-		//		switch (_EventQueue.front()->Type) {
-
-		//		case EventType::UPDATE_POSITIONS:
-		//			PacketData* packet = new PacketData(_UpdatedPositions);
-		//			SendPacket(packet);
-		//			if (_EventQueue.front()->Tags.empty()) {
-		//				_EventQueue.pop();
-		//			}
-		//			break;
-		//		}
-		//	}
-		//}
 	}
 
 	void CyberNet::Terminate()

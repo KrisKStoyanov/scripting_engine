@@ -18,6 +18,7 @@ public:
 	int Init();
 	void CreateServer();
 	void SendPacket(Cyberspace::PacketData* _data);
+	void BroadcastPacket(Cyberspace::PacketData* _data);
 	void OnUpdate();
 	void Terminate();
 	ENetAddress m_Address;

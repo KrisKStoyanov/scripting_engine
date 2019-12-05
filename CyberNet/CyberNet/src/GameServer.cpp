@@ -48,17 +48,23 @@ void GameServer::SendPacket(Cyberspace::PacketData* _data)
 	}
 }
 
+void GameServer::BroadcastPacket(Cyberspace::PacketData* _data)
+{
+	ENetPacket* packet = enet_packet_create(_data, sizeof(_data), ENET_PACKET_FLAG_UNRELIABLE_FRAGMENT);
+	enet_host_broadcast(m_Server, 0, packet);
+}
+
 void GameServer::OnUpdate()
 {
 	while (m_Running) {
 		ENetEvent netEvent;
-		while (enet_host_service(m_Server, &netEvent, 1000) > 0) {
+		while (enet_host_service(m_Server, &netEvent, 500) > 0) {
 			switch (netEvent.type) {
 			case ENET_EVENT_TYPE_CONNECT:
 				printf("A new client connected from %x:%u.\n",
 					netEvent.peer->address.host,
 					netEvent.peer->address.port);
-				netEvent.peer->data = &playerId;
+				netEvent.peer->data = (void*)&playerId;
 				m_Peers.push_back(netEvent.peer);
 				//Cyberspace::PacketData* peerData = new Cyberspace::PacketData(entityPositions);
 				//SendPacket(peerData);
@@ -69,9 +75,8 @@ void GameServer::OnUpdate()
 					netEvent.packet->data,
 					&netEvent.peer->data,
 					netEvent.channelID);
-				enet_host_broadcast(m_Server, 0, netEvent.packet);
+				BroadcastPacket((Cyberspace::PacketData*)netEvent.packet->data);
 				enet_packet_destroy(netEvent.packet);
-
 				break;
 
 			case ENET_EVENT_TYPE_DISCONNECT:
