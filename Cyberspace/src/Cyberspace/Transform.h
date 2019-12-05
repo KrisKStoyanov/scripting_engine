@@ -20,9 +20,14 @@ namespace Cyberspace {
 		{}
 		~Transform();
 		void Translate(glm::vec3 _translation);
-		void Rotate(float _angle, glm::vec3 _rotationAxis);
+		void Rotate(float _angleX = 0.0f, float _angleY = 0.0f, float _angleZ = 0.0f);
+
+		void OnUpdate();
+
 		void Scale(glm::vec3 _scalingRatio);
 		void LookAt(Transform _target, glm::vec3 _worldUp = glm::vec3(0.0f,1.0f,0.0f));
+
+		glm::mat4 RotationMatrix(glm::vec3 axis, float angle);
 
 		inline void SetPosition(glm::vec3 _position) { m_Position = _position; }
 		inline void SetOrientation(glm::vec3 _rotation) {
@@ -44,6 +49,10 @@ namespace Cyberspace {
 		glm::vec3 m_Position;
 		glm::vec3 m_Scale;
 		glm::vec3 m_Rotation;
+
+		glm::mat4 m_TranslationMatrix = glm::mat4(1.0f);
+		glm::mat4 m_RotationMatrix = glm::mat4(1.0f);
+		glm::mat4 m_ScalingMatrix = glm::mat4(1.0f);
 
 		glm::mat4 m_ModelMatrix = glm::mat4(1.0f);
 

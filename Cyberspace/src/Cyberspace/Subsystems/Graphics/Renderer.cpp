@@ -58,9 +58,8 @@ namespace Cyberspace {
 	void Renderer::Draw(Camera* _Camera, Model* _Model, Transform* _Transform, Shader* _Shader)
 	{
 		_Shader->Activate();
-
 		for (int i = 0; i < _Model->Meshes.size(); ++i) {
-			_Transform->Translate(_Transform->GetPosition());
+			_Transform->OnUpdate();
 			_Shader->SetMat4("ProjectionMatrix", MainCamera->ProjectionMatrix);
 			_Shader->SetMat4("ViewMatrix", MainCamera->ViewMatrix);
 			_Shader->SetMat4("ModelMatrix", _Transform->GetModelMatrix());

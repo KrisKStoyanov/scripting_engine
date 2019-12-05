@@ -62,8 +62,8 @@ namespace Cyberspace {
 		std::string ModelVertexShaderPath, ModelFragmentShaderPath;
 		std::string SkyboxVertexShaderPath, SkyboxFragmentShaderPath;
 		AMProps(
-			std::string _VehicleModelPath = "../resources/3D/Vehicle/SpaceCar.fbx",
-			std::string _EnvironmentModelPath = "../resources/3D/Environment/CanyonEnvironment.fbx",
+			std::string _VehicleModelPath = "../resources/3D/Vehicle/vehicle_model.fbx",
+			std::string _EnvironmentModelPath = "../resources/3D/Environment/environment_model.fbx",
 			std::string _CharacterModelPath = "",
 			std::string _ModelVertexShaderPath = "../resources/Shaders/TextureVertexShader.glsl",
 			std::string _ModelFragmentShaderPath = "../resources/Shaders/TextureFragmentShader.glsl",
@@ -95,20 +95,24 @@ namespace Cyberspace {
 		int m_MapID;
 		glm::vec3 m_SpawnPosition;
 		std::string m_PlayerModelTag;
+		std::string m_EnvironmentModelTag;
 		std::unordered_map<int, Entity*> m_Entities;
 		bool Paused = false;
 		GMProps(int _playerID = 0, int _mapID = 0,
 			glm::vec3 _spawnPosition = glm::vec3(0.0f, 0.0f, -10.0f),
 			std::string _playerModelTag = "Vehicle",
+			std::string _envModelTag = "Environment",
 			std::unordered_map<int, Entity*> _entities = 
 			std::unordered_map<int, Entity*>{
-				{ 0, new Entity() }
+				{ 0, new Entity() },
+				{ 1, new Entity() }
 			})
 			: 
 			m_PlayerID(_playerID),
 			m_MapID(_mapID),
 			m_SpawnPosition(_spawnPosition),
 			m_PlayerModelTag(_playerModelTag),
+			m_EnvironmentModelTag(_envModelTag),
 			m_Entities(_entities)
 		{
 		}

@@ -24,6 +24,10 @@ namespace Cyberspace {
 		GameMaps[CurrentMapID]->m_SpawnPosition = _props.m_SpawnPosition;
 		GameMaps[CurrentMapID]->m_Entities[PlayerEntityID]->SetTransform(new Transform(_props.m_SpawnPosition));
 		GameMaps[CurrentMapID]->m_Entities[PlayerEntityID]->SetModel(_models[_props.m_PlayerModelTag]);
+		GameMaps[CurrentMapID]->m_Entities[PlayerEntityID]->GetTransform()->Rotate(-90.0f, 0.0f, -90.0f);
+		GameMaps[CurrentMapID]->m_Entities[1]->SetTransform(new Transform(_props.m_SpawnPosition));
+		GameMaps[CurrentMapID]->m_Entities[1]->SetModel(_models[_props.m_EnvironmentModelTag]);
+		GameMaps[CurrentMapID]->m_Entities[1]->GetTransform()->Rotate(-90.0f, 0.0f, -90.0f);
 	}
 	void GameManager::OnUpdate(std::queue<CyberEvent*>& _EventQueue, float _DeltaTime)
 	{

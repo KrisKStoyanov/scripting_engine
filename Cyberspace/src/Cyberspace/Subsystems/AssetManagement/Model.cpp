@@ -20,7 +20,10 @@ namespace Cyberspace {
 	void Model::LoadModel(std::string const& _Path)
 	{
 		Assimp::Importer importer;
-		const aiScene* scene = importer.ReadFile(_Path, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices);
+		const aiScene* scene = importer.ReadFile(_Path, 
+			aiProcess_Triangulate | 
+			aiProcess_JoinIdenticalVertices
+		);
 
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
 			std::cout << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;

@@ -26,7 +26,8 @@ ResFormatList = {
 }
 
 assetManagement = {
-    vehicleModelPath = "../resources/3D/Vehicle/SpaceCar.fbx",
+    vehicleModelPath = "../resources/3D/Vehicle/vehicle_model.fbx",
+    environmentModelPath = "../resources/3D/Environment/environment_model.fbx",
     modelVertexShaderPath = "../resources/Shaders/TextureVertexShader.glsl",
     modelFragmentShaderPath = "../resources/Shaders/TextureFragmentShader.glsl",
     skyboxVertexShaderPath = "../resources/Shaders/SkyboxVertexShader.glsl",

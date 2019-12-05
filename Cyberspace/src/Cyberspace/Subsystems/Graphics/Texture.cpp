@@ -14,6 +14,10 @@ namespace Cyberspace {
 		Path = _Path;
 		Type = _Type;
 		std::string filename = std::string(_Path);
+		std::size_t found = filename.find_last_of("/\\");
+		//std::cout << " path: " << filename.substr(0, found) << '\n';
+		//std::cout << " file: " << filename.substr(found + 1) << '\n';
+		filename = filename.substr(found + 1);
 		filename = _Directory + '/' + filename;
 		ID = TextureFromFile(filename.c_str());
 	}

@@ -25,6 +25,7 @@ namespace Cyberspace {
 		float PlayerSpeed = 5.0f;
 
 		int PlayerEntityID;
+
 		int CurrentMapID;
 		std::unordered_map<int, CyberMap*> GameMaps;
 	private:

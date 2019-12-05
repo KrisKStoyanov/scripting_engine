@@ -66,7 +66,7 @@ namespace Cyberspace {
 	{
 		enet_peer_disconnect(m_Peer, 0);
 		ENetEvent netEvent;
-		while (enet_host_service(m_Client, &netEvent, 3000) > 0) {
+		while (enet_host_service(m_Client, &netEvent, 1000) > 0) {
 			switch (netEvent.type)
 			{
 			case ENET_EVENT_TYPE_RECEIVE:
