@@ -39,7 +39,7 @@ void GameServer::CreateServer()
 
 void GameServer::SendPacket(Cyberspace::PacketData* _data)
 {
-	ENetPacket* packet = enet_packet_create(_data, sizeof(_data), ENET_PACKET_FLAG_UNRELIABLE_FRAGMENT);
+	ENetPacket* packet = enet_packet_create(_data, sizeof(_data), ENET_PACKET_FLAG_RELIABLE);
 	//for (auto it : m_PeerMap) {
 	//	enet_peer_send(it.second, 0, packet);
 	//}
@@ -50,7 +50,7 @@ void GameServer::SendPacket(Cyberspace::PacketData* _data)
 
 void GameServer::BroadcastPacket(Cyberspace::PacketData* _data)
 {
-	ENetPacket* packet = enet_packet_create(_data, sizeof(_data), ENET_PACKET_FLAG_UNRELIABLE_FRAGMENT);
+	ENetPacket* packet = enet_packet_create(_data, sizeof(int) + 3 * sizeof(float), ENET_PACKET_FLAG_RELIABLE);
 	enet_host_broadcast(m_Server, 0, packet);
 }
 
@@ -62,8 +62,8 @@ void GameServer::ProcessPacket(ENetPacket* _packet)
 		"Contents: EntityID: %u Entity Position: X:%f, Y:%f, Z:%f \n",
 		_packet->dataLength,
 		data->entityID,
-		data->entityPos.x, data->entityPos.y, data->entityPos.z);
-	entityPositions[data->entityID] = data->entityPos;
+		data->entityXPos, data->entityYPos, data->entityZPos);
+	entityPositions[data->entityID] = glm::vec3(data->entityXPos, data->entityYPos, data->entityZPos);
 	BroadcastPacket(data);
 }
 

@@ -12,8 +12,11 @@ namespace Cyberspace {
 		
 	struct PacketData {
 		int entityID;
-		glm::vec3 entityPos;
-		PacketData(int _id, glm::vec3 _pos) : entityID(_id), entityPos(_pos) {}
+		float entityXPos;
+		float entityYPos;
+		float entityZPos;
+		PacketData(int _id, float _xPos, float _yPos, float _zPos) : 
+			entityID(_id), entityXPos(_xPos), entityYPos(_yPos), entityZPos(_zPos)  {}
 	};
 
 	class CSPACE_API CyberNet

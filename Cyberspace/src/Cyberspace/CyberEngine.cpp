@@ -41,14 +41,6 @@ namespace Cyberspace {
 		//------
 		m_GameManager = std::unique_ptr<GameManager>(GameManager::Create(m_AssetManager->LoadedModels, _props.m_GMProps));
 
-		//m_AudioSystem->PlayBGM(0);
-		//m_GameManager->PlayerEntity = new Entity();
-		//m_GameManager->PlayerEntity->SetTransform(new Transform());
-		//m_GameManager->PlayerEntity->SetModel(m_AssetManager->LoadedModels[_props.m_GMProps.PlayerModelTag]);
-		//m_GameManager->PlayerSpeed = _props.m_GMProps.PlayerSpeed;
-		//m_GameManager->GameMaps[_props.m_GMProps.StartMapTag]->MapEntities[_props.m_GMProps.PlayerTag] 
-		//	= m_GameManager->PlayerEntity;
-
 		m_Tick = true;
 	}
 
@@ -65,11 +57,12 @@ namespace Cyberspace {
 		m_GameManager->OnUpdate(EventQueue, m_Props, _ts.GetSeconds());
 		if (m_Props.m_NetProps.m_ClientState == ClientState::Connected) {
 			m_NetSystem->OnUpdate(EventQueue);
+			glm::vec3 playerPos = m_GameManager->GameMaps[m_GameManager->CurrentMapID]->
+				m_Entities[m_GameManager->PlayerEntityID]->GetTransform()->GetPosition();
 			m_NetSystem->SendPacket(
 				new PacketData(
 					m_GameManager->PlayerEntityID,
-					m_GameManager->GameMaps[m_GameManager->CurrentMapID]->
-					m_Entities[m_GameManager->PlayerEntityID]->GetTransform()->GetPosition()));
+					playerPos.x, playerPos.y, playerPos.z));
 		}
 		
 		if (!BlockingEventQueue.empty()) {
@@ -78,7 +71,10 @@ namespace Cyberspace {
 				if (m_NetSystem->ConnectToHost()) {
 					m_Props.m_NetProps.m_ClientState = ClientState::Connected;
 					for (auto it : m_GameManager->GameMaps[m_GameManager->CurrentMapID]->m_Entities) {
-						m_NetSystem->SendPacket(new PacketData(it.first, it.second->GetTransform()->GetPosition()));
+						m_NetSystem->SendPacket(new PacketData(it.first, 
+							it.second->GetTransform()->GetPosition().x,
+							it.second->GetTransform()->GetPosition().y,
+							it.second->GetTransform()->GetPosition().z));
 					}
 				}
 				else {

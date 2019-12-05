@@ -65,12 +65,12 @@ namespace Cyberspace {
 			"Contents: EntityID: %u Entity Position: X:%f, Y:%f, Z:%f \n",
 			_packet->dataLength,
 			data->entityID,
-			data->entityPos.x, data->entityPos.y, data->entityPos.z);
+			data->entityXPos, data->entityYPos, data->entityZPos);
 	}
 
 	void CyberNet::SendPacket(PacketData* _data)
 	{
-		ENetPacket* packet = enet_packet_create(_data, sizeof(_data), ENET_PACKET_FLAG_UNRELIABLE_FRAGMENT);
+		ENetPacket* packet = enet_packet_create(_data, sizeof(int) + 3 * sizeof(float), ENET_PACKET_FLAG_RELIABLE);
 		enet_peer_send(m_Peer, 0, packet);
 	}
 
