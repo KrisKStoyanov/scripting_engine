@@ -11,7 +11,6 @@
 #include "./Subsystems/GameManagement/GameManager.h"
 
 #include "CyberEvent.h"
-#include "EventListener.h"
 #include "Core/Timestep.h"
 #include "Subsystems/Logging/Log.h"
 #include "../EngineProps.h"

@@ -117,9 +117,6 @@
     <ClCompile Include="src\Cyberspace\Subsystems\GameManagement\CyberMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Cyberspace\EventListener.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\cspacepch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -252,9 +249,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Cyberspace\Subsystems\GameManagement\CyberMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Cyberspace\EventListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\cspacepch.h">

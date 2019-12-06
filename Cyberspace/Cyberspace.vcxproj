@@ -99,7 +99,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\Cyberspace\EventListener.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\GameManagement\CyberMap.cpp" />
     <ClCompile Include="ImGUI\imgui_impl_glfw.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
@@ -157,7 +156,6 @@
     <ClInclude Include="src\Cyberspace\Core\Timestep.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\GUIToolkit.h" />
     <ClInclude Include="src\cspacepch.h" />
-    <ClInclude Include="src\Cyberspace\EventListener.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\GameManagement\CyberMap.h" />
     <ClInclude Include="ImGUI\imgui_impl_glfw.h" />
     <ClInclude Include="ImGUI\imgui_impl_opengl3.h" />
