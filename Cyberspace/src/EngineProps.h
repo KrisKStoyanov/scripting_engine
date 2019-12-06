@@ -77,6 +77,7 @@ namespace Cyberspace {
 
 	struct AudioProps {
 		const char* TitleScreenBGMFilePath;
+		const char* VehicleSFXFilePath;
 		float MasterVolume;
 		float MusicVolume;
 		float SoundVolume;
@@ -84,10 +85,12 @@ namespace Cyberspace {
 		bool MutedSFX = false;
 		AudioProps(
 			const char* _titleScreenBGMFilePath = "../resources/Audio/TitleScreenTrack.wav",
+			const char* _vehicleSFXFilePath = "../resources/Audio/VehicleStart.wav",
 			float _masterVolume = 1.0f,
 			float _musicVolume = 1.0f,
 			float _soundVolume = 1.0f) :
 			TitleScreenBGMFilePath(_titleScreenBGMFilePath),
+			VehicleSFXFilePath(_vehicleSFXFilePath),
 			MasterVolume(_masterVolume), MusicVolume(_musicVolume), SoundVolume(_soundVolume)
 		{}
 	};

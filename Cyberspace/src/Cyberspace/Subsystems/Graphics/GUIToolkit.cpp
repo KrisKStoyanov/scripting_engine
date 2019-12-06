@@ -117,6 +117,10 @@ namespace Cyberspace {
 			if (ImGui::Button("Apply")) {
 				_BlockingEventQueue.push(new CyberEvent(EventType::UPDATE_AUDIO_SETTINGS));
 			}
+			if (ImGui::Button("Revert to Default")) {
+				_props.m_AudioProps = AudioProps();
+				_BlockingEventQueue.push(new CyberEvent(EventType::UPDATE_AUDIO_SETTINGS));
+			}
 			if (ImGui::Button("Back")) {
 				m_State = GUIState::Settings;
 			}

@@ -31,15 +31,17 @@ namespace Cyberspace {
 		}
 		printf("Audio system created and initialized\n");
 
-		CoreSystem->createSound(_props.TitleScreenBGMFilePath, FMOD_LOOP_OFF, NULL, &BGM[0]);
-		if (BGM[0] != NULL) {
+		EventResult = CoreSystem->createSound(_props.TitleScreenBGMFilePath, FMOD_LOOP_OFF, NULL, &BGM[0]);
+		if (EventResult == FMOD_OK && BGM[0] != NULL) {
 			printf("Title screen track loaded\n");
 			BGM[0]->setDefaults(16400, 0);
 		}
-	}
 
-	void AudioSystem::Configure(const AudioProps& _props)
-	{
+		EventResult = CoreSystem->createSound(_props.VehicleSFXFilePath, FMOD_LOOP_OFF, NULL, &SFX[0]);
+		if (EventResult == FMOD_OK && SFX[0] != NULL) {
+			printf("Vehicle movement track loaded\n");
+			SFX[0]->setDefaults(16400, 0);
+		}
 	}
 
 	void AudioSystem::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue)
@@ -47,35 +49,43 @@ namespace Cyberspace {
 		FMOD_RESULT result = CoreSystem->update();
 		if (result == FMOD_OK) {
 
-			/*if (!_EventQueue.empty()) {
+			if (!_EventQueue.empty()) {
 				std::vector<EventTag>::iterator Tag = std::find(_EventQueue.front()->Tags.begin(), _EventQueue.front()->Tags.end(), EventTag::AUDIO);
 				if (Tag != _EventQueue.front()->Tags.end()) {
 					_EventQueue.front()->Tags.erase(Tag);
 					switch (_EventQueue.front()->Type) {
 
 					case EventType::VEHICLE_MOVE_FORWARD:
-						PlaySFX(0);
+						if (!GetPlayStatus(SFX_Channel)) {
+							PlaySFX(0);
+						}	
 						if (_EventQueue.front()->Tags.empty()) {
 							_EventQueue.pop();
 						}
 						break;
 
 					case EventType::VEHICLE_MOVE_BACKWARD:
-						PlaySFX(0);
+						if (!GetPlayStatus(SFX_Channel)) {
+							PlaySFX(0);
+						}
 						if (_EventQueue.front()->Tags.empty()) {
 							_EventQueue.pop();
 						}
 						break;
 
 					case EventType::VEHICLE_MOVE_LEFT:
-						PlaySFX(1);
+						if (!GetPlayStatus(SFX_Channel)) {
+							PlaySFX(0);
+						}
 						if (_EventQueue.front()->Tags.empty()) {
 							_EventQueue.pop();
 						}
 						break;
 
 					case EventType::VEHICLE_MOVE_RIGHT:
-						PlaySFX(1);
+						if (!GetPlayStatus(SFX_Channel)) {
+							PlaySFX(0);
+						}
 						if (_EventQueue.front()->Tags.empty()) {
 							_EventQueue.pop();
 						}
@@ -84,13 +94,8 @@ namespace Cyberspace {
 						break;
 					}
 				}
-			}*/
+			}
 		}	
-	}
-
-	void AudioSystem::HandleEvent(CyberEvent* _Event)
-	{
-
 	}
 
 	void AudioSystem::Terminate()
@@ -106,7 +111,7 @@ namespace Cyberspace {
 	}
 	void AudioSystem::PlaySFX(int _index)
 	{
-		CoreSystem->playSound(SFX[_index], NULL, false, &BGM_Channel);
+		CoreSystem->playSound(SFX[_index], NULL, false, &SFX_Channel);
 	}
 
 	void AudioSystem::SetVolumeBGM(float _vol)
@@ -126,6 +131,13 @@ namespace Cyberspace {
 	void AudioSystem::ToggleMuteSFX(bool _muted)
 	{
 		SFX_Channel->setMute(_muted);
+	}
+
+	bool Cyberspace::AudioSystem::GetPlayStatus(FMOD::Channel* _channel)
+	{
+		bool playing;
+		_channel->isPlaying(&playing);
+		return playing;
 	}
 }
 

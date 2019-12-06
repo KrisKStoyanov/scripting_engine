@@ -30,9 +30,7 @@ namespace Cyberspace {
 		AudioSystem(const AudioProps& _props);
 		~AudioSystem();
 		void Init(const AudioProps& _props);
-		void Configure(const AudioProps& _props);
 		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue);
-		void HandleEvent(CyberEvent* _Event);
 		void Terminate();
 		void PlayBGM(int _index);
 		void PlaySFX(int _index);
@@ -40,6 +38,7 @@ namespace Cyberspace {
 		void ToggleMuteSFX(bool _muted);
 		void SetVolumeBGM(float _vol);
 		void SetVolumeSFX(float _vol);
+		bool GetPlayStatus(FMOD::Channel* _channel);
 
 		FMOD::System* CoreSystem = NULL;
 		FMOD::Sound* BGM[2];

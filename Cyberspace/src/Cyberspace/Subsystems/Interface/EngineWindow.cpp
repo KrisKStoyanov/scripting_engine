@@ -112,16 +112,16 @@ namespace Cyberspace {
 		}
 
 		if (glfwGetKey(m_Window, GLFW_KEY_W) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_FORWARD, EventTag::GAMEPLAY));
+			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_FORWARD, EventTag::GAMEPLAY, EventTag::AUDIO));
 		}
 		if (glfwGetKey(m_Window, GLFW_KEY_S) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_BACKWARD, EventTag::GAMEPLAY));
+			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_BACKWARD, EventTag::GAMEPLAY, EventTag::AUDIO));
 		}
 		if (glfwGetKey(m_Window, GLFW_KEY_A) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_LEFT, EventTag::GAMEPLAY));
+			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_LEFT, EventTag::GAMEPLAY, EventTag::AUDIO));
 		}
 		if (glfwGetKey(m_Window, GLFW_KEY_D) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_RIGHT, EventTag::GAMEPLAY));
+			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_RIGHT, EventTag::GAMEPLAY, EventTag::AUDIO));
 		}
 	}
 
