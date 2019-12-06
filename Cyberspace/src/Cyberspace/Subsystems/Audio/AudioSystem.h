@@ -36,9 +36,16 @@ namespace Cyberspace {
 		void PlaySFX(int _index);
 		void ToggleMuteBGM(bool _muted);
 		void ToggleMuteSFX(bool _muted);
-		void SetVolumeBGM(float _vol);
-		void SetVolumeSFX(float _vol);
+		void SetVolumeBGM(float _vol, float _mVol);
+		void SetVolumeSFX(float _vol, float _mVol);
 		bool GetPlayStatus(FMOD::Channel* _channel);
+
+		float m_MasterVol = 1.0f;
+		float m_BGMVol = 1.0f;
+		float m_SFXVol = 1.0f;
+
+		bool m_MutedBGM;
+		bool m_MutedSFX;
 
 		FMOD::System* CoreSystem = NULL;
 		FMOD::Sound* BGM[2];

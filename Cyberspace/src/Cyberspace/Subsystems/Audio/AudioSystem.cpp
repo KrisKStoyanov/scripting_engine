@@ -56,7 +56,7 @@ namespace Cyberspace {
 					switch (_EventQueue.front()->Type) {
 
 					case EventType::VEHICLE_MOVE_FORWARD:
-						if (!GetPlayStatus(SFX_Channel)) {
+						if (!GetPlayStatus(SFX_Channel) && !m_MutedSFX) {
 							PlaySFX(0);
 						}	
 						if (_EventQueue.front()->Tags.empty()) {
@@ -65,7 +65,7 @@ namespace Cyberspace {
 						break;
 
 					case EventType::VEHICLE_MOVE_BACKWARD:
-						if (!GetPlayStatus(SFX_Channel)) {
+						if (!GetPlayStatus(SFX_Channel) && !m_MutedSFX) {
 							PlaySFX(0);
 						}
 						if (_EventQueue.front()->Tags.empty()) {
@@ -74,7 +74,7 @@ namespace Cyberspace {
 						break;
 
 					case EventType::VEHICLE_MOVE_LEFT:
-						if (!GetPlayStatus(SFX_Channel)) {
+						if (!GetPlayStatus(SFX_Channel) && !m_MutedSFX) {
 							PlaySFX(0);
 						}
 						if (_EventQueue.front()->Tags.empty()) {
@@ -83,7 +83,7 @@ namespace Cyberspace {
 						break;
 
 					case EventType::VEHICLE_MOVE_RIGHT:
-						if (!GetPlayStatus(SFX_Channel)) {
+						if (!GetPlayStatus(SFX_Channel) && !m_MutedSFX) {
 							PlaySFX(0);
 						}
 						if (_EventQueue.front()->Tags.empty()) {
@@ -100,6 +100,12 @@ namespace Cyberspace {
 
 	void AudioSystem::Terminate()
 	{
+		if (BGM[0] != NULL) {
+			BGM[0]->release();
+		}
+		if (SFX[0] != NULL) {
+			SFX[0]->release();
+		}
 		if (CoreSystem != NULL) {
 			CoreSystem->release();
 		}
@@ -108,29 +114,37 @@ namespace Cyberspace {
 	void AudioSystem::PlayBGM(int _index)
 	{
 		CoreSystem->playSound(BGM[_index], NULL, false, &BGM_Channel);
+		BGM_Channel->setVolume(m_BGMVol * m_MasterVol);
 	}
 	void AudioSystem::PlaySFX(int _index)
 	{
 		CoreSystem->playSound(SFX[_index], NULL, false, &SFX_Channel);
+		SFX_Channel->setVolume(m_SFXVol * m_MasterVol);
 	}
 
-	void AudioSystem::SetVolumeBGM(float _vol)
+	void AudioSystem::SetVolumeBGM(float _vol, float _mVol)
 	{
-		BGM_Channel->setVolume(_vol);
+		m_BGMVol = _vol;
+		m_MasterVol = _mVol;
+		BGM_Channel->setVolume(m_BGMVol * m_MasterVol);
 	}
 
-	void AudioSystem::SetVolumeSFX(float _vol)
+	void AudioSystem::SetVolumeSFX(float _vol, float _mVol)
 	{
-		SFX_Channel->setVolume(_vol);
+		m_SFXVol = _vol;
+		m_MasterVol = _mVol;
+		SFX_Channel->setVolume(m_SFXVol * m_MasterVol);
 	}
 
 	void AudioSystem::ToggleMuteBGM(bool _muted)
 	{
-		BGM_Channel->setMute(_muted);
+		m_MutedBGM = _muted;
+		BGM_Channel->setMute(m_MutedBGM);
 	}
 	void AudioSystem::ToggleMuteSFX(bool _muted)
 	{
-		SFX_Channel->setMute(_muted);
+		m_MutedSFX = _muted;
+		SFX_Channel->setMute(m_MutedSFX);
 	}
 
 	bool Cyberspace::AudioSystem::GetPlayStatus(FMOD::Channel* _channel)

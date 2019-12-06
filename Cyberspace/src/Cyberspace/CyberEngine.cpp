@@ -91,7 +91,9 @@ namespace Cyberspace {
 			case EventType::START:
 				m_Window->Configure(m_Props.m_GraphicsProps);
 				m_Renderer->SetCameraMovement(true);
-				m_AudioSystem->PlayBGM(0);
+				if (!m_Props.m_AudioProps.MutedBGM) {
+					m_AudioSystem->PlayBGM(0);
+				}
 				BlockingEventQueue.pop();
 				break;
 			case EventType::PAUSE:
@@ -112,8 +114,8 @@ namespace Cyberspace {
 				BlockingEventQueue.pop();
 				break;
 			case EventType::UPDATE_AUDIO_SETTINGS:
-				m_AudioSystem->SetVolumeBGM(m_Props.m_AudioProps.MusicVolume * m_Props.m_AudioProps.MasterVolume);
-				m_AudioSystem->SetVolumeSFX(m_Props.m_AudioProps.SoundVolume * m_Props.m_AudioProps.MasterVolume);
+				m_AudioSystem->SetVolumeBGM(m_Props.m_AudioProps.MusicVolume, m_Props.m_AudioProps.MasterVolume);
+				m_AudioSystem->SetVolumeSFX(m_Props.m_AudioProps.SoundVolume, m_Props.m_AudioProps.MasterVolume);
 				m_AudioSystem->ToggleMuteBGM(m_Props.m_AudioProps.MutedBGM);
 				m_AudioSystem->ToggleMuteSFX(m_Props.m_AudioProps.MutedSFX);
 				BlockingEventQueue.pop();
