@@ -26,16 +26,6 @@ namespace Cyberspace {
 		if (m_Model != NULL) {
 			m_Model = nullptr;
 		}
-
-		if (m_PSX != NULL) {
-			m_PSX->Clear();
-			m_PSX = nullptr;
-		}
-
-		if (m_Audio != NULL) {
-			m_Audio->Clear();
-			m_Audio = nullptr;
-		}
 	}
 }
 

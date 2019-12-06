@@ -2,10 +2,8 @@
 #include "./Subsystems/Graphics/Vertex.h"
 #include "./Subsystems/AssetManagement/Shader.h"
 
-#include "./Subsystems/Physics/PhysicsComponent.h"
 #include "./Subsystems/Graphics/Mesh.h"
 #include "./Subsystems/AssetManagement/Model.h"
-#include "./Subsystems/Audio/AudioComponent.h"
 
 #include "Transform.h"
 
@@ -25,9 +23,6 @@ namespace Cyberspace {
 
 		inline void SetModel(Model* _model) { m_Model = _model; }
 		inline Model*& GetModel() { return m_Model; }
-
-		PhysicsComponent* m_PSX = NULL;
-		AudioComponent* m_Audio = NULL;
 	private:
 		Transform* m_Transform;
 		Model* m_Model = NULL;

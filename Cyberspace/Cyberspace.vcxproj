@@ -92,8 +92,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Cyberspace\Subsystems\Networking\ClientEntity.cpp" />
+    <ClCompile Include="src\Cyberspace\Subsystems\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Scripting\Script.cpp" />
-    <ClCompile Include="src\Cyberspace\Subsystems\Graphics\GraphicsContext.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\GUIToolkit.cpp" />
     <ClCompile Include="src\cspacepch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -133,13 +133,10 @@
     <ClCompile Include="src\Cyberspace\Subsystems\AssetManagement\Model.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Audio\AudioSystem.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Interface\EngineWindow.cpp" />
-    <ClCompile Include="src\Cyberspace\Subsystems\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\Renderer.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\Camera.cpp" />
-    <ClCompile Include="src\Cyberspace\Subsystems\Audio\AudioComponent.cpp" />
     <ClCompile Include="src\Cyberspace\CyberEvent.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\Mesh.cpp" />
-    <ClCompile Include="src\Cyberspace\Subsystems\Physics\PhysicsComponent.cpp" />
     <ClCompile Include="src\Cyberspace\Application.cpp" />
     <ClCompile Include="src\Cyberspace\CyberEngine.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Networking\CyberNet.cpp" />
@@ -152,7 +149,6 @@
   <ItemGroup>
     <ClInclude Include="src\Cyberspace\Subsystems\Networking\ClientEntity.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Scripting\Script.h" />
-    <ClInclude Include="src\Cyberspace\Subsystems\Graphics\GraphicsContext.h" />
     <ClInclude Include="src\Cyberspace\Core\Timestep.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\GUIToolkit.h" />
     <ClInclude Include="src\cspacepch.h" />
@@ -179,10 +175,8 @@
     <ClInclude Include="src\Cyberspace\Subsystems\Physics\PhysicsSystem.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Renderer.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Camera.h" />
-    <ClInclude Include="src\Cyberspace\Subsystems\Audio\AudioComponent.h" />
     <ClInclude Include="src\Cyberspace\CyberEvent.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Mesh.h" />
-    <ClInclude Include="src\Cyberspace\Subsystems\Physics\PhysicsComponent.h" />
     <ClInclude Include="src\Cyberspace\Application.h" />
     <ClInclude Include="src\Cyberspace\Core.h" />
     <ClInclude Include="src\Cyberspace\CyberEngine.h" />

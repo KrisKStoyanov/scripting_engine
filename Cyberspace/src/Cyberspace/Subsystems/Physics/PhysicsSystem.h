@@ -6,7 +6,6 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "PxPhysicsAPI.h"
-#include "./PhysicsComponent.h"
 #include "../../Entity.h"
 #include "../../CyberEvent.h"
 #include "../../../EngineProps.h"

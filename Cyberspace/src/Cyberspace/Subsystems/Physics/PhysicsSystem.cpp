@@ -116,9 +116,7 @@ namespace Cyberspace {
 			}
 		}
 		for (Entity* E : _EntityCollection) {
-			if (E->m_PSX != NULL) {
 
-			}
 		}
 	}
 
