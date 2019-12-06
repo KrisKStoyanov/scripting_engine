@@ -1,15 +1,10 @@
 #pragma once
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include <string>
-#include <vector>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "Vertex.h"
 #include "Texture.h"
 #include "Material.h"
-#include "../../Core.h"
+#include <vector>
 
 namespace Cyberspace {
 	class CSPACE_API Mesh

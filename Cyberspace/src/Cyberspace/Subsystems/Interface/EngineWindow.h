@@ -1,17 +1,8 @@
 #pragma once
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include <string>
-#include <vector>
-#include <functional>
-#include <queue>
 #include "../../CyberEvent.h"
 #include "../../../EngineProps.h"
-#include "../../Core.h"
 #include "../Graphics/GraphicsContext.h"
 
 #include "../../Cyberspace/ImGUI/imgui.h"

@@ -1,22 +1,14 @@
 #pragma once
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include <string>
-#include <vector>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "../Graphics/Vertex.h"
 #include "../Graphics/Texture.h"
 #include "../Graphics/Texture.h"
 #include "../Graphics/Mesh.h"
-
+#include <vector>
 #include "assimp/Importer.hpp"
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
-
-#include "../../stb_image.h"
-#include "../../Core.h"
 
 namespace Cyberspace {
 	class CSPACE_API Model

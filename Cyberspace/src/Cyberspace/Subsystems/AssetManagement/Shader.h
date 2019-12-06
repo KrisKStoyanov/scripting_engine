@@ -1,14 +1,9 @@
 #pragma once
 #include <GL/glew.h>
 #include <string>
-#include <sstream>
-#include <fstream>
-#include <iostream>
-#include <vector>
 #include <glm/glm.hpp>
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "../../Core.h"
 
 namespace Cyberspace {
 	class CSPACE_API Shader {

@@ -81,9 +81,6 @@
     <ClCompile Include="src\Cyberspace\Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Cyberspace\stb_image.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Cyberspace\Subsystems\Logging\Log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -133,6 +130,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Cyberspace\Subsystems\Networking\ClientEntity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stb_image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -209,9 +209,6 @@
     <ClInclude Include="src\Cyberspace\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Cyberspace\stb_image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Cyberspace.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -273,6 +270,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Cyberspace\Subsystems\Networking\ClientEntity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,4 @@
 #pragma once
-#include "Core.h"
-#include <vector>
 
 namespace Cyberspace {
 	enum class CSPACE_API EventType {

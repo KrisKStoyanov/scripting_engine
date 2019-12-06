@@ -130,7 +130,6 @@
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\Light.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\Skybox.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\Material.cpp" />
-    <ClCompile Include="src\Cyberspace\stb_image.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\AssetManagement\Model.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Audio\AudioSystem.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Interface\EngineWindow.cpp" />
@@ -148,6 +147,7 @@
     <ClCompile Include="src\Cyberspace\Subsystems\AssetManagement\Shader.cpp" />
     <ClCompile Include="src\Cyberspace\Subsystems\Graphics\Texture.cpp" />
     <ClCompile Include="src\Cyberspace\Transform.cpp" />
+    <ClCompile Include="src\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Cyberspace\Subsystems\Networking\ClientEntity.h" />
@@ -173,7 +173,6 @@
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Light.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Skybox.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Material.h" />
-    <ClInclude Include="src\Cyberspace\stb_image.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\AssetManagement\Model.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Audio\AudioSystem.h" />
     <ClInclude Include="src\Cyberspace\Subsystems\Interface\EngineWindow.h" />
@@ -194,6 +193,7 @@
     <ClInclude Include="src\Cyberspace\Subsystems\Graphics\Texture.h" />
     <ClInclude Include="src\Cyberspace\Transform.h" />
     <ClInclude Include="src\EngineProps.h" />
+    <ClInclude Include="src\stb_image.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

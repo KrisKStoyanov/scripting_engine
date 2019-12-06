@@ -1,8 +1,5 @@
 #pragma once
-#include "../../Core.h"
 #include "../../../EngineProps.h"
-#include <string>
-#include <vector>
 
 extern "C"
 {

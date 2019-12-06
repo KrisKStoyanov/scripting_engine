@@ -1,10 +1,4 @@
 #pragma once
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include <string>
-#include <vector>
-#include <map>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -17,9 +11,6 @@
 #include "../../Entity.h"
 #include "../../CyberEvent.h"
 #include "../../../EngineProps.h"
-#include "../../Core.h"
-
-#include <queue>
 
 namespace Cyberspace {
 

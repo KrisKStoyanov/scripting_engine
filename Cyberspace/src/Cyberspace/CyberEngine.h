@@ -1,5 +1,4 @@
 #pragma once
-#include "Core.h"
 #include "Entity.h"
 #include "Subsystems/Graphics/Renderer.h"
 #include "Subsystems/Interface/EngineWindow.h"

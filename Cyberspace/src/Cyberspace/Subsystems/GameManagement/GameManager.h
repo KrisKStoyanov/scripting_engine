@@ -1,10 +1,6 @@
 #pragma once
-#include <unordered_map>
-#include <string>
 #include "../../Entity.h"
-#include "../../Core.h"
 #include "CyberMap.h"
-#include <queue>
 #include "../../CyberEvent.h"
 #include "../AssetManagement/Model.h"
 #include "../../../EngineProps.h"

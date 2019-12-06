@@ -1,12 +1,9 @@
 #pragma once
-#include "../../Core.h"
-#include <memory>
 #include "../Interface/EngineWindow.h"
 
 #include "../../Cyberspace/ImGUI/imgui.h"
 #include "../../Cyberspace/ImGUI/imgui_impl_glfw.h"
 #include "../../Cyberspace/ImGUI/imgui_impl_opengl3.h"
-#include <string>
 
 namespace Cyberspace {
 

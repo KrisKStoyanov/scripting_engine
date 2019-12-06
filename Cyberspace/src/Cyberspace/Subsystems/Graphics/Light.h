@@ -1,16 +1,9 @@
-#pragma onc
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include <string>
-#include <vector>
-#include <map>
+#pragma once
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/matrix.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "../../Core.h"
 
 namespace Cyberspace {
 	enum class CSPACE_API LightType {

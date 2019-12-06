@@ -1,5 +1,4 @@
 #pragma once
-#include "Core.h"
 #include "./Subsystems/Graphics/Vertex.h"
 #include "./Subsystems/AssetManagement/Shader.h"
 

@@ -1,9 +1,7 @@
 #pragma once
-#include "../../Core.h"
 
 #include <enet/enet.h>
 #include "../../CyberEvent.h"
-#include "../../Core.h"
 #include "../../Entity.h"
 #include "../../../EngineProps.h"
 #include <queue>

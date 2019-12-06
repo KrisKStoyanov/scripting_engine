@@ -1,10 +1,4 @@
 #pragma once
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include <string>
-#include <vector>
-#include <queue>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -15,7 +9,6 @@
 #include "./PhysicsComponent.h"
 #include "../../Entity.h"
 #include "../../CyberEvent.h"
-#include "../../Core.h"
 #include "../../../EngineProps.h"
 
 //LocalHost for visual debugger init process
