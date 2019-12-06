@@ -44,7 +44,48 @@ namespace Cyberspace {
 
 	void AudioSystem::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue)
 	{
+		FMOD_RESULT result = CoreSystem->update();
+		if (result == FMOD_OK) {
 
+			/*if (!_EventQueue.empty()) {
+				std::vector<EventTag>::iterator Tag = std::find(_EventQueue.front()->Tags.begin(), _EventQueue.front()->Tags.end(), EventTag::AUDIO);
+				if (Tag != _EventQueue.front()->Tags.end()) {
+					_EventQueue.front()->Tags.erase(Tag);
+					switch (_EventQueue.front()->Type) {
+
+					case EventType::VEHICLE_MOVE_FORWARD:
+						PlaySFX(0);
+						if (_EventQueue.front()->Tags.empty()) {
+							_EventQueue.pop();
+						}
+						break;
+
+					case EventType::VEHICLE_MOVE_BACKWARD:
+						PlaySFX(0);
+						if (_EventQueue.front()->Tags.empty()) {
+							_EventQueue.pop();
+						}
+						break;
+
+					case EventType::VEHICLE_MOVE_LEFT:
+						PlaySFX(1);
+						if (_EventQueue.front()->Tags.empty()) {
+							_EventQueue.pop();
+						}
+						break;
+
+					case EventType::VEHICLE_MOVE_RIGHT:
+						PlaySFX(1);
+						if (_EventQueue.front()->Tags.empty()) {
+							_EventQueue.pop();
+						}
+						break;
+					default:
+						break;
+					}
+				}
+			}*/
+		}	
 	}
 
 	void AudioSystem::HandleEvent(CyberEvent* _Event)
@@ -59,14 +100,32 @@ namespace Cyberspace {
 		}
 	}
 
-	void AudioSystem::PlayBGM(int _Index)
+	void AudioSystem::PlayBGM(int _index)
 	{
-		CoreSystem->playSound(BGM[_Index], NULL, false, &BGM_Channel);
+		CoreSystem->playSound(BGM[_index], NULL, false, &BGM_Channel);
+	}
+	void AudioSystem::PlaySFX(int _index)
+	{
+		CoreSystem->playSound(SFX[_index], NULL, false, &BGM_Channel);
 	}
 
-	void AudioSystem::PlaySFX(int _Index)
+	void AudioSystem::SetVolumeBGM(float _vol)
 	{
-		CoreSystem->playSound(SFX[_Index], NULL, false, &BGM_Channel);
+		BGM_Channel->setVolume(_vol);
+	}
+
+	void AudioSystem::SetVolumeSFX(float _vol)
+	{
+		SFX_Channel->setVolume(_vol);
+	}
+
+	void AudioSystem::ToggleMuteBGM(bool _muted)
+	{
+		BGM_Channel->setMute(_muted);
+	}
+	void AudioSystem::ToggleMuteSFX(bool _muted)
+	{
+		SFX_Channel->setMute(_muted);
 	}
 }
 

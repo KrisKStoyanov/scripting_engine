@@ -31,7 +31,7 @@ namespace Cyberspace {
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
-		
+
 		switch (m_State) {
 		case GUIState::StartMenu:
 			ImGui::Begin("Main Menu");
@@ -64,6 +64,19 @@ namespace Cyberspace {
 			break;
 		case GUIState::Settings:
 			ImGui::Begin("Settings");
+			if (ImGui::Button("Video")) {
+				m_State = GUIState::VideoSettings;
+			}
+			if (ImGui::Button("Audio")) {
+				m_State = GUIState::AudioSettings;
+			}
+			if (ImGui::Button("Back")) {
+				m_State = GUIState::StartMenu;
+			}
+			ImGui::End();
+			break;
+		case GUIState::VideoSettings:
+			ImGui::Begin("Video Settings");
 			ImGui::SliderFloat("FOV: ", &_props.m_GraphicsProps.m_FOV, 30.0f, 90.0f);
 			ImGui::Checkbox("VSync: ", &_props.m_GraphicsProps.m_VSync);
 			ImGui::Checkbox("4xMSAA: ", &_props.m_GraphicsProps.m_MSAA);
@@ -82,14 +95,30 @@ namespace Cyberspace {
 				ImGui::EndCombo();
 			}
 			if (ImGui::Button("Apply")) {
-				_BlockingEventQueue.push(new CyberEvent(EventType::UPDATE_SETTINGS));
+				_BlockingEventQueue.push(new CyberEvent(EventType::UPDATE_VIDEO_SETTINGS));
 			}
 			if (ImGui::Button("Revert to Default")) {
 				_props.m_GraphicsProps = GraphicsProps();
-				_BlockingEventQueue.push(new CyberEvent(EventType::UPDATE_SETTINGS));
+				_BlockingEventQueue.push(new CyberEvent(EventType::UPDATE_VIDEO_SETTINGS));
 			}
 			if (ImGui::Button("Back")) {
-				m_State = GUIState::StartMenu;
+				m_State = GUIState::Settings;
+			}
+			ImGui::End();
+			break;
+		case GUIState::AudioSettings:
+			ImGui::Begin("Audio Settings");
+			ImGui::SliderFloat("Master Volume: ", &_props.m_AudioProps.MasterVolume, 0.0f, 1.0f);
+			ImGui::SliderFloat("Music Volume: ", &_props.m_AudioProps.MusicVolume, 0.0f, 1.0f);
+			ImGui::SliderFloat("Sound Volume: ", &_props.m_AudioProps.SoundVolume, 0.0f, 1.0f);
+			ImGui::Checkbox("Mute Music: ", &_props.m_AudioProps.MutedBGM);
+			ImGui::Checkbox("Mute SFX: ", &_props.m_AudioProps.MutedSFX);
+
+			if (ImGui::Button("Apply")) {
+				_BlockingEventQueue.push(new CyberEvent(EventType::UPDATE_AUDIO_SETTINGS));
+			}
+			if (ImGui::Button("Back")) {
+				m_State = GUIState::Settings;
 			}
 			ImGui::End();
 			break;
@@ -112,6 +141,7 @@ namespace Cyberspace {
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
+	
 
 	void GUIToolkit::Terminate()
 	{

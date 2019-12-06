@@ -14,6 +14,8 @@ namespace Cyberspace {
 		None = 0,
 		StartMenu,
 		Settings,
+		VideoSettings,
+		AudioSettings,
 		Gameplay,
 		PauseMenu,
 	};

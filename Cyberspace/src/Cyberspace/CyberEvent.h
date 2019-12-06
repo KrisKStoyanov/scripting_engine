@@ -12,7 +12,8 @@ namespace Cyberspace {
 		EXIT,
 		CONNECT,
 		DISCONNECT,
-		UPDATE_SETTINGS,
+		UPDATE_VIDEO_SETTINGS,
+		UPDATE_AUDIO_SETTINGS,
 		//Non-blocking
 		VEHICLE_MOVE_FORWARD,
 		VEHICLE_MOVE_BACKWARD,
@@ -31,7 +32,8 @@ namespace Cyberspace {
 		GRAPHICS = 2,
 		PHYSICS = 3,
 		AUDIO = 4,
-		NETWORK = 5
+		NETWORK = 5,
+		GAMEPLAY = 6
 	};
 
 	class CSPACE_API CyberEvent

@@ -94,7 +94,6 @@ namespace Cyberspace {
 		if (glfwWindowShouldClose(m_Window)) {
 			_BlockingEventQueue.push(new CyberEvent(EventType::EXIT));
 		}
-
 		if (glfwGetKey(m_Window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 			_BlockingEventQueue.push(new CyberEvent(EventType::PAUSE));
 		}
@@ -113,16 +112,16 @@ namespace Cyberspace {
 		}
 
 		if (glfwGetKey(m_Window, GLFW_KEY_W) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_FORWARD));
+			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_FORWARD, EventTag::GAMEPLAY));
 		}
 		if (glfwGetKey(m_Window, GLFW_KEY_S) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_BACKWARD));
+			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_BACKWARD, EventTag::GAMEPLAY));
 		}
 		if (glfwGetKey(m_Window, GLFW_KEY_A) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_LEFT));
+			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_LEFT, EventTag::GAMEPLAY));
 		}
 		if (glfwGetKey(m_Window, GLFW_KEY_D) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_RIGHT));
+			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_RIGHT, EventTag::GAMEPLAY));
 		}
 	}
 

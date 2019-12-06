@@ -22,7 +22,7 @@ namespace Cyberspace {
 		void OnUpdate(std::queue<CyberEvent*>& _EventQueue, EngineProps _props, float _DeltaTime);
 		void Terminate();
 
-		float PlayerSpeed = 5.0f;
+		float PlayerSpeed = 10.0f;
 
 		int PlayerEntityID;
 

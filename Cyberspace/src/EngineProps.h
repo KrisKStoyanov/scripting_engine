@@ -80,11 +80,13 @@ namespace Cyberspace {
 		float MasterVolume;
 		float MusicVolume;
 		float SoundVolume;
+		bool MutedBGM = false;
+		bool MutedSFX = false;
 		AudioProps(
 			const char* _titleScreenBGMFilePath = "../resources/Audio/TitleScreenTrack.wav",
-			float _masterVolume = 100.0f,
-			float _musicVolume = 100.0f,
-			float _soundVolume = 100.0f) :
+			float _masterVolume = 1.0f,
+			float _musicVolume = 1.0f,
+			float _soundVolume = 1.0f) :
 			TitleScreenBGMFilePath(_titleScreenBGMFilePath),
 			MasterVolume(_masterVolume), MusicVolume(_musicVolume), SoundVolume(_soundVolume)
 		{}

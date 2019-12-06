@@ -34,8 +34,12 @@ namespace Cyberspace {
 		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue);
 		void HandleEvent(CyberEvent* _Event);
 		void Terminate();
-		void PlayBGM(int _Index);
-		void PlaySFX(int _Index);
+		void PlayBGM(int _index);
+		void PlaySFX(int _index);
+		void ToggleMuteBGM(bool _muted);
+		void ToggleMuteSFX(bool _muted);
+		void SetVolumeBGM(float _vol);
+		void SetVolumeSFX(float _vol);
 
 		FMOD::System* CoreSystem = NULL;
 		FMOD::Sound* BGM[2];
