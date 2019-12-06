@@ -34,7 +34,12 @@ namespace Cyberspace {
 		bool m_EnCursor;
 		bool m_MSAA;
 		bool m_VSync;
-		std::vector<ResDisplayFormat> m_AvDisFormats;
+		std::vector<ResDisplayFormat> m_AvDisFormats = std::vector<ResDisplayFormat>{
+				{ "640x480", 640, 480 },
+				{ "800x600", 800, 600 },
+				{ "1280x720", 1280, 720 },
+				{"1600x900", 1600, 900 }
+		};
 		GraphicsProps(
 			std::string _title = "Cyberspace",
 			ResDisplayFormat _disFormat = { "1600x900", 1600, 900 },
@@ -43,20 +48,14 @@ namespace Cyberspace {
 			float _fov = 60.0f, 
 			bool _enCursor = true,
 			bool _msaa = true, 
-			bool _vsync = true,
-			std::vector<ResDisplayFormat> _displayFormats = std::vector<ResDisplayFormat>{
-				{ "800x600", 800, 600 },
-				{ "1280x720", 1280, 720 },
-				{"1600x900", 1600, 900 }
-			})
+			bool _vsync = true)
 			:
 			m_WinTitle(_title),
 			m_DisFormat(_disFormat),
 			m_Fullscreen(_fullscreen), 
 			m_BrdrlessFull(_brdrlessFull),
 			m_FOV(_fov), m_EnCursor(_enCursor),
-			m_MSAA(_msaa), m_VSync(_vsync),
-			m_AvDisFormats(_displayFormats)
+			m_MSAA(_msaa), m_VSync(_vsync)
 		{
 			m_DisFormat.DisplayFormat = std::to_string(m_DisFormat.ResX) + "x" + std::to_string(m_DisFormat.ResY);
 		}

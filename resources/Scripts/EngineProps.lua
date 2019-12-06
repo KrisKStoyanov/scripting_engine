@@ -20,8 +20,16 @@ ResFormatList = {
 	ResY = 720
     },
     ResFormat3 = {
+    	ResX = 1080,
+	ResY = 720
+    },
+    ResFormat4 = {
     	ResX = 800,
 	ResY = 600
+    },
+    ResFormat5 = {
+    	ResX = 640,
+	ResY = 480
     }
 }
 
@@ -39,5 +47,6 @@ physics = {
 }
 
 audio = {
-   titleScreenBgmFilePath = "../resources/Audio/TitleScreenTrack.wav"
+   titleScreenBgmFilePath = "../resources/Audio/TitleScreenTrack.wav",
+   vehicleSfxFilePath= "../resources/Audio/VehicleStart.wav"
 }

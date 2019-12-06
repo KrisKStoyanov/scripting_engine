@@ -31,6 +31,7 @@ namespace Cyberspace {
 
 		luabridge::LuaRef audioProps = luabridge::getGlobal(engineSettingsParser, "audio");
 		luabridge::LuaRef audioTitleScreenBgmFilePath = audioProps["titleScreenBgmFilePath"];
+		luabridge::LuaRef audioVehicleBgmFilePath = audioProps["vehicleSfxFilePath"];
 
 		//Convert and set to engine format data 
 		props.m_GraphicsProps.m_WinTitle = gfxWinTitle.cast<std::string>();
@@ -50,6 +51,7 @@ namespace Cyberspace {
 		props.m_AMProps.SkyboxFragmentShaderPath = amSkyboxFragmentShaderPath.cast<std::string>();
 
 		props.m_AudioProps.TitleScreenBGMFilePath = audioTitleScreenBgmFilePath.cast<const char*>();
+		props.m_AudioProps.VehicleSFXFilePath = audioVehicleBgmFilePath.cast<const char*>();
 
 		return props;
 
