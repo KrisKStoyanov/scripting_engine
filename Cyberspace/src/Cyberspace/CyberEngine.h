@@ -32,6 +32,7 @@ namespace Cyberspace {
 		inline bool GetTick() { return m_Tick; }
 		inline void SetTick(const bool _tick) { m_Tick = _tick; }
 		EngineProps m_Props;
+		EngineState m_State;
 	private:
 		CyberEngine(const EngineProps& _props);
 		std::queue<CyberEvent*> BlockingEventQueue;

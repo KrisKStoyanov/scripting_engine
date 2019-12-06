@@ -12,7 +12,7 @@
 #include "../../Core.h"
 
 namespace Cyberspace {
-	enum class MovementType {
+	enum class CSPACE_API MovementType {
 		FORWARD,
 		BACKWARD,
 		LEFT,

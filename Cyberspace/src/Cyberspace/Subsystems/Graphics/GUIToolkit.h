@@ -10,7 +10,7 @@
 
 namespace Cyberspace {
 
-	enum class GUIState : int {
+	enum class CSPACE_API GUIState : int {
 		None = 0,
 		StartMenu,
 		Settings,

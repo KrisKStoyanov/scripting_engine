@@ -3,7 +3,7 @@
 #include <vector>
 
 namespace Cyberspace {
-	enum class EventType {
+	enum class CSPACE_API EventType {
 		NONE = 0,
 		//Blocking
 		START,
@@ -26,7 +26,7 @@ namespace Cyberspace {
 		UPDATE_POSITIONS
 	};
 
-	enum class EventTag {
+	enum class CSPACE_API EventTag {
 		NONE = 0,
 		WINDOW = 1,
 		GRAPHICS = 2,

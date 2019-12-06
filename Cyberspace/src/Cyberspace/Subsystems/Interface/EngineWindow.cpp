@@ -85,7 +85,7 @@ namespace Cyberspace {
 		}
 	}
 
-	void EngineWindow::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue)
+	void EngineWindow::OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, EngineState _state)
 	{
 		glfwSwapBuffers(m_Window);
 		glfwPollEvents();
@@ -111,17 +111,19 @@ namespace Cyberspace {
 			_EventQueue.push(new CyberEvent(EventType::CAMERA_MOVE_RIGHT, EventTag::GRAPHICS));
 		}
 
-		if (glfwGetKey(m_Window, GLFW_KEY_W) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_FORWARD, EventTag::GAMEPLAY, EventTag::AUDIO));
-		}
-		if (glfwGetKey(m_Window, GLFW_KEY_S) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_BACKWARD, EventTag::GAMEPLAY, EventTag::AUDIO));
-		}
-		if (glfwGetKey(m_Window, GLFW_KEY_A) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_LEFT, EventTag::GAMEPLAY, EventTag::AUDIO));
-		}
-		if (glfwGetKey(m_Window, GLFW_KEY_D) == GLFW_PRESS) {
-			_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_RIGHT, EventTag::GAMEPLAY, EventTag::AUDIO));
+		if (_state == EngineState::PLAY) {
+			if (glfwGetKey(m_Window, GLFW_KEY_W) == GLFW_PRESS) {
+				_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_FORWARD, EventTag::GAMEPLAY, EventTag::AUDIO));
+			}
+			if (glfwGetKey(m_Window, GLFW_KEY_S) == GLFW_PRESS) {
+				_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_BACKWARD, EventTag::GAMEPLAY, EventTag::AUDIO));
+			}
+			if (glfwGetKey(m_Window, GLFW_KEY_A) == GLFW_PRESS) {
+				_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_LEFT, EventTag::GAMEPLAY, EventTag::AUDIO));
+			}
+			if (glfwGetKey(m_Window, GLFW_KEY_D) == GLFW_PRESS) {
+				_EventQueue.push(new CyberEvent(EventType::VEHICLE_MOVE_RIGHT, EventTag::GAMEPLAY, EventTag::AUDIO));
+			}
 		}
 	}
 

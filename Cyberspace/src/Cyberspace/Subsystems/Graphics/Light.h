@@ -13,7 +13,7 @@
 #include "../../Core.h"
 
 namespace Cyberspace {
-	enum class LightType {
+	enum class CSPACE_API LightType {
 		POINT,
 		DIRECTIONAL,
 		SPOTLIGHT

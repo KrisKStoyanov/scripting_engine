@@ -14,7 +14,7 @@
 #include "../../Core.h"
 
 namespace Cyberspace {
-	enum class TextureType {
+	enum class CSPACE_API TextureType {
 		DIFFUSE = 0,
 		SPECULAR = 1,
 		NORMAL = 2,

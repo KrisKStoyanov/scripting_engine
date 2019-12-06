@@ -12,6 +12,11 @@
 
 namespace Cyberspace {
 	
+	enum class CSPACE_API EngineState {
+		EDIT = 0,
+		PLAY
+	};
+
 	//Resolution Display Format (e.g. 1600x900)
 	struct ResDisplayFormat {
 		std::string DisplayFormat;
@@ -117,7 +122,7 @@ namespace Cyberspace {
 		}
 	};
 
-	enum class ClientState : int
+	enum class CSPACE_API ClientState : int
 	{
 		Disconnected = 0,
 		Connected,		

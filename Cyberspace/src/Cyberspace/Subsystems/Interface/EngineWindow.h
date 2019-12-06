@@ -30,7 +30,7 @@ namespace Cyberspace {
 		void Configure(const GraphicsProps& _props);
 		void Terminate();
 
-		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue);
+		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, EngineState _state);
 		double CursorPosX, CursorPosY;
 		GLFWwindow* GetNativeWindow();
 	private:

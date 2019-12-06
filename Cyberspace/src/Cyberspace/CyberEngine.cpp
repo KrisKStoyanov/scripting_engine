@@ -48,7 +48,7 @@ namespace Cyberspace {
 	{
 		//CSPACE_CORE_TRACE("Delta time: {0}s ({1}ms)", _ts.GetSeconds(), _ts.GetMilliseconds());
 		std::vector<glm::vec3> updatedPositions;
-		m_Window->OnUpdate(BlockingEventQueue, EventQueue);
+		m_Window->OnUpdate(BlockingEventQueue, EventQueue, m_State);
 		m_Renderer->OnUpdate(BlockingEventQueue, EventQueue, 
 			m_AssetManager->LoadedShaders,
 			m_GameManager->GameMaps[m_GameManager->CurrentMapID]->m_Entities,
@@ -89,6 +89,7 @@ namespace Cyberspace {
 				BlockingEventQueue.pop();
 				break;
 			case EventType::START:
+				m_State = EngineState::PLAY;
 				m_Window->Configure(m_Props.m_GraphicsProps);
 				m_Renderer->SetCameraMovement(true);
 				if (!m_Props.m_AudioProps.MutedBGM) {
@@ -97,6 +98,7 @@ namespace Cyberspace {
 				BlockingEventQueue.pop();
 				break;
 			case EventType::PAUSE:
+				m_State = EngineState::EDIT;
 				m_Props.m_GraphicsProps.m_EnCursor = true;
 				m_Props.m_GMProps.Paused = true;
 				m_Window->Configure(m_Props.m_GraphicsProps);
