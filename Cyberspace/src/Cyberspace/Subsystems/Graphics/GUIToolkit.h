@@ -14,6 +14,7 @@ namespace Cyberspace {
 		VideoSettings,
 		AudioSettings,
 		Gameplay,
+		EditScript,
 		PauseMenu,
 	};
 
@@ -26,6 +27,9 @@ namespace Cyberspace {
 		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, EngineProps& _props);
 		void Terminate();
 		
+		ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
+		void ProduceScript(char nameBuf[64], char contentbuf[512]);
+
 		inline GUIState GetState() { return m_State; }
 		inline void SetState(GUIState _state) { m_State = _state; }
 

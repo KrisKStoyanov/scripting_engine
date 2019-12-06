@@ -2,6 +2,9 @@
 #include "GUIToolkit.h"
 
 namespace Cyberspace {
+	static char buf1[64] = "";
+	static char buf2[512] = "";
+
 	GUIToolkit* GUIToolkit::Create(EngineWindow* _window, const GraphicsProps& _props)
 	{
 		return new GUIToolkit(_window, _props);
@@ -31,7 +34,6 @@ namespace Cyberspace {
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
-
 		switch (m_State) {
 		case GUIState::StartMenu:
 			ImGui::Begin("Main Menu");
@@ -56,6 +58,9 @@ namespace Cyberspace {
 			}
 			if (ImGui::Button("Settings")) {
 				m_State = GUIState::Settings;
+			}
+			if (ImGui::Button("Edit Script")) {
+				m_State = GUIState::EditScript;
 			}
 			if (ImGui::Button("Exit")) {
 				_BlockingEventQueue.push(new CyberEvent(EventType::EXIT));
@@ -114,6 +119,7 @@ namespace Cyberspace {
 			ImGui::Checkbox("Mute Music: ", &_props.m_AudioProps.MutedBGM);
 			ImGui::Checkbox("Mute SFX: ", &_props.m_AudioProps.MutedSFX);
 
+
 			if (ImGui::Button("Apply")) {
 				_BlockingEventQueue.push(new CyberEvent(EventType::UPDATE_AUDIO_SETTINGS));
 			}
@@ -138,6 +144,18 @@ namespace Cyberspace {
 				}
 			}
 			break;
+		case GUIState::EditScript:
+			ImGui::Begin("Editor");
+			ImGui::InputText("Script Name", buf1, 64);
+			ImGui::InputTextMultiline("Script Content", buf2, IM_ARRAYSIZE(buf2), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 16), flags);
+			if(ImGui::Button("Apply")) {
+				ProduceScript(buf1, buf2);
+			}
+			if (ImGui::Button("Back")) {
+				m_State = GUIState::StartMenu;
+			}
+			ImGui::End();
+			break;
 		default:
 			break;
 		}
@@ -152,5 +170,13 @@ namespace Cyberspace {
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
+	}
+
+	void GUIToolkit::ProduceScript(char nameBuf[64], char contentbuf[512])
+	{
+		std::ofstream file;
+		file.open(nameBuf);
+		file << contentbuf;
+		file.close();
 	}
 }
