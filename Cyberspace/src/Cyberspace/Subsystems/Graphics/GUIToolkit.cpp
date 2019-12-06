@@ -2,9 +2,6 @@
 #include "GUIToolkit.h"
 
 namespace Cyberspace {
-	static char buf1[64] = "";
-	static char buf2[512] = "";
-
 	GUIToolkit* GUIToolkit::Create(EngineWindow* _window, const GraphicsProps& _props)
 	{
 		return new GUIToolkit(_window, _props);

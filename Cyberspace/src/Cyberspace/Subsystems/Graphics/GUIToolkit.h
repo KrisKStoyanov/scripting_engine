@@ -27,6 +27,8 @@ namespace Cyberspace {
 		void OnUpdate(std::queue<CyberEvent*>& _BlockingEventQueue, std::queue<CyberEvent*>& _EventQueue, EngineProps& _props);
 		void Terminate();
 		
+		char buf1[64] = "";
+		char buf2[512] = "";
 		ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
 		void ProduceScript(char nameBuf[64], char contentbuf[512]);
 
